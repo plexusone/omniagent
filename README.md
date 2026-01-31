@@ -12,11 +12,11 @@ Envoy is a personal AI assistant that routes messages across multiple communicat
 
 ## Features
 
-- **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
-- **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
-- **Browser Automation** - Built-in browser control via Rod
-- **WebSocket Gateway** - Real-time control plane for device connections
-- **Observability** - Integrated tracing via omniobserve
+- 📡 **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
+- 🤖 **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
+- 🌐 **Browser Automation** - Built-in browser control via Rod
+- ⚡ **WebSocket Gateway** - Real-time control plane for device connections
+- 📊 **Observability** - Integrated tracing via omniobserve
 
 ## Installation
 
