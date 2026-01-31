@@ -1,5 +1,11 @@
 # Envoy
 
+[![Build Status][build-status-svg]][build-status-url]
+[![Lint Status][lint-status-svg]][lint-status-url]
+[![Go Report Card][goreport-svg]][goreport-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![License][license-svg]][license-url]
+
 Your AI representative across communication channels.
 
 Envoy is a personal AI assistant that routes messages across multiple communication platforms, processes them via an AI agent, and responds on your behalf.
@@ -58,8 +64,8 @@ envoy version          # Show version information
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Messaging Channels                       │
-│     Telegram  │  Discord  │  Slack  │  WhatsApp  │  ...    │
+│                     Messaging Channels                      │
+│     Telegram  │  Discord  │  Slack  │  WhatsApp  │  ...     │
 └───────────────────────────┬─────────────────────────────────┘
                             │
 ┌───────────────────────────▼─────────────────────────────────┐
@@ -103,3 +109,16 @@ See [Configuration Reference](docs/configuration.md) for details.
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+ [build-status-svg]: https://github.com/agentplexus/envoy/actions/workflows/ci.yaml/badge.svg?branch=main
+ [build-status-url]: https://github.com/agentplexus/envoy/actions/workflows/ci.yaml
+ [lint-status-svg]: https://github.com/agentplexus/envoy/actions/workflows/lint.yaml/badge.svg?branch=main
+ [lint-status-url]: https://github.com/agentplexus/envoy/actions/workflows/lint.yaml
+ [goreport-svg]: https://goreportcard.com/badge/github.com/agentplexus/envoy
+ [goreport-url]: https://goreportcard.com/report/github.com/agentplexus/envoy
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/agentplexus/envoy
+ [docs-godoc-url]: https://pkg.go.dev/github.com/agentplexus/envoy
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/agentplexus/envoy/blob/master/LICENSE
+ [used-by-svg]: https://sourcegraph.com/github.com/agentplexus/envoy/-/badge.svg
+ [used-by-url]: https://sourcegraph.com/github.com/agentplexus/envoy?badge
