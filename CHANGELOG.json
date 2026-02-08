@@ -5,6 +5,11 @@
   "versioning": "semver",
   "commit_convention": "conventional",
   "maintainers": ["agentplexus"],
+  "unreleased": {
+    "fixed": [
+      { "description": "Pin fetchup to v0.2.3 for go-rod/rod v0.116.2 compatibility" }
+    ]
+  },
   "releases": [
     {
       "version": "v0.1.0",
