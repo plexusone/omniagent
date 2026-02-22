@@ -39,6 +39,19 @@ func Default() Config {
 				Enabled: false, // Disabled by default for security
 			},
 		},
+		Voice: VoiceConfig{
+			Enabled:      false,
+			ResponseMode: "auto",
+			STT: STTConfig{
+				Provider: "deepgram",
+				Model:    "nova-2",
+			},
+			TTS: TTSConfig{
+				Provider: "deepgram",
+				Model:    "aura-asteria-en",
+				VoiceID:  "aura-asteria-en",
+			},
+		},
 		Observability: ObservabilityConfig{
 			Enabled: false,
 		},

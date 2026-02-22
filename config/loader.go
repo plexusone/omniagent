@@ -103,6 +103,35 @@ func loadEnv(cfg *Config) {
 		cfg.Channels.WhatsApp.DBPath = v
 	}
 
+	// Voice
+	if os.Getenv("OMNIAGENT_VOICE_ENABLED") == "true" {
+		cfg.Voice.Enabled = true
+	}
+	if v := os.Getenv("OMNIAGENT_VOICE_RESPONSE_MODE"); v != "" {
+		cfg.Voice.ResponseMode = v
+	}
+	// STT - check specific env var first, then fallback to DEEPGRAM_API_KEY
+	if v := os.Getenv("OMNIAGENT_VOICE_STT_API_KEY"); v != "" {
+		cfg.Voice.STT.APIKey = v
+	} else if v := os.Getenv("DEEPGRAM_API_KEY"); v != "" {
+		cfg.Voice.STT.APIKey = v
+	}
+	if v := os.Getenv("OMNIAGENT_VOICE_STT_MODEL"); v != "" {
+		cfg.Voice.STT.Model = v
+	}
+	// TTS - check specific env var first, then fallback to DEEPGRAM_API_KEY
+	if v := os.Getenv("OMNIAGENT_VOICE_TTS_API_KEY"); v != "" {
+		cfg.Voice.TTS.APIKey = v
+	} else if v := os.Getenv("DEEPGRAM_API_KEY"); v != "" {
+		cfg.Voice.TTS.APIKey = v
+	}
+	if v := os.Getenv("OMNIAGENT_VOICE_TTS_MODEL"); v != "" {
+		cfg.Voice.TTS.Model = v
+	}
+	if v := os.Getenv("OMNIAGENT_VOICE_TTS_VOICE_ID"); v != "" {
+		cfg.Voice.TTS.VoiceID = v
+	}
+
 	// Observability
 	if v := os.Getenv("OMNIAGENT_OBSERVABILITY_PROVIDER"); v != "" {
 		cfg.Observability.Provider = v

@@ -13,6 +13,7 @@ import (
 
 	"github.com/agentplexus/omniagent/agent"
 	"github.com/agentplexus/omniagent/gateway"
+	"github.com/agentplexus/omniagent/voice"
 	"github.com/agentplexus/omnichat/provider"
 	"github.com/agentplexus/omnichat/providers/discord"
 	"github.com/agentplexus/omnichat/providers/telegram"
@@ -119,6 +120,36 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		logger.Warn("no API key configured, agent disabled (messages will be echoed)")
 	}
 
+	// Initialize voice processor if enabled
+	var voiceProcessor *voice.Processor
+	if cfg.Voice.Enabled {
+		var err error
+		voiceProcessor, err = voice.New(voice.Config{
+			Enabled:      true,
+			ResponseMode: cfg.Voice.ResponseMode,
+			STT: voice.STTConfig{
+				Provider: cfg.Voice.STT.Provider,
+				APIKey:   cfg.Voice.STT.APIKey,
+				Model:    cfg.Voice.STT.Model,
+				Language: cfg.Voice.STT.Language,
+			},
+			TTS: voice.TTSConfig{
+				Provider: cfg.Voice.TTS.Provider,
+				APIKey:   cfg.Voice.TTS.APIKey,
+				Model:    cfg.Voice.TTS.Model,
+				VoiceID:  cfg.Voice.TTS.VoiceID,
+			},
+		}, logger)
+		if err != nil {
+			return fmt.Errorf("create voice processor: %w", err)
+		}
+		defer voiceProcessor.Close()
+		logger.Info("voice processor initialized",
+			"stt_provider", cfg.Voice.STT.Provider,
+			"tts_provider", cfg.Voice.TTS.Provider,
+			"response_mode", cfg.Voice.ResponseMode)
+	}
+
 	// Setup graceful shutdown
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -200,7 +231,12 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		// Set up agent processing if available
 		if agentInstance != nil {
 			router.SetAgent(agentInstance)
-			router.OnMessage(provider.All(), router.ProcessWithAgent())
+			if voiceProcessor != nil {
+				router.OnMessage(provider.All(), router.ProcessWithVoice(voiceProcessor))
+				logger.Info("voice processing enabled for messages")
+			} else {
+				router.OnMessage(provider.All(), router.ProcessWithAgent())
+			}
 		}
 
 		// Connect all channels

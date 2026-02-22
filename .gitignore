@@ -1,6 +1,7 @@
 .DS_Store
 .env
 .envrc
+.config.json
 _*
 *.tar
 *.db

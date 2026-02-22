@@ -9,6 +9,7 @@ type Config struct {
 	Agent         AgentConfig         `json:"agent" yaml:"agent"`
 	Channels      ChannelsConfig      `json:"channels" yaml:"channels"`
 	Tools         ToolsConfig         `json:"tools" yaml:"tools"`
+	Voice         VoiceConfig         `json:"voice" yaml:"voice"`
 	Observability ObservabilityConfig `json:"observability" yaml:"observability"`
 }
 
@@ -75,6 +76,30 @@ type ShellToolConfig struct {
 	Enabled    bool     `json:"enabled" yaml:"enabled"`
 	WorkingDir string   `json:"working_dir" yaml:"working_dir"`
 	Allowlist  []string `json:"allowlist" yaml:"allowlist"`
+}
+
+// VoiceConfig configures voice processing.
+type VoiceConfig struct {
+	Enabled      bool      `json:"enabled" yaml:"enabled"`
+	ResponseMode string    `json:"response_mode" yaml:"response_mode"`
+	STT          STTConfig `json:"stt" yaml:"stt"`
+	TTS          TTSConfig `json:"tts" yaml:"tts"`
+}
+
+// STTConfig configures speech-to-text.
+type STTConfig struct {
+	Provider string `json:"provider" yaml:"provider"`
+	APIKey   string `json:"api_key" yaml:"api_key"` //nolint:gosec // G117: APIKey loaded from config file
+	Model    string `json:"model" yaml:"model"`
+	Language string `json:"language" yaml:"language"`
+}
+
+// TTSConfig configures text-to-speech.
+type TTSConfig struct {
+	Provider string `json:"provider" yaml:"provider"`
+	APIKey   string `json:"api_key" yaml:"api_key"` //nolint:gosec // G117: APIKey loaded from config file
+	Model    string `json:"model" yaml:"model"`
+	VoiceID  string `json:"voice_id" yaml:"voice_id"`
 }
 
 // ObservabilityConfig configures observability features.
