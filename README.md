@@ -26,7 +26,26 @@ go install github.com/agentplexus/envoy/cmd/envoy@latest
 
 ## Quick Start
 
-1. Create a configuration file:
+### WhatsApp + OpenAI
+
+The fastest way to get started is with WhatsApp and OpenAI:
+
+```bash
+# Set your OpenAI API key
+export OPENAI_API_KEY="sk-..."
+
+# Run with WhatsApp enabled
+ENVOY_AGENT_PROVIDER=openai \
+ENVOY_AGENT_MODEL=gpt-4o \
+WHATSAPP_ENABLED=true \
+envoy gateway run
+```
+
+A QR code will appear in your terminal. Scan it with WhatsApp (Settings → Linked Devices → Link a Device) to connect.
+
+### Configuration File
+
+For more control, create a configuration file:
 
 ```yaml
 # envoy.yaml
@@ -34,21 +53,44 @@ gateway:
   address: "127.0.0.1:18789"
 
 agent:
-  provider: anthropic
-  model: claude-sonnet-4-20250514
-  api_key: ${ANTHROPIC_API_KEY}
+  provider: openai          # or: anthropic, gemini
+  model: gpt-4o             # or: claude-sonnet-4-20250514, gemini-2.0-flash
+  api_key: ${OPENAI_API_KEY}
+  system_prompt: "You are Envoy, responding on behalf of the user."
 
 channels:
-  telegram:
+  whatsapp:
     enabled: true
+    db_path: "whatsapp.db"  # Session storage
+
+  telegram:
+    enabled: false
     token: ${TELEGRAM_BOT_TOKEN}
+
+  discord:
+    enabled: false
+    token: ${DISCORD_BOT_TOKEN}
 ```
 
-2. Start the gateway:
+Run with the config file:
 
 ```bash
 envoy gateway run --config envoy.yaml
 ```
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `OPENAI_API_KEY` | OpenAI API key |
+| `ANTHROPIC_API_KEY` | Anthropic API key |
+| `GEMINI_API_KEY` | Google Gemini API key |
+| `ENVOY_AGENT_PROVIDER` | LLM provider: `openai`, `anthropic`, `gemini` |
+| `ENVOY_AGENT_MODEL` | Model name (e.g., `gpt-4o`, `claude-sonnet-4-20250514`) |
+| `WHATSAPP_ENABLED` | Set to `true` to enable WhatsApp |
+| `WHATSAPP_DB_PATH` | WhatsApp session storage path |
+| `TELEGRAM_BOT_TOKEN` | Telegram bot token (auto-enables Telegram) |
+| `DISCORD_BOT_TOKEN` | Discord bot token (auto-enables Discord) |
 
 ## CLI Commands
 
@@ -95,6 +137,7 @@ See [Configuration Reference](docs/configuration.md) for details.
 
 | Package | Purpose |
 |---------|---------|
+| [omnichat](https://github.com/agentplexus/omnichat) | Unified messaging (WhatsApp, Telegram, Discord) |
 | [omnillm](https://github.com/agentplexus/omnillm) | Multi-provider LLM abstraction |
 | [omniobserve](https://github.com/agentplexus/omniobserve) | LLM observability |
 | [Rod](https://github.com/go-rod/rod) | Browser automation |
@@ -102,7 +145,7 @@ See [Configuration Reference](docs/configuration.md) for details.
 
 ## Related Projects
 
-- [omnichat](https://github.com/agentplexus/omnichat) - Channel abstraction (planned)
+- [omnichat](https://github.com/agentplexus/omnichat) - Unified messaging provider interface (WhatsApp, Telegram, Discord)
 - [omnibrowser](https://github.com/agentplexus/omnibrowser) - Browser abstraction (planned)
 - [omnivoice](https://github.com/agentplexus/omnivoice) - Voice interactions
 
