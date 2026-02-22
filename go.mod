@@ -3,10 +3,12 @@ module github.com/agentplexus/omniagent
 go 1.25.5
 
 require (
-	github.com/agentplexus/omnichat v0.1.0
+	github.com/agentplexus/omnichat v0.2.0
 	github.com/agentplexus/omnillm v0.12.0
 	github.com/agentplexus/omniobserve v0.6.0
 	github.com/agentplexus/omniserp v0.7.0
+	github.com/agentplexus/omnivoice v0.4.3
+	github.com/agentplexus/omnivoice-deepgram v0.3.1
 	github.com/go-rod/rod v0.116.2
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.3
@@ -24,8 +26,11 @@ require (
 	github.com/bwmarrin/discordgo v0.29.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/coder/websocket v1.8.14 // indirect
+	github.com/deepgram/deepgram-go-sdk/v3 v3.5.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/dvonthenen/websocket v1.5.1-dyv.2 // indirect
 	github.com/elliotchance/orderedmap/v3 v3.1.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -33,8 +38,10 @@ require (
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.12 // indirect
 	github.com/googleapis/gax-go/v2 v2.17.0 // indirect
+	github.com/gorilla/schema v1.4.1 // indirect
 	github.com/grokify/mogo v0.73.2 // indirect
 	github.com/grokify/sogo v0.14.0 // indirect
+	github.com/hokaccha/go-prettyjson v0.0.0-20211117102719-0474bc63780f // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -68,6 +75,7 @@ require (
 	google.golang.org/grpc v1.79.1 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/telebot.v3 v3.3.8 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
 	modernc.org/libc v1.68.0 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
