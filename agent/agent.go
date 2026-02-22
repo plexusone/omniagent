@@ -22,7 +22,7 @@ type Agent struct {
 type Config struct {
 	Provider     string
 	Model        string
-	APIKey       string
+	APIKey       string //nolint:gosec // G117: APIKey is intentionally stored for provider authentication
 	BaseURL      string
 	Temperature  float64
 	MaxTokens    int

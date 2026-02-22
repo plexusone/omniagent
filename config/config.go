@@ -24,7 +24,7 @@ type GatewayConfig struct {
 type AgentConfig struct {
 	Provider     string  `json:"provider" yaml:"provider"`
 	Model        string  `json:"model" yaml:"model"`
-	APIKey       string  `json:"api_key" yaml:"api_key"`
+	APIKey       string  `json:"api_key" yaml:"api_key"` //nolint:gosec // G117: APIKey loaded from config file
 	BaseURL      string  `json:"base_url" yaml:"base_url"`
 	Temperature  float64 `json:"temperature" yaml:"temperature"`
 	MaxTokens    int     `json:"max_tokens" yaml:"max_tokens"`
@@ -75,5 +75,5 @@ type ObservabilityConfig struct {
 	Enabled  bool   `json:"enabled" yaml:"enabled"`
 	Provider string `json:"provider" yaml:"provider"`
 	Endpoint string `json:"endpoint" yaml:"endpoint"`
-	APIKey   string `json:"api_key" yaml:"api_key"`
+	APIKey   string `json:"api_key" yaml:"api_key"` //nolint:gosec // G117: APIKey loaded from config file
 }

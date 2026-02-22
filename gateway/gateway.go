@@ -3,7 +3,7 @@ package gateway
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"log/slog"
 	"net/http"
 	"sync"
@@ -138,10 +138,17 @@ func (g *Gateway) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 }
 
 // handleHealth handles health check requests.
-func (g *Gateway) handleHealth(w http.ResponseWriter, r *http.Request) {
+func (g *Gateway) handleHealth(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, `{"status":"ok","clients":%d}`, g.ClientCount())
+	resp := struct {
+		Status  string `json:"status"`
+		Clients int    `json:"clients"`
+	}{
+		Status:  "ok",
+		Clients: g.ClientCount(),
+	}
+	_ = json.NewEncoder(w).Encode(resp)
 }
 
 // registerClient registers a new client.
