@@ -7,6 +7,26 @@
   "maintainers": ["agentplexus"],
   "releases": [
     {
+      "version": "v0.2.0",
+      "date": "2026-02-22",
+      "highlights": [
+        { "description": "Voice note support via OmniVoice integration for WhatsApp" }
+      ],
+      "added": [
+        { "description": "`voice/` package with `Processor` implementing omnichat's `VoiceProcessor` interface", "commit": "b94f35e" },
+        { "description": "Voice configuration in `config.go` with STT/TTS provider settings", "commit": "b94f35e" },
+        { "description": "Environment variable support for voice config (`DEEPGRAM_API_KEY`, `OMNIAGENT_VOICE_*`)", "commit": "b94f35e" },
+        { "description": "Gateway integration with `ProcessWithVoice` handler for voice-enabled messaging", "commit": "b94f35e" },
+        { "description": "Deepgram provider support for both STT (nova-2) and TTS (aura-asteria-en)", "commit": "b94f35e" },
+        { "description": "Response mode options: `auto` (voice reply to voice input), `always`, `never`", "commit": "b94f35e" }
+      ],
+      "dependencies": [
+        { "description": "Add `github.com/agentplexus/omnivoice` v0.4.3", "commit": "b94f35e" },
+        { "description": "Add `github.com/agentplexus/omnivoice-deepgram` v0.3.1", "commit": "b94f35e" },
+        { "description": "Upgrade `github.com/agentplexus/omnichat` to v0.2.0", "commit": "b94f35e" }
+      ]
+    },
+    {
       "version": "v0.1.0",
       "date": "2026-02-22",
       "highlights": [

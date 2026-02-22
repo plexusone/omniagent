@@ -12,11 +12,12 @@ OmniAgent is a personal AI assistant that routes messages across multiple commun
 
 ## Features
 
-- Multi-Channel Support - Telegram, Discord, Slack, WhatsApp, and more
-- AI-Powered Responses - Powered by omnillm (Claude, GPT, Gemini, etc.)
-- Browser Automation - Built-in browser control via Rod
-- WebSocket Gateway - Real-time control plane for device connections
-- Observability - Integrated tracing via omniobserve
+- **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
+- **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
+- **Voice Notes** - Transcribe incoming voice, respond with synthesized speech via OmniVoice
+- **Browser Automation** - Built-in browser control via Rod
+- **WebSocket Gateway** - Real-time control plane for device connections
+- **Observability** - Integrated tracing via omniobserve
 
 ## Installation
 
@@ -70,6 +71,17 @@ channels:
   discord:
     enabled: false
     token: ${DISCORD_BOT_TOKEN}
+
+voice:
+  enabled: true
+  response_mode: auto        # auto, always, never
+  stt:
+    provider: deepgram
+    model: nova-2
+  tts:
+    provider: deepgram
+    model: aura-asteria-en
+    voice_id: aura-asteria-en
 ```
 
 Run with the config file:
@@ -91,6 +103,9 @@ omniagent gateway run --config omniagent.yaml
 | `WHATSAPP_DB_PATH` | WhatsApp session storage path |
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token (auto-enables Telegram) |
 | `DISCORD_BOT_TOKEN` | Discord bot token (auto-enables Discord) |
+| `DEEPGRAM_API_KEY` | Deepgram API key for voice STT/TTS |
+| `OMNIAGENT_VOICE_ENABLED` | Set to `true` to enable voice processing |
+| `OMNIAGENT_VOICE_RESPONSE_MODE` | Voice response mode: `auto`, `always`, `never` |
 
 ## CLI Commands
 
@@ -139,6 +154,8 @@ See [Configuration Reference](docs/configuration.md) for details.
 |---------|---------|
 | [omnichat](https://github.com/agentplexus/omnichat) | Unified messaging (WhatsApp, Telegram, Discord) |
 | [omnillm](https://github.com/agentplexus/omnillm) | Multi-provider LLM abstraction |
+| [omnivoice](https://github.com/agentplexus/omnivoice) | Voice STT/TTS interfaces |
+| [omnivoice-deepgram](https://github.com/agentplexus/omnivoice-deepgram) | Deepgram voice provider |
 | [omniobserve](https://github.com/agentplexus/omniobserve) | LLM observability |
 | [Rod](https://github.com/go-rod/rod) | Browser automation |
 | [gorilla/websocket](https://github.com/gorilla/websocket) | WebSocket server |
