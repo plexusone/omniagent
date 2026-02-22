@@ -8,10 +8,18 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/mdp/qrterminal/v3"
 	"github.com/spf13/cobra"
 
 	"github.com/agentplexus/envoy/agent"
 	"github.com/agentplexus/envoy/gateway"
+	"github.com/agentplexus/omnichat/provider"
+	"github.com/agentplexus/omnichat/providers/discord"
+	"github.com/agentplexus/omnichat/providers/telegram"
+	"github.com/agentplexus/omnichat/providers/whatsapp"
+	"github.com/agentplexus/omniobserve/integrations/omnillm"
+	"github.com/agentplexus/omniobserve/llmops"
+	_ "github.com/agentplexus/omniobserve/llmops/slog" // Register slog provider
 )
 
 var (
@@ -50,10 +58,35 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		address = gatewayAddress
 	}
 
+	// Initialize observability if enabled
+	var llmopsProvider llmops.Provider
+	var observabilityHook *omnillm.Hook
+	if cfg.Observability.Enabled {
+		providerName := cfg.Observability.Provider
+		if providerName == "" {
+			providerName = "slog" // Default to slog for local logging
+		}
+
+		var err error
+		llmopsProvider, err = llmops.Open(providerName,
+			llmops.WithLogger(logger),
+			llmops.WithAPIKey(cfg.Observability.APIKey),
+			llmops.WithEndpoint(cfg.Observability.Endpoint),
+			llmops.WithProjectName("envoy"),
+		)
+		if err != nil {
+			logger.Warn("failed to initialize observability", "provider", providerName, "error", err)
+		} else {
+			observabilityHook = omnillm.NewHook(llmopsProvider)
+			defer llmopsProvider.Close()
+			logger.Info("observability initialized", "provider", providerName)
+		}
+	}
+
 	// Create agent if API key is configured
-	var agentProcessor gateway.AgentProcessor
+	var agentInstance *agent.Agent
 	if cfg.Agent.APIKey != "" {
-		agentInstance, err := agent.New(agent.Config{
+		agentConfig := agent.Config{
 			Provider:     cfg.Agent.Provider,
 			Model:        cfg.Agent.Model,
 			APIKey:       cfg.Agent.APIKey,
@@ -62,28 +95,28 @@ func runGateway(cmd *cobra.Command, args []string) error {
 			MaxTokens:    cfg.Agent.MaxTokens,
 			SystemPrompt: cfg.Agent.SystemPrompt,
 			Logger:       logger,
-		})
+		}
+		// Only set hook if non-nil to avoid interface{type, nil} gotcha
+		if observabilityHook != nil {
+			agentConfig.ObservabilityHook = observabilityHook
+		}
+		var err error
+		agentInstance, err = agent.New(agentConfig)
 		if err != nil {
 			return fmt.Errorf("create agent: %w", err)
 		}
 		defer agentInstance.Close()
-		agentProcessor = agentInstance
 		logger.Info("agent initialized", "provider", cfg.Agent.Provider, "model", cfg.Agent.Model)
+
+		// Register search tool if available
+		if searchTool, err := agent.NewSearchTool(); err == nil {
+			agentInstance.RegisterTool(searchTool)
+			logger.Info("search tool registered")
+		} else {
+			logger.Debug("search tool not available", "error", err)
+		}
 	} else {
 		logger.Warn("no API key configured, agent disabled (messages will be echoed)")
-	}
-
-	// Create gateway
-	gw, err := gateway.New(gateway.Config{
-		Address:      address,
-		ReadTimeout:  cfg.Gateway.ReadTimeout,
-		WriteTimeout: cfg.Gateway.WriteTimeout,
-		PingInterval: cfg.Gateway.PingInterval,
-		Agent:        agentProcessor,
-		Logger:       logger,
-	})
-	if err != nil {
-		return fmt.Errorf("create gateway: %w", err)
 	}
 
 	// Setup graceful shutdown
@@ -95,16 +128,115 @@ func runGateway(cmd *cobra.Command, args []string) error {
 
 	go func() {
 		<-sigCh
-		fmt.Println("\nShutting down gateway...")
+		fmt.Println("\nShutting down...")
 		cancel()
 	}()
 
+	// Create message router and register channels
+	router := provider.NewRouter(logger)
+
+	// Register Telegram if configured
+	if cfg.Channels.Telegram.Enabled {
+		tg, err := telegram.New(telegram.Config{
+			Token:  cfg.Channels.Telegram.Token,
+			Logger: logger,
+		})
+		if err != nil {
+			return fmt.Errorf("create telegram provider: %w", err)
+		}
+		router.Register(tg)
+		logger.Info("telegram provider registered")
+	}
+
+	// Register Discord if configured
+	if cfg.Channels.Discord.Enabled {
+		dc, err := discord.New(discord.Config{
+			Token:   cfg.Channels.Discord.Token,
+			GuildID: cfg.Channels.Discord.GuildID,
+			Logger:  logger,
+		})
+		if err != nil {
+			return fmt.Errorf("create discord provider: %w", err)
+		}
+		router.Register(dc)
+		logger.Info("discord provider registered")
+	}
+
+	// Register WhatsApp if configured
+	if cfg.Channels.WhatsApp.Enabled {
+		dbPath := cfg.Channels.WhatsApp.DBPath
+		if dbPath == "" {
+			dbPath = "whatsapp.db"
+		}
+		wa, err := whatsapp.New(whatsapp.Config{
+			DBPath: dbPath,
+			Logger: logger,
+			QRCallback: func(qr string) {
+				fmt.Println("\nScan this QR code with WhatsApp:")
+				fmt.Println("(Settings -> Linked Devices -> Link a Device)")
+				fmt.Println()
+				qrterminal.GenerateWithConfig(qr, qrterminal.Config{
+					Level:     qrterminal.L,
+					Writer:    os.Stdout,
+					BlackChar: qrterminal.WHITE,
+					WhiteChar: qrterminal.BLACK,
+					QuietZone: 1,
+				})
+				fmt.Println()
+			},
+		})
+		if err != nil {
+			return fmt.Errorf("create whatsapp provider: %w", err)
+		}
+		router.Register(wa)
+		logger.Info("whatsapp provider registered")
+	}
+
+	// Check if any channels are configured
+	channels := router.ListProviders()
+	if len(channels) == 0 {
+		logger.Warn("no channels configured, running gateway only")
+	} else {
+		// Set up agent processing if available
+		if agentInstance != nil {
+			router.SetAgent(agentInstance)
+			router.OnMessage(provider.All(), router.ProcessWithAgent())
+		}
+
+		// Connect all channels
+		if err := router.ConnectAll(ctx); err != nil {
+			return fmt.Errorf("connect channels: %w", err)
+		}
+		defer func() {
+			if err := router.DisconnectAll(context.Background()); err != nil {
+				logger.Error("disconnect error", "error", err)
+			}
+		}()
+		logger.Info("channels connected", "count", len(channels))
+	}
+
+	// Create and start gateway
+	gw, err := gateway.New(gateway.Config{
+		Address:      address,
+		ReadTimeout:  cfg.Gateway.ReadTimeout,
+		WriteTimeout: cfg.Gateway.WriteTimeout,
+		PingInterval: cfg.Gateway.PingInterval,
+		Agent:        agentInstance,
+		Logger:       logger,
+	})
+	if err != nil {
+		return fmt.Errorf("create gateway: %w", err)
+	}
+
 	// Start gateway
-	fmt.Printf("Starting gateway on %s\n", address)
+	fmt.Printf("Envoy running on %s\n", address)
+	fmt.Printf("Channels: %v\n", channels)
+	fmt.Println("Press Ctrl+C to stop")
+
 	if err := gw.Run(ctx); err != nil && err != context.Canceled {
 		return fmt.Errorf("gateway error: %w", err)
 	}
 
-	fmt.Println("Gateway stopped")
+	fmt.Println("Envoy stopped")
 	return nil
 }
