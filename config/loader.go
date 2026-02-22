@@ -65,6 +65,12 @@ func loadEnv(cfg *Config) {
 	if v := os.Getenv("ENVOY_AGENT_API_KEY"); v != "" {
 		cfg.Agent.APIKey = v
 	}
+	if v := os.Getenv("ENVOY_AGENT_SYSTEM_PROMPT"); v != "" {
+		cfg.Agent.SystemPrompt = v
+	}
+	if v := os.Getenv("ENVOY_AGENT_BASE_URL"); v != "" {
+		cfg.Agent.BaseURL = v
+	}
 	// Also check provider-specific env vars
 	if cfg.Agent.APIKey == "" {
 		switch cfg.Agent.Provider {
@@ -87,6 +93,14 @@ func loadEnv(cfg *Config) {
 	if v := os.Getenv("DISCORD_BOT_TOKEN"); v != "" {
 		cfg.Channels.Discord.Token = v
 		cfg.Channels.Discord.Enabled = true
+	}
+
+	// WhatsApp
+	if os.Getenv("WHATSAPP_ENABLED") == "true" {
+		cfg.Channels.WhatsApp.Enabled = true
+	}
+	if v := os.Getenv("WHATSAPP_DB_PATH"); v != "" {
+		cfg.Channels.WhatsApp.DBPath = v
 	}
 
 	// Observability

@@ -35,6 +35,13 @@ type AgentConfig struct {
 type ChannelsConfig struct {
 	Telegram TelegramConfig `json:"telegram" yaml:"telegram"`
 	Discord  DiscordConfig  `json:"discord" yaml:"discord"`
+	WhatsApp WhatsAppConfig `json:"whatsapp" yaml:"whatsapp"`
+}
+
+// WhatsAppConfig configures the WhatsApp channel.
+type WhatsAppConfig struct {
+	Enabled bool   `json:"enabled" yaml:"enabled"`
+	DBPath  string `json:"db_path" yaml:"db_path"`
 }
 
 // TelegramConfig configures the Telegram channel.
