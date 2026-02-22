@@ -10,11 +10,14 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/mdp/qrterminal/v3"
+
 	"github.com/agentplexus/envoy/agent"
-	"github.com/agentplexus/envoy/channels"
-	"github.com/agentplexus/envoy/channels/adapters/telegram"
 	"github.com/agentplexus/envoy/config"
 	"github.com/agentplexus/envoy/gateway"
+	"github.com/agentplexus/omnichat/provider"
+	"github.com/agentplexus/omnichat/providers/telegram"
+	"github.com/agentplexus/omnichat/providers/whatsapp"
 )
 
 func main() {
@@ -42,8 +45,8 @@ func main() {
 	}
 	defer agentInstance.Close()
 
-	// Create channel router
-	router := channels.NewRouter(logger)
+	// Create provider router
+	router := provider.NewRouter(logger)
 
 	// Add Telegram channel if configured
 	if cfg.Channels.Telegram.Enabled {
@@ -57,9 +60,38 @@ func main() {
 		router.Register(tg)
 	}
 
+	// Add WhatsApp channel if configured
+	if cfg.Channels.WhatsApp.Enabled {
+		dbPath := cfg.Channels.WhatsApp.DBPath
+		if dbPath == "" {
+			dbPath = "whatsapp.db"
+		}
+		wa, err := whatsapp.New(whatsapp.Config{
+			DBPath: dbPath,
+			Logger: logger,
+			QRCallback: func(qr string) {
+				fmt.Println("\n📱 Scan this QR code with WhatsApp:")
+				fmt.Println("   (Settings → Linked Devices → Link a Device)")
+				fmt.Println()
+				qrterminal.GenerateWithConfig(qr, qrterminal.Config{
+					Level:     qrterminal.L,
+					Writer:    os.Stdout,
+					BlackChar: qrterminal.WHITE,
+					WhiteChar: qrterminal.BLACK,
+					QuietZone: 1,
+				})
+				fmt.Println()
+			},
+		})
+		if err != nil {
+			log.Fatalf("Failed to create WhatsApp adapter: %v", err)
+		}
+		router.Register(wa)
+	}
+
 	// Set the agent on the router and use the built-in processor
 	router.SetAgent(agentInstance)
-	router.OnMessage(channels.All(), router.ProcessWithAgent())
+	router.OnMessage(provider.All(), router.ProcessWithAgent())
 
 	// Connect channels
 	ctx, cancel := context.WithCancel(context.Background())
