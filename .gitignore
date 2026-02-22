@@ -1,8 +1,11 @@
 .DS_Store
 .env
+.envrc
 _*
 *.tar
+*.db
 coverage.txt
 debug.test
 main
 main.zip
+envoy
