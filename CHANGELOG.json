@@ -1,32 +1,34 @@
 {
-  "ir_version": "1.0",
+  "irVersion": "1.0",
   "project": "envoy",
   "repository": "https://github.com/agentplexus/envoy",
   "versioning": "semver",
-  "commit_convention": "conventional",
+  "commitConvention": "conventional",
   "maintainers": ["agentplexus"],
-  "unreleased": {
-    "fixed": [
-      { "description": "Pin fetchup to v0.2.3 for go-rod/rod v0.116.2 compatibility" }
-    ]
-  },
   "releases": [
     {
       "version": "v0.1.0",
-      "date": "2025-01-30",
+      "date": "2026-02-22",
       "highlights": [
-        { "description": "Initial release with WebSocket gateway, agent runtime, and multi-channel support" }
+        { "description": "Initial release with WebSocket gateway, AI agent runtime, and unified messaging via omnichat" }
       ],
       "added": [
-        { "description": "Initial project scaffold", "commit": "da77c73" },
-        { "description": "WebSocket gateway with client management", "commit": "da77c73" },
-        { "description": "Agent runtime with omnillm integration", "commit": "da77c73" },
-        { "description": "Channel abstraction with Telegram and Discord stubs", "commit": "da77c73" },
+        { "description": "WebSocket gateway with client management and health checks", "commit": "da77c73" },
+        { "description": "AI agent runtime with omnillm multi-provider support (OpenAI, Anthropic, Gemini)", "commit": "da77c73" },
+        { "description": "Unified messaging via omnichat (WhatsApp, Telegram, Discord)", "commit": "ac7b21f" },
+        { "description": "WhatsApp provider with QR code linking", "commit": "ac7b21f" },
+        { "description": "LLM observability integration via omniobserve", "commit": "ac7b21f" },
+        { "description": "Tool execution loop with max 5 iterations", "commit": "26e2cba" },
+        { "description": "Web search tool via omniserp", "commit": "26e2cba" },
         { "description": "Browser automation tool using Rod", "commit": "da77c73" },
-        { "description": "Shell execution tool", "commit": "da77c73" },
+        { "description": "Shell execution tool with allowlist security", "commit": "da77c73" },
         { "description": "Cobra-based CLI with gateway, channels, config, and version commands", "commit": "da77c73" },
-        { "description": "YAML/JSON configuration support", "commit": "da77c73" },
+        { "description": "YAML/JSON configuration with environment variable overrides", "commit": "6295af1" },
         { "description": "CI/CD pipeline with multi-platform testing", "commit": "da77c73" }
+      ],
+      "fixed": [
+        { "description": "Pin fetchup to v0.2.3 for go-rod/rod v0.116.2 compatibility", "commit": "de7f46d" },
+        { "description": "Nil interface gotcha for observability hook when disabled", "commit": "ac7b21f" }
       ]
     }
   ]
