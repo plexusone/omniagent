@@ -35,8 +35,8 @@ func TestInfoString(t *testing.T) {
 	info := Get()
 	s := info.String()
 
-	if !strings.Contains(s, "envoy") {
-		t.Error("String should contain 'envoy'")
+	if !strings.Contains(s, "omniagent") {
+		t.Error("String should contain 'omniagent'")
 	}
 
 	if !strings.Contains(s, info.Version) {

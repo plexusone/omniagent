@@ -1,4 +1,4 @@
-// Package shell provides shell execution tools for envoy.
+// Package shell provides shell execution tools for omniagent.
 package shell
 
 import (
@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/agentplexus/envoy/agent"
+	"github.com/agentplexus/omniagent/agent"
 )
 
 // Tool provides shell command execution capabilities.

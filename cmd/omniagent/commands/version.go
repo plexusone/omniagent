@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/envoy/internal/version"
+	"github.com/agentplexus/omniagent/internal/version"
 )
 
 var (
@@ -16,7 +16,7 @@ var (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Show version information",
-	Long:  "Display envoy version, build information, and runtime details.",
+	Long:  "Display omniagent version, build information, and runtime details.",
 	Run:   showVersion,
 }
 

@@ -1,4 +1,4 @@
-// Package version provides build and version information for envoy.
+// Package version provides build and version information for omniagent.
 package version
 
 import (
@@ -35,6 +35,6 @@ func Get() Info {
 
 // String returns a formatted version string.
 func (i Info) String() string {
-	return fmt.Sprintf("envoy %s (%s) built %s with %s for %s",
+	return fmt.Sprintf("omniagent %s (%s) built %s with %s for %s",
 		i.Version, i.Commit, i.BuildDate, i.GoVersion, i.Platform)
 }

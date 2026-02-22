@@ -1,4 +1,4 @@
-// Package commands implements the envoy CLI commands.
+// Package commands implements the omniagent CLI commands.
 package commands
 
 import (
@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/envoy/config"
+	"github.com/agentplexus/omniagent/config"
 )
 
 var (
@@ -14,22 +14,22 @@ var (
 	cfg     *config.Config
 )
 
-// rootCmd is the base command for envoy.
+// rootCmd is the base command for omniagent.
 var rootCmd = &cobra.Command{
-	Use:   "envoy",
+	Use:   "omniagent",
 	Short: "Your AI representative across communication channels",
-	Long: `Envoy is a personal AI assistant that routes messages across
+	Long: `OmniAgent is a personal AI assistant that routes messages across
 multiple communication platforms, processes them via an AI agent,
 and responds on your behalf.
 
 Start the gateway:
-  envoy gateway run
+  omniagent gateway run
 
 Check channel status:
-  envoy channels status
+  omniagent channels status
 
 Show configuration:
-  envoy config show`,
+  omniagent config show`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		// Skip config loading for version command
 		if cmd.Name() == "version" {
@@ -51,7 +51,7 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default: envoy.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default: omniagent.yaml)")
 
 	// Add subcommands
 	rootCmd.AddCommand(gatewayCmd)

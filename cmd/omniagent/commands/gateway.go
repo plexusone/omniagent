@@ -11,8 +11,8 @@ import (
 	"github.com/mdp/qrterminal/v3"
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/envoy/agent"
-	"github.com/agentplexus/envoy/gateway"
+	"github.com/agentplexus/omniagent/agent"
+	"github.com/agentplexus/omniagent/gateway"
 	"github.com/agentplexus/omnichat/provider"
 	"github.com/agentplexus/omnichat/providers/discord"
 	"github.com/agentplexus/omnichat/providers/telegram"
@@ -29,13 +29,13 @@ var (
 var gatewayCmd = &cobra.Command{
 	Use:   "gateway",
 	Short: "Gateway management commands",
-	Long:  "Commands for managing the envoy WebSocket gateway.",
+	Long:  "Commands for managing the omniagent WebSocket gateway.",
 }
 
 var gatewayRunCmd = &cobra.Command{
 	Use:   "run",
 	Short: "Start the gateway server",
-	Long: `Start the envoy WebSocket gateway server.
+	Long: `Start the omniagent WebSocket gateway server.
 
 The gateway serves as the control plane for all connected clients,
 routing messages between channels and the AI agent.`,
@@ -72,7 +72,7 @@ func runGateway(cmd *cobra.Command, args []string) error {
 			llmops.WithLogger(logger),
 			llmops.WithAPIKey(cfg.Observability.APIKey),
 			llmops.WithEndpoint(cfg.Observability.Endpoint),
-			llmops.WithProjectName("envoy"),
+			llmops.WithProjectName("omniagent"),
 		)
 		if err != nil {
 			logger.Warn("failed to initialize observability", "provider", providerName, "error", err)
@@ -229,7 +229,7 @@ func runGateway(cmd *cobra.Command, args []string) error {
 	}
 
 	// Start gateway
-	fmt.Printf("Envoy running on %s\n", address)
+	fmt.Printf("OmniAgent running on %s\n", address)
 	fmt.Printf("Channels: %v\n", channels)
 	fmt.Println("Press Ctrl+C to stop")
 
@@ -237,6 +237,6 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("gateway error: %w", err)
 	}
 
-	fmt.Println("Envoy stopped")
+	fmt.Println("OmniAgent stopped")
 	return nil
 }

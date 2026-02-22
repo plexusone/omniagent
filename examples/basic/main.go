@@ -1,4 +1,4 @@
-// Package main demonstrates basic envoy usage.
+// Package main demonstrates basic omniagent usage.
 package main
 
 import (
@@ -12,9 +12,9 @@ import (
 
 	"github.com/mdp/qrterminal/v3"
 
-	"github.com/agentplexus/envoy/agent"
-	"github.com/agentplexus/envoy/config"
-	"github.com/agentplexus/envoy/gateway"
+	"github.com/agentplexus/omniagent/agent"
+	"github.com/agentplexus/omniagent/config"
+	"github.com/agentplexus/omniagent/gateway"
 	"github.com/agentplexus/omnichat/provider"
 	"github.com/agentplexus/omnichat/providers/telegram"
 	"github.com/agentplexus/omnichat/providers/whatsapp"
@@ -121,7 +121,7 @@ func main() {
 	}()
 
 	// Start gateway
-	fmt.Printf("Envoy starting on %s\n", cfg.Gateway.Address)
+	fmt.Printf("OmniAgent starting on %s\n", cfg.Gateway.Address)
 	fmt.Println("Press Ctrl+C to stop")
 
 	if err := gw.Run(ctx); err != nil && err != context.Canceled {
@@ -132,5 +132,5 @@ func main() {
 	if err := router.DisconnectAll(context.Background()); err != nil {
 		log.Printf("Warning: disconnect error: %v", err)
 	}
-	fmt.Println("Envoy stopped")
+	fmt.Println("OmniAgent stopped")
 }

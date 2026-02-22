@@ -1,9 +1,9 @@
-// Package config provides configuration types and loading for envoy.
+// Package config provides configuration types and loading for omniagent.
 package config
 
 import "time"
 
-// Config is the root configuration for envoy.
+// Config is the root configuration for omniagent.
 type Config struct {
 	Gateway       GatewayConfig       `json:"gateway" yaml:"gateway"`
 	Agent         AgentConfig         `json:"agent" yaml:"agent"`

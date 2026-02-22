@@ -51,24 +51,24 @@ func loadFile(path string, cfg *Config) error {
 // loadEnv loads configuration from environment variables.
 func loadEnv(cfg *Config) {
 	// Gateway
-	if v := os.Getenv("ENVOY_GATEWAY_ADDRESS"); v != "" {
+	if v := os.Getenv("OMNIAGENT_GATEWAY_ADDRESS"); v != "" {
 		cfg.Gateway.Address = v
 	}
 
 	// Agent
-	if v := os.Getenv("ENVOY_AGENT_PROVIDER"); v != "" {
+	if v := os.Getenv("OMNIAGENT_AGENT_PROVIDER"); v != "" {
 		cfg.Agent.Provider = v
 	}
-	if v := os.Getenv("ENVOY_AGENT_MODEL"); v != "" {
+	if v := os.Getenv("OMNIAGENT_AGENT_MODEL"); v != "" {
 		cfg.Agent.Model = v
 	}
-	if v := os.Getenv("ENVOY_AGENT_API_KEY"); v != "" {
+	if v := os.Getenv("OMNIAGENT_AGENT_API_KEY"); v != "" {
 		cfg.Agent.APIKey = v
 	}
-	if v := os.Getenv("ENVOY_AGENT_SYSTEM_PROMPT"); v != "" {
+	if v := os.Getenv("OMNIAGENT_AGENT_SYSTEM_PROMPT"); v != "" {
 		cfg.Agent.SystemPrompt = v
 	}
-	if v := os.Getenv("ENVOY_AGENT_BASE_URL"); v != "" {
+	if v := os.Getenv("OMNIAGENT_AGENT_BASE_URL"); v != "" {
 		cfg.Agent.BaseURL = v
 	}
 	// Also check provider-specific env vars
@@ -104,14 +104,14 @@ func loadEnv(cfg *Config) {
 	}
 
 	// Observability
-	if v := os.Getenv("ENVOY_OBSERVABILITY_PROVIDER"); v != "" {
+	if v := os.Getenv("OMNIAGENT_OBSERVABILITY_PROVIDER"); v != "" {
 		cfg.Observability.Provider = v
 		cfg.Observability.Enabled = true
 	}
-	if v := os.Getenv("ENVOY_OBSERVABILITY_ENDPOINT"); v != "" {
+	if v := os.Getenv("OMNIAGENT_OBSERVABILITY_ENDPOINT"); v != "" {
 		cfg.Observability.Endpoint = v
 	}
-	if v := os.Getenv("ENVOY_OBSERVABILITY_API_KEY"); v != "" {
+	if v := os.Getenv("OMNIAGENT_OBSERVABILITY_API_KEY"); v != "" {
 		cfg.Observability.APIKey = v
 	}
 }

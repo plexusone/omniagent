@@ -1,4 +1,4 @@
-# Envoy
+# OmniAgent
 
 [![Build Status][build-status-svg]][build-status-url]
 [![Lint Status][lint-status-svg]][lint-status-url]
@@ -8,20 +8,20 @@
 
 Your AI representative across communication channels.
 
-Envoy is a personal AI assistant that routes messages across multiple communication platforms, processes them via an AI agent, and responds on your behalf.
+OmniAgent is a personal AI assistant that routes messages across multiple communication platforms, processes them via an AI agent, and responds on your behalf.
 
 ## Features
 
-- 📡 **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
-- 🤖 **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
-- 🌐 **Browser Automation** - Built-in browser control via Rod
-- ⚡ **WebSocket Gateway** - Real-time control plane for device connections
-- 📊 **Observability** - Integrated tracing via omniobserve
+- Multi-Channel Support - Telegram, Discord, Slack, WhatsApp, and more
+- AI-Powered Responses - Powered by omnillm (Claude, GPT, Gemini, etc.)
+- Browser Automation - Built-in browser control via Rod
+- WebSocket Gateway - Real-time control plane for device connections
+- Observability - Integrated tracing via omniobserve
 
 ## Installation
 
 ```bash
-go install github.com/agentplexus/envoy/cmd/envoy@latest
+go install github.com/agentplexus/omniagent/cmd/omniagent@latest
 ```
 
 ## Quick Start
@@ -35,20 +35,20 @@ The fastest way to get started is with WhatsApp and OpenAI:
 export OPENAI_API_KEY="sk-..."
 
 # Run with WhatsApp enabled
-ENVOY_AGENT_PROVIDER=openai \
-ENVOY_AGENT_MODEL=gpt-4o \
+OMNIAGENT_AGENT_PROVIDER=openai \
+OMNIAGENT_AGENT_MODEL=gpt-4o \
 WHATSAPP_ENABLED=true \
-envoy gateway run
+omniagent gateway run
 ```
 
-A QR code will appear in your terminal. Scan it with WhatsApp (Settings → Linked Devices → Link a Device) to connect.
+A QR code will appear in your terminal. Scan it with WhatsApp (Settings -> Linked Devices -> Link a Device) to connect.
 
 ### Configuration File
 
 For more control, create a configuration file:
 
 ```yaml
-# envoy.yaml
+# omniagent.yaml
 gateway:
   address: "127.0.0.1:18789"
 
@@ -56,7 +56,7 @@ agent:
   provider: openai          # or: anthropic, gemini
   model: gpt-4o             # or: claude-sonnet-4-20250514, gemini-2.0-flash
   api_key: ${OPENAI_API_KEY}
-  system_prompt: "You are Envoy, responding on behalf of the user."
+  system_prompt: "You are OmniAgent, responding on behalf of the user."
 
 channels:
   whatsapp:
@@ -75,7 +75,7 @@ channels:
 Run with the config file:
 
 ```bash
-envoy gateway run --config envoy.yaml
+omniagent gateway run --config omniagent.yaml
 ```
 
 ### Environment Variables
@@ -85,8 +85,8 @@ envoy gateway run --config envoy.yaml
 | `OPENAI_API_KEY` | OpenAI API key |
 | `ANTHROPIC_API_KEY` | Anthropic API key |
 | `GEMINI_API_KEY` | Google Gemini API key |
-| `ENVOY_AGENT_PROVIDER` | LLM provider: `openai`, `anthropic`, `gemini` |
-| `ENVOY_AGENT_MODEL` | Model name (e.g., `gpt-4o`, `claude-sonnet-4-20250514`) |
+| `OMNIAGENT_AGENT_PROVIDER` | LLM provider: `openai`, `anthropic`, `gemini` |
+| `OMNIAGENT_AGENT_MODEL` | Model name (e.g., `gpt-4o`, `claude-sonnet-4-20250514`) |
 | `WHATSAPP_ENABLED` | Set to `true` to enable WhatsApp |
 | `WHATSAPP_DB_PATH` | WhatsApp session storage path |
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token (auto-enables Telegram) |
@@ -95,37 +95,37 @@ envoy gateway run --config envoy.yaml
 ## CLI Commands
 
 ```bash
-envoy gateway run      # Start the gateway server
-envoy channels list    # List registered channels
-envoy channels status  # Show channel connection status
-envoy config show      # Display current configuration
-envoy version          # Show version information
+omniagent gateway run      # Start the gateway server
+omniagent channels list    # List registered channels
+omniagent channels status  # Show channel connection status
+omniagent config show      # Display current configuration
+omniagent version          # Show version information
 ```
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Messaging Channels                      │
-│     Telegram  │  Discord  │  Slack  │  WhatsApp  │  ...     │
-└───────────────────────────┬─────────────────────────────────┘
-                            │
-┌───────────────────────────▼─────────────────────────────────┐
-│              Gateway (WebSocket Control Plane)              │
-│              ws://127.0.0.1:18789                           │
-└───────────────────────────┬─────────────────────────────────┘
-                            │
-┌───────────────────────────▼─────────────────────────────────┐
-│                      Agent Runtime                          │
-│  • omnillm (LLM providers)                                  │
-│  • omniobserve (tracing)                                    │
-│  • Tools (browser, shell, http)                             │
-└─────────────────────────────────────────────────────────────┘
++-------------------------------------------------------------+
+|                     Messaging Channels                      |
+|     Telegram  |  Discord  |  Slack  |  WhatsApp  |  ...     |
++---------------------------+---------------------------------+
+                            |
++---------------------------v---------------------------------+
+|              Gateway (WebSocket Control Plane)              |
+|              ws://127.0.0.1:18789                           |
++---------------------------+---------------------------------+
+                            |
++---------------------------v---------------------------------+
+|                      Agent Runtime                          |
+|  - omnillm (LLM providers)                                  |
+|  - omniobserve (tracing)                                    |
+|  - Tools (browser, shell, http)                             |
++-------------------------------------------------------------+
 ```
 
 ## Configuration
 
-Envoy can be configured via:
+OmniAgent can be configured via:
 
 - YAML/JSON configuration file
 - Environment variables
@@ -153,15 +153,15 @@ See [Configuration Reference](docs/configuration.md) for details.
 
 MIT License - see [LICENSE](LICENSE) for details.
 
- [build-status-svg]: https://github.com/agentplexus/envoy/actions/workflows/ci.yaml/badge.svg?branch=main
- [build-status-url]: https://github.com/agentplexus/envoy/actions/workflows/ci.yaml
- [lint-status-svg]: https://github.com/agentplexus/envoy/actions/workflows/lint.yaml/badge.svg?branch=main
- [lint-status-url]: https://github.com/agentplexus/envoy/actions/workflows/lint.yaml
- [goreport-svg]: https://goreportcard.com/badge/github.com/agentplexus/envoy
- [goreport-url]: https://goreportcard.com/report/github.com/agentplexus/envoy
- [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/agentplexus/envoy
- [docs-godoc-url]: https://pkg.go.dev/github.com/agentplexus/envoy
+ [build-status-svg]: https://github.com/agentplexus/omniagent/actions/workflows/ci.yaml/badge.svg?branch=main
+ [build-status-url]: https://github.com/agentplexus/omniagent/actions/workflows/ci.yaml
+ [lint-status-svg]: https://github.com/agentplexus/omniagent/actions/workflows/lint.yaml/badge.svg?branch=main
+ [lint-status-url]: https://github.com/agentplexus/omniagent/actions/workflows/lint.yaml
+ [goreport-svg]: https://goreportcard.com/badge/github.com/agentplexus/omniagent
+ [goreport-url]: https://goreportcard.com/report/github.com/agentplexus/omniagent
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/agentplexus/omniagent
+ [docs-godoc-url]: https://pkg.go.dev/github.com/agentplexus/omniagent
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/agentplexus/envoy/blob/master/LICENSE
- [used-by-svg]: https://sourcegraph.com/github.com/agentplexus/envoy/-/badge.svg
- [used-by-url]: https://sourcegraph.com/github.com/agentplexus/envoy?badge
+ [license-url]: https://github.com/agentplexus/omniagent/blob/master/LICENSE
+ [used-by-svg]: https://sourcegraph.com/github.com/agentplexus/omniagent/-/badge.svg
+ [used-by-url]: https://sourcegraph.com/github.com/agentplexus/omniagent?badge

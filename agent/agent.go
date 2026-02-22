@@ -1,4 +1,4 @@
-// Package agent provides the AI agent runtime for envoy.
+// Package agent provides the AI agent runtime for omniagent.
 package agent
 
 import (

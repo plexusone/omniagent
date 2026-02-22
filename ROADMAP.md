@@ -1,6 +1,6 @@
 # Roadmap
 
-This document outlines planned features and improvements for Envoy.
+This document outlines planned features and improvements for OmniAgent.
 
 ## v0.2.0 - Authentication & Security
 

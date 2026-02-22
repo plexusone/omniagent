@@ -108,12 +108,12 @@ func TestLoadJSON(t *testing.T) {
 
 func TestLoadEnv(t *testing.T) {
 	// Set env vars
-	os.Setenv("ENVOY_GATEWAY_ADDRESS", "192.168.1.1:5000")
-	os.Setenv("ENVOY_AGENT_PROVIDER", "xai")
+	os.Setenv("OMNIAGENT_GATEWAY_ADDRESS", "192.168.1.1:5000")
+	os.Setenv("OMNIAGENT_AGENT_PROVIDER", "xai")
 	os.Setenv("TELEGRAM_BOT_TOKEN", "test-token")
 	defer func() {
-		os.Unsetenv("ENVOY_GATEWAY_ADDRESS")
-		os.Unsetenv("ENVOY_AGENT_PROVIDER")
+		os.Unsetenv("OMNIAGENT_GATEWAY_ADDRESS")
+		os.Unsetenv("OMNIAGENT_AGENT_PROVIDER")
 		os.Unsetenv("TELEGRAM_BOT_TOKEN")
 	}()
 

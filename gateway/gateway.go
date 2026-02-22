@@ -1,4 +1,4 @@
-// Package gateway provides the WebSocket control plane for envoy.
+// Package gateway provides the WebSocket control plane for omniagent.
 package gateway
 
 import (

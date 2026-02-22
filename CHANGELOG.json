@@ -1,7 +1,7 @@
 {
   "irVersion": "1.0",
-  "project": "envoy",
-  "repository": "https://github.com/agentplexus/envoy",
+  "project": "omniagent",
+  "repository": "https://github.com/agentplexus/omniagent",
   "versioning": "semver",
   "commitConvention": "conventional",
   "maintainers": ["agentplexus"],

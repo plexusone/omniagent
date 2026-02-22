@@ -1,4 +1,4 @@
-// Package browser provides browser automation tools for envoy.
+// Package browser provides browser automation tools for omniagent.
 package browser
 
 import (
@@ -13,7 +13,7 @@ import (
 	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
 
-	"github.com/agentplexus/envoy/agent"
+	"github.com/agentplexus/omniagent/agent"
 )
 
 // Tool provides browser automation capabilities.
