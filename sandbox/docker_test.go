@@ -190,8 +190,8 @@ func TestDockerSandbox_WithAppLevelPermissions(t *testing.T) {
 	// Create temp directory for mounts
 	tmpDir := t.TempDir()
 	testFile := filepath.Join(tmpDir, "test.txt")
-	// Use 0644 so the file is readable inside the container
-	if err := os.WriteFile(testFile, []byte("test content"), 0644); err != nil {
+	// Use 0644 so the file is readable inside the Docker container
+	if err := os.WriteFile(testFile, []byte("test content"), 0644); err != nil { //nolint:gosec // G306: test file needs to be readable in container
 		t.Fatal(err)
 	}
 
