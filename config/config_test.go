@@ -44,6 +44,19 @@ func TestDefault(t *testing.T) {
 }
 
 func TestLoadYAML(t *testing.T) {
+	// Clear env vars that could override config values
+	envVars := []string{
+		"OMNIAGENT_AGENT_PROVIDER",
+		"OMNIAGENT_AGENT_MODEL",
+		"OMNIAGENT_GATEWAY_ADDRESS",
+	}
+	for _, v := range envVars {
+		if orig := os.Getenv(v); orig != "" {
+			os.Unsetenv(v)
+			defer os.Setenv(v, orig)
+		}
+	}
+
 	// Create temp config file
 	dir := t.TempDir()
 	cfgPath := filepath.Join(dir, "config.yaml")
@@ -82,6 +95,19 @@ channels:
 }
 
 func TestLoadJSON(t *testing.T) {
+	// Clear env vars that could override config values
+	envVars := []string{
+		"OMNIAGENT_AGENT_PROVIDER",
+		"OMNIAGENT_AGENT_MODEL",
+		"OMNIAGENT_GATEWAY_ADDRESS",
+	}
+	for _, v := range envVars {
+		if orig := os.Getenv(v); orig != "" {
+			os.Unsetenv(v)
+			defer os.Setenv(v, orig)
+		}
+	}
+
 	dir := t.TempDir()
 	cfgPath := filepath.Join(dir, "config.json")
 
