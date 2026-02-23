@@ -57,6 +57,7 @@ func init() {
 	rootCmd.AddCommand(gatewayCmd)
 	rootCmd.AddCommand(channelsCmd)
 	rootCmd.AddCommand(configCmd)
+	rootCmd.AddCommand(skillsCmd)
 	rootCmd.AddCommand(versionCmd)
 }
 

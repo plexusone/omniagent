@@ -116,6 +116,17 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		} else {
 			logger.Debug("search tool not available", "error", err)
 		}
+
+		// Load skills if enabled
+		if cfg.Skills.Enabled {
+			searchPaths := cfg.Skills.Paths
+			if len(searchPaths) == 0 {
+				searchPaths = nil // Use defaults
+			}
+			if err := agentInstance.LoadSkills(searchPaths); err != nil {
+				logger.Warn("failed to load skills", "error", err)
+			}
+		}
 	} else {
 		logger.Warn("no API key configured, agent disabled (messages will be echoed)")
 	}

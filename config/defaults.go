@@ -39,6 +39,10 @@ func Default() Config {
 				Enabled: false, // Disabled by default for security
 			},
 		},
+		Skills: SkillsConfig{
+			Enabled:     true,
+			MaxInjected: 20,
+		},
 		Voice: VoiceConfig{
 			Enabled:      false,
 			ResponseMode: "auto",

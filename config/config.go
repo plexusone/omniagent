@@ -9,6 +9,7 @@ type Config struct {
 	Agent         AgentConfig         `json:"agent" yaml:"agent"`
 	Channels      ChannelsConfig      `json:"channels" yaml:"channels"`
 	Tools         ToolsConfig         `json:"tools" yaml:"tools"`
+	Skills        SkillsConfig        `json:"skills" yaml:"skills"`
 	Voice         VoiceConfig         `json:"voice" yaml:"voice"`
 	Observability ObservabilityConfig `json:"observability" yaml:"observability"`
 }
@@ -76,6 +77,14 @@ type ShellToolConfig struct {
 	Enabled    bool     `json:"enabled" yaml:"enabled"`
 	WorkingDir string   `json:"working_dir" yaml:"working_dir"`
 	Allowlist  []string `json:"allowlist" yaml:"allowlist"`
+}
+
+// SkillsConfig configures skill loading.
+type SkillsConfig struct {
+	Enabled     bool     `json:"enabled" yaml:"enabled"`
+	Paths       []string `json:"paths" yaml:"paths"`
+	Disabled    []string `json:"disabled" yaml:"disabled"`
+	MaxInjected int      `json:"max_injected" yaml:"max_injected"`
 }
 
 // VoiceConfig configures voice processing.

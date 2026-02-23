@@ -9,12 +9,15 @@ import (
 
 	"github.com/agentplexus/omnillm"
 	"github.com/agentplexus/omnillm/provider"
+
+	"github.com/agentplexus/omniagent/skills"
 )
 
 // Agent is the AI agent that processes messages.
 type Agent struct {
 	client *omnillm.ChatClient
 	tools  *ToolRegistry
+	skills []*skills.Skill
 	config Config
 	logger *slog.Logger
 }
@@ -75,13 +78,14 @@ func (a *Agent) Process(ctx context.Context, sessionID, content string) (string,
 		},
 	}
 
-	// Add system prompt if configured
-	if a.config.SystemPrompt != "" {
-		a.logger.Info("using system prompt", "length", len(a.config.SystemPrompt))
+	// Add system prompt with injected skills
+	systemPrompt := a.buildSystemPrompt()
+	if systemPrompt != "" {
+		a.logger.Info("using system prompt", "length", len(systemPrompt), "skills", len(a.skills))
 		messages = append([]provider.Message{
 			{
 				Role:    provider.RoleSystem,
-				Content: a.config.SystemPrompt,
+				Content: systemPrompt,
 			},
 		}, messages...)
 	}
@@ -180,4 +184,46 @@ func (a *Agent) RegisterTool(tool Tool) {
 // Close closes the agent and releases resources.
 func (a *Agent) Close() error {
 	return a.client.Close()
+}
+
+// LoadSkills loads skills from the given directories.
+func (a *Agent) LoadSkills(dirs []string) error {
+	if len(dirs) == 0 {
+		dirs = skills.DefaultSearchPaths()
+	}
+
+	discovered, err := skills.Discover(dirs)
+	if err != nil {
+		return fmt.Errorf("discovering skills: %w", err)
+	}
+
+	// Filter to available skills only
+	var available []*skills.Skill
+	for _, skill := range discovered {
+		errs := skill.CheckRequirements()
+		if len(errs) == 0 {
+			available = append(available, skill)
+			a.logger.Info("skill loaded", "name", skill.Name, "path", skill.Path)
+		} else {
+			a.logger.Warn("skill unavailable", "name", skill.Name, "errors", len(errs))
+		}
+	}
+
+	a.skills = available
+	a.logger.Info("skills loaded", "total", len(discovered), "available", len(available))
+	return nil
+}
+
+// GetSkills returns the loaded skills.
+func (a *Agent) GetSkills() []*skills.Skill {
+	return a.skills
+}
+
+// buildSystemPrompt builds the system prompt with injected skills.
+func (a *Agent) buildSystemPrompt() string {
+	if len(a.skills) == 0 {
+		return a.config.SystemPrompt
+	}
+
+	return skills.InjectIntoPrompt(a.config.SystemPrompt, a.skills, skills.DefaultInjectConfig())
 }
