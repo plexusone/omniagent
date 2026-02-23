@@ -30,10 +30,32 @@ This document outlines planned features and improvements for OmniAgent.
 - [ ] Add structured logging with log levels
 - [ ] Add health check endpoints with detailed status
 
+## v0.3.0 - Skill System (Phase 1)
+
+- [ ] Implement skill loader (SKILL.md parsing)
+- [ ] Skill discovery from configurable directories
+- [ ] Requirement checking (bins, env vars)
+- [ ] Prompt injection for loaded skills
+- [ ] CLI commands: `skills list`, `skills info`, `skills check`
+- [ ] ClawHub/OpenClaw skill compatibility
+
+## v0.4.0 - Hook Runner (Phase 2)
+
+- [ ] Deno-based TypeScript hook execution
+- [ ] Shell script hook execution
+- [ ] OpenClaw hook API compatibility layer
+- [ ] Permission restrictions per skill
+
+## v0.5.0 - Tool Sandbox (Phase 3)
+
+- [ ] WASM runtime via wazero
+- [ ] Capability-based permissions
+- [ ] Memory and CPU limits
+- [ ] Built-in tools in WASM sandbox
+
 ## Future
 
 - [ ] Multi-tenant support
-- [ ] Plugin system for custom tools
 - [ ] Web UI for configuration and monitoring
 - [ ] Voice channel support via omnivoice
 - [ ] Integration with omnichat for unified channel abstraction
