@@ -178,9 +178,12 @@ func TestLoad(t *testing.T) {
 
 func TestLoadSelfImprovingAgent(t *testing.T) {
 	skillDir := filepath.Join("..", "testdata", "skills", "self-improving-agent")
+	skillFile := filepath.Join(skillDir, "SKILL.md")
 
-	if _, err := os.Stat(skillDir); os.IsNotExist(err) {
-		t.Skipf("testdata not found: %s", skillDir)
+	// Check for the actual SKILL.md file, not just the directory
+	// (directory may exist as a git submodule reference without content)
+	if _, err := os.Stat(skillFile); os.IsNotExist(err) {
+		t.Skipf("testdata not found (submodule not initialized?): %s", skillFile)
 	}
 
 	skill, err := Load(skillDir)
