@@ -15,6 +15,8 @@ OmniAgent is a personal AI assistant that routes messages across multiple commun
 - **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
 - **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
 - **Voice Notes** - Transcribe incoming voice, respond with synthesized speech via OmniVoice
+- **Skills System** - Extensible skills compatible with OpenClaw/ClawHub
+- **Secure Sandboxing** - WASM and Docker isolation for tool execution
 - **Browser Automation** - Built-in browser control via Rod
 - **WebSocket Gateway** - Real-time control plane for device connections
 - **Observability** - Integrated tracing via omniobserve
@@ -82,6 +84,12 @@ voice:
     provider: deepgram
     model: aura-asteria-en
     voice_id: aura-asteria-en
+
+skills:
+  enabled: true
+  paths:                     # Additional skill directories
+    - ~/.omniagent/skills
+  max_injected: 20           # Max skills to inject into prompt
 ```
 
 Run with the config file:
@@ -90,7 +98,100 @@ Run with the config file:
 omniagent gateway run --config omniagent.yaml
 ```
 
-### Environment Variables
+## Skills
+
+OmniAgent supports skills compatible with the [OpenClaw](https://github.com/openclaw/openclaw) SKILL.md format. Skills extend the agent's capabilities by injecting domain-specific instructions into the system prompt.
+
+### Managing Skills
+
+```bash
+# List all discovered skills
+omniagent skills list
+
+# Show details for a specific skill
+omniagent skills info sonoscli
+
+# Check requirements for all skills
+omniagent skills check
+```
+
+### Skill Format
+
+Skills are defined in `SKILL.md` files with YAML frontmatter:
+
+```markdown
+---
+name: weather
+description: Get weather forecasts
+metadata:
+  emoji: "🌤️"
+  requires:
+    bins: ["curl"]
+  install:
+    - name: curl
+      brew: curl
+      apt: curl
+---
+
+# Weather Skill
+
+You can check the weather using the `curl` command...
+```
+
+### Skill Discovery
+
+Skills are discovered from:
+
+1. Built-in skills directory
+2. `~/.omniagent/skills/`
+3. Custom paths via `skills.paths` config
+
+Skills with missing requirements (binaries, env vars) are automatically skipped.
+
+## Sandboxing
+
+OmniAgent provides layered security for tool execution:
+
+### App-Level Permissions
+
+Capability-based permissions control what tools can do:
+
+- `fs_read` - Read files from allowed paths
+- `fs_write` - Write files to allowed paths
+- `net_http` - Make HTTP requests to allowed hosts
+- `exec_run` - Execute allowed commands
+
+### Docker Isolation
+
+For OS-level isolation, tools can run inside Docker containers:
+
+```go
+sandbox, _ := sandbox.NewDockerSandbox(ctx, sandbox.DockerConfig{
+    Image:       "alpine:latest",
+    NetworkMode: "none",           // No network access
+    CapDrop:     []string{"ALL"},  // Drop all capabilities
+    Mounts: []sandbox.DockerMount{
+        {HostPath: "/tmp/data", ContainerPath: "/data", ReadOnly: true},
+    },
+}, &appConfig)
+
+result, _ := sandbox.Run(ctx, "cat", []string{"/data/file.txt"})
+```
+
+### WASM Runtime
+
+For lightweight isolation, tools can run in a WASM sandbox (wazero):
+
+```go
+runtime, _ := sandbox.NewRuntime(ctx, sandbox.Config{
+    Capabilities:  []sandbox.Capability{sandbox.CapFSRead},
+    MemoryLimitMB: 16,
+    Timeout:       30 * time.Second,
+    AllowedPaths:  []string{"/tmp/data"},
+})
+```
+
+## Environment Variables
 
 | Variable | Description |
 |----------|-------------|
@@ -110,10 +211,22 @@ omniagent gateway run --config omniagent.yaml
 ## CLI Commands
 
 ```bash
+# Gateway
 omniagent gateway run      # Start the gateway server
+
+# Skills
+omniagent skills list      # List all discovered skills
+omniagent skills info NAME # Show skill details
+omniagent skills check     # Validate skill requirements
+
+# Channels
 omniagent channels list    # List registered channels
 omniagent channels status  # Show channel connection status
+
+# Config
 omniagent config show      # Display current configuration
+
+# Version
 omniagent version          # Show version information
 ```
 
@@ -132,21 +245,56 @@ omniagent version          # Show version information
                             |
 +---------------------------v---------------------------------+
 |                      Agent Runtime                          |
+|  +------------------+  +------------------+                 |
+|  |    Skills        |  |    Sandbox       |                 |
+|  |  (SKILL.md)      |  |  (WASM/Docker)   |                 |
+|  +------------------+  +------------------+                 |
 |  - omnillm (LLM providers)                                  |
+|  - omnivoice (STT/TTS)                                      |
 |  - omniobserve (tracing)                                    |
 |  - Tools (browser, shell, http)                             |
 +-------------------------------------------------------------+
 ```
 
-## Configuration
+## Configuration Reference
 
-OmniAgent can be configured via:
+### Gateway
 
-- YAML/JSON configuration file
-- Environment variables
-- CLI flags
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `gateway.address` | string | `127.0.0.1:18789` | WebSocket server address |
+| `gateway.read_timeout` | duration | `30s` | Read timeout |
+| `gateway.write_timeout` | duration | `30s` | Write timeout |
+| `gateway.ping_interval` | duration | `30s` | WebSocket ping interval |
 
-See [Configuration Reference](docs/configuration.md) for details.
+### Agent
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `agent.provider` | string | `anthropic` | LLM provider |
+| `agent.model` | string | `claude-sonnet-4-20250514` | Model name |
+| `agent.api_key` | string | - | API key (or use env var) |
+| `agent.temperature` | float | `0.7` | Sampling temperature |
+| `agent.max_tokens` | int | `4096` | Max response tokens |
+| `agent.system_prompt` | string | - | Custom system prompt |
+
+### Skills
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `skills.enabled` | bool | `true` | Enable skill loading |
+| `skills.paths` | []string | `[]` | Additional skill directories |
+| `skills.disabled` | []string | `[]` | Skills to skip |
+| `skills.max_injected` | int | `20` | Max skills in prompt |
+
+### Voice
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `voice.enabled` | bool | `false` | Enable voice processing |
+| `voice.response_mode` | string | `auto` | `auto`, `always`, `never` |
+| `voice.stt.provider` | string | - | STT provider (e.g., `deepgram`) |
+| `voice.tts.provider` | string | - | TTS provider (e.g., `deepgram`) |
 
 ## Dependencies
 
@@ -157,14 +305,17 @@ See [Configuration Reference](docs/configuration.md) for details.
 | [omnivoice](https://github.com/agentplexus/omnivoice) | Voice STT/TTS interfaces |
 | [omnivoice-deepgram](https://github.com/agentplexus/omnivoice-deepgram) | Deepgram voice provider |
 | [omniobserve](https://github.com/agentplexus/omniobserve) | LLM observability |
+| [wazero](https://github.com/tetratelabs/wazero) | WASM runtime for sandboxing |
+| [moby](https://github.com/moby/moby) | Docker SDK for container isolation |
 | [Rod](https://github.com/go-rod/rod) | Browser automation |
 | [gorilla/websocket](https://github.com/gorilla/websocket) | WebSocket server |
 
 ## Related Projects
 
-- [omnichat](https://github.com/agentplexus/omnichat) - Unified messaging provider interface (WhatsApp, Telegram, Discord)
-- [omnibrowser](https://github.com/agentplexus/omnibrowser) - Browser abstraction (planned)
+- [omnichat](https://github.com/agentplexus/omnichat) - Unified messaging provider interface
+- [omnillm](https://github.com/agentplexus/omnillm) - Multi-provider LLM abstraction
 - [omnivoice](https://github.com/agentplexus/omnivoice) - Voice interactions
+- [OpenClaw](https://github.com/openclaw/openclaw) - Compatible skill format
 
 ## License
 

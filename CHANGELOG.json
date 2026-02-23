@@ -7,6 +7,36 @@
   "maintainers": ["agentplexus"],
   "releases": [
     {
+      "version": "v0.3.0",
+      "date": "2026-02-22",
+      "highlights": [
+        { "description": "Skill system with OpenClaw/ClawHub compatibility" },
+        { "description": "WASM and Docker sandboxing for secure tool execution" }
+      ],
+      "added": [
+        { "description": "`skills/` package with SKILL.md parser supporting YAML frontmatter and metadata", "commit": "72b7281" },
+        { "description": "Skill discovery from multiple directories with deduplication", "commit": "72b7281" },
+        { "description": "Requirement checking for skills (bins, env vars) with install hints", "commit": "72b7281" },
+        { "description": "Skill injection into system prompt with emoji support", "commit": "72b7281" },
+        { "description": "CLI commands: `skills list`, `skills info`, `skills check`", "commit": "72b7281" },
+        { "description": "Agent integration with skill loading on startup", "commit": "72b7281" },
+        { "description": "`sandbox/` package with capability-based permission model", "commit": "f1d3781" },
+        { "description": "WASM runtime wrapper using wazero with memory limits and timeout enforcement", "commit": "f1d3781" },
+        { "description": "Host functions for sandboxed file, HTTP, and command execution", "commit": "f1d3781" },
+        { "description": "Docker sandbox with container isolation and security hardening", "commit": "f1d3781" },
+        { "description": "Path validation with symlink resolution for sandbox security", "commit": "f1d3781" },
+        { "description": "Command allowlist enforcement for exec operations", "commit": "f1d3781" }
+      ],
+      "fixed": [
+        { "description": "Config tests now clear environment variables to prevent interference", "commit": "467d9dc" }
+      ],
+      "dependencies": [
+        { "description": "Add `github.com/tetratelabs/wazero` v1.11.0 for WASM runtime", "commit": "ec40405" },
+        { "description": "Add `github.com/moby/moby/client` v0.2.2 for Docker SDK", "commit": "ec40405" },
+        { "description": "Add `github.com/moby/moby/api` v1.53.0 for Docker API types", "commit": "ec40405" }
+      ]
+    },
+    {
       "version": "v0.2.0",
       "date": "2026-02-22",
       "highlights": [
