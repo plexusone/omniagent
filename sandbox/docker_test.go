@@ -4,12 +4,19 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 	"time"
 )
 
 func skipIfNoDocker(t *testing.T) {
 	t.Helper()
+
+	// Skip on Windows - Docker tests require Linux containers and Unix mount paths
+	if runtime.GOOS == "windows" {
+		t.Skip("Docker sandbox tests require Linux containers, skipping on Windows")
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
