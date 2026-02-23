@@ -201,7 +201,7 @@ func (d *DockerSandbox) Run(ctx context.Context, command string, args []string) 
 				Memory:   d.config.MemoryLimit,
 				CPUQuota: d.config.CPUQuota,
 			},
-			AutoRemove: true,
+			// Note: AutoRemove disabled to allow fetching logs before cleanup
 		},
 		NetworkingConfig: &network.NetworkingConfig{},
 	})
@@ -342,7 +342,7 @@ func (d *DockerSandbox) RunWithStdin(ctx context.Context, stdin []byte, command 
 				Memory:   d.config.MemoryLimit,
 				CPUQuota: d.config.CPUQuota,
 			},
-			AutoRemove: true,
+			// Note: AutoRemove disabled to allow fetching logs before cleanup
 		},
 		NetworkingConfig: &network.NetworkingConfig{},
 	})
