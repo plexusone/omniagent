@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/omniagent/internal/version"
+	"github.com/plexusone/omniagent/internal/version"
 )
 
 var (

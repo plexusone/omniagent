@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/agentplexus/omnillm/provider"
+	"github.com/plexusone/omnillm/provider"
 )
 
 // Session represents a conversation session.

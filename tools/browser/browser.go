@@ -13,7 +13,7 @@ import (
 	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
 
-	"github.com/agentplexus/omniagent/agent"
+	"github.com/plexusone/omniagent/agent"
 )
 
 // Tool provides browser automation capabilities.

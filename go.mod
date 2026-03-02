@@ -1,20 +1,19 @@
-module github.com/agentplexus/omniagent
+module github.com/plexusone/omniagent
 
 go 1.25.5
 
 require (
-	github.com/agentplexus/omnichat v0.2.0
-	github.com/agentplexus/omnillm v0.12.0
-	github.com/agentplexus/omniobserve v0.6.0
-	github.com/agentplexus/omniserp v0.7.0
-	github.com/agentplexus/omnivoice v0.4.3
-	github.com/agentplexus/omnivoice-deepgram v0.3.1
 	github.com/go-rod/rod v0.116.2
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.53.0
 	github.com/moby/moby/client v0.2.2
+	github.com/plexusone/omnichat v0.3.0
+	github.com/plexusone/omnillm v0.13.0
+	github.com/plexusone/omniobserve v0.7.0
+	github.com/plexusone/omniserp v0.8.0
+	github.com/plexusone/omnivoice v0.5.1
 	github.com/spf13/cobra v1.10.2
 	github.com/tetratelabs/wazero v1.11.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -34,6 +33,7 @@ require (
 	github.com/containerd/errdefs/pkg v0.3.0 // indirect
 	github.com/deepgram/deepgram-go-sdk/v3 v3.5.0 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
+	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/docker/go-connections v0.6.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
@@ -41,6 +41,10 @@ require (
 	github.com/elliotchance/orderedmap/v3 v3.1.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
+	github.com/go-faster/errors v0.7.1 // indirect
+	github.com/go-faster/jx v1.2.0 // indirect
+	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
@@ -56,12 +60,26 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/ncruces/go-strftime v1.0.0 // indirect
+	github.com/ogen-go/ogen v1.20.0 // indirect
+	github.com/openai/openai-go v1.12.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/petermattis/goid v0.0.0-20260113132338-7c7de50cc741 // indirect
+	github.com/petermattis/goid v0.0.0-20260226131333-17d1149c6ac6 // indirect
+	github.com/plexusone/elevenlabs-go v0.9.0 // indirect
+	github.com/plexusone/ogen-tools v0.2.0 // indirect
+	github.com/plexusone/omnivoice-core v0.5.0 // indirect
+	github.com/plexusone/omnivoice-deepgram v0.4.0 // indirect
+	github.com/plexusone/omnivoice-openai v0.1.0 // indirect
+	github.com/plexusone/omnivoice-twilio v0.2.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rs/zerolog v1.34.0 // indirect
+	github.com/segmentio/asm v1.2.1 // indirect
+	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
+	github.com/tidwall/gjson v1.18.0 // indirect
+	github.com/tidwall/match v1.2.0 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/vektah/gqlparser/v2 v2.5.32 // indirect
 	github.com/ysmood/fetchup v0.2.3 // indirect
 	github.com/ysmood/goob v0.4.0 // indirect
@@ -70,25 +88,29 @@ require (
 	github.com/ysmood/leakless v0.9.0 // indirect
 	go.mau.fi/libsignal v0.2.1 // indirect
 	go.mau.fi/util v0.9.6 // indirect
-	go.mau.fi/whatsmeow v0.0.0-20260219150138-7ae702b1eed4 // indirect
+	go.mau.fi/whatsmeow v0.0.0-20260227112304-c9652e4448a2 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.65.0 // indirect
 	go.opentelemetry.io/otel v1.40.0 // indirect
 	go.opentelemetry.io/otel/metric v1.40.0 // indirect
 	go.opentelemetry.io/otel/trace v1.40.0 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
+	go.uber.org/zap v1.27.1 // indirect
 	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/exp v0.0.0-20260218203240-3dfff04db8fa // indirect
-	golang.org/x/net v0.50.0 // indirect
+	golang.org/x/net v0.51.0 // indirect
+	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.41.0 // indirect
 	golang.org/x/term v0.40.0 // indirect
 	golang.org/x/text v0.34.0 // indirect
-	google.golang.org/genai v1.47.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260217215200-42d3e9bedb6d // indirect
+	google.golang.org/genai v1.48.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260226221140-a57be14db171 // indirect
 	google.golang.org/grpc v1.79.1 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/telebot.v3 v3.3.8 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
-	modernc.org/libc v1.68.0 // indirect
+	modernc.org/libc v1.69.0 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 	modernc.org/sqlite v1.46.1 // indirect

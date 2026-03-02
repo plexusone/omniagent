@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/agentplexus/omniserp"
-	"github.com/agentplexus/omniserp/client"
+	"github.com/plexusone/omniserp"
+	"github.com/plexusone/omniserp/client"
 )
 
 // SearchTool provides web search capabilities via omniserp.

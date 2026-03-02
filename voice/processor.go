@@ -5,17 +5,14 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/agentplexus/omnivoice/stt"
-	"github.com/agentplexus/omnivoice/tts"
-
-	deepgramstt "github.com/agentplexus/omnivoice-deepgram/omnivoice/stt"
-	deepgramtts "github.com/agentplexus/omnivoice-deepgram/omnivoice/tts"
+	"github.com/plexusone/omnivoice"
+	_ "github.com/plexusone/omnivoice/providers/all" // Register all providers
 )
 
 // Processor handles voice transcription and synthesis using OmniVoice interfaces.
 type Processor struct {
-	sttProvider  stt.Provider
-	ttsProvider  tts.Provider
+	sttProvider  omnivoice.STTProvider
+	ttsProvider  omnivoice.TTSProvider
 	config       Config
 	logger       *slog.Logger
 	responseMode string
@@ -38,39 +35,31 @@ func New(config Config, logger *slog.Logger) (*Processor, error) {
 	}
 
 	// Initialize STT provider based on config
-	switch config.STT.Provider {
-	case "deepgram":
-		sttProv, err := deepgramstt.New(deepgramstt.WithAPIKey(config.STT.APIKey))
-		if err != nil {
-			return nil, fmt.Errorf("create deepgram stt: %w", err)
-		}
-		p.sttProvider = sttProv
-	case "":
+	if config.STT.Provider == "" {
 		return nil, fmt.Errorf("STT provider not configured")
-	default:
-		return nil, fmt.Errorf("unsupported STT provider: %s", config.STT.Provider)
 	}
+	sttProv, err := omnivoice.GetSTTProvider(config.STT.Provider, omnivoice.WithAPIKey(config.STT.APIKey))
+	if err != nil {
+		return nil, fmt.Errorf("create %s stt: %w", config.STT.Provider, err)
+	}
+	p.sttProvider = sttProv
 
 	// Initialize TTS provider based on config
-	switch config.TTS.Provider {
-	case "deepgram":
-		ttsProv, err := deepgramtts.New(deepgramtts.WithAPIKey(config.TTS.APIKey))
-		if err != nil {
-			return nil, fmt.Errorf("create deepgram tts: %w", err)
-		}
-		p.ttsProvider = ttsProv
-	case "":
+	if config.TTS.Provider == "" {
 		return nil, fmt.Errorf("TTS provider not configured")
-	default:
-		return nil, fmt.Errorf("unsupported TTS provider: %s", config.TTS.Provider)
 	}
+	ttsProv, err := omnivoice.GetTTSProvider(config.TTS.Provider, omnivoice.WithAPIKey(config.TTS.APIKey))
+	if err != nil {
+		return nil, fmt.Errorf("create %s tts: %w", config.TTS.Provider, err)
+	}
+	p.ttsProvider = ttsProv
 
 	return p, nil
 }
 
 // TranscribeAudio converts audio to text using the configured STT provider.
 func (p *Processor) TranscribeAudio(ctx context.Context, audio []byte, mimeType string) (string, error) {
-	config := stt.TranscriptionConfig{
+	config := omnivoice.TranscriptionConfig{
 		Model:    p.config.STT.Model,
 		Language: p.config.STT.Language,
 	}
@@ -103,7 +92,7 @@ func (p *Processor) TranscribeAudio(ctx context.Context, audio []byte, mimeType 
 // SynthesizeSpeech converts text to audio using the configured TTS provider.
 // Returns audio bytes and MIME type.
 func (p *Processor) SynthesizeSpeech(ctx context.Context, text string) ([]byte, string, error) {
-	config := tts.SynthesisConfig{
+	config := omnivoice.SynthesisConfig{
 		VoiceID:      p.config.TTS.VoiceID,
 		Model:        p.config.TTS.Model,
 		OutputFormat: "mp3", // MP3 for broad compatibility; WhatsApp accepts this

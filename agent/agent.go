@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/agentplexus/omnillm"
-	"github.com/agentplexus/omnillm/provider"
+	"github.com/plexusone/omnillm"
+	"github.com/plexusone/omnillm/provider"
 
-	"github.com/agentplexus/omniagent/skills"
+	"github.com/plexusone/omniagent/skills"
 )
 
 // Agent is the AI agent that processes messages.

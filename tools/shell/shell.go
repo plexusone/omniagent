@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/agentplexus/omniagent/agent"
+	"github.com/plexusone/omniagent/agent"
 )
 
 // Tool provides shell command execution capabilities.

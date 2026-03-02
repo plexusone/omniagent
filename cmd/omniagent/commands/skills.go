@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/omniagent/skills"
+	"github.com/plexusone/omniagent/skills"
 )
 
 var skillsCmd = &cobra.Command{

@@ -4,7 +4,7 @@ package main
 import (
 	"os"
 
-	"github.com/agentplexus/omniagent/cmd/omniagent/commands"
+	"github.com/plexusone/omniagent/cmd/omniagent/commands"
 )
 
 func main() {

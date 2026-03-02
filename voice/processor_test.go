@@ -4,70 +4,70 @@ import (
 	"context"
 	"errors"
 	"log/slog"
+	"strings"
 	"testing"
 
-	"github.com/agentplexus/omnivoice/stt"
-	"github.com/agentplexus/omnivoice/tts"
+	"github.com/plexusone/omnivoice"
 )
 
-// mockSTTProvider implements stt.Provider for testing.
+// mockSTTProvider implements omnivoice.STTProvider for testing.
 type mockSTTProvider struct {
 	name           string
-	transcribeFunc func(ctx context.Context, audio []byte, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error)
+	transcribeFunc func(ctx context.Context, audio []byte, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error)
 }
 
 func (m *mockSTTProvider) Name() string { return m.name }
 
-func (m *mockSTTProvider) Transcribe(ctx context.Context, audio []byte, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
+func (m *mockSTTProvider) Transcribe(ctx context.Context, audio []byte, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
 	if m.transcribeFunc != nil {
 		return m.transcribeFunc(ctx, audio, config)
 	}
-	return &stt.TranscriptionResult{
+	return &omnivoice.TranscriptionResult{
 		Text:     "mock transcription",
 		Language: "en",
 	}, nil
 }
 
-func (m *mockSTTProvider) TranscribeFile(ctx context.Context, filePath string, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
+func (m *mockSTTProvider) TranscribeFile(ctx context.Context, filePath string, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
 	return nil, errors.New("not implemented")
 }
 
-func (m *mockSTTProvider) TranscribeURL(ctx context.Context, url string, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
+func (m *mockSTTProvider) TranscribeURL(ctx context.Context, url string, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
 	return nil, errors.New("not implemented")
 }
 
-// mockTTSProvider implements tts.Provider for testing.
+// mockTTSProvider implements omnivoice.TTSProvider for testing.
 type mockTTSProvider struct {
 	name           string
-	synthesizeFunc func(ctx context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error)
+	synthesizeFunc func(ctx context.Context, text string, config omnivoice.SynthesisConfig) (*omnivoice.SynthesisResult, error)
 }
 
 func (m *mockTTSProvider) Name() string { return m.name }
 
-func (m *mockTTSProvider) Synthesize(ctx context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error) {
+func (m *mockTTSProvider) Synthesize(ctx context.Context, text string, config omnivoice.SynthesisConfig) (*omnivoice.SynthesisResult, error) {
 	if m.synthesizeFunc != nil {
 		return m.synthesizeFunc(ctx, text, config)
 	}
-	return &tts.SynthesisResult{
+	return &omnivoice.SynthesisResult{
 		Audio:  []byte("mock audio data"),
 		Format: "mp3",
 	}, nil
 }
 
-func (m *mockTTSProvider) SynthesizeStream(ctx context.Context, text string, config tts.SynthesisConfig) (<-chan tts.StreamChunk, error) {
+func (m *mockTTSProvider) SynthesizeStream(ctx context.Context, text string, config omnivoice.SynthesisConfig) (<-chan omnivoice.TTSStreamChunk, error) {
 	return nil, errors.New("not implemented")
 }
 
-func (m *mockTTSProvider) ListVoices(ctx context.Context) ([]tts.Voice, error) {
+func (m *mockTTSProvider) ListVoices(ctx context.Context) ([]omnivoice.Voice, error) {
 	return nil, errors.New("not implemented")
 }
 
-func (m *mockTTSProvider) GetVoice(ctx context.Context, voiceID string) (*tts.Voice, error) {
+func (m *mockTTSProvider) GetVoice(ctx context.Context, voiceID string) (*omnivoice.Voice, error) {
 	return nil, errors.New("not implemented")
 }
 
 // newTestProcessor creates a processor with mock providers for testing.
-func newTestProcessor(sttProv stt.Provider, ttsProv tts.Provider, config Config) *Processor {
+func newTestProcessor(sttProv omnivoice.STTProvider, ttsProv omnivoice.TTSProvider, config Config) *Processor {
 	responseMode := config.ResponseMode
 	if responseMode == "" {
 		responseMode = "auto"
@@ -136,9 +136,9 @@ func TestNew_UnsupportedSTTProvider(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error for unsupported STT provider")
 	}
-	expected := "unsupported STT provider: unsupported"
-	if err.Error() != expected {
-		t.Errorf("error = %q, want %q", err.Error(), expected)
+	// Error message includes available providers from registry
+	if !strings.Contains(err.Error(), "unknown STT provider: unsupported") {
+		t.Errorf("error = %q, want error containing 'unknown STT provider: unsupported'", err.Error())
 	}
 }
 
@@ -157,9 +157,9 @@ func TestNew_UnsupportedTTSProvider(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error for unsupported TTS provider")
 	}
-	expected := "unsupported TTS provider: unsupported"
-	if err.Error() != expected {
-		t.Errorf("error = %q, want %q", err.Error(), expected)
+	// Error message includes available providers from registry
+	if !strings.Contains(err.Error(), "unknown TTS provider: unsupported") {
+		t.Errorf("error = %q, want error containing 'unknown TTS provider: unsupported'", err.Error())
 	}
 }
 
@@ -189,8 +189,8 @@ func TestNew_DefaultResponseMode(t *testing.T) {
 func TestTranscribeAudio_Success(t *testing.T) {
 	sttProv := &mockSTTProvider{
 		name: "mock-stt",
-		transcribeFunc: func(ctx context.Context, audio []byte, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
-			return &stt.TranscriptionResult{
+		transcribeFunc: func(ctx context.Context, audio []byte, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
+			return &omnivoice.TranscriptionResult{
 				Text:     "hello world",
 				Language: "en-US",
 			}, nil
@@ -212,7 +212,7 @@ func TestTranscribeAudio_Success(t *testing.T) {
 func TestTranscribeAudio_Error(t *testing.T) {
 	sttProv := &mockSTTProvider{
 		name: "mock-stt",
-		transcribeFunc: func(ctx context.Context, audio []byte, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
+		transcribeFunc: func(ctx context.Context, audio []byte, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
 			return nil, errors.New("transcription failed")
 		},
 	}
@@ -246,13 +246,13 @@ func TestTranscribeAudio_MimeTypeMapping(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.mimeType, func(t *testing.T) {
-			var capturedConfig stt.TranscriptionConfig
+			var capturedConfig omnivoice.TranscriptionConfig
 
 			sttProv := &mockSTTProvider{
 				name: "mock-stt",
-				transcribeFunc: func(ctx context.Context, audio []byte, config stt.TranscriptionConfig) (*stt.TranscriptionResult, error) {
+				transcribeFunc: func(ctx context.Context, audio []byte, config omnivoice.TranscriptionConfig) (*omnivoice.TranscriptionResult, error) {
 					capturedConfig = config
-					return &stt.TranscriptionResult{Text: "test"}, nil
+					return &omnivoice.TranscriptionResult{Text: "test"}, nil
 				},
 			}
 			ttsProv := &mockTTSProvider{name: "mock-tts"}
@@ -274,8 +274,8 @@ func TestSynthesizeSpeech_Success(t *testing.T) {
 	sttProv := &mockSTTProvider{name: "mock-stt"}
 	ttsProv := &mockTTSProvider{
 		name: "mock-tts",
-		synthesizeFunc: func(ctx context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error) {
-			return &tts.SynthesisResult{
+		synthesizeFunc: func(ctx context.Context, text string, config omnivoice.SynthesisConfig) (*omnivoice.SynthesisResult, error) {
+			return &omnivoice.SynthesisResult{
 				Audio:  []byte("synthesized audio"),
 				Format: "mp3",
 			}, nil
@@ -305,7 +305,7 @@ func TestSynthesizeSpeech_Error(t *testing.T) {
 	sttProv := &mockSTTProvider{name: "mock-stt"}
 	ttsProv := &mockTTSProvider{
 		name: "mock-tts",
-		synthesizeFunc: func(ctx context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error) {
+		synthesizeFunc: func(ctx context.Context, text string, config omnivoice.SynthesisConfig) (*omnivoice.SynthesisResult, error) {
 			return nil, errors.New("synthesis failed")
 		},
 	}
@@ -338,8 +338,8 @@ func TestSynthesizeSpeech_FormatToMimeType(t *testing.T) {
 			sttProv := &mockSTTProvider{name: "mock-stt"}
 			ttsProv := &mockTTSProvider{
 				name: "mock-tts",
-				synthesizeFunc: func(ctx context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error) {
-					return &tts.SynthesisResult{
+				synthesizeFunc: func(ctx context.Context, text string, config omnivoice.SynthesisConfig) (*omnivoice.SynthesisResult, error) {
+					return &omnivoice.SynthesisResult{
 						Audio:  []byte("audio"),
 						Format: tt.format,
 					}, nil

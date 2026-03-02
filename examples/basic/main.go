@@ -12,12 +12,12 @@ import (
 
 	"github.com/mdp/qrterminal/v3"
 
-	"github.com/agentplexus/omniagent/agent"
-	"github.com/agentplexus/omniagent/config"
-	"github.com/agentplexus/omniagent/gateway"
-	"github.com/agentplexus/omnichat/provider"
-	"github.com/agentplexus/omnichat/providers/telegram"
-	"github.com/agentplexus/omnichat/providers/whatsapp"
+	"github.com/plexusone/omniagent/agent"
+	"github.com/plexusone/omniagent/config"
+	"github.com/plexusone/omniagent/gateway"
+	"github.com/plexusone/omnichat/provider"
+	"github.com/plexusone/omnichat/providers/telegram"
+	"github.com/plexusone/omnichat/providers/whatsapp"
 )
 
 func main() {

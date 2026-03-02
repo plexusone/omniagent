@@ -11,16 +11,16 @@ import (
 	"github.com/mdp/qrterminal/v3"
 	"github.com/spf13/cobra"
 
-	"github.com/agentplexus/omniagent/agent"
-	"github.com/agentplexus/omniagent/gateway"
-	"github.com/agentplexus/omniagent/voice"
-	"github.com/agentplexus/omnichat/provider"
-	"github.com/agentplexus/omnichat/providers/discord"
-	"github.com/agentplexus/omnichat/providers/telegram"
-	"github.com/agentplexus/omnichat/providers/whatsapp"
-	"github.com/agentplexus/omniobserve/integrations/omnillm"
-	"github.com/agentplexus/omniobserve/llmops"
-	_ "github.com/agentplexus/omniobserve/llmops/slog" // Register slog provider
+	"github.com/plexusone/omniagent/agent"
+	"github.com/plexusone/omniagent/gateway"
+	"github.com/plexusone/omniagent/voice"
+	"github.com/plexusone/omnichat/provider"
+	"github.com/plexusone/omnichat/providers/discord"
+	"github.com/plexusone/omnichat/providers/telegram"
+	"github.com/plexusone/omnichat/providers/whatsapp"
+	"github.com/plexusone/omniobserve/integrations/omnillm"
+	"github.com/plexusone/omniobserve/llmops"
+	_ "github.com/plexusone/omniobserve/llmops/slog" // Register slog provider
 )
 
 var (
