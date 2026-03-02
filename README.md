@@ -24,7 +24,7 @@ OmniAgent is a personal AI assistant that routes messages across multiple commun
 ## Installation
 
 ```bash
-go install github.com/agentplexus/omniagent/cmd/omniagent@latest
+go install github.com/plexusone/omniagent/cmd/omniagent@latest
 ```
 
 ## Quick Start
@@ -300,11 +300,11 @@ omniagent version          # Show version information
 
 | Package | Purpose |
 |---------|---------|
-| [omnichat](https://github.com/agentplexus/omnichat) | Unified messaging (WhatsApp, Telegram, Discord) |
-| [omnillm](https://github.com/agentplexus/omnillm) | Multi-provider LLM abstraction |
-| [omnivoice](https://github.com/agentplexus/omnivoice) | Voice STT/TTS interfaces |
-| [omnivoice-deepgram](https://github.com/agentplexus/omnivoice-deepgram) | Deepgram voice provider |
-| [omniobserve](https://github.com/agentplexus/omniobserve) | LLM observability |
+| [omnichat](https://github.com/plexusone/omnichat) | Unified messaging (WhatsApp, Telegram, Discord) |
+| [omnillm](https://github.com/plexusone/omnillm) | Multi-provider LLM abstraction |
+| [omnivoice](https://github.com/plexusone/omnivoice) | Voice STT/TTS interfaces |
+| [omnivoice-deepgram](https://github.com/plexusone/omnivoice-deepgram) | Deepgram voice provider |
+| [omniobserve](https://github.com/plexusone/omniobserve) | LLM observability |
 | [wazero](https://github.com/tetratelabs/wazero) | WASM runtime for sandboxing |
 | [moby](https://github.com/moby/moby) | Docker SDK for container isolation |
 | [Rod](https://github.com/go-rod/rod) | Browser automation |
@@ -312,24 +312,24 @@ omniagent version          # Show version information
 
 ## Related Projects
 
-- [omnichat](https://github.com/agentplexus/omnichat) - Unified messaging provider interface
-- [omnillm](https://github.com/agentplexus/omnillm) - Multi-provider LLM abstraction
-- [omnivoice](https://github.com/agentplexus/omnivoice) - Voice interactions
+- [omnichat](https://github.com/plexusone/omnichat) - Unified messaging provider interface
+- [omnillm](https://github.com/plexusone/omnillm) - Multi-provider LLM abstraction
+- [omnivoice](https://github.com/plexusone/omnivoice) - Voice interactions
 - [OpenClaw](https://github.com/openclaw/openclaw) - Compatible skill format
 
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
 
- [build-status-svg]: https://github.com/agentplexus/omniagent/actions/workflows/ci.yaml/badge.svg?branch=main
- [build-status-url]: https://github.com/agentplexus/omniagent/actions/workflows/ci.yaml
- [lint-status-svg]: https://github.com/agentplexus/omniagent/actions/workflows/lint.yaml/badge.svg?branch=main
- [lint-status-url]: https://github.com/agentplexus/omniagent/actions/workflows/lint.yaml
- [goreport-svg]: https://goreportcard.com/badge/github.com/agentplexus/omniagent
- [goreport-url]: https://goreportcard.com/report/github.com/agentplexus/omniagent
- [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/agentplexus/omniagent
- [docs-godoc-url]: https://pkg.go.dev/github.com/agentplexus/omniagent
+ [build-status-svg]: https://github.com/plexusone/omniagent/actions/workflows/ci.yaml/badge.svg?branch=main
+ [build-status-url]: https://github.com/plexusone/omniagent/actions/workflows/ci.yaml
+ [lint-status-svg]: https://github.com/plexusone/omniagent/actions/workflows/lint.yaml/badge.svg?branch=main
+ [lint-status-url]: https://github.com/plexusone/omniagent/actions/workflows/lint.yaml
+ [goreport-svg]: https://goreportcard.com/badge/github.com/plexusone/omniagent
+ [goreport-url]: https://goreportcard.com/report/github.com/plexusone/omniagent
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/omniagent
+ [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/omniagent
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/agentplexus/omniagent/blob/master/LICENSE
- [used-by-svg]: https://sourcegraph.com/github.com/agentplexus/omniagent/-/badge.svg
- [used-by-url]: https://sourcegraph.com/github.com/agentplexus/omniagent?badge
+ [license-url]: https://github.com/plexusone/omniagent/blob/master/LICENSE
+ [used-by-svg]: https://sourcegraph.com/github.com/plexusone/omniagent/-/badge.svg
+ [used-by-url]: https://sourcegraph.com/github.com/plexusone/omniagent?badge

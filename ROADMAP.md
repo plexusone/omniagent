@@ -65,11 +65,11 @@ This document outlines planned features and improvements for OmniAgent.
 
 | Project | Status | Purpose |
 |---------|--------|---------|
-| [omnillm](https://github.com/agentplexus/omnillm) | Active | Multi-provider LLM abstraction |
-| [omniobserve](https://github.com/agentplexus/omniobserve) | Active | LLM observability |
-| [omnichat](https://github.com/agentplexus/omnichat) | Planned | Channel abstraction |
-| [omnibrowser](https://github.com/agentplexus/omnibrowser) | Planned | Browser abstraction |
-| [omnivoice](https://github.com/agentplexus/omnivoice) | Active | Voice interactions |
+| [omnillm](https://github.com/plexusone/omnillm) | Active | Multi-provider LLM abstraction |
+| [omniobserve](https://github.com/plexusone/omniobserve) | Active | LLM observability |
+| [omnichat](https://github.com/plexusone/omnichat) | Planned | Channel abstraction |
+| [omnibrowser](https://github.com/plexusone/omnibrowser) | Planned | Browser abstraction |
+| [omnivoice](https://github.com/plexusone/omnivoice) | Active | Voice interactions |
 
 ## Contributing
 

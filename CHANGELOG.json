@@ -1,11 +1,31 @@
 {
   "irVersion": "1.0",
   "project": "omniagent",
-  "repository": "https://github.com/agentplexus/omniagent",
+  "repository": "https://github.com/plexusone/omniagent",
   "versioning": "semver",
   "commitConvention": "conventional",
-  "maintainers": ["agentplexus"],
+  "maintainers": ["plexusone", "johncwang@gmail.com"],
   "releases": [
+    {
+      "version": "v0.4.0",
+      "date": "2026-03-01",
+      "highlights": [
+        { "description": "Module migration from agentplexus to plexusone organization" },
+        { "description": "Batteries-included omnivoice with provider registry pattern" }
+      ],
+      "changed": [
+        { "description": "Module path migrated from `github.com/agentplexus/omniagent` to `github.com/plexusone/omniagent`" },
+        { "description": "Voice processor refactored to use `omnivoice.GetSTTProvider()` and `omnivoice.GetTTSProvider()` registry pattern" },
+        { "description": "Removed direct `omnivoice-deepgram` import - now auto-registered via `providers/all`" }
+      ],
+      "dependencies": [
+        { "description": "Upgrade `github.com/plexusone/omnivoice` to v0.5.1 (batteries-included with registry)" },
+        { "description": "Upgrade `github.com/plexusone/omnichat` to v0.3.0" },
+        { "description": "Upgrade `github.com/plexusone/omnillm` to v0.13.0" },
+        { "description": "Upgrade `github.com/plexusone/omniobserve` to v0.7.0" },
+        { "description": "Upgrade `github.com/plexusone/omniserp` to v0.8.0" }
+      ]
+    },
     {
       "version": "v0.3.0",
       "date": "2026-02-22",
@@ -51,9 +71,9 @@
         { "description": "Response mode options: `auto` (voice reply to voice input), `always`, `never`", "commit": "b94f35e" }
       ],
       "dependencies": [
-        { "description": "Add `github.com/agentplexus/omnivoice` v0.4.3", "commit": "b94f35e" },
-        { "description": "Add `github.com/agentplexus/omnivoice-deepgram` v0.3.1", "commit": "b94f35e" },
-        { "description": "Upgrade `github.com/agentplexus/omnichat` to v0.2.0", "commit": "b94f35e" }
+        { "description": "Add `github.com/plexusone/omnivoice` v0.4.3", "commit": "b94f35e" },
+        { "description": "Add `github.com/plexusone/omnivoice-deepgram` v0.3.1", "commit": "b94f35e" },
+        { "description": "Upgrade `github.com/plexusone/omnichat` to v0.2.0", "commit": "b94f35e" }
       ]
     },
     {

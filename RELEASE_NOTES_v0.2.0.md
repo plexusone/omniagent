@@ -67,16 +67,16 @@ omniagent gateway run
 
 ## Dependencies
 
-- Added `github.com/agentplexus/omnivoice` v0.4.3
-- Added `github.com/agentplexus/omnivoice-deepgram` v0.3.1
-- Upgraded `github.com/agentplexus/omnichat` to v0.2.0
+- Added `github.com/plexusone/omnivoice` v0.4.3
+- Added `github.com/plexusone/omnivoice-deepgram` v0.3.1
+- Upgraded `github.com/plexusone/omnichat` to v0.2.0
 
 ## Upgrade Guide
 
 This release is backwards compatible. Voice processing is disabled by default.
 
 ```bash
-go get github.com/agentplexus/omniagent@v0.2.0
+go get github.com/plexusone/omniagent@v0.2.0
 ```
 
 To enable voice, set `OMNIAGENT_VOICE_ENABLED=true` and provide a `DEEPGRAM_API_KEY`.
