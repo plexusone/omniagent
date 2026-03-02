@@ -1,0 +1,212 @@
+# Configuration Reference
+
+Complete reference for OmniAgent configuration options.
+
+## Configuration File
+
+OmniAgent uses YAML or JSON configuration files:
+
+```bash
+omniagent gateway run --config omniagent.yaml
+```
+
+## Gateway
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `gateway.address` | string | `127.0.0.1:18789` | WebSocket server address |
+| `gateway.read_timeout` | duration | `30s` | Read timeout |
+| `gateway.write_timeout` | duration | `30s` | Write timeout |
+| `gateway.ping_interval` | duration | `30s` | WebSocket ping interval |
+
+```yaml
+gateway:
+  address: "127.0.0.1:18789"
+  read_timeout: 30s
+  write_timeout: 30s
+  ping_interval: 30s
+```
+
+## Agent
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `agent.provider` | string | `anthropic` | LLM provider |
+| `agent.model` | string | `claude-sonnet-4-20250514` | Model name |
+| `agent.api_key` | string | - | API key (or use env var) |
+| `agent.temperature` | float | `0.7` | Sampling temperature |
+| `agent.max_tokens` | int | `4096` | Max response tokens |
+| `agent.system_prompt` | string | - | Custom system prompt |
+
+```yaml
+agent:
+  provider: openai
+  model: gpt-4o
+  api_key: ${OPENAI_API_KEY}
+  temperature: 0.7
+  max_tokens: 4096
+  system_prompt: "You are OmniAgent, responding on behalf of the user."
+```
+
+### Supported Providers
+
+| Provider | Models |
+|----------|--------|
+| `openai` | `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo` |
+| `anthropic` | `claude-sonnet-4-20250514`, `claude-3-opus-20240229` |
+| `gemini` | `gemini-2.0-flash`, `gemini-1.5-pro` |
+
+## Channels
+
+### WhatsApp
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `channels.whatsapp.enabled` | bool | `false` | Enable WhatsApp |
+| `channels.whatsapp.db_path` | string | `whatsapp.db` | Session database |
+
+```yaml
+channels:
+  whatsapp:
+    enabled: true
+    db_path: "whatsapp.db"
+```
+
+### Telegram
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `channels.telegram.enabled` | bool | `false` | Enable Telegram |
+| `channels.telegram.token` | string | - | Bot token |
+
+```yaml
+channels:
+  telegram:
+    enabled: true
+    token: ${TELEGRAM_BOT_TOKEN}
+```
+
+### Discord
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `channels.discord.enabled` | bool | `false` | Enable Discord |
+| `channels.discord.token` | string | - | Bot token |
+
+```yaml
+channels:
+  discord:
+    enabled: true
+    token: ${DISCORD_BOT_TOKEN}
+```
+
+## Skills
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `skills.enabled` | bool | `true` | Enable skill loading |
+| `skills.paths` | []string | `[]` | Additional skill directories |
+| `skills.disabled` | []string | `[]` | Skills to skip |
+| `skills.max_injected` | int | `20` | Max skills in prompt |
+
+```yaml
+skills:
+  enabled: true
+  paths:
+    - ~/.omniagent/skills
+    - /opt/shared-skills
+  disabled:
+    - experimental-skill
+  max_injected: 20
+```
+
+## Voice
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `voice.enabled` | bool | `false` | Enable voice processing |
+| `voice.response_mode` | string | `auto` | `auto`, `always`, `never` |
+| `voice.stt.provider` | string | - | STT provider |
+| `voice.stt.model` | string | - | STT model |
+| `voice.tts.provider` | string | - | TTS provider |
+| `voice.tts.model` | string | - | TTS model |
+| `voice.tts.voice_id` | string | - | TTS voice ID |
+
+```yaml
+voice:
+  enabled: true
+  response_mode: auto
+  stt:
+    provider: deepgram
+    model: nova-2
+  tts:
+    provider: deepgram
+    model: aura-asteria-en
+    voice_id: aura-asteria-en
+```
+
+### Voice Providers
+
+| Provider | STT Models | TTS Models |
+|----------|------------|------------|
+| `deepgram` | `nova-2` | `aura-asteria-en`, `aura-luna-en` |
+| `openai` | `whisper-1` | `tts-1`, `tts-1-hd` |
+| `elevenlabs` | - | Various voice IDs |
+
+## Environment Variable Expansion
+
+Configuration values support environment variable expansion:
+
+```yaml
+agent:
+  api_key: ${OPENAI_API_KEY}
+  model: ${OMNIAGENT_MODEL:-gpt-4o}  # With default
+```
+
+## Complete Example
+
+```yaml
+# omniagent.yaml
+gateway:
+  address: "127.0.0.1:18789"
+  read_timeout: 30s
+  write_timeout: 30s
+
+agent:
+  provider: anthropic
+  model: claude-sonnet-4-20250514
+  api_key: ${ANTHROPIC_API_KEY}
+  temperature: 0.7
+  max_tokens: 4096
+  system_prompt: |
+    You are OmniAgent, an AI assistant responding on behalf of the user.
+    Be helpful, concise, and professional.
+
+channels:
+  whatsapp:
+    enabled: true
+    db_path: "whatsapp.db"
+  telegram:
+    enabled: false
+    token: ${TELEGRAM_BOT_TOKEN}
+  discord:
+    enabled: false
+    token: ${DISCORD_BOT_TOKEN}
+
+skills:
+  enabled: true
+  paths:
+    - ~/.omniagent/skills
+  max_injected: 20
+
+voice:
+  enabled: true
+  response_mode: auto
+  stt:
+    provider: deepgram
+    model: nova-2
+  tts:
+    provider: deepgram
+    model: aura-asteria-en
+    voice_id: aura-asteria-en
+```

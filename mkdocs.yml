@@ -1,0 +1,74 @@
+site_name: OmniAgent
+site_description: Your AI representative across communication channels
+site_url: https://plexusone.github.io/omniagent
+repo_url: https://github.com/plexusone/omniagent
+repo_name: plexusone/omniagent
+
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Guides:
+    - WhatsApp Setup: guides/whatsapp.md
+    - Voice Integration: guides/voice.md
+    - Skills Development: guides/skills.md
+    - Sandboxing: guides/sandboxing.md
+  - Architecture:
+    - Overview: architecture/overview.md
+    - Skills System: architecture/skills.md
+  - Reference:
+    - Configuration: reference/configuration.md
+    - CLI Commands: reference/cli.md
+    - Environment Variables: reference/environment.md
+  - Releases:
+    - v0.4.0: releases/v0.4.0.md
+    - v0.3.0: releases/v0.3.0.md
+    - v0.2.0: releases/v0.2.0.md
+    - v0.1.0: releases/v0.1.0.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/plexusone/omniagent
