@@ -11,14 +11,14 @@ OmniAgent is a personal AI assistant that routes messages across multiple commun
 
 ## Features
 
-- **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
-- **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
-- **Voice Notes** - Transcribe incoming voice, respond with synthesized speech via OmniVoice
-- **Skills System** - Extensible skills compatible with OpenClaw/ClawHub
-- **Secure Sandboxing** - WASM and Docker isolation for tool execution
-- **Browser Automation** - Built-in browser control via Rod
-- **WebSocket Gateway** - Real-time control plane for device connections
-- **Observability** - Integrated tracing via omniobserve
+- 💬 **Multi-Channel Support** - Telegram, Discord, Slack, WhatsApp, and more
+- 🤖 **AI-Powered Responses** - Powered by omnillm (Claude, GPT, Gemini, etc.)
+- 🎤 **Voice Notes** - Transcribe incoming voice, respond with synthesized speech via OmniVoice
+- 🧩 **Skills System** - Extensible skills compatible with OpenClaw/ClawHub
+- 🔒 **Secure Sandboxing** - WASM and Docker isolation for tool execution
+- 🌐 **Browser Automation** - Built-in browser control via Rod
+- 🔌 **WebSocket Gateway** - Real-time control plane for device connections
+- 📊 **Observability** - Integrated tracing via omniobserve
 
 ## Quick Start
 
