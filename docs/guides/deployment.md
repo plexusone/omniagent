@@ -157,26 +157,8 @@ export PULUMI_CONFIG_PASSPHRASE=""
 
 ### Step 6: Provide Secrets
 
-!!! warning "SSM-backed `secrets:` is not wired through yet (RMI-OMNIAGENT-006)"
-    omnideploy's Pulumi Lightsail backend currently reads only the
-    `environment:` map — a `secrets:` block (or `agent.api_key: ${VAR}`)
-    is parsed into a `SecretRef` but silently ignored at deploy time,
-    producing a container with **no API key**. Until RMI-OMNIAGENT-006
-    lands, pass secrets as `${VAR}`-expanded environment entries, exactly
-    as `deploy/lightsail/deploy.yaml` does:
-
-```yaml
-deploy:
-  environment:
-    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
-```
-
-The variables are read from your shell at deploy time (e.g. exported by a
-git-ignored `.envrc`) and land as plaintext container environment
-variables — acceptable for a smoke deploy, and the reason RMI-OMNIAGENT-006
-(SSM SecureString end-to-end) is the follow-up.
-
-For when that lands, the intended flow is:
+Store each secret in SSM Parameter Store as a `SecureString` (the IAM
+policy from Step 5 already scopes access to `/<app-name>/*`):
 
 ```bash
 aws ssm put-parameter \
@@ -185,11 +167,31 @@ aws ssm put-parameter \
     --type SecureString
 ```
 
+Reference them from `deploy.secrets` (RMI-OMNIAGENT-006):
+
 ```yaml
-secrets:
-  - name: ANTHROPIC_API_KEY
-    source: ssm:/<app-name>/anthropic-api-key
+deploy:
+  secrets:
+    - name: ANTHROPIC_API_KEY
+      source: ssm:/<app-name>/anthropic-api-key
 ```
+
+Supported sources are `env:VAR` (deploying shell), `ssm:/path`
+(SecureString, decrypted at deploy time), and `secretsmanager:name`.
+Every ref must resolve to a non-empty value — a missing secret fails the
+deploy up front instead of shipping a container with a silently absent
+credential. Resolved values are injected as Pulumi secrets, so they are
+**encrypted in Pulumi state**, and the deploying shell needs no secret
+env vars at all for `ssm:`/`secretsmanager:` sources.
+
+!!! note "Lightsail ceiling"
+    Lightsail containers have no task IAM role and no native secret
+    references, so resolved values still become container environment
+    variables visible in the Lightsail console to anyone with
+    `lightsail:Get*`. Deploy-time resolution centralizes storage,
+    rotation (update the parameter, rerun `omnideploy up`), and
+    CloudTrail audit — full runtime injection arrives with an ECS
+    target.
 
 ### Step 7: Preview Deployment
 
@@ -459,10 +461,10 @@ Two gotchas learned from the first real deploy:
 
 ### Secrets Management
 
-See the warning in Step 6 above: until RMI-OMNIAGENT-006 lands, pass
-secrets via `deploy.environment` `${VAR}` expansion — the `secrets:`
-block below is parsed but **not yet applied** by the Pulumi Lightsail
-backend:
+Declare secrets under `deploy.secrets` (see Step 6 for sources and the
+Lightsail visibility ceiling). On a name collision with an
+`environment:` entry the secret wins, so promoting a variable from
+plain env to a secret needs no removal of the old key:
 
 ```yaml
 secrets:

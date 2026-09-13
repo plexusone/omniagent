@@ -2,7 +2,7 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 23 of 34 items completed
+**Status:** Executing — 24 of 34 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
@@ -31,10 +31,11 @@
 ## Phase 2 — Deployment Hardening
 
 **Theme:** Make the deployment production-safe: secrets, durable storage, and CI-buildable images.
-**Status:** In progress — 3 of 5 items completed
+**Status:** In progress — 4 of 5 items completed
 
-- [ ] `RMI-OMNIAGENT-006` SSM-backed secret injection in omnideploy Lightsail target
+- [x] `RMI-OMNIAGENT-006` SSM-backed secret injection in omnideploy Lightsail target
   - - Acceptance: `SecretRef` (`ssm:`/`secretsmanager:`) resolved and injected; secrets never land in plaintext env or Pulumi state (schema exists; target does not yet consume `cfg.Secrets`)
+  - - Shipped (in `omnideploy`, three commits): a `secrets` resolver package (`env:`/`ssm:` SecureString/`secretsmanager:` sources, every ref must resolve non-empty so a missing secret fails the deploy up front), wired into the Pulumi backend's `Apply`/`Preview` with resolved values injected via `pulumi.ToSecret` (encrypted in state — verified zero plaintext occurrences in the live state file), plus a `deploy.secrets` pass-through in the omniagent adapter. This repo's `deploy/lightsail/deploy.yaml` now sources all three secrets from `ssm:/omniagent/*`; the deploying shell needs no secret env vars at all (verified with them explicitly unset). Documented ceiling: Lightsail has no task IAM roles or native secret refs, so resolved values remain console-visible container env vars — full runtime injection arrives with an ECS target. Rotation = update the SSM parameter, rerun `omnideploy up`.
 - [x] `RMI-OMNIAGENT-007` Durable session/cron storage on Lightsail
   - - Acceptance: session and cron state survive a redeploy (Lightsail Container Service has no volumes; SQLite at `STORAGE_PATH` is ephemeral)
   - - Shipped: config-driven `storage.type` (`sqlite`/`redis`/`memory`) + `sessions.enabled`/`sessions.ttl`, matching the surface `docs/reference/configuration.md` had documented as "planned"; `gateway run` now builds the backend and wires `agent.WithStorage`/`WithSessionStore` for every agent, and `agent.WithCronScheduler()` for the single-agent path (multi-agent mode skips it — one shared job store, one scheduler, avoids duplicate firing). Also fixed a real gap found in the process: `gateway/handlers.go`'s Discord/WebSocket chat path called the stateless `Process` unconditionally despite a "conversation continuity" comment — it now dispatches to `ProcessWithSession` via a new `gateway.SessionAwareProcessor` capability check whenever a session store is configured, so persisted history is actually used, not just stored.
