@@ -68,6 +68,21 @@ func loadEnv(cfg *Config) {
 		cfg.Gateway.Address = v
 	}
 
+	// Web UI + personal-mode auth (container deployments have no config
+	// file, so the embedded SPA must be switchable from the environment).
+	if v := os.Getenv("OMNIAGENT_WEB_ENABLED"); v == "true" || v == "1" {
+		cfg.Web.Enabled = true
+	}
+	if v := os.Getenv("OMNIAGENT_AUTH_ENABLED"); v == "true" || v == "1" {
+		cfg.Auth.Enabled = true
+	}
+	if v := os.Getenv("OMNIAGENT_AUTH_OWNER_EMAIL"); v != "" {
+		cfg.Auth.OwnerEmail = v
+	}
+	if v := os.Getenv("OMNIAGENT_AUTH_BASE_URL"); v != "" {
+		cfg.Auth.BaseURL = v
+	}
+
 	// Agent
 	if v := os.Getenv("OMNIAGENT_AGENT_PROVIDER"); v != "" {
 		cfg.Agent.Provider = v

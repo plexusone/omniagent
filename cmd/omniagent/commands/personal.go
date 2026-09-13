@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/uuid"
@@ -37,8 +39,22 @@ const (
 // itself (PLAN.md Deployment Modes). authHTTP is nil when auth is off. The
 // returned cleanup closes the store; call it on shutdown.
 func setupPersonalMode(ctx context.Context, cfg *config.Config, agentInstance *agent.Agent, logger *slog.Logger) (chatHTTP *gateway.PersonalChatHTTP, authHTTP *gateway.TeamHTTP, cleanup func(), err error) {
+	// Personal mode must not require a team.database block: default to a
+	// SQLite file next to the main storage database (or the standard data
+	// directory) so `web.enabled: true` works with zero extra config.
+	dsn := cfg.Team.Database.AppDSN
+	if dsn == "" {
+		base := cfg.Storage.Path
+		if base == "" {
+			base = config.DefaultStoragePath()
+		}
+		if mkErr := os.MkdirAll(filepath.Dir(base), 0o700); mkErr != nil {
+			return nil, nil, nil, fmt.Errorf("create personal store directory: %w", mkErr)
+		}
+		dsn = "file:" + filepath.Join(filepath.Dir(base), "personal.db")
+	}
 	storeCfg := teamstore.Config{
-		AppDSN: cfg.Team.Database.AppDSN,
+		AppDSN: dsn,
 		Logger: logger,
 	}
 	if err := teamstore.Migrate(ctx, storeCfg); err != nil {
