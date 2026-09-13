@@ -64,7 +64,8 @@ jobs:
           provenance: mode=max
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v4
+        # cosign-installer publishes no floating major tag — pin exact.
+        uses: sigstore/cosign-installer@v4.1.2
 
       # Keyless signature over the pushed digest; verifiable with
       #   cosign verify \
