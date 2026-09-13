@@ -15,6 +15,10 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  # Docker Hub mirror for discoverability (RMI-OMNIAGENT-033). GHCR is
+  # canonical — Docker Hub throttles anonymous pulls, so production pulls
+  # should use ghcr.io. Personal namespace: Docker Hub orgs are paid.
+  DOCKERHUB_IMAGE: docker.io/grokify/omniagent
 
 jobs:
   build-and-push:
@@ -38,11 +42,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Requires DOCKERHUB_USERNAME + DOCKERHUB_TOKEN repo secrets (a
+      # Docker personal access token with Read & Write scope).
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            ${{ env.DOCKERHUB_IMAGE }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -72,7 +86,9 @@ jobs:
       #     --certificate-identity-regexp 'github.com/plexusone/omniagent' \
       #     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
       #     ghcr.io/plexusone/omniagent:<tag>
-      - name: Sign image (keyless)
+      - name: Sign images (keyless)
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
-        run: cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${DIGEST}"
+        run: |
+          cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${DIGEST}"
+          cosign sign --yes "${DOCKERHUB_IMAGE}@${DIGEST}"
