@@ -1025,6 +1025,30 @@ See [omni-livekit avatar documentation](https://github.com/plexusone/omni-liveki
 
 These agents use [omni-livekit](https://github.com/plexusone/omni-livekit) for LiveKit transport.
 
+## Deployment
+
+OmniAgent ships as a single container. The **Docker Build & Publish**
+GitHub Actions workflow publishes `ghcr.io/plexusone/omniagent`
+(`:latest` and semver tags on `v*` releases; `:latest` + `:smoke` on a
+manual run), and [OmniDeploy](https://github.com/plexusone/omnideploy)
+deploys it declaratively to AWS Lightsail via Pulumi:
+
+```bash
+export AWS_PROFILE="omniagent-omnideploy"   # least-privilege IAM profile
+omnideploy up \
+    --config deploy/lightsail/deploy.yaml \
+    --target lightsail \
+    --backend pulumi
+```
+
+- `deploy/lightsail/deploy.yaml` — tested single-operator (personal-mode)
+  Lightsail config, annotated with the sharp edges found deploying for
+  real. See the [Deployment guide](docs/guides/deployment.md) for the
+  full walkthrough (IAM policy, GHCR visibility, Pulumi state, secrets).
+- `deploy/team/prod/` — self-hosted **team-mode** stack (Caddy +
+  PostgreSQL via Docker Compose on one VM). See the
+  [Team Deployment guide](docs/guides/team-deployment.md).
+
 ## Architecture
 
 ```
