@@ -4,6 +4,7 @@ package commands
 import (
 	"fmt"
 	"log/slog"
+	"os"
 
 	"github.com/spf13/cobra"
 
@@ -43,7 +44,13 @@ Show configuration:
 		// Wrap the default logger before config loading resolves any
 		// secrets, so every resolved value is masked in log output for the
 		// lifetime of the process (RMI-OMNIAGENT-204).
-		slog.SetDefault(slog.New(redact.NewHandler(slog.Default().Handler())))
+		//
+		// The wrapped handler must write directly to a file descriptor:
+		// wrapping slog.Default().Handler() (the stdlib bridge into the
+		// legacy log package) while slog.SetDefault rewires that same log
+		// package back into this handler forms a cycle that self-deadlocks
+		// on log.Logger's non-reentrant mutex at the first emitted record.
+		slog.SetDefault(slog.New(redact.NewHandler(slog.NewTextHandler(os.Stderr, nil))))
 
 		var err error
 		cfg, err = config.Load(cfgFile)
