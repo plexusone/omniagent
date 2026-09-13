@@ -153,11 +153,11 @@ func NewGateway(cfg GatewayConfig) (*Gateway, error) {
 	if llmModel == "" {
 		switch cfg.LLMProvider {
 		case "anthropic":
-			llmModel = "claude-sonnet-4-20250514"
+			llmModel = "claude-sonnet-5"
 		case "openai":
 			llmModel = "gpt-4o"
 		default:
-			llmModel = "claude-sonnet-4-20250514"
+			llmModel = "claude-sonnet-5"
 		}
 	}
 

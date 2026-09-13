@@ -81,6 +81,7 @@ type ModelPricing struct {
 
 // Default pricing for common models (per 1K tokens).
 var defaultPricing = map[string]ModelPricing{
+	"claude-sonnet-5":            {PromptPer1K: 0.003, CompletionPer1K: 0.015},
 	"claude-sonnet-4-20250514":   {PromptPer1K: 0.003, CompletionPer1K: 0.015},
 	"claude-3-5-sonnet-20241022": {PromptPer1K: 0.003, CompletionPer1K: 0.015},
 	"claude-3-opus-20240229":     {PromptPer1K: 0.015, CompletionPer1K: 0.075},

@@ -10,7 +10,7 @@
 //	export LIVEKIT_API_KEY="your-api-key"
 //	export LIVEKIT_API_SECRET="your-api-secret"
 //	export LLM_PROVIDER="anthropic"        # or "openai"
-//	export LLM_MODEL="claude-sonnet-4-20250514"
+//	export LLM_MODEL="claude-sonnet-5"
 //	export ANTHROPIC_API_KEY="your-key"    # or OPENAI_API_KEY
 //	export STT_PROVIDER="deepgram"         # for human mode
 //	export DEEPGRAM_API_KEY="your-key"
@@ -85,7 +85,7 @@ func main() {
 	// Provider configuration
 	ttsProviderName := getEnvOrDefault("TTS_PROVIDER", "openai")
 	llmProvider := getEnvOrDefault("LLM_PROVIDER", "anthropic")
-	llmModel := getEnvOrDefault("LLM_MODEL", "claude-sonnet-4-20250514")
+	llmModel := getEnvOrDefault("LLM_MODEL", "claude-sonnet-5")
 
 	// Panel configuration
 	panelMode := getEnvOrDefault("PANEL_MODE", "human")

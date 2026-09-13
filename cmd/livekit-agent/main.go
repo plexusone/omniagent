@@ -66,7 +66,7 @@ func main() {
 	sttProviderName := getEnvOrDefault("STT_PROVIDER", "deepgram")
 	ttsProviderName := getEnvOrDefault("TTS_PROVIDER", "openai")
 	llmProvider := getEnvOrDefault("LLM_PROVIDER", "anthropic")
-	llmModel := getEnvOrDefault("LLM_MODEL", "claude-sonnet-4-20250514")
+	llmModel := getEnvOrDefault("LLM_MODEL", "claude-sonnet-5")
 
 	// Avatar configuration
 	// AVATAR_PROVIDER: "static", "tavus", or "" (none/audio-only)

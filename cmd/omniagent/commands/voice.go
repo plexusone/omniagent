@@ -119,7 +119,7 @@ func init() {
 	voiceServeCmd.Flags().StringVar(&voiceTTSProvider, "tts", "elevenlabs", "TTS provider (elevenlabs, openai, google)")
 	voiceServeCmd.Flags().StringVar(&voiceTTSVoiceID, "voice", "", "TTS voice ID")
 	voiceServeCmd.Flags().StringVar(&voiceLLMProvider, "llm", "", "LLM provider (anthropic, openai) - auto-detected if not specified")
-	voiceServeCmd.Flags().StringVar(&voiceLLMModel, "model", "", "LLM model (default: claude-sonnet-4-20250514)")
+	voiceServeCmd.Flags().StringVar(&voiceLLMModel, "model", "", "LLM model (default: claude-sonnet-5)")
 	voiceServeCmd.Flags().StringVar(&voiceSystemPrompt, "system-prompt", "", "Custom system prompt for the agent")
 	voiceServeCmd.Flags().StringVar(&voiceGreeting, "greeting", "", "Initial greeting message when call connects")
 	voiceServeCmd.Flags().BoolVar(&voiceNgrok, "ngrok", false, "Use ngrok tunnel for public URL (requires NGROK_AUTHTOKEN)")

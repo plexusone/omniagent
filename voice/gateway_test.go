@@ -399,7 +399,7 @@ func TestNewGateway_TwilioSuccessWithDefaults(t *testing.T) {
 	if gw == nil {
 		t.Fatal("NewGateway() returned nil gateway")
 	}
-	if gw.llmModel != "claude-sonnet-4-20250514" {
+	if gw.llmModel != "claude-sonnet-5" {
 		t.Errorf("llmModel = %q, want default claude model", gw.llmModel)
 	}
 	if gw.config.ListenAddr != ":8080" {

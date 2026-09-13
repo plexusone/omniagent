@@ -76,7 +76,7 @@ func runSetup(cmd *cobra.Command, args []string) error {
 	switch providerChoice {
 	case "", "1":
 		cfg.Agent.Provider = "anthropic"
-		cfg.Agent.Model = "claude-sonnet-4-20250514"
+		cfg.Agent.Model = "claude-sonnet-5"
 		fmt.Println()
 		fmt.Println("Enter your Anthropic API key.")
 		fmt.Println("Get one at: https://console.anthropic.com/settings/keys")
