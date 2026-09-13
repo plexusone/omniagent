@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -23,9 +24,22 @@ func Load(path string) (*Config, error) {
 func LoadWithContext(ctx context.Context, path string) (*Config, error) {
 	cfg := Default()
 
-	if path != "" {
+	switch {
+	case path != "":
 		if err := loadFile(path, &cfg); err != nil {
 			return nil, fmt.Errorf("load config file: %w", err)
+		}
+	case os.Getenv("OMNIAGENT_CONFIG_B64") != "":
+		// Full config injection for container platforms with no volume
+		// mounts (RMI-OMNIAGENT-031): a base64-encoded YAML/JSON config
+		// supplied through one env var, decoded in-process (never written
+		// to disk). An explicit --config path wins over it; individual
+		// OMNIAGENT_* env vars still override on top, same as for a file.
+		// Keep credentials out of the payload — it lands in the same
+		// platform-visible env as everything else; use vault bindings or
+		// deploy-time secret injection for values.
+		if err := loadB64(os.Getenv("OMNIAGENT_CONFIG_B64"), &cfg); err != nil {
+			return nil, fmt.Errorf("load OMNIAGENT_CONFIG_B64: %w", err)
 		}
 	}
 
@@ -37,6 +51,35 @@ func LoadWithContext(ctx context.Context, path string) (*Config, error) {
 	}
 
 	return &cfg, nil
+}
+
+// loadB64 decodes a base64-encoded YAML or JSON config document into cfg.
+// Both standard and URL-safe alphabets are accepted, with or without
+// padding, since deploy tooling differs in which it emits.
+func loadB64(encoded string, cfg *Config) error {
+	encoded = strings.TrimSpace(encoded)
+	var data []byte
+	var err error
+	for _, dec := range []*base64.Encoding{
+		base64.StdEncoding, base64.RawStdEncoding,
+		base64.URLEncoding, base64.RawURLEncoding,
+	} {
+		if data, err = dec.DecodeString(encoded); err == nil {
+			break
+		}
+	}
+	if err != nil {
+		return fmt.Errorf("decoding base64: %w", err)
+	}
+
+	// YAML first (it is a JSON superset for our purposes), then JSON, the
+	// same fallback order loadFile uses for extensionless paths.
+	if yerr := yaml.Unmarshal(data, cfg); yerr != nil {
+		if jerr := json.Unmarshal(data, cfg); jerr != nil {
+			return fmt.Errorf("parsing decoded config: %w", yerr)
+		}
+	}
+	return nil
 }
 
 // loadFile reads configuration from a YAML or JSON file.
