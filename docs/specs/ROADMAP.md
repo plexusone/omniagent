@@ -2,14 +2,14 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 21 of 30 items completed
+**Status:** Executing — 23 of 34 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
 ## Phase 1 — Cloud Deployment
 
 **Theme:** Ship OmniAgent as a Discord bot on AWS Lightsail via omnideploy from a public GHCR image.
-**Status:** In progress — 2 of 5 items completed
+**Status:** Complete — 5 of 5 items completed
 
 - [x] `RMI-OMNIAGENT-001` Discord 2000-character message chunking in omnichat
   - - Acceptance: replies over 2000 chars split into multiple messages; rune-based, breaks on paragraph/newline/space; shipped as omnichat v0.8.1 and linked into the omniagent binary
@@ -18,18 +18,20 @@
 - [x] `RMI-OMNIAGENT-003` Publish container image to GHCR (public)
   - Depends on: `RMI-OMNIAGENT-002`
   - - Shipped: `.github/workflows/docker.yaml` builds and pushes `ghcr.io/plexusone/omniagent` on `v*` tag push (`:vX.Y.Z`, `:X.Y`, `:latest`), or `:smoke` via manual `workflow_dispatch`. `docs/guides/deployment.md` corrected to describe the actual tag-triggered behavior instead of "any push." One manual one-time step remains outside CI's reach: an admin must set the GHCR package visibility to Public after the first push (already documented in the guide's "GHCR Authentication" section) — `GITHUB_TOKEN` can't do this itself.
-- [ ] `RMI-OMNIAGENT-004` Lightsail deployment via omnideploy
+- [x] `RMI-OMNIAGENT-004` Lightsail deployment via omnideploy
   - Depends on: `RMI-OMNIAGENT-003`
   - - Acceptance: `omnideploy up --target lightsail --backend pulumi` provisions a running service with the Discord/agent/Serper env
+  - - Shipped: `omniagent-discord` container service ACTIVE in `us-west-2` (micro, deployment v2) at its Lightsail HTTPS URL, deployed via `omnideploy up` with a least-privilege IAM profile (`lightsail:*` + SSM scoped to `/omniagent/*`) and a local-file Pulumi backend. The first deployment (v1) failed and led to three product fixes: a slog/log bridge cycle that deadlocked every CLI run before its first log line (`0908a72`), a `/api/health` route that container health checks probed but the gateway never served (`a24f5d2`), and a `temperature: 0.7` default that newer Claude models reject outright (`4fef85a`). Also switched the target region to `us-west-2` (identical Lightsail pricing, smaller incident blast radius than `us-east-1`) and enabled the embedded web UI + personal-mode auth over the public endpoint (`f15c431`, `0abcb4c`).
   - - Prep done, not yet run (needs AWS credentials this session doesn't have): `deploy/lightsail/deploy.yaml` written for the `omnideploy` "omniagent" runtime adapter. Also fixed the Dockerfile's `ENTRYPOINT`/`CMD` split — LightSail's `command` field maps to Docker `CMD` (appended to `ENTRYPOINT`, not a replacement), so the adapter's hardcoded `Args: ["gateway", "run"]` would have doubled up against an all-in-`ENTRYPOINT` image. Three bugs found and fixed **in `omnideploy` itself** while verifying this against its actual source (not just its docs): `${VAR}`/`${VAR:-default}` expansion was documented but never implemented anywhere in the module (`bfea43f`); adapter auto-detection iterated a Go map in nondeterministic order, so an ambiguously-named config could resolve to the wrong adapter from run to run (`04040a7`); and `agent.api_key: ${VAR}` converts to a `SecretRef` the Lightsail/Pulumi backend never actually reads (still open — this is exactly `RMI-OMNIAGENT-006`'s scope), worked around here by setting secrets via `deploy.environment` directly instead.
-- [ ] `RMI-OMNIAGENT-005` Deployment smoke test on Lightsail
+- [x] `RMI-OMNIAGENT-005` Deployment smoke test on Lightsail
   - Depends on: `RMI-OMNIAGENT-004`
   - - Acceptance: `/health` green; a Discord message triggers a chunked reply; `web_search` (Serper) returns current results
+  - - Shipped: against the live service — `/health` and `/api/health` 200; SPA served over Lightsail TLS; `/api/capabilities` reports `authRequired`; unauthenticated `/api/chat` rejected 401; full magic-link login round-trip (request → link from container log → verify → session cookie → authenticated chat 200); container log confirms `discord bot connected` and gateway bound on `0.0.0.0:8080`.
 
 ## Phase 2 — Deployment Hardening
 
 **Theme:** Make the deployment production-safe: secrets, durable storage, and CI-buildable images.
-**Status:** In progress — 2 of 5 items completed
+**Status:** In progress — 3 of 5 items completed
 
 - [ ] `RMI-OMNIAGENT-006` SSM-backed secret injection in omnideploy Lightsail target
   - - Acceptance: `SecretRef` (`ssm:`/`secretsmanager:`) resolved and injected; secrets never land in plaintext env or Pulumi state (schema exists; target does not yet consume `cfg.Secrets`)
@@ -112,3 +114,16 @@
   - - Acceptance: `CheckOrigin` in `gateway/gateway.go` enforces configurable allowlist; rejects requests from unlisted origins
 - [x] `RMI-OMNIAGENT-030` Gateway WebSocket authentication
   - - Acceptance: `handleAuth` in `gateway/handlers.go` validates tokens/credentials; supports API key and JWT authentication
+
+## Phase 7 — Reusable Public Image
+
+**Theme:** Make the published container a deployment-agnostic, multi-arch, supply-chain-verified artifact usable beyond this repo's own deployments.
+**Status:** Planned — 0 of 4 items completed
+- [ ] `RMI-OMNIAGENT-031` Full config injection via environment (`OMNIAGENT_CONFIG_B64`)
+  - - Acceptance: entrypoint accepts a complete config file through a single env var (base64), closing the gap where nested config (team mode, per-skill config, vault bindings) is unreachable on platforms without volume mounts (Lightsail). The personal-mode web UI env vars (`OMNIAGENT_WEB_ENABLED`/`OMNIAGENT_AUTH_*`) shipped as the first installment; this generalizes it.
+- [ ] `RMI-OMNIAGENT-032` Multi-arch image build (linux/arm64)
+  - - Acceptance: `Docker Build & Publish` produces a linux/amd64 + linux/arm64 manifest so the public image runs on Graviton and Apple Silicon without emulation.
+- [ ] `RMI-OMNIAGENT-033` DockerHub mirror publish
+  - - Acceptance: image mirrored to DockerHub for discoverability, gated on `DOCKERHUB_USERNAME`/`DOCKERHUB_TOKEN` repo secrets; GHCR remains canonical (DockerHub anonymous pulls are rate-limited).
+- [ ] `RMI-OMNIAGENT-034` SBOM and cosign signing on image publish
+  - - Acceptance: the publish workflow emits an SBOM and signs the image with provenance attestation (cosign) — pre-announcement supply-chain requirement.
