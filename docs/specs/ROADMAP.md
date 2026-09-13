@@ -2,7 +2,7 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 27 of 34 items completed
+**Status:** Executing — 28 of 34 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
@@ -119,15 +119,16 @@
 ## Phase 7 — Reusable Public Image
 
 **Theme:** Make the published container a deployment-agnostic, multi-arch, supply-chain-verified artifact usable beyond this repo's own deployments.
-**Status:** In progress — 3 of 4 items completed
+**Status:** Complete — 4 of 4 items completed
 - [x] `RMI-OMNIAGENT-031` Full config injection via environment (`OMNIAGENT_CONFIG_B64`)
   - - Acceptance: entrypoint accepts a complete config file through a single env var (base64), closing the gap where nested config (team mode, per-skill config, vault bindings) is unreachable on platforms without volume mounts (Lightsail). The personal-mode web UI env vars (`OMNIAGENT_WEB_ENABLED`/`OMNIAGENT_AUTH_*`) shipped as the first installment; this generalizes it.
   - - Shipped: decoded in `config.LoadWithContext` itself rather than an entrypoint script — the payload never touches disk. Any base64 alphabet, padded or not; YAML or JSON. Precedence: explicit `--config` wins entirely; individual `OMNIAGENT_*` env vars override on top, matching file semantics. Documented with a keep-credentials-out caveat (the payload lands in platform-visible env; secrets stay in `deploy.secrets`/vault bindings).
 - [x] `RMI-OMNIAGENT-032` Multi-arch image build (linux/arm64)
   - - Acceptance: `Docker Build & Publish` produces a linux/amd64 + linux/arm64 manifest so the public image runs on Graviton and Apple Silicon without emulation.
   - - Shipped: builder stage pinned to `BUILDPLATFORM` with `GOOS`/`GOARCH` from `TARGETOS`/`TARGETARCH` — the Go compile stays native (no QEMU) and, notably, this fixed a latent bug where the hardcoded `GOARCH=amd64` would have shipped amd64 binaries inside arm64 images. Verified on GHCR: the `:latest` index lists `linux/amd64` and `linux/arm64` image manifests.
-- [ ] `RMI-OMNIAGENT-033` DockerHub mirror publish
+- [x] `RMI-OMNIAGENT-033` DockerHub mirror publish
   - - Acceptance: image mirrored to DockerHub for discoverability, gated on `DOCKERHUB_USERNAME`/`DOCKERHUB_TOKEN` repo secrets; GHCR remains canonical (DockerHub anonymous pulls are rate-limited).
+  - - Shipped: one metadata invocation publishes every build to both `ghcr.io/plexusone/omniagent` (canonical) and `docker.io/grokify/omniagent` (mirror — personal namespace, Docker Hub orgs are paid), same digest, cosign signing both refs. Credentials are `plexusone` org-level secrets. Verified on Docker Hub: multi-arch index (amd64+arm64) with SBOM/provenance attestation entries and a passing local `cosign verify` against the docker.io ref.
 - [x] `RMI-OMNIAGENT-034` SBOM and cosign signing on image publish
   - - Acceptance: the publish workflow emits an SBOM and signs the image with provenance attestation (cosign) — pre-announcement supply-chain requirement.
   - - Shipped: BuildKit `sbom: true` + `provenance: mode=max` attach SBOM and SLSA provenance attestation manifests to the pushed index (visible as the two `unknown/unknown` attestation entries), and keyless cosign signs the digest via the workflow's OIDC identity (`id-token: write`; cosign-installer pinned to exact `v4.1.2` — no floating major tag exists). Verified end-to-end with a local `cosign verify` against the Fulcio CA and Rekor transparency log. Note: cosign v3 pushes the signature in bundle format under a bare `sha256-<digest>` tag (GHCR lacks the OCI referrers API, so the tag fallback is used — there is no `.sig` suffix anymore).
