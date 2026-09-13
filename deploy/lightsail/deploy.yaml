@@ -28,15 +28,11 @@
 #      (127.0.0.1:18789), the health check hits the wrong port, and the
 #      deployment never goes healthy.
 #
-#   2. agent.api_key: ${VAR} is intentionally NOT used here. The adapter
-#      converts it into a SecretRef (config.SecretRef{Source: "env:VAR"}),
-#      but backend/pulumi/pulumi.go's deployLightsail() never reads
-#      cfg.Secrets at all — only cfg.Environment. Using agent.api_key would
-#      silently produce a container with no API key. ANTHROPIC_API_KEY is
-#      passed directly via deploy.environment instead, consistent with
-#      docs/specs/PLAN.md's "plaintext env for the smoke test" scoping.
-#      Both of these are still open as RMI-OMNIAGENT-006 (SSM-backed
-#      secrets, plumbed all the way through the backend).
+#   2. Secrets flow through deploy.secrets (RMI-OMNIAGENT-006, shipped):
+#      the Pulumi backend resolves env:/ssm:/secretsmanager: sources at
+#      deploy time and injects them as Pulumi-secret env values (encrypted
+#      in state). A missing/unset secret fails the deploy up front instead
+#      of shipping a container with a silently absent credential.
 #
 #   3. Two fixes landed in the omnideploy repo itself (not this one)
 #      alongside this file — pull the latest omnideploy (main, commit
@@ -68,9 +64,6 @@ deploy:
     size: micro
   environment:
     OMNIAGENT_GATEWAY_ADDRESS: "0.0.0.0:8080"
-    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
-    DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
-    SERPER_API_KEY: ${SERPER_API_KEY}
     # Embedded web UI over the Lightsail HTTPS endpoint. Auth is REQUIRED
     # when the UI is exposed publicly — without it the chat page spends
     # the Anthropic key for anyone who finds the URL. Personal-mode auth
@@ -82,3 +75,17 @@ deploy:
     OMNIAGENT_AUTH_ENABLED: "true"
     OMNIAGENT_AUTH_OWNER_EMAIL: ${OMNIAGENT_AUTH_OWNER_EMAIL}
     OMNIAGENT_AUTH_BASE_URL: "https://omniagent-discord.xdx76784ypt9m.us-west-2.cs.amazonlightsail.com"
+  # Secrets resolve at deploy time (RMI-OMNIAGENT-006): SSM SecureString
+  # values are fetched with the deploying profile's scoped IAM policy and
+  # land in Pulumi state encrypted (pulumi.ToSecret), never plaintext.
+  # Lightsail ceiling still applies: the resolved values are container
+  # env vars visible in the Lightsail console (no task roles/valueFrom
+  # there) — full runtime injection arrives with the ECS target.
+  # Rotate by updating the SSM parameter and rerunning `omnideploy up`.
+  secrets:
+    - name: ANTHROPIC_API_KEY
+      source: ssm:/omniagent/anthropic-api-key
+    - name: DISCORD_BOT_TOKEN
+      source: ssm:/omniagent/discord-bot-token
+    - name: SERPER_API_KEY
+      source: ssm:/omniagent/serper-api-key
