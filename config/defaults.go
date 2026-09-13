@@ -13,7 +13,7 @@ func Default() Config {
 		},
 		Agent: AgentConfig{
 			Provider: "anthropic",
-			Model:    "claude-sonnet-4-20250514",
+			Model:    "claude-sonnet-5",
 			// Temperature is deliberately left 0 ("use the provider's
 			// default"): newer Claude models (Sonnet 4.6+/5, Opus 4.6+)
 			// reject requests that set temperature at all, so it is only

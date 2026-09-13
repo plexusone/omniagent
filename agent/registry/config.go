@@ -19,7 +19,7 @@ type AgentConfig struct {
 	// Provider is the LLM provider (e.g., "anthropic", "openai").
 	Provider string `json:"provider" yaml:"provider"`
 
-	// Model is the LLM model to use (e.g., "claude-sonnet-4-20250514").
+	// Model is the LLM model to use (e.g., "claude-sonnet-5").
 	Model string `json:"model" yaml:"model"`
 
 	// APIKey is the API key for the provider (optional, can use env var).
