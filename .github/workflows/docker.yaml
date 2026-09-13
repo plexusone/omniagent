@@ -2,6 +2,9 @@ name: Docker Build & Publish
 permissions:
   contents: read
   packages: write
+  # Keyless cosign signing exchanges the workflow's OIDC identity for a
+  # short-lived signing certificate (RMI-OMNIAGENT-034).
+  id-token: write
 
 on:
   push:
@@ -19,6 +22,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      # QEMU covers the runtime stage's RUN steps for arm64; the Go build
+      # itself cross-compiles natively (see Dockerfile).
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -42,10 +50,28 @@ jobs:
             type=raw,value=smoke,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v7
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # BuildKit attestations: an SBOM (syft) and SLSA provenance are
+          # attached to the pushed manifest (RMI-OMNIAGENT-034).
+          sbom: true
+          provenance: mode=max
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v4
+
+      # Keyless signature over the pushed digest; verifiable with
+      #   cosign verify \
+      #     --certificate-identity-regexp 'github.com/plexusone/omniagent' \
+      #     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+      #     ghcr.io/plexusone/omniagent:<tag>
+      - name: Sign image (keyless)
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${DIGEST}"
