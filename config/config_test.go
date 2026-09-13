@@ -22,8 +22,10 @@ func TestDefault(t *testing.T) {
 	if cfg.Agent.Provider != "anthropic" {
 		t.Errorf("Agent.Provider = %s, want anthropic", cfg.Agent.Provider)
 	}
-	if cfg.Agent.Temperature != 0.7 {
-		t.Errorf("Agent.Temperature = %f, want 0.7", cfg.Agent.Temperature)
+	// Zero means "use the provider's default": newer Claude models reject
+	// requests that set temperature, so it must not default to a value.
+	if cfg.Agent.Temperature != 0 {
+		t.Errorf("Agent.Temperature = %f, want 0 (unset)", cfg.Agent.Temperature)
 	}
 
 	// Channels disabled by default
