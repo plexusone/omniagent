@@ -2,6 +2,25 @@
 
 Complete reference for OmniAgent environment variables.
 
+## Configuration Injection
+
+| Variable | Description |
+|----------|-------------|
+| `OMNIAGENT_CONFIG_B64` | A complete YAML or JSON config document, base64-encoded (any alphabet, padded or not). Decoded in-process — never written to disk. Reaches nested config (team mode, per-skill config, vault bindings) that individual env vars cannot express, which makes every config-file feature deployable on platforms without volume mounts (e.g. Lightsail). Precedence: an explicit `--config` path wins over it entirely; individual `OMNIAGENT_*` env vars still override on top. Keep credential values out of the payload — use vault bindings (`env://…`) or deploy-time secret injection instead. |
+
+```bash
+OMNIAGENT_CONFIG_B64=$(base64 < omniagent.yaml)
+```
+
+## Web UI and Personal Auth
+
+| Variable | Description |
+|----------|-------------|
+| `OMNIAGENT_WEB_ENABLED` | `true`/`1` serves the embedded SPA and `/api/capabilities` |
+| `OMNIAGENT_AUTH_ENABLED` | `true`/`1` requires login for the web UI in personal mode |
+| `OMNIAGENT_AUTH_OWNER_EMAIL` | Sole account permitted to log in (personal single-account mode) |
+| `OMNIAGENT_AUTH_BASE_URL` | Externally visible origin for magic links and cookie security |
+
 ## LLM Providers
 
 | Variable | Description |
@@ -15,9 +34,7 @@ Complete reference for OmniAgent environment variables.
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `OMNIAGENT_AGENT_PROVIDER` | LLM provider: `openai`, `anthropic`, `gemini` | `anthropic` |
-| `OMNIAGENT_AGENT_MODEL` | Model name | `claude-sonnet-4-20250514` |
-| `OMNIAGENT_AGENT_TEMPERATURE` | Sampling temperature | `0.7` |
-| `OMNIAGENT_AGENT_MAX_TOKENS` | Max response tokens | `4096` |
+| `OMNIAGENT_AGENT_MODEL` | Model name | `claude-sonnet-5` |
 
 ## Channels
 
