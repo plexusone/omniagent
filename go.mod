@@ -19,7 +19,7 @@ require (
 	github.com/grokify/echartify v0.2.3
 	github.com/grokify/mogo v0.74.8
 	github.com/jackc/pgx/v5 v5.11.0
-	github.com/livekit/protocol v1.51.0
+	github.com/livekit/protocol v1.50.4
 	github.com/livekit/server-sdk-go/v2 v2.18.1
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.56.0
@@ -29,7 +29,7 @@ require (
 	github.com/pion/webrtc/v4 v4.2.20
 	github.com/pkoukk/tiktoken-go v0.1.8
 	github.com/plexusone/agentauth v0.2.0
-	github.com/plexusone/omni-livekit v0.5.0
+	github.com/plexusone/omni-livekit v0.5.1
 	github.com/plexusone/omnichat v0.8.1
 	github.com/plexusone/omniimage v0.1.0
 	github.com/plexusone/omnillm v0.17.0
@@ -54,7 +54,7 @@ require (
 	go.opentelemetry.io/otel/metric v1.46.0
 	go.opentelemetry.io/otel/trace v1.46.0
 	golang.ngrok.com/ngrok v1.13.0
-	golang.org/x/net v0.58.0
+	golang.org/x/net v0.59.0
 	golang.org/x/oauth2 v0.37.0
 	golang.org/x/sync v0.23.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -74,29 +74,29 @@ require (
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/1password/onepassword-sdk-go v0.4.1 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/OpenRouterTeam/go-sdk v0.7.121 // indirect
+	github.com/OpenRouterTeam/go-sdk v0.7.132 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/aistandardsio/agent-protocols v0.7.0 // indirect
-	github.com/anthropics/anthropic-sdk-go v1.71.0 // indirect
+	github.com/anthropics/anthropic-sdk-go v1.72.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/apparentlymart/go-textseg/v17 v17.0.1 // indirect
 	github.com/at-wat/ebml-go v0.19.2 // indirect
-	github.com/aws/aws-sdk-go-v2 v1.46.0 // indirect
+	github.com/aws/aws-sdk-go-v2 v1.47.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.20 // indirect
-	github.com/aws/aws-sdk-go-v2/config v1.33.3 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.20.3 // indirect
-	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.19.2 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.2 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.2 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.2 // indirect
-	github.com/aws/aws-sdk-go-v2/service/bedrockruntime v1.61.0 // indirect
+	github.com/aws/aws-sdk-go-v2/config v1.33.4 // indirect
+	github.com/aws/aws-sdk-go-v2/credentials v1.20.4 // indirect
+	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.20.0 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.3 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.3 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/bedrockruntime v1.62.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.19 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.2 // indirect
-	github.com/aws/aws-sdk-go-v2/service/signin v1.9.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sso v1.37.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.42.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sts v1.49.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/signin v1.10.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sso v1.38.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.43.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sts v1.50.0 // indirect
 	github.com/aws/smithy-go v1.28.1 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/beeper/argo-go v1.1.2 // indirect
@@ -144,7 +144,7 @@ require (
 	github.com/google/go-querystring v1.2.0 // indirect
 	github.com/google/jsonschema-go v0.4.3 // indirect
 	github.com/google/s2a-go v0.1.9 // indirect
-	github.com/googleapis/enterprise-certificate-proxy v0.3.21 // indirect
+	github.com/googleapis/enterprise-certificate-proxy v0.3.22 // indirect
 	github.com/googleapis/gax-go/v2 v2.24.1 // indirect
 	github.com/gorilla/schema v1.4.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
@@ -173,7 +173,7 @@ require (
 	github.com/livekit/mageutil v0.0.0-20250511045019-0f1ff63f7731 // indirect
 	github.com/livekit/media-sdk v0.1.1 // indirect
 	github.com/livekit/mediatransportutil v0.0.0-20260821083140-f234b534b095 // indirect
-	github.com/livekit/psrpc v0.7.6 // indirect
+	github.com/livekit/psrpc v0.7.7 // indirect
 	github.com/magefile/mage v1.17.2 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
@@ -202,10 +202,10 @@ require (
 	github.com/pion/rtp v1.10.5 // indirect
 	github.com/pion/sctp v1.11.1 // indirect
 	github.com/pion/sdp/v3 v3.0.19 // indirect
-	github.com/pion/srtp/v3 v3.0.14 // indirect
+	github.com/pion/srtp/v3 v3.0.15 // indirect
 	github.com/pion/stun/v4 v4.0.0 // indirect
 	github.com/pion/transport/v4 v4.1.0 // indirect
-	github.com/pion/turn/v5 v5.1.0 // indirect
+	github.com/pion/turn/v5 v5.1.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/plexusone/elevenlabs-go v0.13.0 // indirect
 	github.com/plexusone/ogen-tools v0.3.0 // indirect
@@ -243,7 +243,7 @@ require (
 	github.com/tidwall/match v1.2.0 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
-	github.com/twilio/twilio-go v1.31.0 // indirect
+	github.com/twilio/twilio-go v1.31.1 // indirect
 	github.com/twitchtv/twirp v8.1.3+incompatible // indirect
 	github.com/vektah/gqlparser/v2 v2.5.37 // indirect
 	github.com/wlynxg/anet v0.0.5 // indirect
@@ -259,7 +259,7 @@ require (
 	github.com/zeebo/xxh3 v1.1.0 // indirect
 	go.mau.fi/libsignal v0.2.2 // indirect
 	go.mau.fi/util v0.10.1-0.20260820140024-eb612d936fde // indirect
-	go.mau.fi/whatsmeow v0.0.0-20260904121843-28bfe537ea6a // indirect
+	go.mau.fi/whatsmeow v0.0.0-20260909164725-b25a56d63729 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/bridges/otelslog v0.20.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.71.0 // indirect
@@ -286,18 +286,18 @@ require (
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.6 // indirect
 	golang.ngrok.com/muxado/v2 v2.0.1 // indirect
-	golang.org/x/crypto v0.56.0
-	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
-	golang.org/x/mod v0.40.0 // indirect
-	golang.org/x/sys v0.47.0 // indirect
-	golang.org/x/term v0.45.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
-	golang.org/x/time v0.15.0 // indirect
-	golang.org/x/tools v0.49.0 // indirect
+	golang.org/x/crypto v0.57.0
+	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba // indirect
+	golang.org/x/mod v0.41.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
+	golang.org/x/term v0.46.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
+	golang.org/x/time v0.16.0 // indirect
+	golang.org/x/tools v0.50.0 // indirect
 	google.golang.org/api v0.297.0 // indirect
 	google.golang.org/genai v1.71.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20260904194346-d0f1323225a4 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260904194346-d0f1323225a4 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260911204522-f61a6ca850bd // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260911204522-f61a6ca850bd // indirect
 	google.golang.org/grpc v1.83.2 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/hraban/opus.v2 v2.0.0-20230925203106-0188a62cb302 // indirect
@@ -319,3 +319,5 @@ replace github.com/ysmood/fetchup => github.com/ysmood/fetchup v0.2.3
 
 // Force log15/v3 to version compatible with ngrok v1.13.0 (has ext.RandId)
 replace github.com/inconshreveable/log15/v3 => github.com/inconshreveable/log15/v3 v3.0.0-testing.5
+
+exclude github.com/livekit/protocol v1.51.0
