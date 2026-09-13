@@ -62,6 +62,8 @@ nav:
     - Web UI Authentication: guides/authentication.md
     - Virtual Agents: guides/agents.md
     - Multi-Agent Setup: guides/multi-agent.md
+    - Agent Roles: guides/roles.md
+    - Roles Migration: guides/roles-migration.md
     - Deployment: guides/deployment.md
     - Twilio Setup: guides/twilio.md
     - WhatsApp Setup: guides/whatsapp.md
@@ -76,6 +78,7 @@ nav:
     - Scheduled Jobs: guides/cron.md
     - Context Management: guides/context.md
     - Event Hooks: guides/hooks.md
+    - Observability: guides/observability.md
     - Sandboxing: guides/sandboxing.md
     - Agent Profiles: guides/profiles.md
     - Access Policies: guides/policies.md

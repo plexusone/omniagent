@@ -59,7 +59,7 @@ Pushing a version tag (`vX.Y.Z`) triggers `.github/workflows/docker.yaml`
 automatically (RMI-OMNIAGENT-003), publishing
 `ghcr.io/<owner>/<repo>:vX.Y.Z`, `:X.Y`, and `:latest`. Trigger a one-off
 build without a tag via **Actions → Docker Build & Publish → Run
-workflow**, which publishes a `:smoke` tag instead.
+workflow**, which publishes `:latest` plus a `:smoke` tag.
 
 **Option B: Build locally**
 
@@ -118,39 +118,72 @@ Verify installation:
 omnideploy --version
 ```
 
-### Step 5: Configure AWS Credentials
+### Step 5: Configure AWS Credentials and the Pulumi Backend
+
+Create a dedicated IAM user with a least-privilege policy rather than
+using broad account credentials. The deploy needs:
+
+- `lightsail:*` (Lightsail is a self-contained blast radius)
+- `ssm:PutParameter`/`GetParameter`/`GetParameters`/`GetParametersByPath`/
+  `DeleteParameter`/`AddTagsToResource` scoped to
+  `arn:aws:ssm:<region>:*:parameter/<app-name>/*`
+- `kms:Encrypt`/`kms:Decrypt` conditioned on
+  `kms:ViaService: ssm.<region>.amazonaws.com`
+
+Store the key as a named profile so it's clear what it deploys:
 
 ```bash
-export AWS_ACCESS_KEY_ID="your-access-key"
-export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_REGION="us-east-1"
+aws configure --profile <app-name>-omnideploy
+export AWS_PROFILE="<app-name>-omnideploy"
 ```
 
-Or use AWS CLI profiles:
+!!! tip "Region choice"
+    Lightsail's bundled pricing is identical in every supported region, so
+    there is no cost reason to pick `us-east-1` — and it carries an
+    outsized incident-history blast radius as AWS's oldest and most
+    complex region. Prefer `us-west-2` (or `us-east-2`): same price tier
+    now *and* for a later ECS/Fargate/RDS migration. Note Lightsail is not
+    offered in `us-west-1`.
+
+`omnideploy`'s Pulumi backend also needs a state backend and passphrase.
+For a first deploy, local file state with an empty passphrase is fine
+(no secrets are stored in stack config — they pass through the
+environment):
 
 ```bash
-export AWS_PROFILE="your-profile"
+export PULUMI_BACKEND_URL="file://$HOME/.pulumi-state-<app-name>"
+export PULUMI_CONFIG_PASSPHRASE=""
 ```
 
-### Step 6: Store Secrets in AWS SSM (Recommended)
+### Step 6: Provide Secrets
 
-Store API keys securely instead of in environment variables:
+!!! warning "SSM-backed `secrets:` is not wired through yet (RMI-OMNIAGENT-006)"
+    omnideploy's Pulumi Lightsail backend currently reads only the
+    `environment:` map — a `secrets:` block (or `agent.api_key: ${VAR}`)
+    is parsed into a `SecretRef` but silently ignored at deploy time,
+    producing a container with **no API key**. Until RMI-OMNIAGENT-006
+    lands, pass secrets as `${VAR}`-expanded environment entries, exactly
+    as `deploy/lightsail/deploy.yaml` does:
+
+```yaml
+deploy:
+  environment:
+    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+```
+
+The variables are read from your shell at deploy time (e.g. exported by a
+git-ignored `.envrc`) and land as plaintext container environment
+variables — acceptable for a smoke deploy, and the reason RMI-OMNIAGENT-006
+(SSM SecureString end-to-end) is the follow-up.
+
+For when that lands, the intended flow is:
 
 ```bash
-# Anthropic API key
 aws ssm put-parameter \
     --name "/<app-name>/anthropic-api-key" \
     --value "sk-ant-..." \
     --type SecureString
-
-# Other API keys
-aws ssm put-parameter \
-    --name "/<app-name>/other-api-key" \
-    --value "..." \
-    --type SecureString
 ```
-
-Update `deploy.yaml` to reference secrets:
 
 ```yaml
 secrets:
@@ -160,9 +193,14 @@ secrets:
 
 ### Step 7: Preview Deployment
 
+For this repository the tested, annotated config is
+`deploy/lightsail/deploy.yaml` — start from it rather than writing one
+from scratch; its comments record the sharp edges found deploying for
+real.
+
 ```bash
 omnideploy preview \
-    --config deploy.yaml \
+    --config deploy/lightsail/deploy.yaml \
     --target lightsail \
     --backend pulumi
 ```
@@ -173,7 +211,7 @@ Review the resources that will be created.
 
 ```bash
 omnideploy up \
-    --config deploy.yaml \
+    --config deploy/lightsail/deploy.yaml \
     --target lightsail \
     --backend pulumi \
     --yes
@@ -384,49 +422,47 @@ go install github.com/plexusone/omnideploy/cmd/omnideploy@latest
 
 ### Configuration File
 
-Create `deploy.yaml`:
+omnideploy detects the config's *runtime adapter* from its shape. A file
+with top-level `gateway:`/`agent:` keys selects the **omniagent adapter**
+(the schema used by this repo's tested
+[`deploy/lightsail/deploy.yaml`](https://github.com/plexusone/omniagent/blob/main/deploy/lightsail/deploy.yaml)):
 
 ```yaml
-name: my-agent
-version: "1.0.0"
-region: us-east-1
+gateway:
+  address: "0.0.0.0:8080"   # must match the Dockerfile's EXPOSE/HEALTHCHECK port
 
-container:
+agent:
+  provider: anthropic
+  model: claude-sonnet-5
+
+deploy:
+  name: my-agent
+  region: us-west-2
   image: ghcr.io/example/my-agent:latest
-  ports:
-    - container_port: 8080
-      protocol: HTTP
-      name: api
-  health_check:
-    path: /health
-    interval: 30s
-    timeout: 5s
-    healthy_threshold: 2
-    unhealthy_threshold: 3
-
-service:
-  replicas: 1
-  public: true
-
-resources:
-  # LightSail sizes: nano, micro, small, medium, large, xlarge
-  size: small
-
-environment:
-  OMNIAGENT_GATEWAY_ADDRESS: "0.0.0.0:8080"
-  STORAGE_PATH: "/data/omniagent.db"
-  OMNIAGENT_AGENT_PROVIDER: "anthropic"
-  OMNIAGENT_AGENT_MODEL: "claude-sonnet-5"
-
-tags:
-  app: my-agent
-  environment: production
-  managed-by: omnideploy
+  replicas: 1               # keep 1 for stateful channels (e.g. Discord WebSocket)
+  resources:
+    size: micro             # LightSail sizes: nano, micro, small, medium, large, xlarge
+  environment:
+    OMNIAGENT_GATEWAY_ADDRESS: "0.0.0.0:8080"
+    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
 ```
+
+Two gotchas learned from the first real deploy:
+
+1. The adapter derives the container *port* from `gateway.address` but
+   does **not** inject `OMNIAGENT_GATEWAY_ADDRESS` into the container
+   environment — without the explicit entry above, the process binds its
+   default `127.0.0.1:18789`, the health check probes the wrong port, and
+   the deployment never goes healthy.
+2. `${VAR}` (and `${VAR:-default}`) values in `environment:` are expanded
+   from the deploying shell's environment.
 
 ### Secrets Management
 
-For sensitive values like API keys, use AWS Secrets Manager:
+See the warning in Step 6 above: until RMI-OMNIAGENT-006 lands, pass
+secrets via `deploy.environment` `${VAR}` expansion — the `secrets:`
+block below is parsed but **not yet applied** by the Pulumi Lightsail
+backend:
 
 ```yaml
 secrets:
@@ -434,15 +470,6 @@ secrets:
     source: ssm:/my-agent/anthropic-api-key
   - name: MY_SKILL_API_KEY
     source: ssm:/my-agent/skill-api-key
-```
-
-Store secrets in AWS:
-
-```bash
-aws ssm put-parameter \
-    --name "/my-agent/anthropic-api-key" \
-    --value "sk-ant-..." \
-    --type SecureString
 ```
 
 ## Deploying to AWS LightSail
@@ -456,10 +483,10 @@ aws ssm put-parameter \
 ### Deploy
 
 ```bash
-# Set AWS credentials
-export AWS_ACCESS_KEY_ID="your-key"
-export AWS_SECRET_ACCESS_KEY="your-secret"
-export AWS_REGION="us-east-1"
+# Use the named least-privilege profile from Step 5
+export AWS_PROFILE="my-agent-omnideploy"
+export PULUMI_BACKEND_URL="file://$HOME/.pulumi-state-my-agent"
+export PULUMI_CONFIG_PASSPHRASE=""
 
 # Preview deployment
 omnideploy preview --config deploy.yaml --target lightsail --backend pulumi
@@ -472,10 +499,10 @@ omnideploy up --config deploy.yaml --target lightsail --backend pulumi --yes
 
 ```bash
 # Get service URL from deployment output
-curl https://my-agent.xxxxx.us-east-1.cs.amazonlightsail.com/health
+curl https://my-agent.xxxxx.us-west-2.cs.amazonlightsail.com/health
 
 # Test chat endpoint
-curl https://my-agent.xxxxx.us-east-1.cs.amazonlightsail.com/openai/v1/chat/completions \
+curl https://my-agent.xxxxx.us-west-2.cs.amazonlightsail.com/openai/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{"model":"my-agent","messages":[{"role":"user","content":"Hello"}]}'
 ```
@@ -581,7 +608,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
+          AWS_REGION: us-west-2
         run: |
           omnideploy up \
             --config deploy.yaml \
