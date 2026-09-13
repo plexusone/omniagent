@@ -22,7 +22,10 @@
 # ---------------------------------------------------------------------------
 # Build stage
 # ---------------------------------------------------------------------------
-FROM golang:1.26-alpine AS builder
+# --platform=$BUILDPLATFORM keeps the Go toolchain native on the build
+# host and cross-compiles via GOARCH, so a multi-arch build doesn't run
+# the compiler under QEMU emulation (RMI-OMNIAGENT-032).
+FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
 
 WORKDIR /build
 
@@ -33,7 +36,8 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+ARG TARGETOS TARGETARCH
+RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH:-amd64} go build \
     -ldflags="-s -w" \
     -o omniagent \
     ./cmd/omniagent
