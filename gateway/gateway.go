@@ -169,6 +169,9 @@ func (g *Gateway) Run(ctx context.Context) error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ws", g.handleWebSocket)
 	mux.HandleFunc("/health", g.handleHealth)
+	// Alias used by container health checks (Dockerfile HEALTHCHECK and
+	// omnideploy's Lightsail endpoint default probe /api/health).
+	mux.HandleFunc("/api/health", g.handleHealth)
 
 	// Mount metrics endpoint if enabled
 	if g.metrics != nil {
