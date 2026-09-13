@@ -61,7 +61,7 @@ agent:
 
 deploy:
   name: omniagent-discord
-  region: us-east-1
+  region: us-west-2
   image: ghcr.io/plexusone/omniagent:latest
   replicas: 1 # required — Discord's WebSocket connection is stateful (RMI-OMNIAGENT-008)
   resources:
@@ -71,3 +71,14 @@ deploy:
     ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
     DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
     SERPER_API_KEY: ${SERPER_API_KEY}
+    # Embedded web UI over the Lightsail HTTPS endpoint. Auth is REQUIRED
+    # when the UI is exposed publicly — without it the chat page spends
+    # the Anthropic key for anyone who finds the URL. Personal-mode auth
+    # is magic-link; with no SMTP configured the link is printed to the
+    # container log (aws lightsail get-container-log) — fetch it there to
+    # sign in. Chat history is ephemeral: Lightsail containers have no
+    # persistent volume, so the personal SQLite store resets on redeploy.
+    OMNIAGENT_WEB_ENABLED: "true"
+    OMNIAGENT_AUTH_ENABLED: "true"
+    OMNIAGENT_AUTH_OWNER_EMAIL: ${OMNIAGENT_AUTH_OWNER_EMAIL}
+    OMNIAGENT_AUTH_BASE_URL: "https://omniagent-discord.xdx76784ypt9m.us-west-2.cs.amazonlightsail.com"
