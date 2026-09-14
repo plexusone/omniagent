@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2956,7 +2956,7 @@
 <h2 id="quick-start-with-whatsapp">Quick Start with WhatsApp<a class="headerlink" href="#quick-start-with-whatsapp" title="Permanent link">&para;</a></h2>
 <p>The fastest way to get started is with WhatsApp and OpenAI:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Set your OpenAI API key</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-..."</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Run with WhatsApp enabled</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nv">OMNIAGENT_AGENT_PROVIDER</span><span class="o">=</span>openai<span class="w"> </span><span class="se">\</span>
@@ -2969,18 +2969,18 @@
 <p>For more control, create a configuration file:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># omniagent.yaml</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">gateway</span><span class="p">:</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">"127.0.0.1:18789"</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;127.0.0.1:18789&quot;</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nt">agent</span><span class="p">:</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span><span class="w">          </span><span class="c1"># or: anthropic, gemini</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span><span class="w">             </span><span class="c1"># or: claude-sonnet-5, gemini-2.0-flash</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">"You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">OmniAgent,</span><span class="nv"> </span><span class="s">responding</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">behalf</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">user."</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">OmniAgent,</span><span class="nv"> </span><span class="s">responding</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">behalf</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">user.&quot;</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nt">channels</span><span class="p">:</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="nt">whatsapp</span><span class="p">:</span>
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nt">db_path</span><span class="p">:</span><span class="w"> </span><span class="s">"whatsapp.db"</span><span class="w">  </span><span class="c1"># Session storage</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nt">db_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;whatsapp.db&quot;</span><span class="w">  </span><span class="c1"># Session storage</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">  </span><span class="nt">telegram</span><span class="p">:</span>
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -3012,7 +3012,7 @@
 </code></pre></div>
 <h2 id="using-different-llm-providers">Using Different LLM Providers<a class="headerlink" href="#using-different-llm-providers" title="Permanent link">&para;</a></h2>
 <h3 id="anthropic-claude">Anthropic (Claude)<a class="headerlink" href="#anthropic-claude" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">"sk-ant-..."</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nv">OMNIAGENT_AGENT_PROVIDER</span><span class="o">=</span>anthropic<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nv">OMNIAGENT_AGENT_MODEL</span><span class="o">=</span>claude-sonnet-5<span class="w"> </span><span class="se">\</span>
@@ -3020,7 +3020,7 @@
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>omniagent<span class="w"> </span>gateway<span class="w"> </span>run
 </code></pre></div>
 <h3 id="google-gemini">Google Gemini<a class="headerlink" href="#google-gemini" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nv">OMNIAGENT_AGENT_PROVIDER</span><span class="o">=</span>gemini<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nv">OMNIAGENT_AGENT_MODEL</span><span class="o">=</span>gemini-2.0-flash<span class="w"> </span><span class="se">\</span>
@@ -3042,17 +3042,17 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>websocat<span class="w"> </span>ws://localhost:8080/ws
 </code></pre></div>
 <p>Then send JSON messages interactively:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"ping"</span><span class="p">}</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"chat"</span><span class="p">,</span><span class="nt">"content"</span><span class="p">:</span><span class="s2">"What tools do you have?"</span><span class="p">}</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"chat"</span><span class="p">,</span><span class="nt">"content"</span><span class="p">:</span><span class="s2">"Search for recent AAPL news"</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;ping&quot;</span><span class="p">}</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;chat&quot;</span><span class="p">,</span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="s2">&quot;What tools do you have?&quot;</span><span class="p">}</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;chat&quot;</span><span class="p">,</span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="s2">&quot;Search for recent AAPL news&quot;</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="one-liner-test">One-Liner Test<a class="headerlink" href="#one-liner-test" title="Permanent link">&para;</a></h3>
 <p>For quick validation in scripts or CI:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"type":"chat","content":"Search for recent AAPL news"}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>websocat<span class="w"> </span>ws://localhost:8080/ws
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;type&quot;:&quot;chat&quot;,&quot;content&quot;:&quot;Search for recent AAPL news&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>websocat<span class="w"> </span>ws://localhost:8080/ws
 </code></pre></div>
 <p>This tests the built-in <code>web_search</code> tool which supports web, news, and image searches via omniserp.</p>
 <p>Expected response format:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"response"</span><span class="p">,</span><span class="nt">"content"</span><span class="p">:</span><span class="s2">"Here are the recent news articles about AAPL..."</span><span class="p">,</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;response&quot;</span><span class="p">,</span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="s2">&quot;Here are the recent news articles about AAPL...&quot;</span><span class="p">,</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="debugging-tips">Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permanent link">&para;</a></h3>
 <ol>
@@ -3062,8 +3062,8 @@
 <li><strong>Connection refused?</strong> Ensure <code>STORAGE_PATH</code> points to a writable location (default <code>/data</code> requires root)</li>
 </ol>
 <p>Set environment variables for local development:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_PATH</span><span class="o">=</span><span class="s2">"./omniagent.db"</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SERPER_API_KEY</span><span class="o">=</span><span class="s2">"your_serper_key"</span><span class="w">  </span><span class="c1"># For web_search tool</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_PATH</span><span class="o">=</span><span class="s2">&quot;./omniagent.db&quot;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SERPER_API_KEY</span><span class="o">=</span><span class="s2">&quot;your_serper_key&quot;</span><span class="w">  </span><span class="c1"># For web_search tool</span>
 </code></pre></div>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
@@ -3148,7 +3148,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

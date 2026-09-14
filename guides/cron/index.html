@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3114,12 +3114,12 @@ library API, which embedding binaries can still use directly.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <p>Enable the cron scheduler when creating your agent:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/agent"</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnistorage-core/kvs/backend/sqlite"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/agent&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs/backend/sqlite&quot;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// Create storage backend (required for job persistence)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">"omniagent.db"</span><span class="p">})</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omniagent.db&quot;</span><span class="p">})</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// Create agent with cron support</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
@@ -3244,25 +3244,25 @@ library API, which embedding binaries can still use directly.</p>
 <h3 id="send_message">send_message<a class="headerlink" href="#send_message" title="Permanent link">&para;</a></h3>
 <p>Send a message to a session via the agent:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"action_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"send_message"</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"session_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user-123"</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Don't forget to check your calendar!"</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;action_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;send_message&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-123&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Don&#39;t forget to check your calendar!&quot;</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="call_webhook">call_webhook<a class="headerlink" href="#call_webhook" title="Permanent link">&para;</a></h3>
 <p>Make an HTTP request to a URL:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"action_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"call_webhook"</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"webhook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/notify"</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"webhook_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POST"</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;action_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_webhook&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;webhook_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/notify&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;webhook_method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="call_tool">call_tool<a class="headerlink" href="#call_tool" title="Permanent link">&para;</a></h3>
 <p>Invoke a registered tool:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">"action_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"call_tool"</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">"tool_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weather_check"</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">"tool_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco"</span><span class="p">}</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;action_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_tool&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;tool_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;weather_check&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;tool_params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;San Francisco&quot;</span><span class="p">}</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="job-states">Job States<a class="headerlink" href="#job-states" title="Permanent link">&para;</a></h2>
@@ -3294,32 +3294,32 @@ library API, which embedding binaries can still use directly.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>User: Schedule a daily reminder at 9am to check my calendar
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>LLM calls: cron_create(
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  name="Calendar Reminder",
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  schedule_cron="0 0 9 * * *",
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  action_type="send_message",
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  session_id="user-123",
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  message="Good morning! Here's your calendar check reminder."
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  name=&quot;Calendar Reminder&quot;,
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  schedule_cron=&quot;0 0 9 * * *&quot;,
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  action_type=&quot;send_message&quot;,
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  session_id=&quot;user-123&quot;,
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  message=&quot;Good morning! Here&#39;s your calendar check reminder.&quot;
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>)
 </code></pre></div>
 <h3 id="hourly-health-check">Hourly Health Check<a class="headerlink" href="#hourly-health-check" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>User: Set up an hourly health check for our API
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>LLM calls: cron_create(
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  name="API Health Check",
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  schedule_interval="1h",
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  action_type="call_webhook",
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  webhook_url="https://api.example.com/health"
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  name=&quot;API Health Check&quot;,
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  schedule_interval=&quot;1h&quot;,
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  action_type=&quot;call_webhook&quot;,
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  webhook_url=&quot;https://api.example.com/health&quot;
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>)
 </code></pre></div>
 <h3 id="one-time-notification">One-Time Notification<a class="headerlink" href="#one-time-notification" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>User: Remind me about the meeting at 2:30pm today
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>LLM calls: cron_create(
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  name="Meeting Reminder",
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  schedule_once="2026-04-22T14:30:00Z",
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  action_type="send_message",
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  session_id="user-123",
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  message="Your meeting starts in 5 minutes!"
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  name=&quot;Meeting Reminder&quot;,
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  schedule_once=&quot;2026-04-22T14:30:00Z&quot;,
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  action_type=&quot;send_message&quot;,
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  session_id=&quot;user-123&quot;,
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  message=&quot;Your meeting starts in 5 minutes!&quot;
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>)
 </code></pre></div>
 <h3 id="list-and-manage-jobs">List and Manage Jobs<a class="headerlink" href="#list-and-manage-jobs" title="Permanent link">&para;</a></h3>
@@ -3329,24 +3329,24 @@ library API, which embedding binaries can still use directly.</p>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>User: Pause the calendar reminder
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>LLM calls: cron_disable(id="abc123")
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>LLM calls: cron_disable(id=&quot;abc123&quot;)
 <a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
 <a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>User: Run the health check now
 <a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>LLM calls: cron_trigger(id="def456")
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>LLM calls: cron_trigger(id=&quot;def456&quot;)
 </code></pre></div>
 <h2 id="programmatic-usage">Programmatic Usage<a class="headerlink" href="#programmatic-usage" title="Permanent link">&para;</a></h2>
 <p>You can also use the cron package directly:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="s">"context"</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="s">"time"</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="s">&quot;context&quot;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="s">&quot;time&quot;</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/cron"</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnistorage-core/kvs/backend/sqlite"</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/cron&quot;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs/backend/sqlite&quot;</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">)</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
 <a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1">// Create store</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">"jobs.db"</span><span class="p">})</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jobs.db&quot;</span><span class="p">})</span>
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="nx">store</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cron</span><span class="p">.</span><span class="nx">NewStore</span><span class="p">(</span><span class="nx">cron</span><span class="p">.</span><span class="nx">StoreConfig</span><span class="p">{</span><span class="nx">Backend</span><span class="p">:</span><span class="w"> </span><span class="nx">backend</span><span class="p">})</span>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1">// Create scheduler with custom handler</span>
@@ -3369,13 +3369,13 @@ library API, which embedding binaries can still use directly.</p>
 <a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>
 <a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="c1">// Create a job</span>
 <a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cron</span><span class="p">.</span><span class="nx">NewJob</span><span class="p">(</span>
-<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">    </span><span class="s">"job-1"</span><span class="p">,</span>
-<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">    </span><span class="s">"Daily Report"</span><span class="p">,</span>
-<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">    </span><span class="nx">cron</span><span class="p">.</span><span class="nx">Schedule</span><span class="p">{</span><span class="nx">Cron</span><span class="p">:</span><span class="w"> </span><span class="s">"0 0 9 * * *"</span><span class="p">},</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">    </span><span class="s">&quot;job-1&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">    </span><span class="s">&quot;Daily Report&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">    </span><span class="nx">cron</span><span class="p">.</span><span class="nx">Schedule</span><span class="p">{</span><span class="nx">Cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0 0 9 * * *&quot;</span><span class="p">},</span>
 <a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="w">    </span><span class="nx">cron</span><span class="p">.</span><span class="nx">Action</span><span class="p">{</span>
 <a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="w">        </span><span class="nx">Type</span><span class="p">:</span><span class="w">      </span><span class="nx">cron</span><span class="p">.</span><span class="nx">ActionTypeSendMessage</span><span class="p">,</span>
-<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="w">        </span><span class="nx">SessionID</span><span class="p">:</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">,</span>
-<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="w">        </span><span class="nx">Message</span><span class="p">:</span><span class="w">   </span><span class="s">"Daily report is ready"</span><span class="p">,</span>
+<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="w">        </span><span class="nx">SessionID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="w">        </span><span class="nx">Message</span><span class="p">:</span><span class="w">   </span><span class="s">&quot;Daily report is ready&quot;</span><span class="p">,</span>
 <a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="p">)</span>
 <a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a><span class="nx">scheduler</span><span class="p">.</span><span class="nx">AddJob</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
@@ -3497,7 +3497,7 @@ library API, which embedding binaries can still use directly.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

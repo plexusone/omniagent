@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3577,17 +3577,17 @@
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <h3 id="using-environment-variables">Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Anthropic (default)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">"sk-ant-..."</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>omniagent<span class="w"> </span>gateway<span class="w"> </span>run
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># OpenAI</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-..."</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nv">OMNIAGENT_AGENT_PROVIDER</span><span class="o">=</span>openai<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nv">OMNIAGENT_AGENT_MODEL</span><span class="o">=</span>gpt-4o<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>omniagent<span class="w"> </span>gateway<span class="w"> </span>run
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># OpenRouter</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span><span class="s2">"sk-or-..."</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-or-...&quot;</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nv">OMNIAGENT_AGENT_PROVIDER</span><span class="o">=</span>openrouter<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nv">OMNIAGENT_AGENT_MODEL</span><span class="o">=</span>anthropic/claude-3.5-sonnet<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>omniagent<span class="w"> </span>gateway<span class="w"> </span>run
@@ -3601,7 +3601,7 @@
 <h2 id="anthropic">Anthropic<a class="headerlink" href="#anthropic" title="Permanent link">&para;</a></h2>
 <p>Direct API access to Claude models.</p>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">"sk-ant-..."</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
 </code></pre></div>
 <h3 id="supported-models">Supported Models<a class="headerlink" href="#supported-models" title="Permanent link">&para;</a></h3>
 <table>
@@ -3644,10 +3644,10 @@
 </table>
 <h3 id="thinking-mode">Thinking Mode<a class="headerlink" href="#thinking-mode" title="Permanent link">&para;</a></h3>
 <p>Claude 4.x models support extended thinking:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omnillm-core"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnillm-core&quot;</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">req</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">core</span><span class="p">.</span><span class="nx">ChatCompletionRequest</span><span class="p">{</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">Model</span><span class="p">:</span><span class="w"> </span><span class="s">"claude-opus-4-20250514"</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">Model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;claude-opus-4-20250514&quot;</span><span class="p">,</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nx">Messages</span><span class="p">:</span><span class="w"> </span><span class="nx">messages</span><span class="p">,</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nx">ThinkingConfig</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">core</span><span class="p">.</span><span class="nx">ThinkingConfig</span><span class="p">{</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="nx">Enabled</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
@@ -3658,7 +3658,7 @@
 <h2 id="openai">OpenAI<a class="headerlink" href="#openai" title="Permanent link">&para;</a></h2>
 <p>Access to GPT models via OpenAI API.</p>
 <h3 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-..."</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
 </code></pre></div>
 <h3 id="supported-models_1">Supported Models<a class="headerlink" href="#supported-models_1" title="Permanent link">&para;</a></h3>
 <table>
@@ -3695,7 +3695,7 @@
 <p>Access 200+ models from multiple providers through a single API. OpenRouter provides model routing, fallbacks, and cost optimization.</p>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
 <h4 id="option-1-api-key">Option 1: API Key<a class="headerlink" href="#option-1-api-key" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span><span class="s2">"sk-or-..."</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-or-...&quot;</span>
 </code></pre></div>
 <h4 id="option-2-oauth-pkce-browser-login">Option 2: OAuth PKCE (Browser Login)<a class="headerlink" href="#option-2-oauth-pkce-browser-login" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>omniagent<span class="w"> </span>auth<span class="w"> </span>login<span class="w"> </span>openrouter
@@ -3741,9 +3741,9 @@
 <p>Access Claude and other models via AWS Bedrock.</p>
 <h3 id="configuration_3">Configuration<a class="headerlink" href="#configuration_3" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># AWS credentials (via environment or ~/.aws/credentials)</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_REGION</span><span class="o">=</span><span class="s2">"us-east-1"</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_REGION</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span>
 </code></pre></div>
 <h3 id="supported-models_2">Supported Models<a class="headerlink" href="#supported-models_2" title="Permanent link">&para;</a></h3>
 <table>
@@ -3785,9 +3785,9 @@ guessed.</p>
 <h2 id="google-vertex-ai">Google Vertex AI<a class="headerlink" href="#google-vertex-ai" title="Permanent link">&para;</a></h2>
 <p>Access Gemini and Claude models via Google Cloud.</p>
 <h3 id="configuration_5">Configuration<a class="headerlink" href="#configuration_5" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=</span><span class="s2">"/path/to/service-account.json"</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_CLOUD_PROJECT</span><span class="o">=</span><span class="s2">"my-project"</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_CLOUD_LOCATION</span><span class="o">=</span><span class="s2">"us-central1"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=</span><span class="s2">&quot;/path/to/service-account.json&quot;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_CLOUD_PROJECT</span><span class="o">=</span><span class="s2">&quot;my-project&quot;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_CLOUD_LOCATION</span><span class="o">=</span><span class="s2">&quot;us-central1&quot;</span>
 </code></pre></div>
 <h3 id="supported-models_3">Supported Models<a class="headerlink" href="#supported-models_3" title="Permanent link">&para;</a></h3>
 <table>
@@ -3824,21 +3824,21 @@ guessed.</p>
 <li><strong>Fallback</strong> - Default provider</li>
 </ol>
 <h3 id="custom-provider-selection">Custom Provider Selection<a class="headerlink" href="#custom-provider-selection" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omnillm"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnillm&quot;</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnillm</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nx">omnillm</span><span class="p">.</span><span class="nx">WithProvider</span><span class="p">(</span><span class="s">"openrouter"</span><span class="p">),</span><span class="w"> </span><span class="c1">// Force specific provider</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nx">omnillm</span><span class="p">.</span><span class="nx">WithProvider</span><span class="p">(</span><span class="s">&quot;openrouter&quot;</span><span class="p">),</span><span class="w"> </span><span class="c1">// Force specific provider</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">)</span>
 </code></pre></div>
 <h2 id="thick-provider-architecture">Thick Provider Architecture<a class="headerlink" href="#thick-provider-architecture" title="Permanent link">&para;</a></h2>
 <p>OmniAgent uses "thick providers" - standalone modules that register themselves via import:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="c1">// Thick providers - imported for side-effect registration</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-anthropic/omnillm"</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-openai/omnillm"</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-openrouter/omnillm"</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-aws/omnillm"</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-google/omnillm"</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-anthropic/omnillm&quot;</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-openai/omnillm&quot;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-openrouter/omnillm&quot;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-aws/omnillm&quot;</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-google/omnillm&quot;</span>
 <a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">)</span>
 </code></pre></div>
 <p>Each thick provider:</p>
@@ -3902,7 +3902,7 @@ guessed.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="provider-not-found">Provider Not Found<a class="headerlink" href="#provider-not-found" title="Permanent link">&para;</a></h3>
 <p>Ensure the provider module is imported:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omni-openrouter/omnillm"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omni-openrouter/omnillm&quot;</span>
 </code></pre></div>
 <h3 id="authentication-errors">Authentication Errors<a class="headerlink" href="#authentication-errors" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3998,7 +3998,7 @@ guessed.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

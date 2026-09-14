@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3725,9 +3725,9 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>name: weather
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>description: Get weather forecasts
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>metadata:
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  emoji: "🌤️"
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  emoji: &quot;🌤️&quot;
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  requires:
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    bins: ["curl"]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    bins: [&quot;curl&quot;]
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  install:
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">-</span><span class="w"> </span>name: curl
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      brew: curl
@@ -3741,10 +3741,10 @@
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="gu">## Get Current Weather</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>```bash
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>curl "wttr.in/London?format=3"
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>curl &quot;wttr.in/London?format=3&quot;
 </code></pre></div>
 <h2 id="get-detailed-forecast">Get Detailed Forecast<a class="headerlink" href="#get-detailed-forecast" title="Permanent link">&para;</a></h2>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span><span class="s2">"wttr.in/London"</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span><span class="s2">&quot;wttr.in/London&quot;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>## Skill Packs
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
@@ -3754,8 +3754,8 @@
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>```go
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>import (
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    "github.com/plexusone/omniagent/agent"
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    skills "github.com/plexusone/omniagent-skills"
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    &quot;github.com/plexusone/omniagent/agent&quot;
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    skills &quot;github.com/plexusone/omniagent-skills&quot;
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>)
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>// Load all skills from a skill pack
@@ -3767,13 +3767,13 @@
 <p>Load only specific skills using includes:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillPack</span><span class="p">(</span><span class="nx">skills</span><span class="p">.</span><span class="nx">Default</span><span class="p">().</span><span class="nx">FS</span><span class="p">()),</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillIncludes</span><span class="p">(</span><span class="s">"github"</span><span class="p">,</span><span class="w"> </span><span class="s">"weather"</span><span class="p">,</span><span class="w"> </span><span class="s">"tmux"</span><span class="p">),</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillIncludes</span><span class="p">(</span><span class="s">&quot;github&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;weather&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tmux&quot;</span><span class="p">),</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span>
 </code></pre></div>
 <p>Or exclude specific skills:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillPack</span><span class="p">(</span><span class="nx">skills</span><span class="p">.</span><span class="nx">Default</span><span class="p">().</span><span class="nx">FS</span><span class="p">()),</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillExcludes</span><span class="p">(</span><span class="s">"notion"</span><span class="p">,</span><span class="w"> </span><span class="s">"slack"</span><span class="p">),</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithSkillExcludes</span><span class="p">(</span><span class="s">&quot;notion&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;slack&quot;</span><span class="p">),</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">)</span>
 </code></pre></div>
 <h3 id="configuration-file">Configuration File<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
@@ -3879,13 +3879,13 @@
 <h3 id="binary-requirements">Binary Requirements<a class="headerlink" href="#binary-requirements" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">metadata</span><span class="p">:</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">requires</span><span class="p">:</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">bins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"gh"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"jq"</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># All required</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">anyBins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"curl"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"wget"</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># At least one required</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">bins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;gh&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;jq&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># All required</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">anyBins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;curl&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;wget&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># At least one required</span>
 </code></pre></div>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">metadata</span><span class="p">:</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">requires</span><span class="p">:</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"GITHUB_TOKEN"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"OPENAI_API_KEY"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;GITHUB_TOKEN&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;OPENAI_API_KEY&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="install-hints">Install Hints<a class="headerlink" href="#install-hints" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -3906,7 +3906,7 @@
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>name: myskill
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>description: My custom skill
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>metadata:
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="gu">  emoji: "🔧"</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="gu">  emoji: &quot;🔧&quot;</span>
 <a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="gu">---</span>
 <a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
 <a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="gh"># My Skill</span>
@@ -3947,8 +3947,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">myskill</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="s">"context"</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/skills/compiled"</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="s">&quot;context&quot;</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/skills/compiled&quot;</span>
 <a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="p">)</span>
 <a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
 <a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="kd">type</span><span class="w"> </span><span class="nx">MySkill</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
@@ -3960,22 +3960,22 @@
 <a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="p">}</span>
 <a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
 <a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">Name</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"myskill"</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;myskill&quot;</span>
 <a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="p">}</span>
 <a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>
 <a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">Description</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"My custom skill description"</span>
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;My custom skill description&quot;</span>
 <a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a><span class="p">}</span>
 <a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>
 <a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">Tools</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Tool</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Tool</span><span class="p">{</span>
 <a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a><span class="w">            </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">"myskill_action"</span><span class="p">,</span>
-<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a><span class="w">            </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">"Performs an action"</span><span class="p">,</span>
-<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a><span class="w">            </span><span class="nx">Parameters</span><span class="p">:</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Parameter</span><span class="p">{</span>
-<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a><span class="w">                </span><span class="s">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a><span class="w">                    </span><span class="nx">Type</span><span class="p">:</span><span class="w">        </span><span class="s">"string"</span><span class="p">,</span>
-<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a><span class="w">                    </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">"The input value"</span><span class="p">,</span>
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a><span class="w">            </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">&quot;myskill_action&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a><span class="w">            </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Performs an action&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a><span class="w">            </span><span class="nx">Parameters</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Parameter</span><span class="p">{</span>
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a><span class="w">                </span><span class="s">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a><span class="w">                    </span><span class="nx">Type</span><span class="p">:</span><span class="w">        </span><span class="s">&quot;string&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a><span class="w">                    </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The input value&quot;</span><span class="p">,</span>
 <a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a><span class="w">                    </span><span class="nx">Required</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a><span class="w">                </span><span class="p">},</span>
 <a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a><span class="w">            </span><span class="p">},</span>
@@ -3994,13 +3994,13 @@
 <a id="__codelineno-20-48" name="__codelineno-20-48" href="#__codelineno-20-48"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
 <a id="__codelineno-20-49" name="__codelineno-20-49" href="#__codelineno-20-49"></a><span class="p">}</span>
 <a id="__codelineno-20-50" name="__codelineno-20-50" href="#__codelineno-20-50"></a>
-<a id="__codelineno-20-51" name="__codelineno-20-51" href="#__codelineno-20-51"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">handleAction</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-20-52" name="__codelineno-20-52" href="#__codelineno-20-52"></a><span class="w">    </span><span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">params</span><span class="p">[</span><span class="s">"input"</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span>
-<a id="__codelineno-20-53" name="__codelineno-20-53" href="#__codelineno-20-53"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span><span class="s">"result"</span><span class="p">:</span><span class="w"> </span><span class="s">"Processed: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">input</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<a id="__codelineno-20-51" name="__codelineno-20-51" href="#__codelineno-20-51"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">handleAction</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-52" name="__codelineno-20-52" href="#__codelineno-20-52"></a><span class="w">    </span><span class="nx">input</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">params</span><span class="p">[</span><span class="s">&quot;input&quot;</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span>
+<a id="__codelineno-20-53" name="__codelineno-20-53" href="#__codelineno-20-53"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span><span class="s">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Processed: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">input</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
 <a id="__codelineno-20-54" name="__codelineno-20-54" href="#__codelineno-20-54"></a><span class="p">}</span>
 </code></pre></div>
 <h4 id="2-register-with-agent">2. Register with Agent<a class="headerlink" href="#2-register-with-agent" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/example/myskill"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/example/myskill&quot;</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nx">skill</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">myskill</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
 <a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
@@ -4009,14 +4009,14 @@
 </code></pre></div>
 <h3 id="storage-aware-skills">Storage-Aware Skills<a class="headerlink" href="#storage-aware-skills" title="Permanent link">&para;</a></h3>
 <p>Skills that need persistent storage implement <code>StorageAware</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omnistorage-core/kvs"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs&quot;</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="kd">type</span><span class="w"> </span><span class="nx">MySkill</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="nx">storage</span><span class="w"> </span><span class="nx">kvs</span><span class="p">.</span><span class="nx">Store</span>
 <a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">}</span>
 <a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
 <a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">MySkill</span><span class="p">)</span><span class="w"> </span><span class="nx">SetStorage</span><span class="p">(</span><span class="nx">store</span><span class="w"> </span><span class="nx">kvs</span><span class="p">.</span><span class="nx">Store</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">store</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">storage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">store</span>
 <a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="p">}</span>
 </code></pre></div>
 <p>Storage is automatically injected when using <code>WithSessionsFromStorage</code> or <code>WithStorage</code>:</p>
@@ -4115,14 +4115,14 @@
 <p>Remote skills connect to external services and expose their capabilities as agent tools. OmniAgent supports two types of remote skills:</p>
 <h3 id="mcp-skills">MCP Skills<a class="headerlink" href="#mcp-skills" title="Permanent link">&para;</a></h3>
 <p>MCP (Model Context Protocol) skills spawn external MCP servers and expose their tools to the agent.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/agent"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/agent&quot;</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
 <a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithMCPSkill</span><span class="p">(</span><span class="nx">mcp</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">        </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">"github"</span><span class="p">,</span>
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">        </span><span class="nx">Command</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"npx"</span><span class="p">,</span><span class="w"> </span><span class="s">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s">"@modelcontextprotocol/server-github"</span><span class="p">},</span>
-<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">        </span><span class="nx">Env</span><span class="p">:</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">            </span><span class="s">"GITHUB_TOKEN"</span><span class="p">:</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">"GITHUB_TOKEN"</span><span class="p">),</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">        </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;github&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">        </span><span class="nx">Command</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;npx&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@modelcontextprotocol/server-github&quot;</span><span class="p">},</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">        </span><span class="nx">Env</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">            </span><span class="s">&quot;GITHUB_TOKEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;GITHUB_TOKEN&quot;</span><span class="p">),</span>
 <a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">        </span><span class="p">},</span>
 <a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="p">}),</span>
 <a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="p">)</span>
@@ -4192,17 +4192,17 @@
 <h3 id="openapi-skills">OpenAPI Skills<a class="headerlink" href="#openapi-skills" title="Permanent link">&para;</a></h3>
 <p>OpenAPI skills parse OpenAPI 3.x specifications and expose operations as tools.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/agent"</span>
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="nx">openapi</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/skills/remote/openapi"</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/agent&quot;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="nx">openapi</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/skills/remote/openapi&quot;</span>
 <a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">)</span>
 <a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
 <a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
 <a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithOpenAPISkill</span><span class="p">(</span><span class="nx">openapi</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">        </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">"petstore"</span><span class="p">,</span>
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">        </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w"> </span><span class="s">"https://petstore3.swagger.io/api/v3/openapi.json"</span><span class="p">,</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">        </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;petstore&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">        </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://petstore3.swagger.io/api/v3/openapi.json&quot;</span><span class="p">,</span>
 <a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">        </span><span class="nx">Auth</span><span class="p">:</span><span class="w"> </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthConfig</span><span class="p">{</span>
 <a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">            </span><span class="nx">Type</span><span class="p">:</span><span class="w">   </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthAPIKey</span><span class="p">,</span>
-<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">            </span><span class="nx">APIKey</span><span class="p">:</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">"PETSTORE_API_KEY"</span><span class="p">),</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">            </span><span class="nx">APIKey</span><span class="p">:</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;PETSTORE_API_KEY&quot;</span><span class="p">),</span>
 <a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="w">        </span><span class="p">},</span>
 <a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="w">    </span><span class="p">}),</span>
 <a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="p">)</span>
@@ -4266,44 +4266,44 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1">// API Key (header)</span>
 <a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nx">Auth</span><span class="p">:</span><span class="w"> </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthConfig</span><span class="p">{</span>
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="nx">Type</span><span class="p">:</span><span class="w">       </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthAPIKey</span><span class="p">,</span>
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">    </span><span class="nx">APIKey</span><span class="p">:</span><span class="w">     </span><span class="s">"your-api-key"</span><span class="p">,</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="nx">APIKeyName</span><span class="p">:</span><span class="w"> </span><span class="s">"X-API-Key"</span><span class="p">,</span><span class="w">  </span><span class="c1">// default</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="nx">APIKeyIn</span><span class="p">:</span><span class="w">   </span><span class="s">"header"</span><span class="p">,</span><span class="w">     </span><span class="c1">// or "query"</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">    </span><span class="nx">APIKey</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;your-api-key&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="nx">APIKeyName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X-API-Key&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// default</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="nx">APIKeyIn</span><span class="p">:</span><span class="w">   </span><span class="s">&quot;header&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1">// or &quot;query&quot;</span>
 <a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="p">}</span>
 <a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
 <a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="c1">// Bearer Token</span>
 <a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="nx">Auth</span><span class="p">:</span><span class="w"> </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthConfig</span><span class="p">{</span>
 <a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">    </span><span class="nx">Type</span><span class="p">:</span><span class="w">  </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthBearer</span><span class="p">,</span>
-<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">    </span><span class="nx">Token</span><span class="p">:</span><span class="w"> </span><span class="s">"your-bearer-token"</span><span class="p">,</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">    </span><span class="nx">Token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-bearer-token&quot;</span><span class="p">,</span>
 <a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="p">}</span>
 <a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>
 <a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="c1">// Basic Auth</span>
 <a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a><span class="nx">Auth</span><span class="p">:</span><span class="w"> </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthConfig</span><span class="p">{</span>
 <a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a><span class="w">    </span><span class="nx">Type</span><span class="p">:</span><span class="w">     </span><span class="nx">openapi</span><span class="p">.</span><span class="nx">AuthBasic</span><span class="p">,</span>
-<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="w">    </span><span class="nx">Username</span><span class="p">:</span><span class="w"> </span><span class="s">"user"</span><span class="p">,</span>
-<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="w">    </span><span class="nx">Password</span><span class="p">:</span><span class="w"> </span><span class="s">"pass"</span><span class="p">,</span>
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="w">    </span><span class="nx">Username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="w">    </span><span class="nx">Password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pass&quot;</span><span class="p">,</span>
 <a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="p">}</span>
 </code></pre></div>
 <h4 id="filtering-operations">Filtering Operations<a class="headerlink" href="#filtering-operations" title="Permanent link">&para;</a></h4>
 <p>Include only specific operations:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">WithOpenAPISkill</span><span class="p">(</span><span class="nx">openapi</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">              </span><span class="s">"api"</span><span class="p">,</span>
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">           </span><span class="s">"https://api.example.com/openapi.json"</span><span class="p">,</span>
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">    </span><span class="nx">IncludeOperations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"getUser"</span><span class="p">,</span><span class="w"> </span><span class="s">"listUsers"</span><span class="p">},</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">              </span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">           </span><span class="s">&quot;https://api.example.com/openapi.json&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">    </span><span class="nx">IncludeOperations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;getUser&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;listUsers&quot;</span><span class="p">},</span>
 <a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="p">})</span>
 </code></pre></div>
 <p>Filter by tags:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">WithOpenAPISkill</span><span class="p">(</span><span class="nx">openapi</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">"api"</span><span class="p">,</span>
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">     </span><span class="s">"https://api.example.com/openapi.json"</span><span class="p">,</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="nx">IncludeTags</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"users"</span><span class="p">,</span><span class="w"> </span><span class="s">"accounts"</span><span class="p">},</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;https://api.example.com/openapi.json&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="nx">IncludeTags</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;users&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;accounts&quot;</span><span class="p">},</span>
 <a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="p">})</span>
 </code></pre></div>
 <p>Exclude operations:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">WithOpenAPISkill</span><span class="p">(</span><span class="nx">openapi</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">              </span><span class="s">"api"</span><span class="p">,</span>
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">           </span><span class="s">"https://api.example.com/openapi.json"</span><span class="p">,</span>
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="nx">ExcludeOperations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"deleteUser"</span><span class="p">,</span><span class="w"> </span><span class="s">"adminEndpoint"</span><span class="p">},</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">              </span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="nx">SpecURL</span><span class="p">:</span><span class="w">           </span><span class="s">&quot;https://api.example.com/openapi.json&quot;</span><span class="p">,</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="nx">ExcludeOperations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;deleteUser&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;adminEndpoint&quot;</span><span class="p">},</span>
 <a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">})</span>
 </code></pre></div>
 <h3 id="remote-skill-lifecycle">Remote Skill Lifecycle<a class="headerlink" href="#remote-skill-lifecycle" title="Permanent link">&para;</a></h3>
@@ -4398,7 +4398,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

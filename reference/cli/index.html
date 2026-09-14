@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3793,11 +3793,11 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>omniagent<span class="w"> </span>version<span class="w"> </span>--json
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="p">{</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4.0"</span><span class="p">,</span>
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span><span class="nt">"commit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc1234"</span><span class="p">,</span>
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">  </span><span class="nt">"build_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-03-01"</span><span class="p">,</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">  </span><span class="nt">"go_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"go1.25"</span><span class="p">,</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">  </span><span class="nt">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"darwin/arm64"</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.4.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span><span class="nt">&quot;commit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc1234&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">  </span><span class="nt">&quot;build_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-01&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">  </span><span class="nt">&quot;go_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;go1.25&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;darwin/arm64&quot;</span>
 <a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="healthcheck">Healthcheck<a class="headerlink" href="#healthcheck" title="Permanent link">&para;</a></h2>
@@ -3813,7 +3813,7 @@ shell-less runtime images (e.g. Chainguard static), which have no
 to <code>127.0.0.1:18789</code>); a bind-all host (<code>0.0.0.0</code>/<code>::</code>) is normalized to
 <code>127.0.0.1</code> since it isn't itself dialable.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">HEALTHCHECK</span><span class="w"> </span>--interval<span class="o">=</span>30s<span class="w"> </span>--timeout<span class="o">=</span>5s<span class="w"> </span>--start-period<span class="o">=</span>10s<span class="w"> </span>--retries<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span>CMD<span class="w"> </span><span class="o">[</span><span class="s2">"/opt/omniagent/omniagent"</span>,<span class="w"> </span><span class="s2">"healthcheck"</span><span class="o">]</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span>CMD<span class="w"> </span><span class="o">[</span><span class="s2">&quot;/opt/omniagent/omniagent&quot;</span>,<span class="w"> </span><span class="s2">&quot;healthcheck&quot;</span><span class="o">]</span>
 </code></pre></div>
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <h3 id="setup_1">setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
@@ -3980,7 +3980,7 @@ to <code>127.0.0.1:18789</code>); a bind-all host (<code>0.0.0.0</code>/<code>::
 <a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>-------------
 <a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>[1] user: Hello!
 <a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>[2] assistant: Hello! How can I help you today?
-<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>[3] user: What's the weather like?
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>[3] user: What&#39;s the weather like?
 <a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>...
 </code></pre></div>
 <h3 id="sessions-delete">sessions delete<a class="headerlink" href="#sessions-delete" title="Permanent link">&para;</a></h3>
@@ -4138,7 +4138,7 @@ to <code>127.0.0.1:18789</code>); a bind-all host (<code>0.0.0.0</code>/<code>::
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

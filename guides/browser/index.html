@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3288,7 +3288,7 @@
 <li>Extract text content from pages</li>
 </ul>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/tools/browser"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/tools/browser&quot;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">// Create the browser tool</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nx">tool</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -3347,10 +3347,10 @@
 </table>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">tool</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nx">Headless</span><span class="p">:</span><span class="w">        </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nx">UserData</span><span class="p">:</span><span class="w">        </span><span class="s">"/tmp/chrome-data"</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nx">UserData</span><span class="p">:</span><span class="w">        </span><span class="s">&quot;/tmp/chrome-data&quot;</span><span class="p">,</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nx">EvaluateTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nx">DialogCallback</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Dialog observed: %s - %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Dialog observed: %s - %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">})</span>
 </code></pre></div>
@@ -3404,59 +3404,59 @@
 </table>
 <h3 id="navigate">Navigate<a class="headerlink" href="#navigate" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"navigate"</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;navigate&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com&quot;</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="click">Click<a class="headerlink" href="#click" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"click"</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button#submit"</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;click&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button#submit&quot;</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"type"</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input[name='email']"</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input[name=&#39;email&#39;]&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@example.com&quot;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="screenshot">Screenshot<a class="headerlink" href="#screenshot" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"screenshot"</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;screenshot&quot;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
 </code></pre></div>
 <p>Returns the screenshot as a base64-encoded image.</p>
 <h3 id="get-text">Get Text<a class="headerlink" href="#get-text" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"get_text"</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"h1.title"</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_text&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;h1.title&quot;</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="wait">Wait<a class="headerlink" href="#wait" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wait"</span><span class="p">,</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">".loading-complete"</span><span class="p">,</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wait&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.loading-complete&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="javascript-evaluation">JavaScript Evaluation<a class="headerlink" href="#javascript-evaluation" title="Permanent link">&para;</a></h2>
 <p>Execute arbitrary JavaScript in the page context:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evaluate"</span><span class="p">,</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"return document.title"</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;return document.title&quot;</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="complex-scripts">Complex Scripts<a class="headerlink" href="#complex-scripts" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evaluate"</span><span class="p">,</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"return Array.from(document.querySelectorAll('a')).map(a =&gt; a.href)"</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;return Array.from(document.querySelectorAll(&#39;a&#39;)).map(a =&gt; a.href)&quot;</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="async-scripts">Async Scripts<a class="headerlink" href="#async-scripts" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evaluate"</span><span class="p">,</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"return await fetch('/api/data').then(r =&gt; r.json())"</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;return await fetch(&#39;/api/data&#39;).then(r =&gt; r.json())&quot;</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="dialog-handling">Dialog Handling<a class="headerlink" href="#dialog-handling" title="Permanent link">&para;</a></h2>
@@ -3490,7 +3490,7 @@
 </table>
 <h3 id="dialog-structure">Dialog Structure<a class="headerlink" href="#dialog-structure" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">Dialog</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">Type</span><span class="w">         </span><span class="kt">string</span><span class="w">    </span><span class="c1">// "alert", "confirm", "prompt", "beforeunload"</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">Type</span><span class="w">         </span><span class="kt">string</span><span class="w">    </span><span class="c1">// &quot;alert&quot;, &quot;confirm&quot;, &quot;prompt&quot;, &quot;beforeunload&quot;</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nx">Message</span><span class="w">      </span><span class="kt">string</span><span class="w">    </span><span class="c1">// Dialog message text</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nx">DefaultValue</span><span class="w"> </span><span class="kt">string</span><span class="w">    </span><span class="c1">// Default value for prompt dialogs</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nx">URL</span><span class="w">          </span><span class="kt">string</span><span class="w">    </span><span class="c1">// Page URL where dialog appeared</span>
@@ -3501,32 +3501,32 @@
 </code></pre></div>
 <h3 id="get-dialog-history">Get Dialog History<a class="headerlink" href="#get-dialog-history" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"get_dialogs"</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_dialogs&quot;</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">}</span>
 </code></pre></div>
 <p>Returns all observed dialogs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">[</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="p">{</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alert"</span><span class="p">,</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Form submitted successfully!"</span><span class="p">,</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/form"</span><span class="p">,</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-15T10:30:00Z"</span><span class="p">,</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">"handled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Form submitted successfully!&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/form&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-15T10:30:00Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">&quot;handled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">  </span><span class="p">},</span>
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">  </span><span class="p">{</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"confirm"</span><span class="p">,</span>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Are you sure you want to delete?"</span><span class="p">,</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/settings"</span><span class="p">,</span>
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-01-15T10:31:00Z"</span><span class="p">,</span>
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="nt">"handled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="nt">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;confirm&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Are you sure you want to delete?&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/settings&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-15T10:31:00Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="nt">&quot;handled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span>
 <a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">  </span><span class="p">}</span>
 <a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="p">]</span>
 </code></pre></div>
 <h3 id="dismiss-active-dialog">Dismiss Active Dialog<a class="headerlink" href="#dismiss-active-dialog" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dismiss_dialog"</span><span class="p">,</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dismiss_dialog&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span>
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">}</span>
 </code></pre></div>
 <p>For confirm dialogs, use <code>"true"</code> or <code>"false"</code>. For prompt dialogs, provide the text to enter.</p>
@@ -3536,12 +3536,12 @@
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="nx">Headless</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nx">DialogCallback</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"alert"</span><span class="p">:</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Alert: %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"confirm"</span><span class="p">:</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Confirm: %s (answered: %s)"</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">"prompt"</span><span class="p">:</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Prompt: %s (input: %s)"</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;alert&quot;</span><span class="p">:</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Alert: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;confirm&quot;</span><span class="p">:</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Confirm: %s (answered: %s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;prompt&quot;</span><span class="p">:</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Prompt: %s (input: %s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span>
 <a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="p">})</span>
@@ -3549,14 +3549,14 @@
 <h2 id="selectors">Selectors<a class="headerlink" href="#selectors" title="Permanent link">&para;</a></h2>
 <p>The browser tool supports CSS selectors and XPath:</p>
 <h3 id="css-selectors">CSS Selectors<a class="headerlink" href="#css-selectors" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#submit-button"</span><span class="p">}</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">".form-input"</span><span class="p">}</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button[type='submit']"</span><span class="p">}</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"div.container &gt; p:first-child"</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#submit-button&quot;</span><span class="p">}</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.form-input&quot;</span><span class="p">}</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button[type=&#39;submit&#39;]&quot;</span><span class="p">}</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;div.container &gt; p:first-child&quot;</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="xpath">XPath<a class="headerlink" href="#xpath" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"//button[contains(text(), 'Submit')]"</span><span class="p">}</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="p">{</span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"//div[@class='results']//a"</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;//button[contains(text(), &#39;Submit&#39;)]&quot;</span><span class="p">}</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="p">{</span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;//div[@class=&#39;results&#39;]//a&quot;</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <p>The browser tool returns errors for common failure cases:</p>
@@ -3590,16 +3590,16 @@
 <h3 id="wait-for-elements">Wait for Elements<a class="headerlink" href="#wait-for-elements" title="Permanent link">&para;</a></h3>
 <p>Always wait for elements before interacting:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">[</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="p">{</span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"navigate"</span><span class="p">,</span><span class="w"> </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">},</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="p">{</span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wait"</span><span class="p">,</span><span class="w"> </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">".page-loaded"</span><span class="p">},</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span><span class="p">{</span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"click"</span><span class="p">,</span><span class="w"> </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button#action"</span><span class="p">}</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="p">{</span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;navigate&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com&quot;</span><span class="p">},</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="p">{</span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wait&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.page-loaded&quot;</span><span class="p">},</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span><span class="p">{</span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;button#action&quot;</span><span class="p">}</span>
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">]</span>
 </code></pre></div>
 <h3 id="handle-dynamic-content">Handle Dynamic Content<a class="headerlink" href="#handle-dynamic-content" title="Permanent link">&para;</a></h3>
 <p>Use JavaScript evaluation for dynamic pages:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evaluate"</span><span class="p">,</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"return new Promise(resolve =&gt; { const check = () =&gt; { const el = document.querySelector('.data-loaded'); if (el) resolve(el.textContent); else setTimeout(check, 100); }; check(); })"</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evaluate&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;return new Promise(resolve =&gt; { const check = () =&gt; { const el = document.querySelector(&#39;.data-loaded&#39;); if (el) resolve(el.textContent); else setTimeout(check, 100); }; check(); })&quot;</span>
 <a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="clean-up">Clean Up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h3>
@@ -3697,7 +3697,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

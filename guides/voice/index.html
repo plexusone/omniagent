@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -4210,37 +4210,37 @@
 <h3 id="quick-start-native-voice-to-voice">Quick Start (Native Voice-to-Voice)<a class="headerlink" href="#quick-start-native-voice-to-voice" title="Permanent link">&para;</a></h3>
 <p>For lowest latency, use native voice-to-voice APIs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># OpenAI Realtime (~100ms latency)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">"AC..."</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-..."</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">&quot;AC...&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>twilio<span class="w"> </span>--realtime<span class="w"> </span>openai<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Gemini Live (~200ms latency)</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">"AC..."</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">&quot;AC...&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>twilio<span class="w"> </span>--realtime<span class="w"> </span>gemini<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 </code></pre></div>
 <h3 id="quick-start-traditional-pipeline">Quick Start (Traditional Pipeline)<a class="headerlink" href="#quick-start-traditional-pipeline" title="Permanent link">&para;</a></h3>
 <p>For custom STT/TTS provider selection:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># With Twilio</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">"AC..."</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">&quot;AC...&quot;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>twilio<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># With Telnyx</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_API_KEY</span><span class="o">=</span><span class="s2">"KEY..."</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_CONNECTION_ID</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_API_KEY</span><span class="o">=</span><span class="s2">&quot;KEY...&quot;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_CONNECTION_ID</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>telnyx<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># With Vonage</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VONAGE_APPLICATION_ID</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VONAGE_PRIVATE_KEY</span><span class="o">=</span><span class="s2">"/path/to/private.key"</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VONAGE_APPLICATION_ID</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VONAGE_PRIVATE_KEY</span><span class="o">=</span><span class="s2">&quot;/path/to/private.key&quot;</span>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>vonage<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># With Plivo</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PLIVO_AUTH_ID</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PLIVO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PLIVO_AUTH_ID</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PLIVO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>plivo<span class="w"> </span>--public-url<span class="w"> </span>https://your-server.com
 <a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
 <a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="c1"># With ngrok (local development)</span>
@@ -4338,9 +4338,9 @@
 </code></pre></div>
 <h3 id="livekit-quick-start">LiveKit Quick Start<a class="headerlink" href="#livekit-quick-start" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Set LiveKit credentials</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_URL</span><span class="o">=</span><span class="s2">"wss://your-app.livekit.cloud"</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_API_SECRET</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_URL</span><span class="o">=</span><span class="s2">&quot;wss://your-app.livekit.cloud&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LIVEKIT_API_SECRET</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># Start WebRTC voice gateway</span>
 <a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>omniagent<span class="w"> </span>voice<span class="w"> </span>serve<span class="w"> </span>--provider<span class="w"> </span>livekit<span class="w"> </span>--room<span class="w"> </span>voice-agent
@@ -4493,8 +4493,8 @@
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="c1"># Gateway configuration</span>
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span><span class="w">              </span><span class="c1"># or: telnyx</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span><span class="w">  </span><span class="c1"># Required for webhooks</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span><span class="w">  </span><span class="c1"># Required for webhooks</span>
 <a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="c1"># Pipeline mode</span>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">realtime</span><span class="w">                </span><span class="c1"># Use native voice-to-voice</span>
@@ -4516,7 +4516,7 @@
 <a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">    </span><span class="nt">interruption_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">immediate</span><span class="w">  </span><span class="c1"># Options: immediate, after_sentence, disabled</span>
 <a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
 <a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">    </span><span class="c1"># Greeting spoken when call connects</span>
-<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">"Hello!</span><span class="nv"> </span><span class="s">Thank</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">calling</span><span class="nv"> </span><span class="s">Acme</span><span class="nv"> </span><span class="s">Corp.</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">help</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">today?"</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello!</span><span class="nv"> </span><span class="s">Thank</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">calling</span><span class="nv"> </span><span class="s">Acme</span><span class="nv"> </span><span class="s">Corp.</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">help</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">today?&quot;</span>
 <a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>
 <a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">    </span><span class="c1"># Tools available during voice conversation</span>
 <a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">    </span><span class="nt">tools</span><span class="p">:</span>
@@ -4554,8 +4554,8 @@
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
 <a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">realtime</span>
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
@@ -4567,7 +4567,7 @@
 <a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">      </span><span class="no">You are a friendly assistant. Keep responses brief and natural.</span>
 <a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
-<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">"Hi</span><span class="nv"> </span><span class="s">there!</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">help?"</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hi</span><span class="nv"> </span><span class="s">there!</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">help?&quot;</span>
 </code></pre></div>
 <h3 id="traditional-pipeline-stt-llm-tts_1">Traditional Pipeline (STT → LLM → TTS)<a class="headerlink" href="#traditional-pipeline-stt-llm-tts_1" title="Permanent link">&para;</a></h3>
 <p>The traditional pipeline offers more flexibility in provider selection at the cost of higher latency (~500-1500ms).</p>
@@ -4578,8 +4578,8 @@
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
 <a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w">                    </span><span class="c1"># Traditional STT→LLM→TTS pipeline</span>
 <a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
@@ -4607,7 +4607,7 @@
 <a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="w">      </span><span class="no">You are a helpful voice assistant. Keep responses concise (1-3 sentences).</span>
 <a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="w">      </span><span class="no">Speak naturally - avoid bullet points or markdown formatting.</span>
 <a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>
-<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">"Hello!</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">assist</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">today?"</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">    </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello!</span><span class="nv"> </span><span class="s">How</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">I</span><span class="nv"> </span><span class="s">assist</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">today?&quot;</span>
 <a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">    </span><span class="nt">max_session_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30m</span>
 <a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">    </span><span class="nt">interruption_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">immediate</span>
 </code></pre></div>
@@ -4618,8 +4618,8 @@
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
@@ -4636,7 +4636,7 @@
 <a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">      </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
 <a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>
-<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">"You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.</span><span class="nv"> </span><span class="s">Be</span><span class="nv"> </span><span class="s">concise."</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.</span><span class="nv"> </span><span class="s">Be</span><span class="nv"> </span><span class="s">concise.&quot;</span>
 </code></pre></div>
 <h4 id="deepgram-stt-deepgram-tts-budget-friendly">Deepgram STT + Deepgram TTS (Budget-Friendly)<a class="headerlink" href="#deepgram-stt-deepgram-tts-budget-friendly" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># omniagent.yaml - Cost-effective Deepgram-only pipeline</span>
@@ -4645,8 +4645,8 @@
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
 <a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
 <a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
@@ -4670,14 +4670,14 @@
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
 <a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telnyx</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
 <a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="c1"># Telnyx-specific configuration</span>
 <a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="nt">telnyx</span><span class="p">:</span>
 <a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">      </span><span class="c1"># api_key: ${TELNYX_API_KEY}</span>
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">      </span><span class="nt">phone_number</span><span class="p">:</span><span class="w"> </span><span class="s">"+15551234567"</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">      </span><span class="nt">connection_id</span><span class="p">:</span><span class="w"> </span><span class="s">"your-connection-id"</span><span class="w">  </span><span class="c1"># From Telnyx portal</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">      </span><span class="nt">phone_number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;+15551234567&quot;</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">      </span><span class="nt">connection_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-connection-id&quot;</span><span class="w">  </span><span class="c1"># From Telnyx portal</span>
 <a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
 <a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">realtime</span>
 <a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
@@ -4685,7 +4685,7 @@
 <a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">      </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
 <a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">      </span><span class="nt">voice</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coral</span>
 <a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>
-<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">"You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant."</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">helpful</span><span class="nv"> </span><span class="s">assistant.&quot;</span>
 </code></pre></div>
 <h4 id="telnyx-traditional-pipeline">Telnyx + Traditional Pipeline<a class="headerlink" href="#telnyx-traditional-pipeline" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># omniagent.yaml - Telnyx with traditional pipeline</span>
@@ -4694,12 +4694,12 @@
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
 <a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">telnyx</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span>
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://your-server.ngrok.io"</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="nt">public_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://your-server.ngrok.io&quot;</span>
 <a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
 <a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="nt">telnyx</span><span class="p">:</span>
-<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">      </span><span class="nt">phone_number</span><span class="p">:</span><span class="w"> </span><span class="s">"+15551234567"</span>
-<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">      </span><span class="nt">connection_id</span><span class="p">:</span><span class="w"> </span><span class="s">"your-connection-id"</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">      </span><span class="nt">phone_number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;+15551234567&quot;</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">      </span><span class="nt">connection_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-connection-id&quot;</span>
 <a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>
 <a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
@@ -4717,29 +4717,29 @@
 </code></pre></div>
 <h3 id="environment-variables-reference">Environment Variables Reference<a class="headerlink" href="#environment-variables-reference" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Telephony providers</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">"AC..."</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">"..."</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_PHONE_NUMBER</span><span class="o">=</span><span class="s2">"+15551234567"</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_ACCOUNT_SID</span><span class="o">=</span><span class="s2">&quot;AC...&quot;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_AUTH_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TWILIO_PHONE_NUMBER</span><span class="o">=</span><span class="s2">&quot;+15551234567&quot;</span>
 <a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_API_KEY</span><span class="o">=</span><span class="s2">"KEY..."</span>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_CONNECTION_ID</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_API_KEY</span><span class="o">=</span><span class="s2">&quot;KEY...&quot;</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TELNYX_CONNECTION_ID</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
 <a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="c1"># Realtime voice-to-voice</span>
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">"sk-..."</span><span class="w">      </span><span class="c1"># For OpenAI Realtime</span>
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_API_KEY</span><span class="o">=</span><span class="s2">"..."</span><span class="w">          </span><span class="c1"># For Gemini Live</span>
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">"..."</span><span class="w">          </span><span class="c1"># Alternative for Gemini</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span><span class="w">      </span><span class="c1"># For OpenAI Realtime</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GOOGLE_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="w">          </span><span class="c1"># For Gemini Live</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="w">          </span><span class="c1"># Alternative for Gemini</span>
 <a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
 <a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="c1"># Traditional pipeline - STT</span>
-<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DEEPGRAM_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DEEPGRAM_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
 <a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="c1"># Traditional pipeline - TTS</span>
-<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ELEVENLABS_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ELEVENLABS_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>
 <a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="c1"># Traditional pipeline - LLM</span>
-<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 <a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>
 <a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="c1"># ngrok (for local development)</span>
-<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NGROK_AUTHTOKEN</span><span class="o">=</span><span class="s2">"..."</span>
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NGROK_AUTHTOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span>
 </code></pre></div>
 <h3 id="local-development-with-ngrok_1">Local Development with ngrok<a class="headerlink" href="#local-development-with-ngrok_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># omniagent.yaml - Local development setup</span>
@@ -4748,7 +4748,7 @@
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
 <a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twilio</span>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8081"</span><span class="w">          </span><span class="c1"># Local port</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="nt">listen_addr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8081&quot;</span><span class="w">          </span><span class="c1"># Local port</span>
 <a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">    </span><span class="c1"># public_url not needed - ngrok will provide it</span>
 <a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
 <a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">    </span><span class="c1"># Enable ngrok tunnel</span>
@@ -4774,7 +4774,7 @@
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span>--provider<span class="w"> </span>twilio<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span>--realtime<span class="w"> </span>openai<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span>--realtime-voice<span class="w"> </span>alloy<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">"You are a helpful customer service agent."</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">&quot;You are a helpful customer service agent.&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span>--public-url<span class="w"> </span>https://your-server.com
 </code></pre></div>
 <p>Available voices: <code>alloy</code>, <code>ash</code>, <code>ballad</code>, <code>coral</code>, <code>echo</code>, <code>fable</code>, <code>nova</code>, <code>onyx</code>, <code>sage</code>, <code>shimmer</code>, <code>verse</code></p>
@@ -4784,7 +4784,7 @@
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span>--provider<span class="w"> </span>twilio<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span>--realtime<span class="w"> </span>gemini<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span>--realtime-voice<span class="w"> </span>Puck<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">"You are a helpful customer service agent."</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">&quot;You are a helpful customer service agent.&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span>--public-url<span class="w"> </span>https://your-server.com
 </code></pre></div>
 <p>Available voices: <code>Puck</code>, <code>Charon</code>, <code>Kore</code>, <code>Fenrir</code>, <code>Aoede</code></p>
@@ -4794,7 +4794,7 @@
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span>--provider<span class="w"> </span>twilio<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span>--realtime<span class="w"> </span>deepgram<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span>--realtime-voice<span class="w"> </span>aura-2-thalia-en<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">"You are a helpful customer service agent."</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span>--system-prompt<span class="w"> </span><span class="s2">&quot;You are a helpful customer service agent.&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span>--public-url<span class="w"> </span>https://your-server.com
 </code></pre></div>
 <p>Available voices: <code>aura-2-thalia-en</code>, <code>aura-2-andromeda-en</code>, <code>aura-2-arcas-en</code>, <code>aura-2-luna-en</code>, <code>aura-2-orion-en</code>, <code>aura-2-perseus-en</code>, <code>aura-2-stella-en</code>, <code>aura-2-zeus-en</code>, and more</p>
@@ -5008,13 +5008,13 @@
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <p>OmniVoice uses a provider registry pattern:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnivoice"</span>
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omnivoice/providers/all"</span><span class="w"> </span><span class="c1">// Register all providers</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnivoice&quot;</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnivoice/providers/all&quot;</span><span class="w"> </span><span class="c1">// Register all providers</span>
 <a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">)</span>
 <a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
 <a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="c1">// Get providers by name</span>
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nx">stt</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetSTTProvider</span><span class="p">(</span><span class="s">"deepgram"</span><span class="p">,</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="nx">tts</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetTTSProvider</span><span class="p">(</span><span class="s">"elevenlabs"</span><span class="p">,</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nx">stt</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetSTTProvider</span><span class="p">(</span><span class="s">&quot;deepgram&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="nx">tts</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetTTSProvider</span><span class="p">(</span><span class="s">&quot;elevenlabs&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
 </code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="voice-not-working">Voice Not Working<a class="headerlink" href="#voice-not-working" title="Permanent link">&para;</a></h3>
@@ -5111,7 +5111,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

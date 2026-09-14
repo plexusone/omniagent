@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3334,7 +3334,7 @@
 </table>
 <h3 id="semantic-memory-skill">Semantic Memory Skill<a class="headerlink" href="#semantic-memory-skill" title="Permanent link">&para;</a></h3>
 <p>Long-term memory with semantic retrieval for context-aware conversations:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/skills/compiled/memory"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/skills/compiled/memory&quot;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nx">memorySkill</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">memory</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nx">Retriever</span><span class="p">:</span><span class="w"> </span><span class="nx">retriever</span><span class="p">,</span><span class="w"> </span><span class="c1">// omniretrieve instance</span>
@@ -3368,17 +3368,17 @@
 </table>
 <h3 id="profile-modes">Profile Modes<a class="headerlink" href="#profile-modes" title="Permanent link">&para;</a></h3>
 <p>New profile modes for different interaction styles:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/agent/profiles"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/agent/profiles&quot;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// Auto-reply mode: agent responds automatically</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nx">profile</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">BootstrapProfile</span><span class="p">{</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"auto-responder"</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;auto-responder&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nx">Mode</span><span class="p">:</span><span class="w"> </span><span class="nx">profiles</span><span class="p">.</span><span class="nx">ModeAutoReply</span><span class="p">,</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">// Commentary mode: passive observation with optional input</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nx">profile</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">BootstrapProfile</span><span class="p">{</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"observer"</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;observer&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nx">Mode</span><span class="p">:</span><span class="w"> </span><span class="nx">profiles</span><span class="p">.</span><span class="nx">ModeCommentary</span><span class="p">,</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
 </code></pre></div>
@@ -3427,7 +3427,7 @@
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1">// Access tools at runtime</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nx">tools</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Tools</span><span class="p">()</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">tool</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Tool: %s - %s\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">tool</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="nx">tool</span><span class="p">.</span><span class="nx">Description</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Tool: %s - %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tool</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="nx">tool</span><span class="p">.</span><span class="nx">Description</span><span class="p">)</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="openrouter-provider">OpenRouter Provider<a class="headerlink" href="#openrouter-provider" title="Permanent link">&para;</a></h3>
@@ -3581,24 +3581,24 @@
 <p>Voice provider packages are now indirect dependencies via omnivoice:</p>
 <p><strong>Before v0.10.0:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnivoice"</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="s">"github.com/plexusone/omni-openai/omnivoice/realtime"</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="s">"github.com/plexusone/omni-twilio/omnivoice/gateway"</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnivoice&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omni-openai/omnivoice/realtime&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omni-twilio/omnivoice/gateway&quot;</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">)</span>
 </code></pre></div></p>
 <p><strong>After v0.10.0:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnivoice"</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"github.com/plexusone/omnivoice/providers/all"</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnivoice&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnivoice/providers/all&quot;</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">)</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1">// Get realtime factory by name</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nx">factory</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetRealtimeFactory</span><span class="p">(</span><span class="s">"openai"</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nx">factory</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">GetRealtimeFactory</span><span class="p">(</span><span class="s">&quot;openai&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1">// Configure gateway tools using generic types</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nx">tools</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">ToolDefinition</span><span class="p">{...}</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nx">tools</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">ToolDefinition</span><span class="p">{</span><span class="o">...</span><span class="p">}</span>
 <a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nx">opts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">registry</span><span class="p">.</span><span class="nx">ProviderOption</span><span class="p">{</span>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithGatewayTools</span><span class="p">(</span><span class="s">"twilio"</span><span class="p">,</span><span class="w"> </span><span class="nx">tools</span><span class="p">),</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nx">omnivoice</span><span class="p">.</span><span class="nx">WithGatewayTools</span><span class="p">(</span><span class="s">&quot;twilio&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tools</span><span class="p">),</span>
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">}</span>
 </code></pre></div></p>
 <p>This reduces <code>go.mod</code> complexity and ensures provider versions stay in sync.</p>
@@ -3697,7 +3697,7 @@
 <ol>
 <li>(Optional) Add semantic memory:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/skills/compiled/memory"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/skills/compiled/memory&quot;</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nx">memorySkill</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">memory</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Retriever</span><span class="p">:</span><span class="w"> </span><span class="nx">retriever</span><span class="p">})</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithCompiledSkill</span><span class="p">(</span><span class="nx">memorySkill</span><span class="p">))</span>
@@ -3800,7 +3800,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

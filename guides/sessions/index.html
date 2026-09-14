@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3360,14 +3360,14 @@ still use directly.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <h3 id="using-sessions">Using Sessions<a class="headerlink" href="#using-sessions" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/agent"</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/sessions"</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="s">"github.com/plexusone/omnistorage-core/kvs/backend/sqlite"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/agent&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/sessions&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs/backend/sqlite&quot;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// Create storage backend</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">"omniagent.db"</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omniagent.db&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">})</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// Create agent with sessions</span>
@@ -3377,23 +3377,23 @@ still use directly.</p>
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">defer</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1">// Process with conversation history</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nx">response1</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">,</span><span class="w"> </span><span class="s">"My name is Alice"</span><span class="p">)</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nx">response2</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">,</span><span class="w"> </span><span class="s">"What's my name?"</span><span class="p">)</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1">// Agent remembers: "Your name is Alice"</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nx">response1</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;My name is Alice&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nx">response2</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;What&#39;s my name?&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1">// Agent remembers: &quot;Your name is Alice&quot;</span>
 </code></pre></div>
 <h2 id="storage-backends">Storage Backends<a class="headerlink" href="#storage-backends" title="Permanent link">&para;</a></h2>
 <h3 id="memory-development">Memory (Development)<a class="headerlink" href="#memory-development" title="Permanent link">&para;</a></h3>
 <p>In-memory storage for testing. Data is lost on restart.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omnistorage-core/kvs/backend/memory"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs/backend/memory&quot;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nx">backend</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="sqlite-recommended">SQLite (Recommended)<a class="headerlink" href="#sqlite-recommended" title="Permanent link">&para;</a></h3>
 <p>Persistent storage using SQLite. Recommended for production.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omnistorage-core/kvs/backend/sqlite"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omnistorage-core/kvs/backend/sqlite&quot;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nx">backend</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">"omniagent.db"</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omniagent.db&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">})</span>
 </code></pre></div>
 <h2 id="agent-options">Agent Options<a class="headerlink" href="#agent-options" title="Permanent link">&para;</a></h2>
@@ -3417,7 +3417,7 @@ still use directly.</p>
 <h2 id="processing-methods">Processing Methods<a class="headerlink" href="#processing-methods" title="Permanent link">&para;</a></h2>
 <h3 id="processwithsession">ProcessWithSession<a class="headerlink" href="#processwithsession" title="Permanent link">&para;</a></h3>
 <p>Processes a message with full conversation history.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionID</span><span class="p">,</span><span class="w"> </span><span class="s">"Hello!"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionID</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>The method:</p>
 <ol>
@@ -3429,35 +3429,35 @@ still use directly.</p>
 </ol>
 <h3 id="process-stateless">Process (Stateless)<a class="headerlink" href="#process-stateless" title="Permanent link">&para;</a></h3>
 <p>Processes a single message without history. Useful for one-off queries.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">Process</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionID</span><span class="p">,</span><span class="w"> </span><span class="s">"What time is it?"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">Process</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionID</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;What time is it?&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h2>
 <h3 id="list-sessions">List Sessions<a class="headerlink" href="#list-sessions" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">ids</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">ListSessions</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">ids</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Session:"</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Session:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="get-session-details">Get Session Details<a class="headerlink" href="#get-session-details" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">GetSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">GetSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">)</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="c1">// Session not found</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Messages: %d\n"</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMessages</span><span class="p">()))</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Created: %s\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">CreatedAt</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Messages: %d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMessages</span><span class="p">()))</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Created: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">CreatedAt</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="clear-history">Clear History<a class="headerlink" href="#clear-history" title="Permanent link">&para;</a></h3>
 <p>Keep the session but remove all messages:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">ClearSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">ClearSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="delete-session">Delete Session<a class="headerlink" href="#delete-session" title="Permanent link">&para;</a></h3>
 <p>Remove the session entirely:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">DeleteSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">DeleteSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="session-tools-compiled-skill">Session Tools (Compiled Skill)<a class="headerlink" href="#session-tools-compiled-skill" title="Permanent link">&para;</a></h2>
 <p>OmniAgent includes a built-in sessions skill that exposes session management as LLM tools:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/sessions"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/sessions&quot;</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1">// Register the sessions skill</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nx">sessionsSkill</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sessions</span><span class="p">.</span><span class="nx">NewSkill</span><span class="p">()</span>
@@ -3507,13 +3507,13 @@ still use directly.</p>
 </table>
 <h2 id="session-metadata">Session Metadata<a class="headerlink" href="#session-metadata" title="Permanent link">&para;</a></h2>
 <p>Attach custom data to sessions:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">GetSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">GetSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123&quot;</span><span class="p">)</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">// Set metadata</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nx">session</span><span class="p">.</span><span class="nx">SetMetadata</span><span class="p">(</span><span class="s">"language"</span><span class="p">,</span><span class="w"> </span><span class="s">"en"</span><span class="p">)</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nx">session</span><span class="p">.</span><span class="nx">SetMetadata</span><span class="p">(</span><span class="s">"preferences"</span><span class="p">,</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="s">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s">"UTC"</span><span class="p">,</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="s">"format"</span><span class="p">:</span><span class="w">   </span><span class="s">"markdown"</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nx">session</span><span class="p">.</span><span class="nx">SetMetadata</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nx">session</span><span class="p">.</span><span class="nx">SetMetadata</span><span class="p">(</span><span class="s">&quot;preferences&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="s">&quot;timezone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;UTC&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="s">&quot;format&quot;</span><span class="p">:</span><span class="w">   </span><span class="s">&quot;markdown&quot;</span><span class="p">,</span>
 <a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">})</span>
 <a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
 <a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1">// Save changes</span>
@@ -3521,7 +3521,7 @@ still use directly.</p>
 <a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nx">store</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">session</span><span class="p">)</span>
 <a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
 <a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="c1">// Get metadata</span>
-<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nx">lang</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMetadata</span><span class="p">(</span><span class="s">"language"</span><span class="p">)</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nx">lang</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMetadata</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <h3 id="session-ttl">Session TTL<a class="headerlink" href="#session-ttl" title="Permanent link">&para;</a></h3>
@@ -3547,18 +3547,18 @@ full field list (<code>storage.type</code>: <code>sqlite</code>/<code>redis</cod
 <h3 id="use-meaningful-session-ids">Use Meaningful Session IDs<a class="headerlink" href="#use-meaningful-session-ids" title="Permanent link">&para;</a></h3>
 <p>Use identifiers that map to your users:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// Good: User-specific sessions</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nx">sessionID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">"user-%s"</span><span class="p">,</span><span class="w"> </span><span class="nx">userID</span><span class="p">)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nx">sessionID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;user-%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">userID</span><span class="p">)</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1">// Good: Channel-specific sessions</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nx">sessionID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">"whatsapp-%s"</span><span class="p">,</span><span class="w"> </span><span class="nx">phoneNumber</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nx">sessionID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;whatsapp-%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">phoneNumber</span><span class="p">)</span>
 <a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1">// Avoid: Random IDs that can't be traced</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1">// Avoid: Random IDs that can&#39;t be traced</span>
 <a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nx">sessionID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">uuid</span><span class="p">.</span><span class="nx">New</span><span class="p">().</span><span class="nx">String</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="handle-long-conversations">Handle Long Conversations<a class="headerlink" href="#handle-long-conversations" title="Permanent link">&para;</a></h3>
 <p>For very long conversations, consider trimming history:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">store</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionID</span><span class="p">)</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMessages</span><span class="p">())</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">session</span><span class="p">.</span><span class="nx">GetMessages</span><span class="p">())</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="nx">session</span><span class="p">.</span><span class="nx">Trim</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w">  </span><span class="c1">// Keep last 50 messages</span>
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nx">store</span><span class="p">.</span><span class="nx">Save</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">session</span><span class="p">)</span>
 <a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">}</span>
@@ -3566,10 +3566,10 @@ full field list (<code>storage.type</code>: <code>sqlite</code>/<code>redis</cod
 <h3 id="separate-concerns">Separate Concerns<a class="headerlink" href="#separate-concerns" title="Permanent link">&para;</a></h3>
 <p>Use different session IDs for different contexts:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">// Main conversation</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123-chat"</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123-chat&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1">// Task-specific session</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"user-123-code-review"</span><span class="p">,</span><span class="w"> </span><span class="nx">codeReviewRequest</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nx">agent</span><span class="p">.</span><span class="nx">ProcessWithSession</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;user-123-code-review&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">codeReviewRequest</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>┌─────────────────────────────────────────────────────┐
@@ -3669,7 +3669,7 @@ full field list (<code>storage.type</code>: <code>sqlite</code>/<code>redis</cod
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

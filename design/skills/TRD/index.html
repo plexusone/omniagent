@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2918,14 +2918,14 @@
 </table>
 <h3 id="markdown-skills-skills">Markdown Skills (<code>skills/</code>)<a class="headerlink" href="#markdown-skills-skills" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">Skill</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nx">Name</span><span class="w">        </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:"name"`</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nx">Description</span><span class="w"> </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:"description"`</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">Homepage</span><span class="w">    </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:"homepage,omitempty"`</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">Metadata</span><span class="w">    </span><span class="nx">SkillMeta</span><span class="w"> </span><span class="s">`yaml:"metadata"`</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:"-"`</span><span class="w"> </span><span class="c1">// Markdown body</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">Path</span><span class="w">        </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:"-"`</span><span class="w"> </span><span class="c1">// Directory path</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">HasHooks</span><span class="w">    </span><span class="kt">bool</span><span class="w">      </span><span class="s">`yaml:"-"`</span><span class="w"> </span><span class="c1">// Has hooks/ directory</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">HasScripts</span><span class="w">  </span><span class="kt">bool</span><span class="w">      </span><span class="s">`yaml:"-"`</span><span class="w"> </span><span class="c1">// Has scripts/ directory</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nx">Name</span><span class="w">        </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:&quot;name&quot;`</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nx">Description</span><span class="w"> </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:&quot;description&quot;`</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">Homepage</span><span class="w">    </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:&quot;homepage,omitempty&quot;`</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">Metadata</span><span class="w">    </span><span class="nx">SkillMeta</span><span class="w"> </span><span class="s">`yaml:&quot;metadata&quot;`</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:&quot;-&quot;`</span><span class="w"> </span><span class="c1">// Markdown body</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">Path</span><span class="w">        </span><span class="kt">string</span><span class="w">    </span><span class="s">`yaml:&quot;-&quot;`</span><span class="w"> </span><span class="c1">// Directory path</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">HasHooks</span><span class="w">    </span><span class="kt">bool</span><span class="w">      </span><span class="s">`yaml:&quot;-&quot;`</span><span class="w"> </span><span class="c1">// Has hooks/ directory</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">HasScripts</span><span class="w">  </span><span class="kt">bool</span><span class="w">      </span><span class="s">`yaml:&quot;-&quot;`</span><span class="w"> </span><span class="c1">// Has scripts/ directory</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
 </code></pre></div>
 <p><strong>Loading:</strong> Directory-based discovery via <code>LoadFromDirs()</code></p>
@@ -2944,7 +2944,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">Config</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nx">Name</span><span class="w">        </span><span class="kt">string</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nx">Command</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Env</span><span class="w">         </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Env</span><span class="w">         </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">LazyConnect</span><span class="w"> </span><span class="kt">bool</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
 </code></pre></div>
@@ -2955,12 +2955,12 @@
 <p><strong>Package:</strong> <code>github.com/plexusone/omniskill/pack</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">pack</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span><span class="w"> </span><span class="s">"embed"</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;embed&quot;</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">// SkillPack provides embedded markdown skills that can be loaded by agents.</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Skill packs are Go modules that bundle SKILL.md files using go:embed.</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">type</span><span class="w"> </span><span class="nx">SkillPack</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Name returns the pack identifier (e.g., "omniagent-skills").</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Name returns the pack identifier (e.g., &quot;omniagent-skills&quot;).</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nx">Name</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="c1">// Version returns the pack version or source commit hash.</span>
@@ -2976,7 +2976,7 @@
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithSkillPack</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="nx">pack</span><span class="p">.</span><span class="nx">SkillPack</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">Agent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">a</span><span class="p">.</span><span class="nx">skillPacks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">skillPacks</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">a</span><span class="p">.</span><span class="nx">skillPacks</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">skillPacks</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
 </code></pre></div>
@@ -3013,7 +3013,7 @@
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nx">embedded</span><span class="w">  </span><span class="nx">embed</span><span class="p">.</span><span class="nx">FS</span><span class="w">         </span><span class="c1">// Embedded skills</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nx">dirs</span><span class="w">      </span><span class="p">[]</span><span class="kt">string</span><span class="w">         </span><span class="c1">// Directory paths</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nx">compiled</span><span class="w">  </span><span class="p">[]</span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Skill</span><span class="w"> </span><span class="c1">// Compiled skills</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nx">loaded</span><span class="w">    </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Skill</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nx">loaded</span><span class="w">    </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Skill</span>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nx">mu</span><span class="w">        </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
@@ -3054,17 +3054,17 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// skills/bundle/skills.go</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">package</span><span class="w"> </span><span class="nx">bundle</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kn">import</span><span class="w"> </span><span class="s">"embed"</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;embed&quot;</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1">//go:embed core/*</span>
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="kd">var</span><span class="w"> </span><span class="nx">Skills</span><span class="w"> </span><span class="nx">embed</span><span class="p">.</span><span class="nx">FS</span>
 </code></pre></div>
 <p><strong>Usage:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/skills/bundle"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/skills/bundle&quot;</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nx">manager</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">skills</span><span class="p">.</span><span class="nx">NewManager</span><span class="p">(</span><span class="nx">skills</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nx">EmbeddedFS</span><span class="p">:</span><span class="w"> </span><span class="nx">bundle</span><span class="p">.</span><span class="nx">Skills</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nx">SkillDirs</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"~/.omniagent/skills"</span><span class="p">,</span><span class="w"> </span><span class="s">"./skills"</span><span class="p">},</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nx">SkillDirs</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;~/.omniagent/skills&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./skills&quot;</span><span class="p">},</span>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">})</span>
 </code></pre></div>
 <h3 id="tr-3-skill-requirement-validation">TR-3: Skill Requirement Validation<a class="headerlink" href="#tr-3-skill-requirement-validation" title="Permanent link">&para;</a></h3>
@@ -3121,10 +3121,10 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// agent/options.go</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithEmbeddedSkills</span><span class="p">(</span><span class="nx">fs</span><span class="w"> </span><span class="nx">embed</span><span class="p">.</span><span class="nx">FS</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="nx">dirs</span><span class="w"> </span><span class="p">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="nx">dirs</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithCompiledSkill</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="nx">compiled</span><span class="p">.</span><span class="nx">Skill</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithMCPSkill</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">mcp</span><span class="p">.</span><span class="nx">Config</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithSkillExcludes</span><span class="p">(</span><span class="nx">names</span><span class="w"> </span><span class="p">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kd">func</span><span class="w"> </span><span class="nx">WithSkillExcludes</span><span class="p">(</span><span class="nx">names</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">Option</span>
 </code></pre></div>
 <p><strong>Default Behavior:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// Default: use bundled skills + standard directories</span>
@@ -3133,7 +3133,7 @@
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">// Custom: override embedded + add directories</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">NewAgent</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithEmbeddedSkills</span><span class="p">(</span><span class="nx">customBundle</span><span class="p">),</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="s">"./my-skills"</span><span class="p">),</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="s">&quot;./my-skills&quot;</span><span class="p">),</span>
 <a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithCompiledSkill</span><span class="p">(</span><span class="nx">myGoSkill</span><span class="p">),</span>
 <a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="p">)</span>
 </code></pre></div>
@@ -3365,7 +3365,7 @@
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1">// v0.7.0 (new options available)</span>
 <a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">NewAgent</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="s">"./custom-skills"</span><span class="p">),</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="nx">omniagent</span><span class="p">.</span><span class="nx">WithSkillDirs</span><span class="p">(</span><span class="s">&quot;./custom-skills&quot;</span><span class="p">),</span>
 <a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="p">)</span>
 </code></pre></div>
 <h3 id="deprecations">Deprecations<a class="headerlink" href="#deprecations" title="Permanent link">&para;</a></h3>
@@ -3446,7 +3446,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

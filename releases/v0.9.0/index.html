@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3160,15 +3160,15 @@
 <h2 id="new-features">New Features<a class="headerlink" href="#new-features" title="Permanent link">&para;</a></h2>
 <h3 id="bootstrap-profiles">Bootstrap Profiles<a class="headerlink" href="#bootstrap-profiles" title="Permanent link">&para;</a></h3>
 <p>Configure agent behavior for specific use cases:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/agent/profiles"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/agent/profiles&quot;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">profile</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">BootstrapProfile</span><span class="p">{</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">               </span><span class="s">"customer-support"</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">SystemPromptPrefix</span><span class="p">:</span><span class="w"> </span><span class="s">"You are a customer support agent.\n"</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w">       </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"search_kb"</span><span class="p">,</span><span class="w"> </span><span class="s">"create_ticket"</span><span class="p">},</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w">        </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"shell"</span><span class="p">,</span><span class="w"> </span><span class="s">"browser"</span><span class="p">},</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">ToolPolicies</span><span class="p">:</span><span class="w"> </span><span class="kt">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">ToolPolicy</span><span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="s">"create_ticket"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nx">RequiresConfirmation</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">               </span><span class="s">&quot;customer-support&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">SystemPromptPrefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You are a customer support agent.\n&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w">       </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;search_kb&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;create_ticket&quot;</span><span class="p">},</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w">        </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;shell&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;browser&quot;</span><span class="p">},</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">ToolPolicies</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">ToolPolicy</span><span class="p">{</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="s">&quot;create_ticket&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nx">RequiresConfirmation</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
@@ -3212,12 +3212,12 @@
 </table>
 <h3 id="tool-policies">Tool Policies<a class="headerlink" href="#tool-policies" title="Permanent link">&para;</a></h3>
 <p>Per-sender tool access control:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/tools/policy"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/tools/policy&quot;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nx">manager</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">policy</span><span class="p">.</span><span class="nx">NewManager</span><span class="p">()</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nx">manager</span><span class="p">.</span><span class="nx">SetPolicy</span><span class="p">(</span><span class="s">"guest"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">Policy</span><span class="p">{</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"search"</span><span class="p">},</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"shell"</span><span class="p">,</span><span class="w"> </span><span class="s">"browser"</span><span class="p">},</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nx">manager</span><span class="p">.</span><span class="nx">SetPolicy</span><span class="p">(</span><span class="s">&quot;guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">Policy</span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;search&quot;</span><span class="p">},</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;shell&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;browser&quot;</span><span class="p">},</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nx">RateLimit</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">RateLimit</span><span class="p">{</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="nx">MaxCalls</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="nx">Window</span><span class="p">:</span><span class="w">   </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span>
@@ -3226,11 +3226,11 @@
 </code></pre></div>
 <h3 id="channel-policies">Channel Policies<a class="headerlink" href="#channel-policies" title="Permanent link">&para;</a></h3>
 <p>Message validation and content filtering:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/channels/policy"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/channels/policy&quot;</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">checker</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">policy</span><span class="p">.</span><span class="nx">NewConformanceChecker</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nx">checker</span><span class="p">.</span><span class="nx">AddRule</span><span class="p">(</span><span class="nx">policy</span><span class="p">.</span><span class="nx">ConformanceRule</span><span class="p">{</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">"rate-limit"</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;rate-limit&quot;</span><span class="p">,</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nx">Action</span><span class="p">:</span><span class="w">  </span><span class="nx">policy</span><span class="p">.</span><span class="nx">ActionRateLimit</span><span class="p">,</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nx">RateLimit</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">RateLimit</span><span class="p">{</span><span class="nx">MaxMessages</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="nx">Window</span><span class="p">:</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">},</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">})</span>
@@ -3238,11 +3238,11 @@
 <h3 id="gpu-passthrough">GPU Passthrough<a class="headerlink" href="#gpu-passthrough" title="Permanent link">&para;</a></h3>
 <p>Run GPU-accelerated workloads in Docker:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">sandbox</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">NewDockerSandbox</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">DockerConfig</span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w"> </span><span class="s">"nvidia/cuda:12.0-base"</span><span class="p">,</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nvidia/cuda:12.0-base&quot;</span><span class="p">,</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">GPU</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">GPUConfig</span><span class="p">{</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="nx">Enabled</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w">    </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"0"</span><span class="p">},</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"compute"</span><span class="p">,</span><span class="w"> </span><span class="s">"utility"</span><span class="p">},</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w">    </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;0&quot;</span><span class="p">},</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;compute&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utility&quot;</span><span class="p">},</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">})</span>
 </code></pre></div>
@@ -3250,7 +3250,7 @@
 <p>Interact with JavaScript dialogs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">tool</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nx">DialogCallback</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">d</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Dialog: %s - %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Dialog: %s - %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">})</span>
 </code></pre></div>
@@ -3267,16 +3267,16 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">ObservopsProvider</span><span class="p">:</span><span class="w"> </span><span class="nx">provider</span><span class="p">,</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">})</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">"/rpc/tools"</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/rpc/tools&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="vault-backed-credentials">Vault-Backed Credentials<a class="headerlink" href="#vault-backed-credentials" title="Permanent link">&para;</a></h3>
 <p>Store credentials in password managers:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">agent</span><span class="p">:</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="s">"op://MyVault/anthropic/api-key"</span><span class="w">  </span><span class="c1"># 1Password</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;op://MyVault/anthropic/api-key&quot;</span><span class="w">  </span><span class="c1"># 1Password</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nt">channels</span><span class="p">:</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">telegram</span><span class="p">:</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s">"bw://org-id/telegram-token"</span><span class="w">      </span><span class="c1"># Bitwarden</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bw://org-id/telegram-token&quot;</span><span class="w">      </span><span class="c1"># Bitwarden</span>
 </code></pre></div>
 <h2 id="new-agent-options">New Agent Options<a class="headerlink" href="#new-agent-options" title="Permanent link">&para;</a></h2>
 <table>
@@ -3357,12 +3357,12 @@
 </table>
 <h3 id="token-management">Token Management<a class="headerlink" href="#token-management" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">tokens</span><span class="p">:</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">vault_uri</span><span class="p">:</span><span class="w"> </span><span class="s">"op://MyVault"</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">vault_uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;op://MyVault&quot;</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">services</span><span class="p">:</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">google</span><span class="p">:</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">      </span><span class="nt">credentials_name</span><span class="p">:</span><span class="w"> </span><span class="s">"google-oauth"</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">      </span><span class="nt">credentials_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;google-oauth&quot;</span>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">      </span><span class="nt">scopes</span><span class="p">:</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"https://www.googleapis.com/auth/calendar"</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;https://www.googleapis.com/auth/calendar&quot;</span>
 </code></pre></div>
 <h2 id="fixes">Fixes<a class="headerlink" href="#fixes" title="Permanent link">&para;</a></h2>
 <ul>
@@ -3464,11 +3464,11 @@ in standard CI environments. Use <code>env://</code> or <code>file://</code> vau
 <ol>
 <li>(Optional) Add profiles for different use cases:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/agent/profiles"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/agent/profiles&quot;</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nx">profile</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">profiles</span><span class="p">.</span><span class="nx">BootstrapProfile</span><span class="p">{</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">"default"</span><span class="p">,</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"shell"</span><span class="p">},</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">        </span><span class="s">&quot;default&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nx">DeniedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;shell&quot;</span><span class="p">},</span>
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">}</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithProfile</span><span class="p">(</span><span class="nx">profile</span><span class="p">))</span>
@@ -3476,11 +3476,11 @@ in standard CI environments. Use <code>env://</code> or <code>file://</code> vau
 <ol>
 <li>(Optional) Add tool policies:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">"github.com/plexusone/omniagent/tools/policy"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/plexusone/omniagent/tools/policy&quot;</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nx">manager</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">policy</span><span class="p">.</span><span class="nx">NewManager</span><span class="p">()</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nx">manager</span><span class="p">.</span><span class="nx">SetPolicy</span><span class="p">(</span><span class="s">"guest"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">Policy</span><span class="p">{</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"search"</span><span class="p">,</span><span class="w"> </span><span class="s">"weather"</span><span class="p">},</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nx">manager</span><span class="p">.</span><span class="nx">SetPolicy</span><span class="p">(</span><span class="s">&quot;guest&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">policy</span><span class="p">.</span><span class="nx">Policy</span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nx">AllowedTools</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;search&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;weather&quot;</span><span class="p">},</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">})</span>
 </code></pre></div>
 <h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
@@ -3576,7 +3576,7 @@ in standard CI environments. Use <code>env://</code> or <code>file://</code> vau
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

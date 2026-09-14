@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3210,9 +3210,9 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">CapFSRead</span><span class="p">,</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">CapNetHTTP</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"/tmp/data"</span><span class="p">,</span><span class="w"> </span><span class="s">"/home/user/docs"</span><span class="p">},</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">AllowedHosts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"api.example.com"</span><span class="p">},</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">AllowedCommands</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"ls"</span><span class="p">,</span><span class="w"> </span><span class="s">"cat"</span><span class="p">},</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/tmp/data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/home/user/docs&quot;</span><span class="p">},</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">AllowedHosts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;api.example.com&quot;</span><span class="p">},</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">AllowedCommands</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;ls&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p">},</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="wasm-sandbox">WASM Sandbox<a class="headerlink" href="#wasm-sandbox" title="Permanent link">&para;</a></h2>
@@ -3229,7 +3229,7 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Capability</span><span class="p">{</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">CapFSRead</span><span class="p">},</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nx">MemoryLimitMB</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nx">Timeout</span><span class="p">:</span><span class="w">       </span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"/tmp/data"</span><span class="p">},</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/tmp/data&quot;</span><span class="p">},</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">})</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">runtime</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">wasmModule</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span>
@@ -3278,19 +3278,19 @@
 </ul>
 <h3 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">sandbox</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">NewDockerSandbox</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">DockerConfig</span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w">       </span><span class="s">"alpine:latest"</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nx">NetworkMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span><span class="p">,</span><span class="w">           </span><span class="c1">// No network access</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">CapDrop</span><span class="p">:</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"ALL"</span><span class="p">},</span><span class="w">  </span><span class="c1">// Drop all capabilities</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w">       </span><span class="s">&quot;alpine:latest&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nx">NetworkMode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="p">,</span><span class="w">           </span><span class="c1">// No network access</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">CapDrop</span><span class="p">:</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;ALL&quot;</span><span class="p">},</span><span class="w">  </span><span class="c1">// Drop all capabilities</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">Mounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">DockerMount</span><span class="p">{</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="nx">HostPath</span><span class="p">:</span><span class="w">      </span><span class="s">"/tmp/data"</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="nx">ContainerPath</span><span class="p">:</span><span class="w"> </span><span class="s">"/data"</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="nx">HostPath</span><span class="p">:</span><span class="w">      </span><span class="s">&quot;/tmp/data&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="nx">ContainerPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/data&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">            </span><span class="nx">ReadOnly</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="p">},</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">},</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">appConfig</span><span class="p">)</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"cat"</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"/data/file.txt"</span><span class="p">})</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/data/file.txt&quot;</span><span class="p">})</span>
 </code></pre></div>
 <h3 id="network-modes">Network Modes<a class="headerlink" href="#network-modes" title="Permanent link">&para;</a></h3>
 <table>
@@ -3317,9 +3317,9 @@
 </table>
 <h3 id="security-hardening">Security Hardening<a class="headerlink" href="#security-hardening" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">DockerConfig</span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w">       </span><span class="s">"alpine:latest"</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">NetworkMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">CapDrop</span><span class="p">:</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"ALL"</span><span class="p">},</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w">       </span><span class="s">&quot;alpine:latest&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">NetworkMode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">CapDrop</span><span class="p">:</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;ALL&quot;</span><span class="p">},</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nx">ReadOnlyRootfs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nx">NoNewPrivileges</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
@@ -3327,12 +3327,12 @@
 <h3 id="gpu-passthrough">GPU Passthrough<a class="headerlink" href="#gpu-passthrough" title="Permanent link">&para;</a></h3>
 <p>For GPU-accelerated workloads (ML inference, rendering), enable NVIDIA GPU passthrough:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">sandbox</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">NewDockerSandbox</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">DockerConfig</span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w"> </span><span class="s">"nvidia/cuda:12.0-base"</span><span class="p">,</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">Image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nvidia/cuda:12.0-base&quot;</span><span class="p">,</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">GPU</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">GPUConfig</span><span class="p">{</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="nx">Enabled</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w">    </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"0"</span><span class="p">,</span><span class="w"> </span><span class="s">"1"</span><span class="p">},</span><span class="w">  </span><span class="c1">// Specific GPUs</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"compute"</span><span class="p">,</span><span class="w"> </span><span class="s">"utility"</span><span class="p">},</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="nx">Driver</span><span class="p">:</span><span class="w">       </span><span class="s">"nvidia"</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w">    </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">},</span><span class="w">  </span><span class="c1">// Specific GPUs</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;compute&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utility&quot;</span><span class="p">},</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="nx">Driver</span><span class="p">:</span><span class="w">       </span><span class="s">&quot;nvidia&quot;</span><span class="p">,</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">})</span>
 </code></pre></div>
@@ -3414,14 +3414,14 @@
 <p>Use specific GPUs by ID:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">GPU</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">GPUConfig</span><span class="p">{</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nx">Enabled</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"GPU-abc123"</span><span class="p">,</span><span class="w"> </span><span class="s">"GPU-def456"</span><span class="p">},</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">DeviceIDs</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;GPU-abc123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GPU-def456&quot;</span><span class="p">},</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
 </code></pre></div>
 <p>ML inference workload:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">GPU</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">GPUConfig</span><span class="p">{</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">Enabled</span><span class="p">:</span><span class="w">      </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">Count</span><span class="p">:</span><span class="w">        </span><span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"compute"</span><span class="p">},</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;compute&quot;</span><span class="p">},</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
 </code></pre></div>
 <div class="admonition note">
@@ -3449,22 +3449,22 @@
 <a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="c1">// Good: Minimal permissions</span>
 <a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="nx">Capabilities</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Capability</span><span class="p">{</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">CapFSRead</span><span class="p">},</span>
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"/tmp/readonly"</span><span class="p">},</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;/tmp/readonly&quot;</span><span class="p">},</span>
 <a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="path-restrictions">Path Restrictions<a class="headerlink" href="#path-restrictions" title="Permanent link">&para;</a></h3>
 <p>Always restrict file access to specific directories:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nx">AllowedPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="s">"/tmp/workspace"</span><span class="p">,</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="s">"/home/user/data"</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="s">&quot;/tmp/workspace&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="s">&quot;/home/user/data&quot;</span><span class="p">,</span>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="p">},</span>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="command-allowlists">Command Allowlists<a class="headerlink" href="#command-allowlists" title="Permanent link">&para;</a></h3>
 <p>Only allow specific commands for exec:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nx">AllowedCommands</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"ls"</span><span class="p">,</span><span class="w"> </span><span class="s">"cat"</span><span class="p">,</span><span class="w"> </span><span class="s">"grep"</span><span class="p">},</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nx">AllowedCommands</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;ls&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;grep&quot;</span><span class="p">},</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="timeouts">Timeouts<a class="headerlink" href="#timeouts" title="Permanent link">&para;</a></h3>
@@ -3576,7 +3576,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

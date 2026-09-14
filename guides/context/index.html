@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3313,8 +3313,8 @@
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/agent"</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">"github.com/plexusone/omniagent/context"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/agent&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/omniagent/context&quot;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// Simple: limit to 50 messages</span>
@@ -3441,7 +3441,7 @@
 <h3 id="modeltokencounter">ModelTokenCounter<a class="headerlink" href="#modeltokencounter" title="Permanent link">&para;</a></h3>
 <p>For more accurate counting with specific models:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">context</span><span class="p">.</span><span class="nx">ModelTokenCounter</span><span class="p">{</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">Model</span><span class="p">:</span><span class="w">    </span><span class="s">"gpt-4"</span><span class="p">,</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">Model</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;gpt-4&quot;</span><span class="p">,</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">Fallback</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">context</span><span class="p">.</span><span class="nx">SimpleTokenCounter</span><span class="p">{},</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
 </code></pre></div>
@@ -3474,7 +3474,7 @@ which wires the agent's own LLM client into the context engine:</p>
 wholesale, which would discard compaction settings applied before them.</p>
 <p>Customize the summarization prompt via <code>Config.CompactionPrompt</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">agent</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">CompactionPrompt</span><span class="p">:</span><span class="w"> </span><span class="s">"Summarize the discussion, focusing on action items."</span><span class="p">,</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">CompactionPrompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Summarize the discussion, focusing on action items.&quot;</span><span class="p">,</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">},</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">WithCompaction</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
 </code></pre></div>
 <p>Compaction keeps the system message and the most recent messages
@@ -3503,9 +3503,9 @@ recency window was used as a fallback:</p>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">if</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">contextEngine</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nx">windowed</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">contextEngine</span><span class="p">.</span><span class="nx">Apply</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">messages</span><span class="p">)</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Warn</span><span class="p">(</span><span class="s">"context compaction degraded, using recency fallback"</span><span class="p">,</span><span class="w"> </span><span class="s">"error"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Warn</span><span class="p">(</span><span class="s">&quot;context compaction degraded, using recency fallback&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">windowed</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nx">messages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">windowed</span>
 <a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="manual-usage">Manual Usage<a class="headerlink" href="#manual-usage" title="Permanent link">&para;</a></h3>
@@ -3590,7 +3590,7 @@ recency window was used as a fallback:</p>
 <h3 id="4-monitor-token-usage">4. Monitor Token Usage<a class="headerlink" href="#4-monitor-token-usage" title="Permanent link">&para;</a></h3>
 <p>Log token usage to understand patterns:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">tokens</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">engine</span><span class="p">.</span><span class="nx">EstimateTokens</span><span class="p">(</span><span class="nx">messages</span><span class="p">)</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">"context tokens"</span><span class="p">,</span><span class="w"> </span><span class="s">"count"</span><span class="p">,</span><span class="w"> </span><span class="nx">tokens</span><span class="p">)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;context tokens&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;count&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tokens</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>┌───────────────────────────────────────────────────────────┐
@@ -3697,7 +3697,7 @@ call, reusing the agent's own client (<code>agent/compaction.go</code>).</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

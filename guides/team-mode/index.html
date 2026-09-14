@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3092,7 +3092,7 @@ hashed (never in plaintext or logs).</p>
 <li><strong>Startup bootstrap (no SMTP needed).</strong> Set the superadmin's password from
   config/env so you can log in immediately on a fresh deployment:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">OMNIAGENT_TEAM_SUPERADMIN_PASSWORD</span><span class="o">=</span><span class="s1">'a-strong-passphrase'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">OMNIAGENT_TEAM_SUPERADMIN_PASSWORD</span><span class="o">=</span><span class="s1">&#39;a-strong-passphrase&#39;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>omniagent<span class="w"> </span>gateway<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>omniagent.yaml
 </code></pre></div>
 <p>or <code>team.superadmin_password</code> in the config file (prefer an env/vault
@@ -3132,12 +3132,12 @@ source them from env vars or a vault reference.</p>
 <p>The same operations are available over the admin API, useful for scripting:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Allowlist (superadmin session cookie + CSRF header required on mutations)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>GET<span class="w">    </span>/api/admin/allowlist
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>POST<span class="w">   </span>/api/admin/allowlist<span class="w">        </span><span class="o">{</span><span class="s2">"email"</span>:<span class="s2">"teammate@example.com"</span>,<span class="s2">"note"</span>:<span class="s2">"Design"</span><span class="o">}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>POST<span class="w">   </span>/api/admin/allowlist<span class="w">        </span><span class="o">{</span><span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;teammate@example.com&quot;</span>,<span class="s2">&quot;note&quot;</span>:<span class="s2">&quot;Design&quot;</span><span class="o">}</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>DELETE<span class="w"> </span>/api/admin/allowlist?email<span class="o">=</span>teammate@example.com
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Members</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>GET<span class="w">    </span>/api/admin/users
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>PATCH<span class="w">  </span>/api/admin/users/<span class="o">{</span>id<span class="o">}</span><span class="w">       </span><span class="o">{</span><span class="s2">"status"</span>:<span class="s2">"disabled"</span><span class="o">}</span><span class="w">   </span><span class="c1"># or {"username":"..."}</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>PATCH<span class="w">  </span>/api/admin/users/<span class="o">{</span>id<span class="o">}</span><span class="w">       </span><span class="o">{</span><span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;disabled&quot;</span><span class="o">}</span><span class="w">   </span><span class="c1"># or {&quot;username&quot;:&quot;...&quot;}</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Global secret bindings (read-only)</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>GET<span class="w">    </span>/api/admin/secret-bindings
@@ -3148,11 +3148,11 @@ optional, additive sign-in methods configured under <code>team.sso</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">team</span><span class="p">:</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">sso</span><span class="p">:</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">google</span><span class="p">:</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">"1234567890-abc.apps.googleusercontent.com"</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">"GOCSPX-..."</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1234567890-abc.apps.googleusercontent.com&quot;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GOCSPX-...&quot;</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">github</span><span class="p">:</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">"Iv1.abc123"</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">"..."</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Iv1.abc123&quot;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;...&quot;</span>
 </code></pre></div>
 <p>Each provider is independent — configure one, both, or neither. A provider
 needs both <code>client_id</code> and <code>client_secret</code> set to be enabled; the web UI's
@@ -3235,7 +3235,7 @@ can inject <strong>per-agent</strong> secrets into an agent's skills (including 
 environment of its MCP subprocesses), configured under <code>team.secrets</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">team</span><span class="p">:</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">secrets</span><span class="p">:</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w">       </span><span class="c1"># "memory" (tests) or "file" (local store)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w">       </span><span class="c1"># &quot;memory&quot; (tests) or &quot;file&quot; (local store)</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/omniagent/secrets</span>
 </code></pre></div>
 <p>Secrets are stored in an <a href="../vault-credentials/">OmniVault</a>-backed store and
@@ -3350,7 +3350,7 @@ troubleshooting table, see <strong><a href="../team-deployment/">Team Deployment
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
