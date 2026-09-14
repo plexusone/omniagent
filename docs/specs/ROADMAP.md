@@ -17,7 +17,7 @@
   - - Acceptance: `docker build --platform linux/amd64` succeeds with no local replace mounts; runs `gateway run`; serves `/health`
 - [x] `RMI-OMNIAGENT-003` Publish container image to GHCR (public)
   - Depends on: `RMI-OMNIAGENT-002`
-  - - Shipped: `.github/workflows/docker.yaml` builds and pushes `ghcr.io/plexusone/omniagent` on `v*` tag push (`:vX.Y.Z`, `:X.Y`, `:latest`), or `:smoke` via manual `workflow_dispatch`. `docs/guides/deployment.md` corrected to describe the actual tag-triggered behavior instead of "any push." One manual one-time step remains outside CI's reach: an admin must set the GHCR package visibility to Public after the first push (already documented in the guide's "GHCR Authentication" section) — `GITHUB_TOKEN` can't do this itself.
+  - - Shipped: `.github/workflows/docker.yaml` builds and pushes `ghcr.io/plexusone/omniagent` on a `v*` git-tag push (image tags `:X.Y.Z`, `:X.Y`, `:latest` — `docker/metadata-action`'s semver templates strip the git tag's leading `v`, confirmed against the real published v0.19.0 tags), or `:smoke` via manual `workflow_dispatch`. `docs/guides/deployment.md` corrected to describe the actual tag-triggered behavior instead of "any push." One manual one-time step remains outside CI's reach: an admin must set the GHCR package visibility to Public after the first push (already documented in the guide's "GHCR Authentication" section) — `GITHUB_TOKEN` can't do this itself.
 - [x] `RMI-OMNIAGENT-004` Lightsail deployment via omnideploy
   - Depends on: `RMI-OMNIAGENT-003`
   - - Acceptance: `omnideploy up --target lightsail --backend pulumi` provisions a running service with the Discord/agent/Serper env

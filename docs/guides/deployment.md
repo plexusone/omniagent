@@ -55,9 +55,11 @@ git push origin main
 
 **Option A: Via GitHub Actions (recommended)**
 
-Pushing a version tag (`vX.Y.Z`) triggers `.github/workflows/docker.yaml`
-automatically (RMI-OMNIAGENT-003), publishing
-`ghcr.io/<owner>/<repo>:vX.Y.Z`, `:X.Y`, and `:latest`. Trigger a one-off
+Pushing a git tag `vX.Y.Z` triggers `.github/workflows/docker.yaml`
+automatically (RMI-OMNIAGENT-003), publishing image tags
+`ghcr.io/<owner>/<repo>:X.Y.Z`, `:X.Y`, and `:latest` — note the leading
+`v` is on the *git* tag only; `docker/metadata-action`'s semver
+templates strip it from the resulting *image* tags. Trigger a one-off
 build without a tag via **Actions → Docker Build & Publish → Run
 workflow**, which publishes `:latest` plus a `:smoke` tag.
 
