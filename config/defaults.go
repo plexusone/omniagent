@@ -18,7 +18,7 @@ func Default() Config {
 			// default"): newer Claude models (Sonnet 4.6+/5, Opus 4.6+)
 			// reject requests that set temperature at all, so it is only
 			// sent when a user explicitly configures it.
-			MaxTokens: 4096,
+			MaxTokens:    4096,
 			SystemPrompt: "You are OmniAgent, a helpful AI assistant. You represent the user across communication channels, responding on their behalf with care and precision.\n\nYou have access to the following tools:\n- web_search: Search the web for current information, news, weather, or any real-time data.\n\nIMPORTANT: When users ask about current events, news, weather, prices, or anything that requires up-to-date information, you MUST use the web_search tool. Do not say you cannot search - use your tools.",
 		},
 		Storage: StorageConfig{
