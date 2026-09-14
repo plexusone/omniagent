@@ -2,7 +2,7 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 28 of 38 items completed
+**Status:** Executing — 29 of 38 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
@@ -31,7 +31,7 @@
 ## Phase 2 — Deployment Hardening
 
 **Theme:** Make the deployment production-safe: secrets, durable storage, and CI-buildable images.
-**Status:** In progress — 4 of 5 items completed
+**Status:** Complete — 5 of 5 items completed
 
 - [x] `RMI-OMNIAGENT-006` SSM-backed secret injection in omnideploy Lightsail target
   - - Acceptance: `SecretRef` (`ssm:`/`secretsmanager:`) resolved and injected; secrets never land in plaintext env or Pulumi state (schema exists; target does not yet consume `cfg.Secrets`)
@@ -119,15 +119,16 @@
 ## Phase 7 — Reusable Public Image
 
 **Theme:** Make the published container a deployment-agnostic, multi-arch, supply-chain-verified artifact usable beyond this repo's own deployments.
-**Status:** In progress — 4 of 5 items completed
+**Status:** Complete — 5 of 5 items completed
 - [x] `RMI-OMNIAGENT-031` Full config injection via environment (`OMNIAGENT_CONFIG_B64`)
   - - Acceptance: entrypoint accepts a complete config file through a single env var (base64), closing the gap where nested config (team mode, per-skill config, vault bindings) is unreachable on platforms without volume mounts (Lightsail). The personal-mode web UI env vars (`OMNIAGENT_WEB_ENABLED`/`OMNIAGENT_AUTH_*`) shipped as the first installment; this generalizes it.
   - - Shipped: decoded in `config.LoadWithContext` itself rather than an entrypoint script — the payload never touches disk. Any base64 alphabet, padded or not; YAML or JSON. Precedence: explicit `--config` wins entirely; individual `OMNIAGENT_*` env vars override on top, matching file semantics. Documented with a keep-credentials-out caveat (the payload lands in platform-visible env; secrets stay in `deploy.secrets`/vault bindings).
 - [x] `RMI-OMNIAGENT-032` Multi-arch image build (linux/arm64)
   - - Acceptance: `Docker Build & Publish` produces a linux/amd64 + linux/arm64 manifest so the public image runs on Graviton and Apple Silicon without emulation.
   - - Shipped: builder stage pinned to `BUILDPLATFORM` with `GOOS`/`GOARCH` from `TARGETOS`/`TARGETARCH` — the Go compile stays native (no QEMU) and, notably, this fixed a latent bug where the hardcoded `GOARCH=amd64` would have shipped amd64 binaries inside arm64 images. Verified on GHCR: the `:latest` index lists `linux/amd64` and `linux/arm64` image manifests.
-- [ ] `RMI-OMNIAGENT-035` Chainguard static runtime image per base-image policy
-  - - Acceptance: runtime stage is digest-pinned `cgr.dev/chainguard/static` per `internal-plexusone-system/policies/container-base-image.md` — no shell/package manager/libc, built-in nonroot (65532), tzdata embedded via `-tags timetzdata`, and a dependency-free `omniagent healthcheck` subcommand for exec-form HEALTHCHECK (no wget in the image). Implemented and locally verified; awaiting CI image validation.
+- [x] `RMI-OMNIAGENT-035` Chainguard static runtime image per base-image policy
+  - - Acceptance: runtime stage is digest-pinned `cgr.dev/chainguard/static` per `internal-plexusone-system/policies/container-base-image.md` — no shell/package manager/libc, built-in nonroot (65532), tzdata embedded via `-tags timetzdata`, and a dependency-free `omniagent healthcheck` subcommand for exec-form HEALTHCHECK (no wget in the image).
+  - - Shipped: CI built, attested, and signed the Chainguard-based multi-arch image on both registries; Lightsail deployment v3 rolled to it and reached steady state — `/health` 200, SPA served, Discord reconnected. Base digest pinned in the Dockerfile with the refresh procedure documented in the policy.
 - [x] `RMI-OMNIAGENT-033` DockerHub mirror publish
   - - Acceptance: image mirrored to DockerHub for discoverability, gated on `DOCKERHUB_USERNAME`/`DOCKERHUB_TOKEN` repo secrets; GHCR remains canonical (DockerHub anonymous pulls are rate-limited).
   - - Shipped: one metadata invocation publishes every build to both `ghcr.io/plexusone/omniagent` (canonical) and `docker.io/grokify/omniagent` (mirror — personal namespace, Docker Hub orgs are paid), same digest, cosign signing both refs. Credentials are `plexusone` org-level secrets. Verified on Docker Hub: multi-arch index (amd64+arm64) with SBOM/provenance attestation entries and a passing local `cosign verify` against the docker.io ref.
