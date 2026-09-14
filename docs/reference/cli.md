@@ -382,6 +382,41 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD ["/opt/omniagent/omniagent", "healthcheck"]
 ```
 
+### `/health` vs `/readyz`
+
+The `healthcheck` subcommand (and the Dockerfile `HEALTHCHECK` above)
+probes `/health` (also served at `/api/health`) — **liveness**: the
+process is up and serving HTTP. It always returns 200 while the gateway
+is running.
+
+`/readyz` — **readiness**: whether the instance can actually serve right
+now. It aggregates a small set of checkers and returns 200 only if all
+pass, 503 with per-check detail otherwise:
+
+```bash
+curl http://127.0.0.1:18789/readyz
+# {"status":"ok","checks":[{"name":"storage","status":"ok"},{"name":"agent_configured","status":"ok"}]}
+```
+
+- **storage** — a real write/read/delete round-trip against the
+  configured storage backend; the only check here that reflects live
+  runtime state (a backend fine at startup can still fail later — a
+  corrupted SQLite file, a dropped Redis connection).
+- **agent_configured** — a static check that an agent was constructed at
+  startup with a non-empty API key. This does *not* make a live LLM API
+  call on every probe (readiness is typically polled every few seconds;
+  a billed request per poll would be wasteful for a signal that's
+  effectively constant once the process is up).
+
+Not checked: live channel-connection state (e.g. is Discord actually
+still connected right now) — omnichat's `Provider` interface doesn't
+expose a connected-state query today, so this is intentionally omitted
+rather than faked from the one-time startup `ConnectAll` result.
+
+Use `/health` for a container orchestrator's liveness/restart decision
+and `/readyz` for load-balancer traffic-routing or a deployment's
+post-rollout verification gate.
+
 ## Setup
 
 ### setup
