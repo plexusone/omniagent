@@ -105,7 +105,7 @@ func setupTeamHTTPWithConfig(t *testing.T, cfg TeamHTTPConfig) *teamHTTPFixture 
 	srv := httptest.NewServer(h.Handler())
 	t.Cleanup(srv.Close)
 
-	jar, _ := newJar()
+	jar := newJar()
 	return &teamHTTPFixture{
 		h:      h,
 		server: srv,
@@ -118,9 +118,9 @@ func setupTeamHTTPWithConfig(t *testing.T, cfg TeamHTTPConfig) *teamHTTPFixture 
 	}
 }
 
-func newJar() (http.CookieJar, error) {
+func newJar() http.CookieJar {
 	// net/http/cookiejar without public-suffix handling is fine for tests.
-	return cookieJar{m: map[string][]*http.Cookie{}}, nil
+	return cookieJar{m: map[string][]*http.Cookie{}}
 }
 
 // cookieJar is a minimal same-host cookie jar sufficient for the test server.
@@ -196,15 +196,15 @@ func (f *teamHTTPFixture) me(t *testing.T) struct {
 
 // loginKid allowlists and logs in a second ("kid") member principal sharing
 // the fixture's server/mailer, mirroring TestTeamHTTP_CSRFAndAdminRBAC.
-func loginKid(t *testing.T, f *teamHTTPFixture, email string) *teamHTTPFixture {
+func loginKid(t *testing.T, f *teamHTTPFixture) *teamHTTPFixture {
 	t.Helper()
-	body := `{"email":"` + email + `"}`
+	body := `{"email":"kid@example.com"}`
 	resp := f.post(t, "/api/admin/allowlist", body, true)
 	resp.Body.Close()
 	f.post(t, "/api/auth/magic-link", body, false).Body.Close()
 	kidToken := f.mailer.lastToken(t)
 
-	jar, _ := newJar()
+	jar := newJar()
 	kid := &teamHTTPFixture{server: f.server, mailer: f.mailer, client: &http.Client{
 		Jar:           jar,
 		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
@@ -331,7 +331,7 @@ func TestTeamHTTP_CSRFAndAdminRBAC(t *testing.T) {
 	kidToken := f.mailer.lastToken(t)
 
 	// A second client (the kid) logs in and is NOT a superadmin.
-	jar, _ := newJar()
+	jar := newJar()
 	kid := &teamHTTPFixture{server: f.server, mailer: f.mailer, client: &http.Client{
 		Jar:           jar,
 		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
@@ -430,7 +430,7 @@ func TestTeamHTTP_RequireAuth(t *testing.T) {
 func TestTeamHTTP_AdminListUsers(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 
 	resp := f.get(t, "/api/admin/users")
 	if resp.StatusCode != http.StatusOK {
@@ -473,7 +473,7 @@ func TestTeamHTTP_AdminListUsers(t *testing.T) {
 func TestTeamHTTP_AdminSetUserStatus(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	kidID := kid.me(t).UserID
 
 	resp := f.patch(t, "/api/admin/users/"+kidID, `{"status":"disabled"}`, true)
@@ -535,7 +535,7 @@ func TestTeamHTTP_AdminSetUserStatus_SelfLockout(t *testing.T) {
 func TestTeamHTTP_AdminRenameOtherUser(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	kidID := kid.me(t).UserID
 
 	resp := f.patch(t, "/api/admin/users/"+kidID, `{"username":"renamed-kid"}`, true)
@@ -570,7 +570,7 @@ func TestTeamHTTP_AdminSecretBindings(t *testing.T) {
 	resp.Body.Close()
 
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 
 	resp = f.get(t, "/api/admin/secret-bindings")
 	if resp.StatusCode != http.StatusOK {
@@ -735,9 +735,9 @@ func TestTeamHTTP_SSOCallback_StateMismatch(t *testing.T) {
 
 // ssoStart performs a real start request and extracts the state query param
 // from the redirect Location, for use as a valid callback ?state=.
-func ssoStart(t *testing.T, f *teamHTTPFixture, provider string) string {
+func ssoStart(t *testing.T, f *teamHTTPFixture) string {
 	t.Helper()
-	resp := f.get(t, "/api/auth/"+provider)
+	resp := f.get(t, "/api/auth/google")
 	defer resp.Body.Close()
 	loc := resp.Header.Get("Location")
 	u, err := url.Parse(loc)
@@ -751,7 +751,7 @@ func TestTeamHTTP_SSOCallback_ExchangeError(t *testing.T) {
 	fake := &fakeSSOProvider{authURL: "https://fake-provider.example/authorize", exchangeErr: errTestExchange}
 	f := setupTeamHTTPWithGoogle(t, fake)
 
-	state := ssoStart(t, f, "google")
+	state := ssoStart(t, f)
 	resp := f.get(t, "/api/auth/google/callback?state="+state+"&code=abc")
 	if resp.StatusCode != http.StatusSeeOther || !strings.Contains(resp.Header.Get("Location"), "error=sso_failed") {
 		t.Fatalf("status=%d location=%q, want 303 with error=sso_failed", resp.StatusCode, resp.Header.Get("Location"))
@@ -763,7 +763,7 @@ func TestTeamHTTP_SSOCallback_NotAllowlisted(t *testing.T) {
 	fake := &fakeSSOProvider{authURL: "https://fake-provider.example/authorize", exchangeSub: "sub-1", exchangeEmail: "stranger@example.com"}
 	f := setupTeamHTTPWithGoogle(t, fake)
 
-	state := ssoStart(t, f, "google")
+	state := ssoStart(t, f)
 	resp := f.get(t, "/api/auth/google/callback?state="+state+"&code=abc")
 	if resp.StatusCode != http.StatusSeeOther || !strings.Contains(resp.Header.Get("Location"), "error=not_allowed") {
 		t.Fatalf("status=%d location=%q, want 303 with error=not_allowed", resp.StatusCode, resp.Header.Get("Location"))
@@ -776,7 +776,7 @@ func TestTeamHTTP_SSOCallback_HappyPath(t *testing.T) {
 	f := setupTeamHTTPWithGoogle(t, fake)
 
 	// root@example.com is the configured superadmin — always allowed.
-	state := ssoStart(t, f, "google")
+	state := ssoStart(t, f)
 	resp := f.get(t, "/api/auth/google/callback?state="+state+"&code=abc")
 	if resp.StatusCode != http.StatusSeeOther || resp.Header.Get("Location") != f.h.appURL("/") {
 		t.Fatalf("status=%d location=%q, want 303 to /", resp.StatusCode, resp.Header.Get("Location"))
@@ -795,17 +795,17 @@ func TestTeamHTTP_SSOCallback_LandsInExistingMagicLinkAccount(t *testing.T) {
 	loginSuperadmin(t, f)
 
 	// The superadmin allowlists kid, then kid logs in via magic link first.
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	magicUserID := kid.me(t).UserID
 
 	// kid's second client authenticates via (fake) Google SSO, same email.
-	jar, _ := newJar()
+	jar := newJar()
 	sso := &teamHTTPFixture{server: f.server, mailer: f.mailer, client: &http.Client{
 		Jar:           jar,
 		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
 	}}
 
-	state := ssoStart(t, sso, "google")
+	state := ssoStart(t, sso)
 	resp := sso.get(t, "/api/auth/google/callback?state="+state+"&code=abc")
 	resp.Body.Close()
 
@@ -822,7 +822,7 @@ var errTestExchange = errors.New("fake exchange failure")
 func TestTeamHTTP_PasswordLoginFlow(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	kidID := kid.me(t).UserID
 
 	// Superadmin sets the member's password via the admin endpoint.
@@ -833,7 +833,7 @@ func TestTeamHTTP_PasswordLoginFlow(t *testing.T) {
 	resp.Body.Close()
 
 	// A fresh client logs in with email+password.
-	jar, _ := newJar()
+	jar := newJar()
 	pw := &teamHTTPFixture{server: f.server, mailer: f.mailer, client: &http.Client{
 		Jar:           jar,
 		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
@@ -851,7 +851,7 @@ func TestTeamHTTP_PasswordLoginFlow(t *testing.T) {
 func TestTeamHTTP_PasswordLoginWrongCreds(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	kidID := kid.me(t).UserID
 	f.patch(t, "/api/admin/users/"+kidID, `{"password":"s3cret-passphrase"}`, true).Body.Close()
 
@@ -872,7 +872,7 @@ func TestTeamHTTP_PasswordLoginWrongCreds(t *testing.T) {
 func TestTeamHTTP_ChangePasswordSelfService(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 
 	// First self-set (no current password yet) requires CSRF; succeeds.
 	resp := kid.post(t, "/api/users/me/password", `{"new_password":"first-passphrase"}`, true)
@@ -904,7 +904,7 @@ func TestTeamHTTP_ChangePasswordSelfService(t *testing.T) {
 func TestTeamHTTP_AdminSetWeakPasswordRejected(t *testing.T) {
 	f := setupTeamHTTP(t)
 	loginSuperadmin(t, f)
-	kid := loginKid(t, f, "kid@example.com")
+	kid := loginKid(t, f)
 	kidID := kid.me(t).UserID
 
 	resp := f.patch(t, "/api/admin/users/"+kidID, `{"password":"short"}`, true)

@@ -25,14 +25,14 @@ import (
 // (superadmin), bob and carol (members). The catalog's available-skills are
 // {web-search, calculator}.
 func setupAgentsHTTP(t *testing.T) (*AgentsHTTP, *TeamChatHTTP, map[string]uuid.UUID) {
-	ah, ch, ids, _ := setupAgentsHTTPFull(t, nil)
+	ah, ch, ids := setupAgentsHTTPFull(t, nil)
 	return ah, ch, ids
 }
 
 // setupAgentsHTTPFull is setupAgentsHTTP with a hook to tweak the
 // AgentsHTTPConfig (e.g. wire the secrets surface) and access to the agents
 // service. The base config always has Agents set.
-func setupAgentsHTTPFull(t *testing.T, tweak func(*AgentsHTTPConfig)) (*AgentsHTTP, *TeamChatHTTP, map[string]uuid.UUID, *agents.Service) {
+func setupAgentsHTTPFull(t *testing.T, tweak func(*AgentsHTTPConfig)) (*AgentsHTTP, *TeamChatHTTP, map[string]uuid.UUID) {
 	t.Helper()
 	ctx := context.Background()
 	dsn := filepath.Join(t.TempDir(), "agents.db")
@@ -86,7 +86,7 @@ func setupAgentsHTTPFull(t *testing.T, tweak func(*AgentsHTTPConfig)) (*AgentsHT
 	}
 	ch := NewTeamChatHTTP(TeamChatHTTPConfig{Chats: chatSvc})
 
-	return ah, ch, ids, agentsSvc
+	return ah, ch, ids
 }
 
 // do issues a request against a handler as the given user and returns the
@@ -527,7 +527,7 @@ func setupAgentsSecretsHTTP(t *testing.T) (*AgentsHTTP, map[string]uuid.UUID, *f
 	decls := map[string][]SecretDecl{
 		"web-search": {{Name: "GITHUB_TOKEN", Description: "A PAT", Env: "GITHUB_TOKEN", Required: true}},
 	}
-	ah, _, ids, _ := setupAgentsHTTPFull(t, func(cfg *AgentsHTTPConfig) {
+	ah, _, ids := setupAgentsHTTPFull(t, func(cfg *AgentsHTTPConfig) {
 		cfg.Secrets = store
 		cfg.SkillSecretDecls = func(name string) []SecretDecl { return decls[name] }
 		cfg.InvalidateAgent = func(id uuid.UUID) { invalidated = append(invalidated, id) }
