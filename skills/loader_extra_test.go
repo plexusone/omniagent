@@ -8,9 +8,8 @@ import (
 	"testing/fstest"
 )
 
-// writeSkillDir writes a minimal SKILL.md for name under parent, returning
-// the skill directory path.
-func writeSkillDir(t *testing.T, parent, name, extraFrontmatter, body string) string {
+// writeSkillDir writes a minimal SKILL.md for name under parent.
+func writeSkillDir(t *testing.T, parent, name, extraFrontmatter, body string) {
 	t.Helper()
 	dir := filepath.Join(parent, name)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -20,7 +19,6 @@ func writeSkillDir(t *testing.T, parent, name, extraFrontmatter, body string) st
 	if err := os.WriteFile(filepath.Join(dir, "SKILL.md"), []byte(content), 0o600); err != nil {
 		t.Fatalf("WriteFile: %v", err)
 	}
-	return dir
 }
 
 func TestDefaultSearchPaths(t *testing.T) {
