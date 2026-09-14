@@ -2,7 +2,7 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 29 of 38 items completed
+**Status:** Executing — 32 of 38 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
@@ -31,7 +31,7 @@
 ## Phase 2 — Deployment Hardening
 
 **Theme:** Make the deployment production-safe: secrets, durable storage, and CI-buildable images.
-**Status:** Complete — 5 of 5 items completed
+**Status:** In progress — 4 of 5 items completed
 
 - [x] `RMI-OMNIAGENT-006` SSM-backed secret injection in omnideploy Lightsail target
   - - Acceptance: `SecretRef` (`ssm:`/`secretsmanager:`) resolved and injected; secrets never land in plaintext env or Pulumi state (schema exists; target does not yet consume `cfg.Secrets`)
