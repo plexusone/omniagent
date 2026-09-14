@@ -1,13 +1,11 @@
 package commands
 
 import (
-	"fmt"
-	"net"
-	"net/http"
+	"context"
 	"os"
-	"strings"
 	"time"
 
+	"github.com/grokify/mogo/net/http/healthz"
 	"github.com/spf13/cobra"
 )
 
@@ -29,29 +27,8 @@ var healthcheckCmd = &cobra.Command{
 		if addr == "" {
 			addr = "127.0.0.1:18789"
 		}
-		// A bind-all address is not dialable; probe loopback instead.
-		if host, port, err := net.SplitHostPort(addr); err == nil {
-			if host == "0.0.0.0" || host == "::" || host == "" {
-				addr = net.JoinHostPort("127.0.0.1", port)
-			} else {
-				addr = net.JoinHostPort(host, port)
-			}
-		}
-
-		client := &http.Client{Timeout: 3 * time.Second}
-		resp, err := client.Get("http://" + addr + "/health")
-		if err != nil {
-			return fmt.Errorf("healthcheck: %w", err)
-		}
-		defer func() {
-			if cerr := resp.Body.Close(); cerr != nil {
-				fmt.Fprintf(os.Stderr, "healthcheck: close body: %v\n", cerr)
-			}
-		}()
-		if resp.StatusCode != http.StatusOK {
-			return fmt.Errorf("healthcheck: %s returned %s", strings.TrimPrefix(addr, "127.0.0.1"), resp.Status)
-		}
-		return nil
+		url := "http://" + healthz.NormalizeLoopback(addr) + "/health"
+		return healthz.Probe(context.Background(), url, 3*time.Second)
 	},
 }
 

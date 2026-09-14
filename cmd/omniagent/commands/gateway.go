@@ -637,6 +637,11 @@ func runGateway(cmd *cobra.Command, args []string) error {
 		logger.Info("translate API mounted at /api/translate (personal mode)")
 	}
 
+	// Readiness (RMI-OMNIAGENT-036): distinguishes "process up" (/health)
+	// from "actually able to serve." See newReadinessHandler's doc comment
+	// for what is and isn't checked, and why.
+	gw.Handle("/readyz", newReadinessHandler(cfg, storageBackend, agentInstance != nil))
+
 	// Start gateway
 	fmt.Printf("OmniAgent running on %s\n", address)
 	fmt.Printf("Channels: %v\n", channels)
