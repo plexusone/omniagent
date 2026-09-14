@@ -42,7 +42,7 @@ omniagent gateway run
 # config.yaml
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
 ```
 
 ## Anthropic
@@ -60,6 +60,7 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 | Model | ID |
 |-------|---|
 | Claude Opus 4 | `claude-opus-4-20250514` |
+| Claude Sonnet 5 | `claude-sonnet-5` |
 | Claude Sonnet 4 | `claude-sonnet-4-20250514` |
 | Claude Haiku 4.5 | `claude-haiku-4-5-20250514` |
 | Claude 3.5 Sonnet | `claude-3-5-sonnet-20241022` |
@@ -189,6 +190,12 @@ export AWS_REGION="us-east-1"
 | Claude 3.5 Sonnet | `anthropic.claude-3-5-sonnet-20241022-v2:0` |
 | Claude 3.5 Haiku | `anthropic.claude-3-5-haiku-20241022-v1:0` |
 
+Check the [Bedrock console](https://console.aws.amazon.com/bedrock/) or
+`aws bedrock list-foundation-models` for the current Claude Sonnet 5
+Bedrock model ID — newer models typically land on Bedrock after direct
+API availability, and the ID format should be verified rather than
+guessed.
+
 ### Configuration
 
 ```yaml
@@ -276,8 +283,6 @@ Each thick provider:
 |----------|-------------|
 | `OMNIAGENT_AGENT_PROVIDER` | Provider name |
 | `OMNIAGENT_AGENT_MODEL` | Model ID |
-| `OMNIAGENT_AGENT_TEMPERATURE` | Sampling temperature (0.0-1.0) |
-| `OMNIAGENT_AGENT_MAX_TOKENS` | Maximum response tokens |
 
 ## Troubleshooting
 

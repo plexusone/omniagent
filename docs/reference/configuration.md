@@ -32,9 +32,9 @@ gateway:
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `agent.provider` | string | `anthropic` | LLM provider |
-| `agent.model` | string | `claude-sonnet-4-20250514` | Model name |
+| `agent.model` | string | `claude-sonnet-5` | Model name |
 | `agent.api_key` | string | - | API key (or use env var) |
-| `agent.temperature` | float | `0.7` | Sampling temperature |
+| `agent.temperature` | float | unset | Sampling temperature; left unset by default so the provider's own default applies — newer Claude models (Sonnet 4.6+/5, Opus 4.6+) reject requests that set `temperature` at all |
 | `agent.max_tokens` | int | `4096` | Max response tokens |
 | `agent.system_prompt` | string | - | Custom system prompt |
 
@@ -43,7 +43,6 @@ agent:
   provider: openai
   model: gpt-4o
   api_key: ${OPENAI_API_KEY}
-  temperature: 0.7
   max_tokens: 4096
   system_prompt: "You are OmniAgent, responding on behalf of the user."
 ```
@@ -53,7 +52,7 @@ agent:
 | Provider | Models |
 |----------|--------|
 | `openai` | `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo` |
-| `anthropic` | `claude-sonnet-4-20250514`, `claude-3-opus-20240229` |
+| `anthropic` | `claude-sonnet-5`, `claude-3-opus-20240229` |
 | `gemini` | `gemini-2.0-flash`, `gemini-1.5-pro` |
 
 ## Multi-Agent Configuration
@@ -70,7 +69,7 @@ Configure multiple agents with different models and tool access:
 | `agents[].model` | string | (from agent) | Model name |
 | `agents[].api_key` | string | (from agent) | API key |
 | `agents[].base_url` | string | - | Custom API endpoint |
-| `agents[].temperature` | float | `0.7` | Sampling temperature |
+| `agents[].temperature` | float | unset | Sampling temperature; unset by default (see `agent.temperature` above) |
 | `agents[].max_tokens` | int | `4096` | Max response tokens |
 | `agents[].system_prompt` | string | - | Custom system prompt |
 | `agents[].allowed_tools` | []string | - | Whitelist of allowed tools |
@@ -81,7 +80,7 @@ Configure multiple agents with different models and tool access:
 # Default agent settings (used as fallback)
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
   api_key: ${ANTHROPIC_API_KEY}
 
 # Multiple agent configurations
@@ -487,9 +486,8 @@ gateway:
 
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
   api_key: ${ANTHROPIC_API_KEY}
-  temperature: 0.7
   max_tokens: 4096
   system_prompt: |
     You are OmniAgent, an AI assistant responding on behalf of the user.

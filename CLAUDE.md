@@ -31,7 +31,7 @@ and an embedded web UI. It runs in two shapes:
 | `config/` | Config structs + validation. `credentials.go` (vault URI resolution — `op://`/`bw://`/`file://`/`env://` — for infra credentials and the `Secrets`/`Skills.Config[name].Secrets` bindings), `team.go` (team + secrets + SSO/password provider credentials), `capabilities.go` (web-UI capability flags incl. `translate`), `storage.go` (`storage.type`/`sessions.*` — `StorageConfig.Validate()`, `DefaultStoragePath()`). |
 | `internal/redact/` | Process-wide registry of resolved secret values + an `slog.Handler` wrapper that masks them out of log output; wrapped over the CLI's default logger in `cmd/.../root.go`. |
 | `web/dist/` | Embedded vanilla-JS SPA (`app.js`, `style.css`) — no build step, CSP-clean (no external assets), persistent left-nav shell (`#shell`>`#sidenav`+`#app`). |
-| `cmd/omniagent/commands/` | Cobra CLI + composition root. `gateway.go` mounts handlers, builds the `storage.*`-selected `kvs.Store` (`storage.go`'s `buildStorageBackend`) and wires it into every agent via `agent.WithStorage`/`WithSessionStore`, starting `agent.WithCronScheduler()` only in single-agent mode (`len(cfg.Agents) == 0`) since multiple schedulers on one shared job store would double-fire; `team.go` (`setupTeamMode`) wires the team services, incl. `mergeSecretEnv`'s 3-tier secret precedence and `globalSecretBindings`'s admin snapshot. |
+| `cmd/omniagent/commands/` | Cobra CLI + composition root. `gateway.go` mounts handlers, builds the `storage.*`-selected `kvs.Store` (`storage.go`'s `buildStorageBackend`) and wires it into every agent via `agent.WithStorage`/`WithSessionStore`, starting `agent.WithCronScheduler()` only in single-agent mode (`len(cfg.Agents) == 0`) since multiple schedulers on one shared job store would double-fire; `team.go` (`setupTeamMode`) wires the team services, incl. `mergeSecretEnv`'s 3-tier secret precedence and `globalSecretBindings`'s admin snapshot. `healthcheck.go` is a dependency-free `omniagent healthcheck` subcommand (no config load, no credential resolution) that HTTP-probes the running gateway's own `/health` — it exists because the shell-less runtime image (see Container base image below) has no wget/curl for a Dockerfile `HEALTHCHECK` to shell out to. |
 | `docs/specs/initiatives/` | Initiative specs + ROADMAPs (`INIT-OMNIAGENT-00N`). |
 
 ## Team-mode architecture (important patterns)
@@ -106,3 +106,9 @@ node --check web/dist/app.js   # the SPA has no build step; syntax-check it
 - Keep the SPA self-contained: inline all CSS/JS, no external/CDN assets (guarded
   by `web/embed_test.go`); set user text via `textContent`, never `innerHTML`.
 - After major work, keep VisionStudio RMI/phase/initiative status in sync.
+- **Container base image is Chainguard static** (`Dockerfile`'s runtime stage,
+  digest-pinned) per the PlexusOne container base-image policy: no shell, no
+  package manager, no libc. Don't propose `apk add`/`wget`/shell-based fixes
+  for the runtime image — probe HTTP from inside the container via the
+  `omniagent healthcheck` subcommand, not `wget`/`curl`. tzdata is embedded at
+  build time via `-tags timetzdata`, not an OS package.

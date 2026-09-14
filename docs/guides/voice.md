@@ -258,7 +258,7 @@ omniagent voice call NUM   # Make an outbound call
 | `--tts` | TTS provider | `elevenlabs` |
 | `--voice` | TTS voice ID | - |
 | `--llm` | LLM provider | `anthropic` |
-| `--model` | LLM model | `claude-sonnet-4-20250514` |
+| `--model` | LLM model | `claude-sonnet-5` |
 | `--system-prompt` | Custom system prompt | - |
 | `--realtime` | Native voice-to-voice provider (`openai`, `gemini`, `deepgram`) | - |
 | `--realtime-voice` | Voice for realtime API | `alloy` (OpenAI), `Puck` (Gemini) |
@@ -396,7 +396,7 @@ voice:
     # LLM configuration
     llm:
       provider: anthropic
-      model: claude-sonnet-4-20250514
+      model: claude-sonnet-5
       # api_key: ${ANTHROPIC_API_KEY}
 
     system_prompt: |
@@ -462,7 +462,7 @@ voice:
 
     llm:
       provider: anthropic
-      model: claude-sonnet-4-20250514
+      model: claude-sonnet-5
 ```
 
 ### Telnyx Gateway Examples
@@ -522,7 +522,7 @@ voice:
 
     llm:
       provider: anthropic
-      model: claude-sonnet-4-20250514
+      model: claude-sonnet-5
 ```
 
 ### Environment Variables Reference
