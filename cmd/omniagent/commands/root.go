@@ -36,8 +36,10 @@ Check channel status:
 Show configuration:
   omniagent config show`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		// Skip config loading for version command
-		if cmd.Name() == "version" {
+		// Skip config loading for commands that must stay dependency-free:
+		// version, and healthcheck (runs as a container HEALTHCHECK every
+		// 30s — it must not resolve vault credentials or touch config).
+		if cmd.Name() == "version" || cmd.Name() == "healthcheck" {
 			return nil
 		}
 
