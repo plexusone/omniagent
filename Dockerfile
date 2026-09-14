@@ -36,33 +36,42 @@ RUN go mod download
 
 COPY . .
 
+# -tags timetzdata embeds the IANA timezone database in the binary (the
+# agent's Timezone config needs it) — the shell-less runtime image below
+# carries no OS tzdata.
 ARG TARGETOS TARGETARCH
 RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH:-amd64} go build \
+    -trimpath \
+    -tags timetzdata \
     -ldflags="-s -w" \
     -o omniagent \
     ./cmd/omniagent
 
-# ---------------------------------------------------------------------------
-# Runtime stage
-# ---------------------------------------------------------------------------
-FROM alpine:3.20
+# Writable data directory for the runtime stage, owned by the static
+# image's built-in nonroot user (65532) — no shell there to mkdir/chown.
+RUN mkdir -p /out/data && chown -R 65532:65532 /out/data
 
-RUN apk add --no-cache ca-certificates tzdata
-
-RUN adduser -D -u 1000 omniagent \
-    && mkdir -p /data /opt/omniagent \
-    && chown -R omniagent:omniagent /data /opt/omniagent
+# ---------------------------------------------------------------------------
+# Runtime stage — Chainguard static (PlexusOne container base-image
+# policy): no shell, no package manager, no libc; CA certs included;
+# runs as the built-in nonroot user. Pinned by digest so a release never
+# changes because :latest moved — refresh the digest deliberately.
+# ---------------------------------------------------------------------------
+FROM cgr.dev/chainguard/static@sha256:bf639cba19ba56329e6907ac26a7afcdde57a80b6aa66d5100da6883196e6b82
 
 WORKDIR /opt/omniagent
 
 COPY --from=builder /build/omniagent /opt/omniagent/omniagent
+COPY --from=builder --chown=65532:65532 /out/data /data
 
-USER omniagent
+USER 65532:65532
 
 EXPOSE 8080
 
+# Exec-form probe via the binary's own healthcheck subcommand — there is
+# no wget/curl/shell in this image.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget -q --spider http://localhost:8080/api/health || exit 1
+    CMD ["/opt/omniagent/omniagent", "healthcheck"]
 
 ENTRYPOINT ["/opt/omniagent/omniagent"]
 CMD ["gateway", "run"]
