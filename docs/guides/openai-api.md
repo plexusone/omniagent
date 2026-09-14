@@ -267,7 +267,7 @@ List all configured agents.
       "id": "default",
       "name": "OmniAgent",
       "description": "Default agent",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-5",
       "provider": "anthropic",
       "enabled": true,
       "created_at": "2026-06-20T00:00:00Z"

@@ -62,7 +62,7 @@ omniagent voice serve [flags]
 | `--tts` | TTS provider: `elevenlabs`, `openai`, `google` | `elevenlabs` |
 | `--voice` | TTS voice ID | - |
 | `--llm` | LLM provider: `anthropic`, `openai` | `anthropic` |
-| `--model` | LLM model | `claude-sonnet-4-20250514` |
+| `--model` | LLM model | `claude-sonnet-5` |
 | `--system-prompt` | Custom system prompt | - |
 
 **Examples:**
@@ -357,6 +357,29 @@ omniagent version --json
   "go_version": "go1.25",
   "platform": "darwin/arm64"
 }
+```
+
+## Healthcheck
+
+### healthcheck
+
+Probe a running gateway's `/health` endpoint and exit 0 (healthy) or 1
+(unreachable/unhealthy). Loads no config and resolves no credentials —
+it exists specifically for container `HEALTHCHECK` exec-form on
+shell-less runtime images (e.g. Chainguard static), which have no
+`wget`/`curl`/shell to run an HTTP probe with.
+
+```bash
+omniagent healthcheck
+```
+
+Reads the target address from `OMNIAGENT_GATEWAY_ADDRESS` (defaulting
+to `127.0.0.1:18789`); a bind-all host (`0.0.0.0`/`::`) is normalized to
+`127.0.0.1` since it isn't itself dialable.
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD ["/opt/omniagent/omniagent", "healthcheck"]
 ```
 
 ## Setup

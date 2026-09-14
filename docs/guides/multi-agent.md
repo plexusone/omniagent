@@ -14,7 +14,7 @@ gateway:
 # Default agent settings (used as fallback)
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
   api_key: ${ANTHROPIC_API_KEY}
 
 # Multiple agent configurations
@@ -42,7 +42,7 @@ agents:
     name: Coding Agent
     description: Specialized for code generation and review
     provider: anthropic
-    model: claude-sonnet-4-20250514
+    model: claude-sonnet-5
     system_prompt: |
       You are a senior software engineer. Write clean, well-tested code.
       Follow best practices and explain your design decisions.
@@ -82,7 +82,7 @@ Agents inherit settings from the `agent` section:
 ```yaml
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
   api_key: ${ANTHROPIC_API_KEY}
   temperature: 0.7
 
@@ -213,7 +213,7 @@ curl http://localhost:18789/api/v1/agents
     {
       "id": "general",
       "name": "General Assistant",
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-sonnet-5",
       "enabled": true
     },
     {
@@ -286,7 +286,7 @@ reg := registry.New(registry.RegistryConfig{
     },
     Defaults: &registry.AgentConfig{
         Provider: "anthropic",
-        Model:    "claude-sonnet-4-20250514",
+        Model:    "claude-sonnet-5",
     },
 })
 
@@ -375,7 +375,7 @@ agents:
   - id: complex
     name: Complex Tasks
     provider: anthropic
-    model: claude-sonnet-4-20250514  # More capable
+    model: claude-sonnet-5  # More capable
 ```
 
 ### Provider Redundancy
@@ -385,7 +385,7 @@ agents:
   - id: primary
     name: Primary Agent
     provider: anthropic
-    model: claude-sonnet-4-20250514
+    model: claude-sonnet-5
 
   - id: fallback
     name: Fallback Agent

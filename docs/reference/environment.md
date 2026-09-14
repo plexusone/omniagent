@@ -272,7 +272,7 @@ ngrok http 8080
 # LLM Provider
 export ANTHROPIC_API_KEY="sk-ant-..."
 export OMNIAGENT_AGENT_PROVIDER=anthropic
-export OMNIAGENT_AGENT_MODEL=claude-sonnet-4-20250514
+export OMNIAGENT_AGENT_MODEL=claude-sonnet-5
 
 # WhatsApp
 export WHATSAPP_ENABLED=true

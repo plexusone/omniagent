@@ -55,7 +55,7 @@ The agent processes messages using LLM providers:
 ```go
 agent, _ := agent.New(agent.Config{
     Provider:     "anthropic",
-    Model:        "claude-sonnet-4-20250514",
+    Model:        "claude-sonnet-5",
     SystemPrompt: "You are OmniAgent...",
 })
 
@@ -271,5 +271,5 @@ gateway:
 
 agent:
   provider: ${OMNIAGENT_AGENT_PROVIDER:-anthropic}
-  model: ${OMNIAGENT_AGENT_MODEL:-claude-sonnet-4-20250514}
+  model: ${OMNIAGENT_AGENT_MODEL:-claude-sonnet-5}
 ```

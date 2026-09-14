@@ -44,7 +44,7 @@ gateway:
 
 agent:
   provider: openai          # or: anthropic, gemini
-  model: gpt-4o             # or: claude-sonnet-4-20250514, gemini-2.0-flash
+  model: gpt-4o             # or: claude-sonnet-5, gemini-2.0-flash
   api_key: ${OPENAI_API_KEY}
   system_prompt: "You are OmniAgent, responding on behalf of the user."
 
@@ -93,7 +93,7 @@ omniagent gateway run --config omniagent.yaml
 export ANTHROPIC_API_KEY="sk-ant-..."
 
 OMNIAGENT_AGENT_PROVIDER=anthropic \
-OMNIAGENT_AGENT_MODEL=claude-sonnet-4-20250514 \
+OMNIAGENT_AGENT_MODEL=claude-sonnet-5 \
 WHATSAPP_ENABLED=true \
 omniagent gateway run
 ```

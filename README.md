@@ -127,7 +127,7 @@ gateway:
 
 agent:
   provider: openai          # or: anthropic, gemini
-  model: gpt-4o             # or: claude-sonnet-4-20250514, gemini-2.0-flash
+  model: gpt-4o             # or: claude-sonnet-5, gemini-2.0-flash
   api_key: ${OPENAI_API_KEY}
   system_prompt: "You are OmniAgent, responding on behalf of the user."
 
@@ -746,7 +746,7 @@ See [Access Policies Guide](docs/guides/policies.md) for details.
 | `GEMINI_API_KEY` | Google Gemini API key |
 | `OPENROUTER_API_KEY` | OpenRouter API key |
 | `OMNIAGENT_AGENT_PROVIDER` | LLM provider: `openai`, `anthropic`, `gemini`, `openrouter` |
-| `OMNIAGENT_AGENT_MODEL` | Model name (e.g., `gpt-4o`, `claude-sonnet-4-20250514`) |
+| `OMNIAGENT_AGENT_MODEL` | Model name (e.g., `gpt-4o`, `claude-sonnet-5`) |
 | `WHATSAPP_ENABLED` | Set to `true` to enable WhatsApp |
 | `WHATSAPP_DB_PATH` | WhatsApp session storage path |
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token (auto-enables Telegram) |
@@ -800,7 +800,7 @@ API keys and tokens can be stored in vaults instead of config files:
 # omniagent.yaml
 agent:
   provider: anthropic
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-5
   api_key: "op://MyVault/anthropic/api-key"  # Resolved from 1Password
 
 channels:
@@ -918,7 +918,7 @@ omniagent voice serve \
   --stt deepgram \
   --tts elevenlabs \
   --llm anthropic \
-  --model claude-sonnet-4-20250514
+  --model claude-sonnet-5
 ```
 
 Configure Twilio webhooks:
@@ -1027,11 +1027,19 @@ These agents use [omni-livekit](https://github.com/plexusone/omni-livekit) for L
 
 ## Deployment
 
-OmniAgent ships as a single container. The **Docker Build & Publish**
-GitHub Actions workflow publishes `ghcr.io/plexusone/omniagent`
-(`:latest` and semver tags on `v*` releases; `:latest` + `:smoke` on a
-manual run), and [OmniDeploy](https://github.com/plexusone/omnideploy)
-deploys it declaratively to AWS Lightsail via Pulumi:
+OmniAgent ships as a single container, built on a digest-pinned
+[Chainguard static](https://images.chainguard.dev/directory/image/static/overview)
+runtime image (no shell, no package manager) per the PlexusOne container
+base-image policy. The **Docker Build & Publish** GitHub Actions
+workflow publishes a multi-arch (`linux/amd64`+`linux/arm64`) image to
+`ghcr.io/plexusone/omniagent` (canonical) and mirrors it to
+`docker.io/grokify/omniagent` for discoverability — GHCR pulls remain
+recommended for production since Docker Hub throttles anonymous pulls
+— with SBOM and SLSA provenance attestations and a keyless cosign
+signature on every build (`:latest` and semver tags on `v*` releases;
+`:latest` + `:smoke` on a manual run). And
+[OmniDeploy](https://github.com/plexusone/omnideploy) deploys it
+declaratively to AWS Lightsail via Pulumi:
 
 ```bash
 export AWS_PROFILE="omniagent-omnideploy"   # least-privilege IAM profile
@@ -1091,9 +1099,9 @@ omnideploy up \
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `agent.provider` | string | `anthropic` | LLM provider |
-| `agent.model` | string | `claude-sonnet-4-20250514` | Model name |
+| `agent.model` | string | `claude-sonnet-5` | Model name |
 | `agent.api_key` | string | - | API key (or use env var) |
-| `agent.temperature` | float | `0.7` | Sampling temperature |
+| `agent.temperature` | float | unset | Sampling temperature; unset by default so the provider's own default applies — newer Claude models (Sonnet 4.6+/5, Opus 4.6+) reject requests that set `temperature` at all |
 | `agent.max_tokens` | int | `4096` | Max response tokens |
 | `agent.system_prompt` | string | - | Custom system prompt |
 

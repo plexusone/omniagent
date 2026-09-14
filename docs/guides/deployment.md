@@ -349,11 +349,16 @@ skills:
 
 ### Dockerfile
 
-Create a multi-stage Dockerfile for minimal image size:
+Create a multi-stage Dockerfile for minimal image size. This follows the
+PlexusOne container base-image policy: a digest-pinned
+[Chainguard static](https://images.chainguard.dev/directory/image/static/overview)
+runtime — no shell, no package manager, no libc — which is what this
+repo's own `Dockerfile` uses; copy its exact base-image digest rather
+than retyping it.
 
 ```dockerfile
 # Build stage
-FROM golang:1.26-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
 
 WORKDIR /app
 
@@ -364,34 +369,40 @@ RUN apk add --no-cache git ca-certificates
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Build binary
+# Build binary. -tags timetzdata embeds the IANA timezone database (the
+# agent's Timezone config needs it) — the runtime image below carries no
+# OS tzdata.
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+ARG TARGETOS TARGETARCH
+RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH:-amd64} go build \
+    -trimpath \
+    -tags timetzdata \
     -ldflags="-s -w" \
     -o /app/my-agent \
     ./cmd/agent
 
-# Runtime stage
-FROM alpine:3.20
+# Writable data directory, owned by the runtime image's built-in nonroot
+# user (65532) — no shell there to mkdir/chown.
+RUN mkdir -p /out/data && chown -R 65532:65532 /out/data
 
-RUN apk add --no-cache ca-certificates tzdata
-
-# Non-root user
-RUN adduser -D -u 1000 omniagent
-RUN mkdir -p /data /opt/omniagent && chown -R omniagent:omniagent /data /opt/omniagent
+# Runtime stage — see this repo's own Dockerfile for the current pinned
+# digest (`FROM cgr.dev/chainguard/static@sha256:...`).
+FROM cgr.dev/chainguard/static@sha256:<copy-from-this-repos-Dockerfile>
 
 WORKDIR /opt/omniagent
 
-# Copy binary and config
 COPY --from=builder /app/my-agent /opt/omniagent/my-agent
 COPY --from=builder /app/config/config.yaml /opt/omniagent/config.yaml
+COPY --from=builder --chown=65532:65532 /out/data /data
 
-USER omniagent
+USER 65532:65532
 
 EXPOSE 8080
 
+# Exec-form probe via the binary's own healthcheck subcommand — there is
+# no wget/curl/shell in this image.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget -q --spider http://localhost:8080/health || exit 1
+    CMD ["/opt/omniagent/my-agent", "healthcheck"]
 
 ENV OMNIAGENT_GATEWAY_ADDRESS="0.0.0.0:8080" \
     STORAGE_PATH="/data/omniagent.db"
