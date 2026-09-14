@@ -32,15 +32,15 @@ func TestOmniMeetSkillWiring(t *testing.T) {
 	// Verify expected tools are present
 	tools := meetingSkill.Tools()
 	expectedTools := map[string]bool{
-		"create_meeting":     false,
-		"get_meeting":        false,
-		"list_meetings":      false,
-		"end_meeting":        false,
-		"join_meeting":       false,
-		"leave_meeting":      false,
-		"get_join_link":      false,
-		"list_participants":  false,
-		"speak_in_meeting":   false,
+		"create_meeting":    false,
+		"get_meeting":       false,
+		"list_meetings":     false,
+		"end_meeting":       false,
+		"join_meeting":      false,
+		"leave_meeting":     false,
+		"get_join_link":     false,
+		"list_participants": false,
+		"speak_in_meeting":  false,
 	}
 
 	for _, tool := range tools {
