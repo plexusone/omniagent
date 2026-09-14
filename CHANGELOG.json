@@ -10,6 +10,150 @@
   ],
   "releases": [
     {
+      "version": "v0.19.0",
+      "date": "2026-09-13",
+      "highlights": [
+        {
+          "description": "OmniAgent deployed to production for the first time: Discord bot live on AWS Lightsail (us-west-2), image on both GHCR and Docker Hub, secrets sourced from SSM Parameter Store, runtime image converted to digest-pinned Chainguard static (no shell/package manager/libc)"
+        },
+        {
+          "description": "Fixed a logging self-deadlock that silently froze every CLI invocation before its first log line — the root cause of the first failed deployment attempt"
+        },
+        {
+          "description": "Full deployable config surface from the environment: OMNIAGENT_CONFIG_B64 for a complete config document, plus web UI and personal-auth env vars — no volume mount required"
+        },
+        {
+          "description": "Published container images are now multi-arch (linux/amd64 + linux/arm64) with SBOM, SLSA provenance attestations, and keyless cosign signatures"
+        },
+        {
+          "description": "Agent/skill marketplace primitives (portable listings, provider interface, static provider, registry adapters) for host applications"
+        },
+        {
+          "description": "LLM-based conversation summarization (WindowStrategySummarize) and durable session/cron storage wired into gateway run"
+        }
+      ],
+      "added": [
+        {
+          "description": "OMNIAGENT_CONFIG_B64: full config document injection via one base64 env var, decoded in-process — closes the nested-config gap (team mode, per-skill config, vault bindings) on container platforms with no volume mounts",
+          "commit": "5f9a5cd"
+        },
+        {
+          "description": "OMNIAGENT_WEB_ENABLED / OMNIAGENT_AUTH_ENABLED / OMNIAGENT_AUTH_OWNER_EMAIL / OMNIAGENT_AUTH_BASE_URL: enable the embedded web UI and personal-mode auth from the environment",
+          "commit": "0abcb4c"
+        },
+        {
+          "description": "deploy.secrets: SSM Parameter Store / Secrets Manager secret resolution at deploy time (omnideploy), values encrypted in Pulumi state",
+          "commit": "e202506"
+        },
+        {
+          "description": "Multi-arch (linux/amd64 + linux/arm64) image builds via BUILDPLATFORM cross-compilation",
+          "commit": "880d005"
+        },
+        {
+          "description": "SBOM, SLSA provenance attestations, and keyless cosign signing on every published image",
+          "commit": "4157d65"
+        },
+        {
+          "description": "Docker Hub mirror publish (docker.io/grokify/omniagent) alongside canonical GHCR",
+          "commit": "d4a771c"
+        },
+        {
+          "description": "Runtime image moved to digest-pinned cgr.dev/chainguard/static per the new PlexusOne container base-image policy — no shell, package manager, or libc; embedded tzdata; new dependency-free `omniagent healthcheck` subcommand for exec-form container health checks",
+          "commit": "476cbc2"
+        },
+        {
+          "description": "/api/health route alias alongside /health for container health-check probes",
+          "commit": "a24f5d2"
+        },
+        {
+          "description": "Publish container image to GHCR on version-tag push, or :smoke via manual dispatch",
+          "commit": "4ea55e1"
+        },
+        {
+          "description": "Durable session and cron-job storage wired into `gateway run` (config-driven storage.type: sqlite/redis/memory)",
+          "commit": "711ea5b"
+        },
+        {
+          "description": "LLM-based conversation summarization: WindowStrategySummarize implemented and wired into the context Engine; agent.WithCompaction option",
+          "commit": "8044a06"
+        },
+        {
+          "description": "Agent/skill marketplace primitives: portable listing types, provider interface + in-memory static provider, adapters from agent/registry and skills",
+          "commit": "d3dded0"
+        }
+      ],
+      "fixed": [
+        {
+          "description": "Logging self-deadlock: wrapping slog.Default().Handler() while slog.SetDefault rewired the same handler formed a cycle that froze every CLI invocation before its first log line — including gateway startup, the root cause of the first failed Lightsail deployment",
+          "commit": "0908a72"
+        },
+        {
+          "description": "agent.Temperature no longer defaults to 0.7 — newer Claude models (Sonnet 4.6+/5, Opus 4.6+) reject any request that sets temperature; zero now means \"use the provider default\"",
+          "commit": "4fef85a"
+        },
+        {
+          "description": "Lightsail deploy target region moved to us-west-2 (no cost difference on Lightsail's flat pricing; smaller incident-history blast radius than us-east-1)",
+          "commit": "f15c431"
+        },
+        {
+          "description": "cosign-installer pinned to exact v4.1.2 — the action publishes no floating v4 major tag",
+          "commit": "b2aad7f"
+        },
+        {
+          "description": "API-key auth enforced on POST /chat/completions (was previously reachable without a key)",
+          "commit": "8284b1d"
+        },
+        {
+          "description": "GetSession's stale doc comment corrected",
+          "commit": "7706bed"
+        }
+      ],
+      "test": [
+        {
+          "description": "Regression guard for the slog/log deadlock: exercises the real PersistentPreRunE logger wiring with a timeout",
+          "commit": "894f208"
+        },
+        {
+          "description": "Skill-manager test isolated from a developer's real ~/.omniagent/skills directory",
+          "commit": "80652a9"
+        },
+        {
+          "description": "Coverage raised across agent (91.6%), HTTP server (66.5%), voice (96.2%), adapter (91.4%), and skills (96.7%) packages; context compaction and storage/session-dispatch coverage added",
+          "commit": "8b67959"
+        },
+        {
+          "description": "Five unparam-flagged test-helper parameters/results removed (leftover generality, not interface-constrained), per mogo/lintfix/unparam guidance",
+          "commit": "d491f70"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Deployment guide rewritten to match the validated Lightsail flow: least-privilege IAM policy, Pulumi backend setup, real omniagent-adapter deploy.yaml schema, SSM secrets flow",
+          "commit": "00b52fb"
+        },
+        {
+          "description": "Environment variable reference updated: OMNIAGENT_CONFIG_B64 and web/auth vars documented, stale OMNIAGENT_AGENT_TEMPERATURE/MAX_TOKENS entries removed",
+          "commit": "665c8b0"
+        },
+        {
+          "description": "Marketplace guide added and wired into nav",
+          "commit": "c4d9fbd"
+        },
+        {
+          "description": "Container base-image policy adopted org-wide (internal-plexusone-system/policies/container-base-image.md): digest-pinned Chainguard static preferred, properties-validated rather than vendor-locked"
+        }
+      ],
+      "dependencies": [
+        {
+          "description": "livekit/protocol pinned below v1.51.0 (excluded) — that version changed the TransferSIPParticipant RPC signature in a way the latest released server-sdk-go predates and fails to compile against",
+          "commit": "d7a9576"
+        },
+        {
+          "description": "Routine dependabot updates across go.mod, GitHub Actions, and Docker base images (20 merged PRs)"
+        }
+      ]
+    },
+    {
       "version": "v0.18.0",
       "date": "2026-08-16",
       "highlights": [
@@ -694,15 +838,15 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/plexusone/omni-livekit` v0.2.0 \u2192 v0.3.0 (bitHuman provider)",
+          "description": "`github.com/plexusone/omni-livekit` v0.2.0 → v0.3.0 (bitHuman provider)",
           "commit": "edfc942"
         },
         {
-          "description": "`github.com/go-chi/chi/v5` v5.3.0 \u2192 v5.3.1",
+          "description": "`github.com/go-chi/chi/v5` v5.3.0 → v5.3.1",
           "commit": "22fac24"
         },
         {
-          "description": "`golang.org/x/net` v0.56.0 \u2192 v0.57.0",
+          "description": "`golang.org/x/net` v0.56.0 → v0.57.0",
           "commit": "25d1b06"
         }
       ]
@@ -800,10 +944,10 @@
           "description": "`github.com/plexusone/omnimeet-core` v0.1.0 (new)"
         },
         {
-          "description": "`github.com/plexusone/omnivoice` v0.12.0 \u2192 v0.13.0"
+          "description": "`github.com/plexusone/omnivoice` v0.12.0 → v0.13.0"
         },
         {
-          "description": "`github.com/plexusone/omnillm` v0.16.1 \u2192 v0.17.0"
+          "description": "`github.com/plexusone/omnillm` v0.16.1 → v0.17.0"
         },
         {
           "description": "`github.com/plexusone/omnillm-core` v0.18.0"
@@ -1089,13 +1233,13 @@
           "description": "`github.com/plexusone/agentauth` v0.2.0 (new)"
         },
         {
-          "description": "`github.com/anthropics/anthropic-sdk-go` v1.51.0 \u2192 v1.52.0"
+          "description": "`github.com/anthropics/anthropic-sdk-go` v1.51.0 → v1.52.0"
         },
         {
-          "description": "`google.golang.org/api` v0.285.0 \u2192 v0.286.0"
+          "description": "`google.golang.org/api` v0.285.0 → v0.286.0"
         },
         {
-          "description": "`google.golang.org/genai` v1.61.0 \u2192 v1.62.0"
+          "description": "`google.golang.org/genai` v1.61.0 → v1.62.0"
         },
         {
           "description": "`github.com/gorilla/sessions` v1.4.0 (new, for OAuth)"
@@ -1202,22 +1346,22 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/plexusone/omnivoice` v0.10.0 \u2192 v0.11.0 (gateway tool re-exports)"
+          "description": "`github.com/plexusone/omnivoice` v0.10.0 → v0.11.0 (gateway tool re-exports)"
         },
         {
-          "description": "`github.com/plexusone/omnillm` v0.15.5 \u2192 v0.16.0 (openrouter transitive)"
+          "description": "`github.com/plexusone/omnillm` v0.15.5 → v0.16.0 (openrouter transitive)"
         },
         {
-          "description": "`github.com/plexusone/omnichat` v0.7.0 \u2192 v0.8.0"
+          "description": "`github.com/plexusone/omnichat` v0.7.0 → v0.8.0"
         },
         {
-          "description": "`github.com/tetratelabs/wazero` v1.11.0 \u2192 v1.12.0"
+          "description": "`github.com/tetratelabs/wazero` v1.11.0 → v1.12.0"
         },
         {
-          "description": "`github.com/getkin/kin-openapi` v0.139.0 \u2192 v0.140.0"
+          "description": "`github.com/getkin/kin-openapi` v0.139.0 → v0.140.0"
         },
         {
-          "description": "`github.com/grokify/mogo` v0.74.5 \u2192 v0.74.6"
+          "description": "`github.com/grokify/mogo` v0.74.5 → v0.74.6"
         }
       ]
     },
@@ -1330,28 +1474,28 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/anthropics/anthropic-sdk-go` v1.44.1 \u2192 v1.45.0"
+          "description": "`github.com/anthropics/anthropic-sdk-go` v1.44.1 → v1.45.0"
         },
         {
-          "description": "`github.com/plexusone/omnillm` v0.15.3 \u2192 v0.15.4"
+          "description": "`github.com/plexusone/omnillm` v0.15.3 → v0.15.4"
         },
         {
-          "description": "`github.com/plexusone/omniobserve` v0.9.0 \u2192 v0.10.0"
+          "description": "`github.com/plexusone/omniobserve` v0.9.0 → v0.10.0"
         },
         {
-          "description": "`github.com/plexusone/omniskill` v0.7.0 \u2192 v0.8.0"
+          "description": "`github.com/plexusone/omniskill` v0.7.0 → v0.8.0"
         },
         {
-          "description": "`github.com/plexusone/omnistorage-core` v0.3.0 \u2192 v0.4.0"
+          "description": "`github.com/plexusone/omnistorage-core` v0.3.0 → v0.4.0"
         },
         {
-          "description": "`github.com/getkin/kin-openapi` v0.137.0 \u2192 v0.139.0"
+          "description": "`github.com/getkin/kin-openapi` v0.137.0 → v0.139.0"
         },
         {
-          "description": "`github.com/modelcontextprotocol/go-sdk` v1.6.0 \u2192 v1.6.1"
+          "description": "`github.com/modelcontextprotocol/go-sdk` v1.6.0 → v1.6.1"
         },
         {
-          "description": "`github.com/grokify/mogo` v0.74.4 \u2192 v0.74.5"
+          "description": "`github.com/grokify/mogo` v0.74.4 → v0.74.5"
         },
         {
           "description": "`github.com/plexusone/omnivault` v0.5.0 (new)"
@@ -1409,16 +1553,16 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/plexusone/omnichat` v0.6.0 \u2192 v0.6.1 (Gmail provider uses omni-google)"
+          "description": "`github.com/plexusone/omnichat` v0.6.0 → v0.6.1 (Gmail provider uses omni-google)"
         },
         {
-          "description": "`github.com/plexusone/omnivoice` v0.7.2 \u2192 v0.8.0 (migrates to omni-twilio, omni-deepgram, omni-telnyx)"
+          "description": "`github.com/plexusone/omnivoice` v0.7.2 → v0.8.0 (migrates to omni-twilio, omni-deepgram, omni-telnyx)"
         },
         {
-          "description": "`github.com/plexusone/omniserp` v0.8.0 \u2192 v0.8.1 (omni-keyring migration)"
+          "description": "`github.com/plexusone/omniserp` v0.8.0 → v0.8.1 (omni-keyring migration)"
         },
         {
-          "description": "`github.com/modelcontextprotocol/go-sdk` v1.5.0 \u2192 v1.6.0"
+          "description": "`github.com/modelcontextprotocol/go-sdk` v1.5.0 → v1.6.0"
         },
         {
           "description": "`github.com/getkin/kin-openapi` v0.137.0 (new, for OpenAPI parsing)"
@@ -1488,10 +1632,10 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/plexusone/omniskill` v0.6.0 \u2192 v0.7.0 (adds pack/ package)"
+          "description": "`github.com/plexusone/omniskill` v0.6.0 → v0.7.0 (adds pack/ package)"
         },
         {
-          "description": "`github.com/plexusone/omnillm` v0.15.2 \u2192 v0.15.3"
+          "description": "`github.com/plexusone/omnillm` v0.15.2 → v0.15.3"
         }
       ]
     },
@@ -1633,7 +1777,7 @@
           "description": "`github.com/robfig/cron/v3` v3.0.1 (new, for scheduling)"
         },
         {
-          "description": "`github.com/moby/moby/client` v0.4.0 \u2192 v0.4.1"
+          "description": "`github.com/moby/moby/client` v0.4.0 → v0.4.1"
         }
       ]
     },
@@ -1700,16 +1844,16 @@
       ],
       "dependencies": [
         {
-          "description": "`github.com/plexusone/omnillm` v0.13.0 \u2192 v0.15.2"
+          "description": "`github.com/plexusone/omnillm` v0.13.0 → v0.15.2"
         },
         {
-          "description": "`github.com/plexusone/omnivoice` v0.5.1 \u2192 v0.7.2"
+          "description": "`github.com/plexusone/omnivoice` v0.5.1 → v0.7.2"
         },
         {
-          "description": "`github.com/plexusone/omnichat` v0.3.0 \u2192 v0.6.0"
+          "description": "`github.com/plexusone/omnichat` v0.3.0 → v0.6.0"
         },
         {
-          "description": "`github.com/plexusone/omniobserve` v0.7.0 \u2192 v0.8.0"
+          "description": "`github.com/plexusone/omniobserve` v0.7.0 → v0.8.0"
         },
         {
           "description": "Now using `github.com/plexusone/omni-openai` v0.2.0 (consolidated OpenAI provider)"
