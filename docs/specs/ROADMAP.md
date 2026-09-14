@@ -139,11 +139,14 @@
 ## Phase 8 — Health and Readiness Surface
 
 **Theme:** Standardize the liveness/readiness contract as a reusable stdlib-only library, adopt it across the service and deploy layers, and verify it post-deploy.
-**Status:** Planned — 0 of 3 items completed
+**Status:** Complete — 3 of 3 items completed
 
-- [ ] `RMI-MOGO-001` healthz package: liveness/readiness handlers and self-probe client (repo: grokify/mogo)
+- [x] `RMI-MOGO-001` healthz package: liveness/readiness handlers and self-probe client (repo: grokify/mogo)
   - - Acceptance: stdlib-only `net/http/healthz` with a `Checker` interface + `ReadinessHandler` (200/503, per-check JSON), `LivenessHandler` with extra-fields closure, and `Probe` (loopback normalization for bind-all addresses, timeout, non-200 as error).
-- [ ] `RMI-OMNIDEPLOY-001` Post-deploy health verification in omnideploy up (repo: plexusone/omnideploy)
+  - - Shipped: `Checker`/`CheckerFunc`, `LivenessHandler`, `ReadinessHandler` (concurrent checks, 200/503, vacuously-ready with zero checkers), `Probe` (full-URL, reusable for both container self-probes and external post-deploy verification), and `NormalizeLoopback`. Full test coverage incl. `-race`. Not yet tagged/pushed — omnideploy and omniagent depend on it via a temporary local `replace` pending a mogo release.
+- [x] `RMI-OMNIDEPLOY-001` Post-deploy health verification in omnideploy up (repo: plexusone/omnideploy)
   - - Acceptance: after a deployment reaches ACTIVE, omnideploy probes the adapter-configured health path before declaring success; imports mogo healthz `Probe` (deployer consumes the runtime lib, never the reverse).
-- [ ] `RMI-OMNIAGENT-036` Adopt healthz: /readyz deep checks and shared probe
+  - - Shipped: the Pulumi backend's `Apply` probes the deployment's `url` output against the config's health-check path, retrying up to 5 times (3s apart) to absorb DNS/TLS settling right after ACTIVE, before returning success. No-ops when the config declares no health check or the target exposed no URL. Full test coverage on the retry logic (transient failure recovery, exhaustion, context cancellation mid-backoff).
+- [x] `RMI-OMNIAGENT-036` Adopt healthz: /readyz deep checks and shared probe
   - - Acceptance: `/health` + `/api/health` remain liveness; new `/readyz` aggregates real checkers (LLM provider reachable, storage writable, channel connected); `healthcheck` subcommand reimplemented on `healthz.Probe`. Feeds the commercial-production readiness profile.
+  - - Shipped: `/readyz` with two checkers — `storage` (a real write/read/delete round-trip, the one live-state check) and `agent_configured` (static: an agent was built at startup with a non-empty API key — deliberately not a live, billed LLM call on every poll). Live channel-connection state is intentionally *not* checked: omnichat's `Provider` interface has no connected-state query today, and faking one from the one-time startup `ConnectAll` result would be dishonest — adding `Provider.Connected() bool` to omnichat is the correct follow-up, not something to paper over here. `healthcheck` subcommand reimplemented on `healthz.Probe`/`NormalizeLoopback`. Verified live against a running gateway (`/readyz` returns correct JSON, `healthcheck` exits 0).
