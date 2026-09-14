@@ -2,7 +2,7 @@
 
 **Initiative:** `INIT-OMNIAGENT-001`
 **Repository:** `github.com/plexusone/omniagent`
-**Status:** Executing — 32 of 38 items completed
+**Status:** Executing — 37 of 38 items completed
 
 > RMI IDs are stable and permanent. Commits implementing an item carry the trailer `Refs: RMI-OMNIAGENT-<NNN>`. Phase status is derived from member RMIs — a phase is complete only when all its required RMIs are complete.
 
@@ -49,18 +49,23 @@
 ## Phase 3 — Discord Channel Completeness
 
 **Theme:** Close the documented-but-unimplemented Discord gaps (work lands in omnichat/providers/discord).
-**Status:** Planned — 0 of 5 items completed
+**Status:** Complete — 5 of 5 items completed
 
-- [ ] `RMI-OMNIAGENT-011` Discord media send
+- [x] `RMI-OMNIAGENT-011` Discord media send
   - - Acceptance: `Send` builds `discordgo.MessageSend` `Files`/`Embeds` from `OutgoingMessage.Media` (currently only `Content` is set)
-- [ ] `RMI-OMNIAGENT-012` Discord media receive
+  - - Shipped (repo: omnichat): `buildMediaAttachments` maps `Media` with raw `Data` to a `discordgo.File` attachment regardless of type (Discord auto-previews image/video/audio attachments), URL-only image media to a `MessageEmbed` (Caption as Description), and URL-only non-image media to appended message content — Discord's embed "video" field is populated by Discord's own link-unfurling and isn't reliably settable by a bot, so relying on client-side URL unfurl is the honest choice there over a plausible-looking but unverifiable manual embed.
+- [x] `RMI-OMNIAGENT-012` Discord media receive
   - - Acceptance: `convertIncoming` maps `m.Attachments` to `IncomingMessage.Media`
-- [ ] `RMI-OMNIAGENT-013` Discord slash commands
+  - - Shipped (repo: omnichat): URL/filename/MIME type mapped, with `MediaType` inferred from the content-type's top-level type (image/video/audio, else document). Attachment bytes are not downloaded eagerly — only URL/metadata — so receiving a message with attachments doesn't force an unconditional network fetch on every caller.
+- [x] `RMI-OMNIAGENT-013` Discord slash commands
   - - Acceptance: `ApplicationCommand` registration + `InteractionCreate` handler
-- [ ] `RMI-OMNIAGENT-014` Discord HTTP interactions with Ed25519 verification
+  - - Shipped (repo: omnichat): `Config.Commands` registers commands on Connect (guild-scoped for instant propagation, global otherwise); `InteractionCreate` handler acknowledges within Discord's 3s window, then routes the invocation through the same `OnMessage` pipeline as regular text messages rather than a separate interaction-specific reply mechanism. A real bug (re-deriving command data via a call that panics unless `Interaction.Type` is already validated) was caught by its own unit test and fixed before commit.
+- [x] `RMI-OMNIAGENT-014` Discord HTTP interactions with Ed25519 verification
   - - Acceptance: webhook endpoint verifies `X-Signature-Ed25519`; usable as an alternative to gateway mode
-- [ ] `RMI-OMNIAGENT-015` guildID enforcement and message events
+  - - Shipped (repo: omnichat): `WebhookHandler(publicKeyHex)` implements Discord's HTTP Interactions Endpoint using discordgo's own tested `VerifyInteraction`, handling the required PING->PONG handshake and command invocations. The agent's reply dispatch runs in a goroutine using `context.Background()`, not `r.Context()` — the request context is canceled once the handler returns, which happens immediately after writing the synchronous ack. An additional ingestion path alongside gateway mode, not yet a full replacement (`Send` still requires an open gateway session).
+- [x] `RMI-OMNIAGENT-015` guildID enforcement and message events
   - - Acceptance: configured `guildID` is enforced (currently stored but unused); reaction/edit/delete events mapped
+  - - Shipped (repo: omnichat): `allowedGuild` scopes `MessageCreate` and both interaction paths (gateway + HTTP) to a single configured guild while always letting DMs through (a DM has no guild — it isn't "from a different guild," it's from no guild). `MessageUpdate`/`MessageDelete`/`MessageReactionAdd`/`MessageReactionRemove` now map onto the existing generic `EventTypeMessageEdited`/`EventTypeMessageDeleted`/`EventTypeReaction` provider events; required the `GuildMessageReactions`/`DirectMessageReactions` gateway intents, added alongside the existing set.
 
 ## Phase 4 — Gateway Security and Observability
 
