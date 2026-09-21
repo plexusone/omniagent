@@ -445,8 +445,8 @@ github.com/grokify/goauth v0.24.0 h1:HoTGIPNRASMr5AMJfMY09jdZ96vN4HTQsL/fI8hgJPA
 github.com/grokify/goauth v0.24.0/go.mod h1:bS5qbmBW/zTgZ8UiKHHEGVFO2P86gde/tgKXVPS8rBo=
 github.com/grokify/gogithub v0.17.0 h1:FJy2QcLaJuypY15xE7vcwfIaISVPBaAScIJKfbcr440=
 github.com/grokify/gogithub v0.17.0/go.mod h1:r3c5J6UKCTv1vigQkulpeZGXfH3+EQ5540GZxGPVgbU=
-github.com/grokify/mogo v0.74.8 h1:0Qw2PE5ECsVjPimqkvhHTTlwWx+ylztaX1ho47WgCfo=
-github.com/grokify/mogo v0.74.8/go.mod h1:ja5XQFqMYRksrryvkxsMgVptn081BizWOXDA+Y5wlEg=
+github.com/grokify/mogo v0.74.9 h1:kNByiqh2cskqioePUtjnz1pj1t/Z71rgQF0OUEy0/h0=
+github.com/grokify/mogo v0.74.9/go.mod h1:MuKguiqlqmBt83ebEzdc0fRLhC3tz7W3PvTJglVjLaw=
 github.com/grokify/oscompat v0.5.0 h1:qGUym1Jt+yecBmBM7FnimvuUWLs8VVRCxotpHTzaWH0=
 github.com/grokify/oscompat v0.5.0/go.mod h1:Ekex/WzHaA39LNt5xbeQRASo74NEXAIqBlqdvNF2oUM=
 github.com/grokify/sogo v0.15.0 h1:RS4DPxNhZQLmz/qcLa5t1Mr+SjGwSZPJgpefp9BJInE=
@@ -1433,8 +1433,8 @@ google.golang.org/genproto v0.0.0-20220421151946-72621c1f0bd3/go.mod h1:8w6bsBMX
 google.golang.org/genproto v0.0.0-20220429170224-98d788798c3e/go.mod h1:8w6bsBMX6yCPbAVTeqQHvzxW0EIFigd5lZyahWgyfDo=
 google.golang.org/genproto v0.0.0-20220505152158-f39f71e6c8f3/go.mod h1:RAyBrSAP7Fh3Nc84ghnVLDPuV51xc9agzmm4Ph6i0Q4=
 google.golang.org/genproto v0.0.0-20220519153652-3a47de7e79bd/go.mod h1:RAyBrSAP7Fh3Nc84ghnVLDPuV51xc9agzmm4Ph6i0Q4=
-google.golang.org/genproto v0.0.0-20260819154853-08b0e4226688 h1:2ficYAs+4TBEqohUu9hr7J2YeNTie+3BVyqERjs5Hm0=
-google.golang.org/genproto v0.0.0-20260819154853-08b0e4226688/go.mod h1:icDJeJwWhZtQDn/1WGql+0n01hbizh4G7/T75RoxcHs=
+google.golang.org/genproto v0.0.0-20260911204522-f61a6ca850bd h1:s/EXdxMDrmT++u0VepJKO4U6dzOPJVRdHKmrazC1Qxg=
+google.golang.org/genproto v0.0.0-20260911204522-f61a6ca850bd/go.mod h1:JfZ1Hyx5mAJgX/ip0vEicmPvzE6rIrbacB7rHMfjD7Q=
 google.golang.org/genproto/googleapis/api v0.0.0-20260911204522-f61a6ca850bd h1:jgCQeWccunvocKNK2RjhQHNiSjSeMMuBpQ/5pbP+2lA=
 google.golang.org/genproto/googleapis/api v0.0.0-20260911204522-f61a6ca850bd/go.mod h1:r4KD2hOq82JBWpTWkJ9NZLf6EwmRvAPIFmk7hPNtd+0=
 google.golang.org/genproto/googleapis/rpc v0.0.0-20260911204522-f61a6ca850bd h1:29LZPNIJg+GEmJwZXruJJRwqy/wnWAYZXDtROToV/aQ=
