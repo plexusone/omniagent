@@ -26,7 +26,7 @@ require (
 	github.com/moby/moby/client v0.6.0
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/ogen-go/ogen v1.24.0
-	github.com/pion/webrtc/v4 v4.2.21
+	github.com/pion/webrtc/v4 v4.2.22
 	github.com/pkoukk/tiktoken-go v0.1.8
 	github.com/plexusone/agentauth v0.2.0
 	github.com/plexusone/omni-livekit v0.5.1
