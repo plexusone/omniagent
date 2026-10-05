@@ -22,7 +22,7 @@ require (
 	github.com/livekit/protocol v1.52.1
 	github.com/livekit/server-sdk-go/v2 v2.18.1
 	github.com/mdp/qrterminal/v3 v3.2.1
-	github.com/moby/moby/api v1.56.0
+	github.com/moby/moby/api v1.56.1
 	github.com/moby/moby/client v0.6.0
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/ogen-go/ogen v1.24.0
