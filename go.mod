@@ -60,8 +60,6 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require github.com/pion/transport/v5 v5.1.1 // indirect
-
 require (
 	ariga.io/atlas v1.3.0 // indirect
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.12-20260825204119-511051f7f437.2 // indirect
@@ -203,6 +201,7 @@ require (
 	github.com/pion/sdp/v3 v3.0.20 // indirect
 	github.com/pion/srtp/v3 v3.1.3 // indirect
 	github.com/pion/stun/v4 v4.0.1 // indirect
+	github.com/pion/transport/v5 v5.1.1 // indirect
 	github.com/pion/turn/v5 v5.1.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/plexusone/elevenlabs-go v0.13.0 // indirect
