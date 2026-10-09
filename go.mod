@@ -20,7 +20,7 @@ require (
 	github.com/grokify/mogo v0.75.0
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/livekit/protocol v1.53.0
-	github.com/livekit/server-sdk-go/v2 v2.18.1
+	github.com/livekit/server-sdk-go/v2 v2.19.0
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.56.1
 	github.com/moby/moby/client v0.6.2
@@ -317,5 +317,3 @@ replace github.com/ysmood/fetchup => github.com/ysmood/fetchup v0.2.3
 
 // Force log15/v3 to version compatible with ngrok v1.13.0 (has ext.RandId)
 replace github.com/inconshreveable/log15/v3 => github.com/inconshreveable/log15/v3 v3.0.0-testing.5
-
-exclude github.com/livekit/protocol v1.51.0
