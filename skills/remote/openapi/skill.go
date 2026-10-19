@@ -146,19 +146,14 @@ func (s *Skill) load(ctx context.Context) error {
 	var err error
 
 	if s.config.SpecURL != "" {
-		spec, err = loader.LoadFromURI(&url.URL{
-			Scheme: "https",
-			Host:   "",
-			Path:   s.config.SpecURL,
-		})
-		if err != nil {
-			// Try loading as full URL
-			u, parseErr := url.Parse(s.config.SpecURL)
-			if parseErr != nil {
-				return fmt.Errorf("openapi: invalid spec URL: %w", parseErr)
-			}
-			spec, err = loader.LoadFromURI(u)
+		u, parseErr := url.Parse(s.config.SpecURL)
+		if parseErr != nil {
+			return fmt.Errorf("openapi: invalid spec URL: %w", parseErr)
 		}
+		// Fetch the spec, and any external references, with the client the
+		// API calls use, so its transport (custom roots, signing) applies.
+		loader.ReadFromURIFunc = s.readFromURI(ctx)
+		spec, err = loader.LoadFromURI(u)
 	} else if s.config.SpecFile != "" {
 		data, readErr := os.ReadFile(s.config.SpecFile)
 		if readErr != nil {
@@ -196,6 +191,37 @@ func (s *Skill) load(ctx context.Context) error {
 }
 
 // ensureLoaded ensures the spec is loaded, using lazy load if needed.
+// maxSpecBytes bounds a fetched spec document.
+const maxSpecBytes = 10 << 20
+
+// readFromURI reads a spec loaded from a URL, and the documents it
+// references, over HTTP(S) with the skill's client. A document fetched
+// from the network may not reference local files.
+func (s *Skill) readFromURI(ctx context.Context) openapi3.ReadFromURIFunc {
+	return func(_ *openapi3.Loader, u *url.URL) ([]byte, error) {
+		if (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" {
+			return nil, fmt.Errorf("openapi: %s: a spec loaded from a URL may reference only http and https URLs", u)
+		}
+		client := s.config.HTTPClient
+		if client == nil {
+			client = http.DefaultClient
+		}
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+		if err != nil {
+			return nil, err
+		}
+		resp, err := client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("openapi: GET %s: status %d", u, resp.StatusCode)
+		}
+		return io.ReadAll(io.LimitReader(resp.Body, maxSpecBytes))
+	}
+}
+
 func (s *Skill) ensureLoaded(ctx context.Context) error {
 	s.mu.RLock()
 	loaded := s.spec != nil
