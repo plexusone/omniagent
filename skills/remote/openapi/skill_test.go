@@ -7,6 +7,7 @@ package openapi
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -1148,5 +1149,93 @@ func TestSetSecrets(t *testing.T) {
 				t.Errorf("Password = %q, want %q", s.config.Auth.Password, tt.wantPwd)
 			}
 		})
+	}
+}
+
+// arraySpec has array query parameters in each serialization and a JSON
+// body with an array field.
+const arraySpec = `openapi: 3.0.3
+info: {title: Arrays, version: "1"}
+servers: [{url: "https://api.example.com"}]
+paths:
+  /find:
+    get:
+      operationId: find
+      parameters:
+        - {name: status, in: query, style: form, explode: false, schema: {type: array, items: {type: string, enum: [available, sold]}}}
+        - {name: tags, in: query, schema: {type: array, items: {type: string}}}
+        - {name: ids, in: query, style: pipeDelimited, schema: {type: array, items: {type: integer}}}
+      responses: {"200": {description: ok}}
+  /pets:
+    post:
+      operationId: addPet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: {type: string}
+                photoUrls: {type: array, items: {type: string}}
+      responses: {"200": {description: ok}}
+`
+
+func TestSkillArraysAndBodyFields(t *testing.T) {
+	var gotQuery, gotBody string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotQuery = r.URL.RawQuery
+		b, err := io.ReadAll(r.Body)
+		if err != nil {
+			t.Error(err)
+		}
+		gotBody = string(b)
+		httputilmore.MustWriteJSON(w, map[string]any{"ok": true})
+	}))
+	defer server.Close()
+	specFile := filepath.Join(t.TempDir(), "spec.yaml")
+	if err := os.WriteFile(specFile, []byte(arraySpec), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	s := NewSkill(Config{Name: "arrays", SpecFile: specFile, BaseURL: server.URL})
+	ctx := context.Background()
+	if err := s.Init(ctx); err != nil {
+		t.Fatal(err)
+	}
+	tools := map[string]skilltypes.Tool{}
+	for _, tool := range s.Tools() {
+		tools[tool.Name()] = tool
+	}
+
+	status := tools["find"].Parameters()["status"]
+	if status.Type != "array" || status.Items == nil || status.Items.Type != "string" || len(status.Items.Enum) != 2 {
+		t.Fatalf("status parameter = %+v", status)
+	}
+	if photos := tools["addPet"].Parameters()["body_photoUrls"]; photos.Items == nil || photos.Items.Type != "string" {
+		t.Fatalf("body_photoUrls parameter = %+v", photos)
+	}
+
+	if _, err := tools["find"].Call(ctx, map[string]any{
+		"status": []any{"available", "sold"}, "tags": []any{"calm", "friendly"}, "ids": []any{1, 2},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if want := "ids=1%7C2&status=available%2Csold&tags=calm&tags=friendly"; gotQuery != want {
+		t.Errorf("query = %q, want %q", gotQuery, want)
+	}
+
+	if _, err := tools["addPet"].Call(ctx, map[string]any{"body_name": "Nemo", "body_photoUrls": []any{"a.jpg"}}); err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	if err := json.Unmarshal([]byte(gotBody), &body); err != nil || body["name"] != "Nemo" {
+		t.Errorf("body from body_ fields = %q, %v", gotBody, err)
+	}
+	if _, err := tools["addPet"].Call(ctx, map[string]any{"body": map[string]any{"name": "Dory"}, "body_name": "ignored"}); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(gotBody, "Dory") || strings.Contains(gotBody, "ignored") {
+		t.Errorf("an explicit body should win: %q", gotBody)
 	}
 }
