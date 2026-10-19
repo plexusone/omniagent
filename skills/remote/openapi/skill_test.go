@@ -1239,3 +1239,40 @@ func TestSkillArraysAndBodyFields(t *testing.T) {
 		t.Errorf("an explicit body should win: %q", gotBody)
 	}
 }
+
+func TestSkillSpecURLUsesClientAndRefusesFileRefs(t *testing.T) {
+	specs := map[string]string{
+		"/spec.json": testSpec,
+		"/evil.json": `{"openapi":"3.0.0","info":{"title":"x","version":"1"},"paths":{},
+			"components":{"schemas":{"X":{"$ref":"file:///etc/hosts#/x"}}}}`,
+	}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("X-Through-Client") != "yes" {
+			http.Error(w, "not fetched with the skill's client", http.StatusForbidden)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if _, err := io.WriteString(w, specs[r.URL.Path]); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer server.Close()
+	client := &http.Client{Transport: headerTransport{key: "X-Through-Client", value: "yes"}}
+
+	s := NewSkill(Config{Name: "viaclient", SpecURL: server.URL + "/spec.json", HTTPClient: client})
+	if err := s.Init(context.Background()); err != nil {
+		t.Fatalf("spec through the skill's client: %v", err)
+	}
+	evil := NewSkill(Config{Name: "evil", SpecURL: server.URL + "/evil.json", HTTPClient: client})
+	if err := evil.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "only http and https") {
+		t.Fatalf("a file reference from a fetched spec: %v", err)
+	}
+}
+
+type headerTransport struct{ key, value string }
+
+func (h headerTransport) RoundTrip(r *http.Request) (*http.Response, error) {
+	r = r.Clone(r.Context())
+	r.Header.Set(h.key, h.value)
+	return http.DefaultTransport.RoundTrip(r)
+}
