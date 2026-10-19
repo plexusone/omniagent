@@ -273,7 +273,8 @@ func WithCronScheduler() Option {
 	}
 }
 
-// WithMCPSkill registers an MCP server as a compiled skill.
+// WithMCPSkill registers an MCP server as a compiled skill. Its tools are
+// offered to the model once Agent.InitCompiledSkills has connected to it.
 // This spawns the MCP server as a subprocess and exposes its tools to the agent.
 //
 // Example:
@@ -294,7 +295,8 @@ func WithMCPSkill(cfg mcpskill.Config) Option {
 }
 
 // WithOpenAPISkill registers an OpenAPI spec as a compiled skill.
-// This parses the OpenAPI specification and exposes operations as tools.
+// Agent.InitCompiledSkills loads the specification and offers its
+// operations to the model as tools.
 //
 // Example:
 //
