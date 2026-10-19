@@ -242,3 +242,41 @@ func TestSetSecretEnv_EmptyEnvIsNoop(t *testing.T) {
 		t.Errorf("a.secretEnv = %v, want nil", a.secretEnv)
 	}
 }
+
+// discoveringSkill offers its tools only once Init has run, as remote
+// skills (OpenAPI, MCP) do.
+type discoveringSkill struct{ tools []skill.Tool }
+
+func (s *discoveringSkill) Name() string        { return "remote" }
+func (s *discoveringSkill) Description() string { return "d" }
+func (s *discoveringSkill) Tools() []skill.Tool { return s.tools }
+func (s *discoveringSkill) Close() error        { return nil }
+func (s *discoveringSkill) Init(context.Context) error {
+	s.tools = []skill.Tool{discoveredTool{}}
+	return nil
+}
+
+type discoveredTool struct{}
+
+func (discoveredTool) Name() string                           { return "discovered" }
+func (discoveredTool) Description() string                    { return "found in Init" }
+func (discoveredTool) Parameters() map[string]skill.Parameter { return nil }
+func (discoveredTool) Call(context.Context, map[string]any) (any, error) {
+	return "ok", nil
+}
+
+func TestInitCompiledSkillsRegistersDiscoveredTools(t *testing.T) {
+	a := &Agent{tools: NewToolRegistry(), logger: slog.Default()}
+	if err := a.RegisterCompiledSkill(&discoveringSkill{}); err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := a.tools.Get("discovered"); ok {
+		t.Fatal("the tool is registered before Init discovered it")
+	}
+	if err := a.InitCompiledSkills(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := a.tools.Get("discovered"); !ok {
+		t.Fatal("a tool discovered in Init was not registered")
+	}
+}
