@@ -23,10 +23,10 @@ require (
 	github.com/livekit/server-sdk-go/v2 v2.18.1
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.56.1
-	github.com/moby/moby/client v0.6.1
+	github.com/moby/moby/client v0.6.2
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/ogen-go/ogen v1.24.0
-	github.com/pion/webrtc/v4 v4.2.22
+	github.com/pion/webrtc/v4 v4.2.23
 	github.com/pkoukk/tiktoken-go v0.1.8
 	github.com/plexusone/agentauth v0.2.0
 	github.com/plexusone/omni-livekit v0.5.1
@@ -40,13 +40,13 @@ require (
 	github.com/plexusone/omnirole-facilitator v0.1.1
 	github.com/plexusone/omniserp v0.9.0
 	github.com/plexusone/omniskill v0.12.0
-	github.com/plexusone/omnistorage-core v0.5.1
+	github.com/plexusone/omnistorage-core v0.5.2
 	github.com/plexusone/omnitoken v0.1.0
 	github.com/plexusone/omnivault v0.5.0
 	github.com/plexusone/omnivault-desktop v0.1.0
 	github.com/plexusone/omnivoice v0.13.0
-	github.com/plexusone/omnivoice-core v0.16.0
-	github.com/prometheus/client_golang v1.25.0
+	github.com/plexusone/omnivoice-core v0.16.1
+	github.com/prometheus/client_golang v1.24.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/cobra v1.10.2
 	github.com/tetratelabs/wazero v1.12.0
@@ -118,9 +118,9 @@ require (
 	github.com/dennwc/iters v1.2.2 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
 	github.com/dlclark/regexp2 v1.12.0 // indirect
-	github.com/docker/go-connections v0.8.1 // indirect
+	github.com/docker/go-connections v0.8.2 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
-	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/dustin/go-humanize v1.1.0 // indirect
 	github.com/dvonthenen/websocket v1.5.1-dyv.2 // indirect
 	github.com/dylibso/observe-sdk/go v0.0.0-20240828172851-9145d8ad07e1 // indirect
 	github.com/elliotchance/orderedmap/v3 v3.1.1 // indirect
@@ -182,7 +182,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/ncruces/go-strftime v1.0.0 // indirect
+	github.com/ncruces/go-strftime v1.1.0 // indirect
 	github.com/oasdiff/yaml v0.1.1 // indirect
 	github.com/oasdiff/yaml3 v0.0.14 // indirect
 	github.com/openai/openai-go v1.12.0 // indirect
@@ -191,17 +191,17 @@ require (
 	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect
 	github.com/petermattis/goid v0.0.0-20260820044319-269ab09b5261 // indirect
 	github.com/pion/datachannel v1.6.3 // indirect
-	github.com/pion/dtls/v3 v3.1.9 // indirect
-	github.com/pion/ice/v4 v4.4.4 // indirect
+	github.com/pion/dtls/v3 v3.1.10 // indirect
+	github.com/pion/ice/v4 v4.4.7 // indirect
 	github.com/pion/interceptor v0.1.49 // indirect
 	github.com/pion/logging v0.2.4 // indirect
-	github.com/pion/mdns/v2 v2.2.1 // indirect
+	github.com/pion/mdns/v2 v2.2.2 // indirect
 	github.com/pion/randutil v0.1.0 // indirect
-	github.com/pion/rtcp v1.2.18 // indirect
+	github.com/pion/rtcp v1.2.19 // indirect
 	github.com/pion/rtp v1.10.5 // indirect
-	github.com/pion/sctp v1.11.3 // indirect
+	github.com/pion/sctp v1.12.0 // indirect
 	github.com/pion/sdp/v3 v3.0.20 // indirect
-	github.com/pion/srtp/v3 v3.1.0 // indirect
+	github.com/pion/srtp/v3 v3.1.3 // indirect
 	github.com/pion/stun/v4 v4.0.1 // indirect
 	github.com/pion/turn/v5 v5.1.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -225,7 +225,7 @@ require (
 	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.22.0 // indirect
 	github.com/puzpuzpuz/xsync/v4 v4.5.0 // indirect
-	github.com/redis/go-redis/v9 v9.22.0 // indirect
+	github.com/redis/go-redis/v9 v9.23.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rs/zerolog v1.35.1 // indirect
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3 // indirect
@@ -277,7 +277,7 @@ require (
 	go.opentelemetry.io/otel/sdk/log v0.22.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v1.46.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.11.0 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
+	go.uber.org/atomic v1.12.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.28.0 // indirect
 	go.uber.org/zap/exp v0.3.0 // indirect
@@ -285,18 +285,18 @@ require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.6 // indirect
 	golang.ngrok.com/muxado/v2 v2.0.2 // indirect
 	golang.org/x/crypto v0.57.0
-	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba // indirect
+	golang.org/x/exp v0.0.0-20261007192929-f45ad48fbe92 // indirect
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/term v0.46.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
 	golang.org/x/time v0.16.0 // indirect
-	golang.org/x/tools v0.50.0 // indirect
+	golang.org/x/tools v0.51.0 // indirect
 	google.golang.org/api v0.297.0 // indirect
 	google.golang.org/genai v1.71.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260911204522-f61a6ca850bd // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260911204522-f61a6ca850bd // indirect
-	google.golang.org/grpc v1.83.2 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8 // indirect
+	google.golang.org/grpc v1.84.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/hraban/opus.v2 v2.0.0-20230925203106-0188a62cb302 // indirect
 	gopkg.in/telebot.v3 v3.3.8 // indirect
