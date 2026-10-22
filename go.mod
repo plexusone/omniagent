@@ -1,6 +1,6 @@
 module github.com/plexusone/omniagent
 
-go 1.26.4
+go 1.26.8
 
 require (
 	entgo.io/ent v0.14.6
@@ -20,7 +20,7 @@ require (
 	github.com/grokify/mogo v0.75.0
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/livekit/protocol v1.52.1
-	github.com/livekit/server-sdk-go/v2 v2.18.1
+	github.com/livekit/server-sdk-go/v2 v2.19.0
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.56.1
 	github.com/moby/moby/client v0.6.2
@@ -75,7 +75,7 @@ require (
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/1password/onepassword-sdk-go v0.4.1 // indirect
-	github.com/Microsoft/go-winio v0.6.2 // indirect
+	github.com/Microsoft/go-winio v0.6.3-0.20251027160822-ad3df93bed29 // indirect
 	github.com/OpenRouterTeam/go-sdk v0.7.132 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/aistandardsio/agent-protocols v0.7.0 // indirect
