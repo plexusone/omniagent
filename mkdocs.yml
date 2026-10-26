@@ -25,7 +25,6 @@ theme:
         name: Switch to dark mode
   features:
     - navigation.sections
-    - navigation.expand
     - navigation.top
     - search.highlight
     - content.code.copy
@@ -54,80 +53,85 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started: guides/getting-started.md
-  - Guides:
-    - OpenAI-Compatible API: guides/openai-api.md
-    - Image Generation: guides/images.md
-    - Team Mode: guides/team-mode.md
-    - Team Deployment: guides/team-deployment.md
-    - Web UI Authentication: guides/authentication.md
-    - Virtual Agents: guides/agents.md
-    - Multi-Agent Setup: guides/multi-agent.md
-    - Agent Roles: guides/roles.md
-    - Roles Migration: guides/roles-migration.md
-    - Deployment: guides/deployment.md
-    - Twilio Setup: guides/twilio.md
-    - WhatsApp Setup: guides/whatsapp.md
-    - Voice Integration: guides/voice.md
-    - Panel Discussions: guides/panel-discussions.md
-    - LLM Providers: guides/providers.md
-    - Agent Marketplace: guides/marketplace.md
-    - Skills Development: guides/skills.md
-    - AAuth:
-      - AAuth for OpenAPI Skills: guides/aauth/index.md
-      - How AAuth Works: guides/aauth/how-it-works.md
-      - Try It: guides/aauth/try-it.md
-    - Memory Skill: guides/memory.md
-    - GitHub Skill: guides/github.md
-    - Sessions & Storage: guides/sessions.md
-    - Scheduled Jobs: guides/cron.md
-    - Context Management: guides/context.md
-    - Event Hooks: guides/hooks.md
-    - Observability: guides/observability.md
-    - Sandboxing: guides/sandboxing.md
-    - Agent Profiles: guides/profiles.md
-    - Access Policies: guides/policies.md
-    - Browser Automation: guides/browser.md
-    - Vault Credentials: guides/vault-credentials.md
-    - Web Content Skill: guides/web.md
-    - Auto-Reply: guides/autoreply.md
-  - Architecture:
-    - Overview: design/architecture/overview.md
-    - Skills System: design/architecture/skills.md
-  - Roadmap:
-    - Feature Parity: specs/PARITY-ROADMAP.md
-    - Control UI: specs/ROADMAP.md
+  - Channels and Interfaces:
+      - WhatsApp Setup: guides/whatsapp.md
+      - Twilio Setup: guides/twilio.md
+      - Voice Integration: guides/voice.md
+      - Auto-Reply: guides/autoreply.md
+      - OpenAI-Compatible API: guides/openai-api.md
+  - Agents:
+      - LLM Providers: guides/providers.md
+      - Multi-Agent Setup: guides/multi-agent.md
+      - Agent Profiles: guides/profiles.md
+      - Panel Discussions: guides/panel-discussions.md
+      - Agent Marketplace: guides/marketplace.md
+      - Image Generation: guides/images.md
+  - Runtime:
+      - Sessions & Storage: guides/sessions.md
+      - Context Management: guides/context.md
+      - Scheduled Jobs: guides/cron.md
+      - Event Hooks: guides/hooks.md
+  - Skills and Tools:
+      - Skills Development: guides/skills.md
+      - Memory Skill: guides/memory.md
+      - GitHub Skill: guides/github.md
+      - Web Content Skill: guides/web.md
+      - Browser Automation: guides/browser.md
+      - AAuth:
+          - AAuth for OpenAPI Skills: guides/aauth/index.md
+          - How AAuth Works: guides/aauth/how-it-works.md
+          - Try It: guides/aauth/try-it.md
+  - Team Mode:
+      - Team Mode: guides/team-mode.md
+      - Team Deployment: guides/team-deployment.md
+      - Virtual Agents: guides/agents.md
+      - Agent Roles: guides/roles.md
+      - Roles Migration: guides/roles-migration.md
+      - Web UI Authentication: guides/authentication.md
+  - Security and Operations:
+      - Deployment: guides/deployment.md
+      - Vault Credentials: guides/vault-credentials.md
+      - Access Policies: guides/policies.md
+      - Sandboxing: guides/sandboxing.md
+      - Observability: guides/observability.md
   - Reference:
-    - Configuration: reference/configuration.md
-    - CLI Commands: reference/cli.md
-    - Environment Variables: reference/environment.md
+      - Configuration: reference/configuration.md
+      - CLI Commands: reference/cli.md
+      - Environment Variables: reference/environment.md
   - Design:
-    - Voice Notes:
-      - Specification: design/voice_notes/SPEC.md
-      - Case Study: design/voice_notes/CASE_STUDY.md
+      - Architecture Overview: design/architecture/overview.md
+      - Skills Architecture: design/architecture/skills.md
+      - Voice Notes:
+          - Specification: design/voice_notes/SPEC.md
+          - Case Study: design/voice_notes/CASE_STUDY.md
+  - Roadmap:
+      - Feature Parity: specs/PARITY-ROADMAP.md
+      - Control UI: specs/ROADMAP.md
   - Releases:
-    - v0.20.0: releases/v0.20.0.md
-    - v0.19.0: releases/v0.19.0.md
-    - v0.18.0: releases/v0.18.0.md
-    - v0.17.0: releases/v0.17.0.md
-    - v0.16.0: releases/v0.16.0.md
-    - v0.15.0: releases/v0.15.0.md
-    - v0.14.0: releases/v0.14.0.md
-    - v0.13.0: releases/v0.13.0.md
-    - v0.12.0: releases/v0.12.0.md
-    - v0.11.0: releases/v0.11.0.md
-    - v0.10.0: releases/v0.10.0.md
-    - v0.9.0: releases/v0.9.0.md
-    - v0.8.0: releases/v0.8.0.md
-    - v0.7.0: releases/v0.7.0.md
-    - v0.6.0:
-      - Release Notes: releases/v0.6.0/index.md
-      - Plan: releases/v0.6.0/PLAN.md
-      - Tasks: releases/v0.6.0/TASKS.md
-    - v0.5.0: releases/v0.5.0.md
-    - v0.4.0: releases/v0.4.0.md
-    - v0.3.0: releases/v0.3.0.md
-    - v0.2.0: releases/v0.2.0.md
-    - v0.1.0: releases/v0.1.0.md
+      - v0.20.0: releases/v0.20.0.md
+      - v0.19.0: releases/v0.19.0.md
+      - v0.18.0: releases/v0.18.0.md
+      - v0.17.0: releases/v0.17.0.md
+      - v0.16.0: releases/v0.16.0.md
+      - v0.15.0: releases/v0.15.0.md
+      - v0.14.0: releases/v0.14.0.md
+      - v0.13.0: releases/v0.13.0.md
+      - v0.12.0: releases/v0.12.0.md
+      - v0.11.0: releases/v0.11.0.md
+      - v0.10.0: releases/v0.10.0.md
+      - Earlier Releases (v0.1 to v0.9):
+          - v0.9.0: releases/v0.9.0.md
+          - v0.8.0: releases/v0.8.0.md
+          - v0.7.0: releases/v0.7.0.md
+          - v0.6.0:
+              - Release Notes: releases/v0.6.0/index.md
+              - Plan: releases/v0.6.0/PLAN.md
+              - Tasks: releases/v0.6.0/TASKS.md
+          - v0.5.0: releases/v0.5.0.md
+          - v0.4.0: releases/v0.4.0.md
+          - v0.3.0: releases/v0.3.0.md
+          - v0.2.0: releases/v0.2.0.md
+          - v0.1.0: releases/v0.1.0.md
 
 extra:
   social:
