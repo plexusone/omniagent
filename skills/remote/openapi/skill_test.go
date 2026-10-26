@@ -1269,6 +1269,48 @@ func TestSkillSpecURLUsesClientAndRefusesFileRefs(t *testing.T) {
 	}
 }
 
+func TestSkillSpecURLRefusesRedirects(t *testing.T) {
+	hit := false
+	other := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hit = true
+		if _, err := io.WriteString(w, testSpec); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer other.Close()
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, other.URL, http.StatusFound)
+	}))
+	defer server.Close()
+	client := &http.Client{}
+
+	s := NewSkill(Config{Name: "redirected", SpecURL: server.URL, HTTPClient: client})
+	if err := s.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "status 302") {
+		t.Fatalf("a redirected spec URL: %v", err)
+	}
+	if hit {
+		t.Error("the redirect target was requested")
+	}
+	if client.CheckRedirect != nil {
+		t.Error("the caller's client was modified")
+	}
+}
+
+func TestSkillSpecURLRefusesOversizedDocument(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if _, err := io.WriteString(w, `{"openapi":"3.0.0","info":{"title":"`+strings.Repeat("x", maxSpecBytes)+`","version":"1"},"paths":{}}`); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer server.Close()
+
+	s := NewSkill(Config{Name: "big", SpecURL: server.URL})
+	if err := s.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "larger than") {
+		t.Fatalf("an oversized spec: %v", err)
+	}
+}
+
 type headerTransport struct{ key, value string }
 
 func (h headerTransport) RoundTrip(r *http.Request) (*http.Response, error) {
