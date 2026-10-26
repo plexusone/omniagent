@@ -1,15 +1,11 @@
 # aauth-petstore: omniagent as an AAuth agent for the Petstore.
 #
-# Build from the repository root. Until aauth-go v0.3.0 is tagged, the
-# build needs an aauth-go checkout as the aauth-go context:
+# Build from the repository root:
 #
-#   docker build -f examples/aauth-petstore/Dockerfile \
-#     --build-context aauth-go=../../aauth-dev/aauth-go -t aauth-petstore .
+#   docker build -f examples/aauth-petstore/Dockerfile -t aauth-petstore .
 
 FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
 WORKDIR /src/plexusone/omniagent
-# go.mod points at ../../aauth-dev/aauth-go.
-COPY --from=aauth-go . /src/aauth-dev/aauth-go
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
