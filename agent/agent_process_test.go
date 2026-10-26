@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 
 	"github.com/plexusone/omnillm"
@@ -309,13 +310,13 @@ func TestProcessWithSession_HappyPath_PersistsHistory(t *testing.T) {
 	a.sessions = store
 	ctx := context.Background()
 
-	var createdEvents, updatedEvents int
+	var createdEvents, updatedEvents atomic.Int32
 	a.hooks.RegisterHandler(hooks.EventSessionCreated, "capture", func(context.Context, hooks.Event) error {
-		createdEvents++
+		createdEvents.Add(1)
 		return nil
 	})
 	a.hooks.RegisterHandler(hooks.EventSessionUpdated, "capture", func(context.Context, hooks.Event) error {
-		updatedEvents++
+		updatedEvents.Add(1)
 		return nil
 	})
 
@@ -345,8 +346,8 @@ func TestProcessWithSession_HappyPath_PersistsHistory(t *testing.T) {
 	// Async hook dispatch: give handlers a moment via the dispatcher's own
 	// synchronization is not exposed, so we just assert they were registered
 	// and at least attempted (EmitAsync is fire-and-forget in-process).
-	_ = createdEvents
-	_ = updatedEvents
+	_ = createdEvents.Load()
+	_ = updatedEvents.Load()
 }
 
 // TestProcessWithSession_SavesUserMessageOnProcessingError verifies the

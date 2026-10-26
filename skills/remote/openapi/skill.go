@@ -35,6 +35,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 	"sync"
 	"time"
@@ -145,19 +146,14 @@ func (s *Skill) load(ctx context.Context) error {
 	var err error
 
 	if s.config.SpecURL != "" {
-		spec, err = loader.LoadFromURI(&url.URL{
-			Scheme: "https",
-			Host:   "",
-			Path:   s.config.SpecURL,
-		})
-		if err != nil {
-			// Try loading as full URL
-			u, parseErr := url.Parse(s.config.SpecURL)
-			if parseErr != nil {
-				return fmt.Errorf("openapi: invalid spec URL: %w", parseErr)
-			}
-			spec, err = loader.LoadFromURI(u)
+		u, parseErr := url.Parse(s.config.SpecURL)
+		if parseErr != nil {
+			return fmt.Errorf("openapi: invalid spec URL: %w", parseErr)
 		}
+		// Fetch the spec, and any external references, with the client the
+		// API calls use, so its transport (custom roots, signing) applies.
+		loader.ReadFromURIFunc = s.readFromURI(ctx)
+		spec, err = loader.LoadFromURI(u)
 	} else if s.config.SpecFile != "" {
 		data, readErr := os.ReadFile(s.config.SpecFile)
 		if readErr != nil {
@@ -195,6 +191,52 @@ func (s *Skill) load(ctx context.Context) error {
 }
 
 // ensureLoaded ensures the spec is loaded, using lazy load if needed.
+// maxSpecBytes bounds a fetched spec document.
+const maxSpecBytes = 10 << 20
+
+// readFromURI reads a spec loaded from a URL, and the documents it
+// references, over HTTP(S) with the skill's client. A document fetched
+// from the network may not reference local files.
+func (s *Skill) readFromURI(ctx context.Context) openapi3.ReadFromURIFunc {
+	return func(_ *openapi3.Loader, u *url.URL) ([]byte, error) {
+		if (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" {
+			return nil, fmt.Errorf("openapi: %s: a spec loaded from a URL may reference only http and https URLs", u)
+		}
+		client := s.config.HTTPClient
+		if client == nil {
+			client = http.DefaultClient
+		}
+		if client.CheckRedirect == nil {
+			// The client may attach credentials to its requests; follow no
+			// redirect so they are not presented to another host. Work on a
+			// copy so the caller's client is left as it was.
+			noRedirect := *client
+			noRedirect.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+			client = &noRedirect
+		}
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+		if err != nil {
+			return nil, err
+		}
+		resp, err := client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("openapi: GET %s: status %d", u, resp.StatusCode)
+		}
+		data, err := io.ReadAll(io.LimitReader(resp.Body, maxSpecBytes+1))
+		if err != nil {
+			return nil, err
+		}
+		if len(data) > maxSpecBytes {
+			return nil, fmt.Errorf("openapi: GET %s: document is larger than %d bytes", u, maxSpecBytes)
+		}
+		return data, nil
+	}
+}
+
 func (s *Skill) ensureLoaded(ctx context.Context) error {
 	s.mu.RLock()
 	loaded := s.spec != nil
@@ -336,6 +378,7 @@ func (s *Skill) buildParameters(pathItem *openapi3.PathItem, op *openapi3.Operat
 			if len(p.Schema.Value.Enum) > 0 {
 				param.Enum = p.Schema.Value.Enum
 			}
+			param.Items = itemsParameter(p.Schema.Value.Items)
 		}
 
 		params[p.Name] = param
@@ -400,12 +443,22 @@ func (s *Skill) schemaToParameters(schemaRef *openapi3.SchemaRef, required bool)
 			if len(prop.Enum) > 0 {
 				param.Enum = prop.Enum
 			}
+			param.Items = itemsParameter(prop.Items)
 
 			params[name] = param
 		}
 	}
 
 	return params
+}
+
+// itemsParameter describes an array's elements, so tool schemas name the
+// item type (some model APIs reject an array without items).
+func itemsParameter(items *openapi3.SchemaRef) *skill.Parameter {
+	if items == nil || items.Value == nil {
+		return nil
+	}
+	return &skill.Parameter{Type: schemaToType(items), Description: items.Value.Description, Enum: items.Value.Enum}
 }
 
 // schemaToType extracts the type from a schema reference.
@@ -467,7 +520,7 @@ func (s *Skill) makeToolHandler(opInfo operationInfo, pathItem *openapi3.PathIte
 			p := paramRef.Value
 			if p.In == "query" {
 				if val, ok := params[p.Name]; ok {
-					queryParams.Set(p.Name, fmt.Sprintf("%v", val))
+					addQueryParam(queryParams, p, val)
 				}
 			}
 		}
@@ -479,7 +532,7 @@ func (s *Skill) makeToolHandler(opInfo operationInfo, pathItem *openapi3.PathIte
 		// Build request body
 		var bodyReader io.Reader
 		if op.RequestBody != nil && op.RequestBody.Value != nil {
-			if body, ok := params["body"]; ok {
+			if body, ok := requestBody(params); ok {
 				bodyData, err := json.Marshal(body)
 				if err != nil {
 					return nil, fmt.Errorf("openapi: failed to marshal body: %w", err)
@@ -521,6 +574,14 @@ func (s *Skill) makeToolHandler(opInfo operationInfo, pathItem *openapi3.PathIte
 		if client == nil {
 			client = http.DefaultClient
 		}
+		if client.CheckRedirect == nil {
+			// The client may attach credentials to its requests; follow no
+			// redirect so they are not presented to another host. Work on a
+			// copy so the caller's client is left as it was.
+			noRedirect := *client
+			noRedirect.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+			client = &noRedirect
+		}
 
 		if s.config.RequestTimeout > 0 {
 			var cancel context.CancelFunc
@@ -555,6 +616,51 @@ func (s *Skill) makeToolHandler(opInfo operationInfo, pathItem *openapi3.PathIte
 
 		return result, nil
 	}
+}
+
+// addQueryParam adds a query parameter as OpenAPI serializes it (style
+// form unless set): an array is repeated (explode, the default for form) or
+// joined with commas (explode: false), or with spaces or pipes for the
+// spaceDelimited and pipeDelimited styles.
+func addQueryParam(q url.Values, p *openapi3.Parameter, val any) {
+	rv := reflect.ValueOf(val)
+	if val == nil || (rv.Kind() != reflect.Slice && rv.Kind() != reflect.Array) {
+		q.Set(p.Name, fmt.Sprintf("%v", val))
+		return
+	}
+	items := make([]string, rv.Len())
+	for i := range items {
+		items[i] = fmt.Sprintf("%v", rv.Index(i).Interface())
+	}
+	switch p.Style {
+	case openapi3.SerializationSpaceDelimited:
+		q.Set(p.Name, strings.Join(items, " "))
+	case openapi3.SerializationPipeDelimited:
+		q.Set(p.Name, strings.Join(items, "|"))
+	default:
+		if p.Explode != nil && !*p.Explode {
+			q.Set(p.Name, strings.Join(items, ","))
+			return
+		}
+		for _, it := range items {
+			q.Add(p.Name, it)
+		}
+	}
+}
+
+// requestBody returns the body to send: the body parameter, or else an
+// object of the body_<field> parameters the tool also offers.
+func requestBody(params map[string]any) (any, bool) {
+	if body, ok := params["body"]; ok {
+		return body, true
+	}
+	fields := map[string]any{}
+	for k, v := range params {
+		if name, ok := strings.CutPrefix(k, "body_"); ok {
+			fields[name] = v
+		}
+	}
+	return fields, len(fields) > 0
 }
 
 // getBaseURL returns the base URL for API calls.

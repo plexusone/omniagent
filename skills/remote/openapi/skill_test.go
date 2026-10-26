@@ -7,10 +7,12 @@ package openapi
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -1149,4 +1151,177 @@ func TestSetSecrets(t *testing.T) {
 			}
 		})
 	}
+}
+
+// arraySpec has array query parameters in each serialization and a JSON
+// body with an array field.
+const arraySpec = `openapi: 3.0.3
+info: {title: Arrays, version: "1"}
+servers: [{url: "https://api.example.com"}]
+paths:
+  /find:
+    get:
+      operationId: find
+      parameters:
+        - {name: status, in: query, style: form, explode: false, schema: {type: array, items: {type: string, enum: [available, sold]}}}
+        - {name: tags, in: query, schema: {type: array, items: {type: string}}}
+        - {name: ids, in: query, style: pipeDelimited, schema: {type: array, items: {type: integer}}}
+      responses: {"200": {description: ok}}
+  /pets:
+    post:
+      operationId: addPet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: {type: string}
+                photoUrls: {type: array, items: {type: string}}
+      responses: {"200": {description: ok}}
+`
+
+func TestSkillArraysAndBodyFields(t *testing.T) {
+	var gotQuery, gotBody string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotQuery = r.URL.RawQuery
+		b, err := io.ReadAll(r.Body)
+		if err != nil {
+			t.Error(err)
+		}
+		gotBody = string(b)
+		httputilmore.MustWriteJSON(w, map[string]any{"ok": true})
+	}))
+	defer server.Close()
+	specFile := filepath.Join(t.TempDir(), "spec.yaml")
+	if err := os.WriteFile(specFile, []byte(arraySpec), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	s := NewSkill(Config{Name: "arrays", SpecFile: specFile, BaseURL: server.URL})
+	ctx := context.Background()
+	if err := s.Init(ctx); err != nil {
+		t.Fatal(err)
+	}
+	tools := map[string]skilltypes.Tool{}
+	for _, tool := range s.Tools() {
+		tools[tool.Name()] = tool
+	}
+
+	status := tools["find"].Parameters()["status"]
+	if status.Type != "array" || status.Items == nil || status.Items.Type != "string" || len(status.Items.Enum) != 2 {
+		t.Fatalf("status parameter = %+v", status)
+	}
+	if photos := tools["addPet"].Parameters()["body_photoUrls"]; photos.Items == nil || photos.Items.Type != "string" {
+		t.Fatalf("body_photoUrls parameter = %+v", photos)
+	}
+
+	if _, err := tools["find"].Call(ctx, map[string]any{
+		"status": []any{"available", "sold"}, "tags": []any{"calm", "friendly"}, "ids": []any{1, 2},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if want := "ids=1%7C2&status=available%2Csold&tags=calm&tags=friendly"; gotQuery != want {
+		t.Errorf("query = %q, want %q", gotQuery, want)
+	}
+
+	if _, err := tools["addPet"].Call(ctx, map[string]any{"body_name": "Nemo", "body_photoUrls": []any{"a.jpg"}}); err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	if err := json.Unmarshal([]byte(gotBody), &body); err != nil || body["name"] != "Nemo" {
+		t.Errorf("body from body_ fields = %q, %v", gotBody, err)
+	}
+	if _, err := tools["addPet"].Call(ctx, map[string]any{"body": map[string]any{"name": "Dory"}, "body_name": "ignored"}); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(gotBody, "Dory") || strings.Contains(gotBody, "ignored") {
+		t.Errorf("an explicit body should win: %q", gotBody)
+	}
+}
+
+func TestSkillSpecURLUsesClientAndRefusesFileRefs(t *testing.T) {
+	specs := map[string]string{
+		"/spec.json": testSpec,
+		"/evil.json": `{"openapi":"3.0.0","info":{"title":"x","version":"1"},"paths":{},
+			"components":{"schemas":{"X":{"$ref":"file:///etc/hosts#/x"}}}}`,
+	}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("X-Through-Client") != "yes" {
+			http.Error(w, "not fetched with the skill's client", http.StatusForbidden)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if _, err := io.WriteString(w, specs[r.URL.Path]); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer server.Close()
+	client := &http.Client{Transport: headerTransport{key: "X-Through-Client", value: "yes"}}
+
+	s := NewSkill(Config{Name: "viaclient", SpecURL: server.URL + "/spec.json", HTTPClient: client})
+	if err := s.Init(context.Background()); err != nil {
+		t.Fatalf("spec through the skill's client: %v", err)
+	}
+	evil := NewSkill(Config{Name: "evil", SpecURL: server.URL + "/evil.json", HTTPClient: client})
+	err := evil.Init(context.Background())
+	if err == nil {
+		t.Fatal("a file reference from a fetched spec was accepted")
+	}
+	// On Windows the loader resolves the file URL without reading it, so the
+	// error names the missing target instead of the scheme.
+	if runtime.GOOS != "windows" && !strings.Contains(err.Error(), "only http and https") {
+		t.Fatalf("a file reference from a fetched spec: %v", err)
+	}
+}
+
+func TestSkillSpecURLRefusesRedirects(t *testing.T) {
+	hit := false
+	other := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hit = true
+		if _, err := io.WriteString(w, testSpec); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer other.Close()
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, other.URL, http.StatusFound)
+	}))
+	defer server.Close()
+	client := &http.Client{}
+
+	s := NewSkill(Config{Name: "redirected", SpecURL: server.URL, HTTPClient: client})
+	if err := s.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "status 302") {
+		t.Fatalf("a redirected spec URL: %v", err)
+	}
+	if hit {
+		t.Error("the redirect target was requested")
+	}
+	if client.CheckRedirect != nil {
+		t.Error("the caller's client was modified")
+	}
+}
+
+func TestSkillSpecURLRefusesOversizedDocument(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if _, err := io.WriteString(w, `{"openapi":"3.0.0","info":{"title":"`+strings.Repeat("x", maxSpecBytes)+`","version":"1"},"paths":{}}`); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer server.Close()
+
+	s := NewSkill(Config{Name: "big", SpecURL: server.URL})
+	if err := s.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "larger than") {
+		t.Fatalf("an oversized spec: %v", err)
+	}
+}
+
+type headerTransport struct{ key, value string }
+
+func (h headerTransport) RoundTrip(r *http.Request) (*http.Response, error) {
+	r = r.Clone(r.Context())
+	r.Header.Set(h.key, h.value)
+	return http.DefaultTransport.RoundTrip(r)
 }

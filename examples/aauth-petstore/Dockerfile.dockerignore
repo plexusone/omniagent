@@ -1,0 +1,9 @@
+# Keep local data and build output out of the image's build context.
+.git
+**/node_modules
+**/*.db
+**/.env*
+site
+docs
+examples/chat-ui
+web/node_modules

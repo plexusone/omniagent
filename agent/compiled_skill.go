@@ -109,22 +109,7 @@ func (a *Agent) RegisterCompiledSkill(skill compiled.Skill) error {
 		}
 	}
 
-	// Determine the source kind: skills backed by an external protocol
-	// (e.g. MCP) declare it via an optional SourceType method.
-	sourceType := "skill"
-	if st, ok := skill.(interface{ SourceType() string }); ok {
-		sourceType = st.SourceType()
-	}
-
-	// Register all tools from the skill
-	for _, tool := range skill.Tools() {
-		wrapper := &compiledToolWrapper{
-			tool:       tool,
-			skillName:  skill.Name(),
-			sourceType: sourceType,
-		}
-		a.tools.Register(wrapper)
-	}
+	a.registerSkillTools(skill)
 
 	// Track the skill for lifecycle management
 	a.mu.Lock()
@@ -139,7 +124,28 @@ func (a *Agent) RegisterCompiledSkill(skill compiled.Skill) error {
 	return nil
 }
 
-// InitCompiledSkills initializes all registered compiled skills.
+// registerSkillTools registers the tools a skill offers now. Remote
+// skills (OpenAPI, MCP) discover theirs in Init, so InitCompiledSkills
+// registers them again afterwards; registering a tool twice replaces it.
+func (a *Agent) registerSkillTools(skill compiled.Skill) {
+	// Determine the source kind: skills backed by an external protocol
+	// (e.g. MCP) declare it via an optional SourceType method.
+	sourceType := "skill"
+	if st, ok := skill.(interface{ SourceType() string }); ok {
+		sourceType = st.SourceType()
+	}
+	for _, tool := range skill.Tools() {
+		a.tools.Register(&compiledToolWrapper{
+			tool:       tool,
+			skillName:  skill.Name(),
+			sourceType: sourceType,
+		})
+	}
+}
+
+// InitCompiledSkills initializes all registered compiled skills and
+// registers the tools they discovered while initializing, such as an
+// OpenAPI skill's operations or an MCP server's tools.
 func (a *Agent) InitCompiledSkills(ctx context.Context) error {
 	a.mu.RLock()
 	skills := a.compiledSkills
@@ -149,7 +155,8 @@ func (a *Agent) InitCompiledSkills(ctx context.Context) error {
 		if err := skill.Init(ctx); err != nil {
 			return fmt.Errorf("init skill %q: %w", skill.Name(), err)
 		}
-		a.logger.Info("initialized compiled skill", "name", skill.Name())
+		a.registerSkillTools(skill)
+		a.logger.Info("initialized compiled skill", "name", skill.Name(), "tools", len(skill.Tools()))
 	}
 
 	return nil

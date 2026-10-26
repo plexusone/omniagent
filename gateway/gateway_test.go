@@ -854,7 +854,10 @@ func TestGatewayWithWebhookHandlers(t *testing.T) {
 	cancel()
 
 	select {
-	case <-errCh:
+	case err := <-errCh:
+		// Run returns once its context is canceled; the error it reports for
+		// that is not what this test checks.
+		t.Logf("Run returned: %v", err)
 	case <-time.After(2 * time.Second):
 		t.Error("Run did not return after cancel")
 	}
