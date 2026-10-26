@@ -172,7 +172,7 @@ require (
 	github.com/lithammer/shortuuid/v4 v4.3.0 // indirect
 	github.com/livekit/mageutil v0.0.0-20250511045019-0f1ff63f7731 // indirect
 	github.com/livekit/media-sdk v0.1.1 // indirect
-	github.com/livekit/mediatransportutil v0.0.0-20260821083140-f234b534b095 // indirect
+	github.com/livekit/mediatransportutil v0.0.0-20261020100523-e0b22b120fb1 // indirect
 	github.com/livekit/psrpc v0.8.2 // indirect
 	github.com/magefile/mage v1.17.2 // indirect
 	github.com/mattn/go-colorable v0.1.16 // indirect
@@ -191,7 +191,7 @@ require (
 	github.com/pion/datachannel v1.6.3 // indirect
 	github.com/pion/dtls/v3 v3.1.15 // indirect
 	github.com/pion/ice/v4 v4.4.8 // indirect
-	github.com/pion/interceptor v0.1.49 // indirect
+	github.com/pion/interceptor v0.1.51 // indirect
 	github.com/pion/logging v0.2.4 // indirect
 	github.com/pion/mdns/v2 v2.2.2 // indirect
 	github.com/pion/randutil v0.1.0 // indirect
@@ -201,8 +201,8 @@ require (
 	github.com/pion/sdp/v3 v3.0.20 // indirect
 	github.com/pion/srtp/v3 v3.1.3 // indirect
 	github.com/pion/stun/v4 v4.0.1 // indirect
-	github.com/pion/transport/v5 v5.1.1 // indirect
-	github.com/pion/turn/v5 v5.1.2 // indirect
+	github.com/pion/transport/v5 v5.1.2 // indirect
+	github.com/pion/turn/v5 v5.1.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/plexusone/elevenlabs-go v0.13.0 // indirect
 	github.com/plexusone/ogen-tools v0.3.0 // indirect
