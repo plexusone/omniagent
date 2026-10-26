@@ -152,6 +152,9 @@
           "commit": "acd5c94"
         },
         {
+          "description": "Bring the architecture overview and the skills architecture up to date: personal and team mode, gateway surfaces, readiness, secrets, AAuth, and the four skill kinds"
+        },
+        {
           "description": "Plan the AAuth initiative for OpenAPI skills",
           "commit": "b44215c"
         },
