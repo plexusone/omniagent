@@ -10,6 +10,179 @@
   ],
   "releases": [
     {
+      "version": "v0.20.0",
+      "date": "2026-10-26",
+      "highlights": [
+        {
+          "description": "AAuth for OpenAPI skills: the new aauthagent package enrolls omniagent at an agent provider and returns an HTTP client that signs every request as that agent, obtains person and auth tokens, and waits while the person approves, so an OpenAPI skill can call an AAuth-protected API with the agent's own identity"
+        },
+        {
+          "description": "examples/aauth-petstore: a terminal chat with the Petstore as an AAuth resource, with a container image; browsing needs only the agent's identity and orders ask the person to approve"
+        },
+        {
+          "description": "GET /readyz reports readiness (a real storage round-trip and an agent-configured check) apart from /health liveness, and the healthcheck subcommand is rebuilt on the same probe"
+        },
+        {
+          "description": "OpenAPI skills send array parameters and body fields as the spec describes, load a spec URL with the skill's own HTTP client, and refuse redirects and oversized spec documents"
+        },
+        {
+          "description": "Secrets: omnivault v0.6.0 redacts secrets when formatted or logged and its file provider refuses secret files other users can read; absolute file:// credentials keep working"
+        },
+        {
+          "description": "User guides live in docs/guides and design documents in docs/design: the getting-started guide and the architecture overview moved there"
+        }
+      ],
+      "added": [
+        {
+          "description": "aauthagent.NewClient: enroll a key at an agent provider and call AAuth resources as that agent, answering person and auth requirements and passing the approval URL and code to Config.OnInteraction",
+          "commit": "a59bdc7"
+        },
+        {
+          "description": "examples/aauth-petstore: a chat that uses the Petstore's OpenAPI operations as tools through the AAuth client; --prompt runs a scripted conversation",
+          "commit": "0d6385a"
+        },
+        {
+          "description": "aauth-petstore container image on the Chainguard static base",
+          "commit": "d78e680"
+        },
+        {
+          "description": "GET /readyz aggregates a storage write/read/delete round-trip and an agent_configured check, returning 503 with per-check detail while either fails",
+          "commit": "5db7ba1"
+        }
+      ],
+      "changed": [
+        {
+          "description": "The healthcheck subcommand probes through mogo's healthz probe with loopback normalization; its behavior is unchanged",
+          "commit": "5db7ba1"
+        },
+        {
+          "description": "An absolute file:// credential is read through a file vault rooted at the file's own directory; a secret file that group or other users can read is refused",
+          "commit": "478afd3"
+        }
+      ],
+      "fixed": [
+        {
+          "description": "OpenAPI skills send array parameters and body fields as the spec describes",
+          "commit": "343bce2"
+        },
+        {
+          "description": "An OpenAPI skill loads a spec URL, and the documents it references, with its own HTTP client; a fetched spec may not reference local files",
+          "commit": "fffa4ca"
+        },
+        {
+          "description": "A spec fetch follows no redirect, so the client's credentials are not presented to another host, and a document over the 10 MiB limit is refused instead of silently truncated",
+          "commit": "4426de9"
+        },
+        {
+          "description": "Tools a remote skill discovers while it initializes are offered to the agent",
+          "commit": "fc4323c"
+        },
+        {
+          "description": "The standalone platform guards its HTTP server field with the platform mutex, fixing a data race",
+          "commit": "9b5e46d"
+        },
+        {
+          "description": "Absolute file:// credentials resolve again after the omnivault v0.6.0 upgrade",
+          "commit": "478afd3"
+        },
+        {
+          "description": "Restore the build against livekit/protocol v1.52 and later by moving to server-sdk-go v2.19.0",
+          "commit": "2ae694a"
+        }
+      ],
+      "security": [
+        {
+          "description": "omnivault v0.6.0: a Secret prints as [REDACTED] when formatted or logged, its file provider keeps secret paths inside its directory, and Secret.String is replaced by Reveal",
+          "commit": "2a40e1a"
+        }
+      ],
+      "test": [
+        {
+          "description": "Cover array serialization and body fields in OpenAPI skills",
+          "commit": "10646ae"
+        },
+        {
+          "description": "Load a spec URL through the client and refuse file references",
+          "commit": "28860b4"
+        },
+        {
+          "description": "Call a guarded API through an OpenAPI skill behind the aauth-go sandbox",
+          "commit": "1610dc9"
+        },
+        {
+          "description": "Register tools a skill discovers in Init",
+          "commit": "acf4b15"
+        },
+        {
+          "description": "Order a pet through aauth-petstore with a scripted model",
+          "commit": "7cd6ac3"
+        },
+        {
+          "description": "Cover refused redirects and oversized spec documents",
+          "commit": "26f654a"
+        },
+        {
+          "description": "Count session hook events atomically, fixing a data race in the session test",
+          "commit": "e2b5c57"
+        },
+        {
+          "description": "Accept the Windows error for a file reference in a fetched spec",
+          "commit": "9f93c0e"
+        },
+        {
+          "description": "Log the error Run returns after cancel in the gateway test",
+          "commit": "fb2f854"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Guide to AAuth for OpenAPI skills and the Petstore demo, including how a spec is loaded",
+          "commit": "cbdef44"
+        },
+        {
+          "description": "Document /readyz alongside /health in the CLI reference and the deployment guide",
+          "commit": "2ed4163"
+        },
+        {
+          "description": "Correct the published image tag naming: no leading v",
+          "commit": "7c194d7"
+        },
+        {
+          "description": "Move the getting-started guide into docs/guides and the architecture overview into docs/design/architecture",
+          "commit": "acd5c94"
+        },
+        {
+          "description": "Plan the AAuth initiative for OpenAPI skills",
+          "commit": "b44215c"
+        },
+        {
+          "description": "Name the aauthagent package in the AAuth initiative",
+          "commit": "2bbbedb"
+        },
+        {
+          "description": "Document the secret-file permission requirements of the file provider",
+          "commit": "2a40e1a"
+        }
+      ],
+      "dependencies": [
+        {
+          "description": "aauth-dev/aauth-go v0.3.0, with yaronf/httpsign held at v0.5.2 as aauth-go requires",
+          "commit": "85ed12a"
+        },
+        {
+          "description": "plexusone/omnivault v0.5.0 to v0.6.0; the agent secret resolver reads values with Reveal",
+          "commit": "2a40e1a"
+        },
+        {
+          "description": "livekit/server-sdk-go v2.19.0 with livekit/protocol v1.53; the earlier exclude of protocol v1.51.0 is removed",
+          "commit": "2ae694a"
+        },
+        {
+          "description": "Routine updates: pion/webrtc, modernc.org/sqlite, moby, OpenTelemetry, prometheus/client_golang, kin-openapi, go-chi/chi, golang.org/x/crypto and golang.org/x/net, mogo, omnillm, omniobserve, omnistorage-core and omnivoice-core"
+        }
+      ]
+    },
+    {
       "version": "v0.19.0",
       "date": "2026-09-13",
       "highlights": [
@@ -35,109 +208,109 @@
       "added": [
         {
           "description": "OMNIAGENT_CONFIG_B64: full config document injection via one base64 env var, decoded in-process — closes the nested-config gap (team mode, per-skill config, vault bindings) on container platforms with no volume mounts",
-          "commit": "5f9a5cd"
+          "commit": "2e05ef7"
         },
         {
           "description": "OMNIAGENT_WEB_ENABLED / OMNIAGENT_AUTH_ENABLED / OMNIAGENT_AUTH_OWNER_EMAIL / OMNIAGENT_AUTH_BASE_URL: enable the embedded web UI and personal-mode auth from the environment",
-          "commit": "0abcb4c"
+          "commit": "8fae5b9"
         },
         {
           "description": "deploy.secrets: SSM Parameter Store / Secrets Manager secret resolution at deploy time (omnideploy), values encrypted in Pulumi state",
-          "commit": "e202506"
+          "commit": "8f9c38e"
         },
         {
           "description": "Multi-arch (linux/amd64 + linux/arm64) image builds via BUILDPLATFORM cross-compilation",
-          "commit": "880d005"
+          "commit": "575f4fa"
         },
         {
           "description": "SBOM, SLSA provenance attestations, and keyless cosign signing on every published image",
-          "commit": "4157d65"
+          "commit": "a168060"
         },
         {
           "description": "Docker Hub mirror publish (docker.io/grokify/omniagent) alongside canonical GHCR",
-          "commit": "d4a771c"
+          "commit": "1d507b8"
         },
         {
           "description": "Runtime image moved to digest-pinned cgr.dev/chainguard/static per the new PlexusOne container base-image policy — no shell, package manager, or libc; embedded tzdata; new dependency-free `omniagent healthcheck` subcommand for exec-form container health checks",
-          "commit": "476cbc2"
+          "commit": "1b8fc80"
         },
         {
           "description": "/api/health route alias alongside /health for container health-check probes",
-          "commit": "a24f5d2"
+          "commit": "5387e54"
         },
         {
           "description": "Publish container image to GHCR on version-tag push, or :smoke via manual dispatch",
-          "commit": "4ea55e1"
+          "commit": "e43908f"
         },
         {
           "description": "Durable session and cron-job storage wired into `gateway run` (config-driven storage.type: sqlite/redis/memory)",
-          "commit": "711ea5b"
+          "commit": "3fe642a"
         },
         {
           "description": "LLM-based conversation summarization: WindowStrategySummarize implemented and wired into the context Engine; agent.WithCompaction option",
-          "commit": "8044a06"
+          "commit": "52b892f"
         },
         {
           "description": "Agent/skill marketplace primitives: portable listing types, provider interface + in-memory static provider, adapters from agent/registry and skills",
-          "commit": "d3dded0"
+          "commit": "8ff289f"
         }
       ],
       "fixed": [
         {
           "description": "Logging self-deadlock: wrapping slog.Default().Handler() while slog.SetDefault rewired the same handler formed a cycle that froze every CLI invocation before its first log line — including gateway startup, the root cause of the first failed Lightsail deployment",
-          "commit": "0908a72"
+          "commit": "5743ef5"
         },
         {
           "description": "agent.Temperature no longer defaults to 0.7 — newer Claude models (Sonnet 4.6+/5, Opus 4.6+) reject any request that sets temperature; zero now means \"use the provider default\"",
-          "commit": "4fef85a"
+          "commit": "edba3cb"
         },
         {
           "description": "Lightsail deploy target region moved to us-west-2 (no cost difference on Lightsail's flat pricing; smaller incident-history blast radius than us-east-1)",
-          "commit": "f15c431"
+          "commit": "cbfe418"
         },
         {
           "description": "cosign-installer pinned to exact v4.1.2 — the action publishes no floating v4 major tag",
-          "commit": "b2aad7f"
+          "commit": "5ec6ff4"
         },
         {
           "description": "API-key auth enforced on POST /chat/completions (was previously reachable without a key)",
-          "commit": "8284b1d"
+          "commit": "073b4f8"
         },
         {
           "description": "GetSession's stale doc comment corrected",
-          "commit": "7706bed"
+          "commit": "fe181d3"
         }
       ],
       "test": [
         {
           "description": "Regression guard for the slog/log deadlock: exercises the real PersistentPreRunE logger wiring with a timeout",
-          "commit": "894f208"
+          "commit": "080c2a8"
         },
         {
           "description": "Skill-manager test isolated from a developer's real ~/.omniagent/skills directory",
-          "commit": "80652a9"
+          "commit": "f270f75"
         },
         {
           "description": "Coverage raised across agent (91.6%), HTTP server (66.5%), voice (96.2%), adapter (91.4%), and skills (96.7%) packages; context compaction and storage/session-dispatch coverage added",
-          "commit": "8b67959"
+          "commit": "07125a2"
         },
         {
           "description": "Five unparam-flagged test-helper parameters/results removed (leftover generality, not interface-constrained), per mogo/lintfix/unparam guidance",
-          "commit": "d491f70"
+          "commit": "1cbc83c"
         }
       ],
       "documentation": [
         {
           "description": "Deployment guide rewritten to match the validated Lightsail flow: least-privilege IAM policy, Pulumi backend setup, real omniagent-adapter deploy.yaml schema, SSM secrets flow",
-          "commit": "00b52fb"
+          "commit": "df1e912"
         },
         {
           "description": "Environment variable reference updated: OMNIAGENT_CONFIG_B64 and web/auth vars documented, stale OMNIAGENT_AGENT_TEMPERATURE/MAX_TOKENS entries removed",
-          "commit": "665c8b0"
+          "commit": "ed2fee9"
         },
         {
           "description": "Marketplace guide added and wired into nav",
-          "commit": "c4d9fbd"
+          "commit": "56fd101"
         },
         {
           "description": "Container base-image policy adopted org-wide (internal-plexusone-system/policies/container-base-image.md): digest-pinned Chainguard static preferred, properties-validated rather than vendor-locked"
@@ -146,7 +319,7 @@
       "dependencies": [
         {
           "description": "livekit/protocol pinned below v1.51.0 (excluded) — that version changed the TransferSIPParticipant RPC signature in a way the latest released server-sdk-go predates and fails to compile against",
-          "commit": "d7a9576"
+          "commit": "f6c4ca9"
         },
         {
           "description": "Routine dependabot updates across go.mod, GitHub Actions, and Docker base images (20 merged PRs)"
@@ -176,99 +349,99 @@
       "added": [
         {
           "description": "Declare secrets in SKILL.md frontmatter (`requires.secrets`)",
-          "commit": "232fd68"
+          "commit": "21f1cfa"
         },
         {
           "description": "Agent secrets management API (write-only values, set/list/delete)",
-          "commit": "4f91d05"
+          "commit": "19c5e79"
         },
         {
           "description": "Agent Secrets panel in the web UI",
-          "commit": "296e5a4"
+          "commit": "9aaa2a5"
         },
         {
           "description": "Inject agent-scoped secrets into OpenAPI skill auth",
-          "commit": "d82674b"
+          "commit": "0736c1b"
         },
         {
           "description": "Report unmet required declared secrets on markdown skills",
-          "commit": "df0ae8d"
+          "commit": "1d5d4d5"
         },
         {
           "description": "Gate markdown skills on unmet required secrets",
-          "commit": "f1958c6"
+          "commit": "cbea1b9"
         },
         {
           "description": "Global and per-skill secret bindings in config (`secrets:`, `skills.config.<name>.secrets`)",
-          "commit": "5268219"
+          "commit": "5d3c7a5"
         },
         {
           "description": "Resolve agent secrets with config-binding fallback (per-agent > per-skill global > global)",
-          "commit": "348cb3c"
+          "commit": "7376bb0"
         },
         {
           "description": "Gate compiled skills on unmet required secrets (`compiled.SecretRequirer`, implemented for MCP)",
-          "commit": "7fcb8d8"
+          "commit": "00354e1"
         },
         {
           "description": "Read-only admin view of global secret bindings",
-          "commit": "fd5e129"
+          "commit": "71c9506"
         },
         {
           "description": "Mask resolved secret values out of log output (new `internal/redact` package)",
-          "commit": "f649419"
+          "commit": "fd2c605"
         },
         {
           "description": "Email+password credentials (argon2id) and password service",
-          "commit": "42bd554"
+          "commit": "8d9521d"
         },
         {
           "description": "Password login and change-password HTTP endpoints",
-          "commit": "24862ec"
+          "commit": "07e165f"
         },
         {
           "description": "Bootstrap superadmin password from config/env",
-          "commit": "f981f20"
+          "commit": "aa1b42c"
         },
         {
           "description": "Password login, self-service change, and admin-set in the web UI",
-          "commit": "f291f9e"
+          "commit": "d4ea72a"
         },
         {
           "description": "Redesign team-mode SPA with a persistent left nav, add translate + speech-to-text to the composer",
-          "commit": "36b6eb2"
+          "commit": "f842d18"
         },
         {
           "description": "Translate API for composer text (`POST /api/translate`)",
-          "commit": "c77672a"
+          "commit": "2c1412a"
         }
       ],
       "documentation": [
         {
           "description": "Document agent secrets flow and reconcile the INIT-004 roadmap",
-          "commit": "472104c"
+          "commit": "ba8715a"
         },
         {
           "description": "Document email+password login and superadmin password bootstrap",
-          "commit": "2c24674"
+          "commit": "a3404da"
         },
         {
           "description": "Document secret bindings; correct stale Keeper documentation",
-          "commit": "429c048"
+          "commit": "c3c2106"
         },
         {
           "description": "Document the admin global secret bindings view",
-          "commit": "e5f5a13"
+          "commit": "4e99062"
         },
         {
           "description": "Document secret redaction and close out the INIT-OMNIAGENT-004 roadmap",
-          "commit": "7611333"
+          "commit": "306aeb8"
         }
       ],
       "dependencies": [
         {
           "description": "Bump golang.org/x/net from 0.57.0 to 0.58.0",
-          "commit": "e35e10d"
+          "commit": "26ad3b1"
         }
       ]
     },
@@ -295,75 +468,75 @@
       "added": [
         {
           "description": "Admin users API: list, disable/enable, and rename members",
-          "commit": "2ff6802"
+          "commit": "7028d9e"
         },
         {
           "description": "Admin view (allowlist + members) in the web UI",
-          "commit": "f134250"
+          "commit": "eadfa9b"
         },
         {
           "description": "OMNIAGENT_TEAM_* environment variable bindings for team mode config",
-          "commit": "257b018"
+          "commit": "ac1cac8"
         },
         {
           "description": "Production Caddy + omniagent + PostgreSQL Docker Compose stack",
-          "commit": "f8ab540"
+          "commit": "cf7444a"
         },
         {
           "description": "Team-mode backup/restore scripts",
-          "commit": "dd1e530"
+          "commit": "57e9f29"
         },
         {
           "description": "Automated (CI) team backup/restore verification workflow",
-          "commit": "752b118"
+          "commit": "5ab20ad"
         },
         {
           "description": "team.sso config, environment variables, and capability flags",
-          "commit": "c3f94d0"
+          "commit": "926118e"
         },
         {
           "description": "SSO identity resolution and Google/GitHub OAuth providers",
-          "commit": "4db4ece"
+          "commit": "b363e2f"
         },
         {
           "description": "ListIdentities for the admin members view",
-          "commit": "374b99e"
+          "commit": "7856dab"
         },
         {
           "description": "Google/GitHub SSO routes",
-          "commit": "f2fd626"
+          "commit": "64639c5"
         },
         {
           "description": "Wire Google/GitHub SSO provider construction into team mode",
-          "commit": "cae68ec"
+          "commit": "4219c57"
         },
         {
           "description": "SSO login buttons, error messages, and identity badges in the web UI",
-          "commit": "7fb57d2"
+          "commit": "b260c45"
         }
       ],
       "documentation": [
         {
           "description": "OMNIAGENT_TEAM_* env vars documented; fixed a broken ${VAR} config example",
-          "commit": "830bea3"
+          "commit": "d5de95d"
         },
         {
           "description": "Admin UI documented in the Team Mode guide",
-          "commit": "c4121dd"
+          "commit": "067e145"
         },
         {
           "description": "Team Deployment guide (Lightsail, compose stack, operations)",
-          "commit": "c572590"
+          "commit": "0acfd21"
         },
         {
           "description": "SSO setup, environment variables, and deployment docs",
-          "commit": "417c4cd"
+          "commit": "5e88509"
         }
       ],
       "dependencies": [
         {
           "description": "Add coreos/go-oidc/v3 for Google OIDC sign-in",
-          "commit": "8feaf52"
+          "commit": "ab249ab"
         }
       ]
     },
@@ -393,299 +566,299 @@
       "added": [
         {
           "description": "Team (multi-user) mode with PostgreSQL row-level security, magic-link auth, and email delivery",
-          "commit": "dd6e74a"
+          "commit": "f7a72d4"
         },
         {
           "description": "SQLite dialect support in the team store for local single-node deployments",
-          "commit": "0ad868e"
+          "commit": "2683406"
         },
         {
           "description": "Independent auth/web mode axes and a capability descriptor for the web UI",
-          "commit": "9c19c41"
+          "commit": "ca227d7"
         },
         {
           "description": "Personal single-account login (magic link)",
-          "commit": "cfd96c3"
+          "commit": "45d2406"
         },
         {
           "description": "Personal-mode chat service and HTTP API",
-          "commit": "fd05d85"
+          "commit": "d7edfa9"
         },
         {
           "description": "Group chat and membership service",
-          "commit": "df58815"
+          "commit": "9bdea09"
         },
         {
           "description": "Team-mode chat HTTP with keyset history and live fan-out",
-          "commit": "1055d87"
+          "commit": "c5ab8cb"
         },
         {
           "description": "Membership-scoped WebSocket fan-out so a message reaches only a chat's members",
-          "commit": "6a7f2d1"
+          "commit": "6bc0dda"
         },
         {
           "description": "`authorUserId` exposed on chat messages for authorship attribution",
-          "commit": "a4ea375"
+          "commit": "d75ed66"
         },
         {
           "description": "Virtual agents service: permissive create and CRUD",
-          "commit": "dbfe35b"
+          "commit": "ae5bef4"
         },
         {
           "description": "Enabled-skills subset with an available-skills catalog and operator deny-list",
-          "commit": "9eed16a"
+          "commit": "e5a58cf"
         },
         {
           "description": "Per-agent role management API (owner/maintainer)",
-          "commit": "50ae8ec"
+          "commit": "1b77b5c"
         },
         {
           "description": "`Can(actor, agent, capability)` per-agent authorization matrix",
-          "commit": "0828045"
+          "commit": "465fe55"
         },
         {
           "description": "Agent visibility (private/listed) and superadmin featured registry controls",
-          "commit": "68ed171"
+          "commit": "dfc7f07"
         },
         {
           "description": "Catalog discovery and start-chat authorization",
-          "commit": "bf63097"
+          "commit": "5d2a921"
         },
         {
           "description": "Chats bound to an agent, with creation gated on Can(CapCreateChat)",
-          "commit": "c2d8374"
+          "commit": "f51d4ae"
         },
         {
           "description": "Group-chat @-mention policy and agent turn routing",
-          "commit": "eb4e1e9"
+          "commit": "8cc06f7"
         },
         {
           "description": "Per-chat memory scoping so context never bleeds across chats",
-          "commit": "cc1c1b5"
+          "commit": "f4b709a"
         },
         {
           "description": "System-context runtime config loaders for agents",
-          "commit": "a0c964c"
+          "commit": "f29c11d"
         },
         {
           "description": "Lazy, bounded-LRU per-agent runtime instance cache",
-          "commit": "4f52668"
+          "commit": "0d0d50e"
         },
         {
           "description": "Route agent-bound chat turns to the per-agent runtime instance",
-          "commit": "cb47fd0"
+          "commit": "82d73d1"
         },
         {
           "description": "Multi-tenant OmniVault secret store with per-agent namespaces (ScopedVault)",
-          "commit": "ccd3ea0"
+          "commit": "4c893fc"
         },
         {
           "description": "Inject agent-scoped secrets into secrets-aware skills (per-agent MCP env)",
-          "commit": "8f5231c"
+          "commit": "d6bb298"
         },
         {
           "description": "Bind per-agent secrets into runtime instances",
-          "commit": "1f3f06a"
+          "commit": "31af194"
         },
         {
           "description": "HTTP API for agent management, catalog, and superadmin curation",
-          "commit": "2c91dc2"
+          "commit": "d62aa6b"
         },
         {
           "description": "Agent-bound chat start endpoints (DM and group)",
-          "commit": "de123fa"
+          "commit": "533770e"
         },
         {
           "description": "Embedded capability-driven SPA shell and its HTTP handlers",
-          "commit": "eb7bfe5"
+          "commit": "da892f4"
         },
         {
           "description": "Serve the embedded web UI and personal chat API from the gateway",
-          "commit": "82925c4"
+          "commit": "e7cc26c"
         },
         {
           "description": "Private chat UI with keyset scroll-back and live WebSocket replies",
-          "commit": "8c56f36"
+          "commit": "a55a160"
         },
         {
           "description": "Team-mode group chat UI",
-          "commit": "076b231"
+          "commit": "45c9af8"
         },
         {
           "description": "Web UI views for the agents area, catalog, and curation",
-          "commit": "8998e0f"
+          "commit": "f8bdc76"
         },
         {
           "description": "Gateway authentication and origin validation",
-          "commit": "28d5097"
+          "commit": "d739bdd"
         },
         {
           "description": "Per-sender rate limiting",
-          "commit": "0eb2858"
+          "commit": "530995e"
         },
         {
           "description": "Prometheus metrics endpoint",
-          "commit": "4ccc9f4"
+          "commit": "2682860"
         },
         {
           "description": "Escalating backoff on repeated auth failures",
-          "commit": "974956f"
+          "commit": "dbc7fa1"
         },
         {
           "description": "Session tool/model RPC with MCP-aware tool listing",
-          "commit": "d41d2d8"
+          "commit": "eb9e89d"
         },
         {
           "description": "Per-session tool and model overrides",
-          "commit": "ded976c"
+          "commit": "cb176d9"
         },
         {
           "description": "Automatic session rollover",
-          "commit": "6c77ed2"
+          "commit": "1bf3e45"
         },
         {
           "description": "Lifecycle, rollover, and pre-turn tool event hooks",
-          "commit": "3d2c482"
+          "commit": "68e6f37"
         },
         {
           "description": "Session-scoped runtime with lifecycle events on the agent",
-          "commit": "37a7f87"
+          "commit": "3d61ae2"
         },
         {
           "description": "Propagate the configured timezone into temporal context",
-          "commit": "410cdb4"
+          "commit": "96b4fb2"
         },
         {
           "description": "Gate scheduled (cron) execution on an authorizing principal",
-          "commit": "b31bae7"
+          "commit": "f4a1369"
         },
         {
           "description": "tiktoken-based token counting for context management",
-          "commit": "f0a8474"
+          "commit": "b04b489"
         },
         {
           "description": "Conversation persistence for the OpenAI-compatible web UI",
-          "commit": "1e46125"
+          "commit": "5997588"
         },
         {
           "description": "Text-to-speech for assistant messages in the OpenAI web UI",
-          "commit": "9b4c091"
+          "commit": "922bef7"
         },
         {
           "description": "Go template rendering for auto-reply responses",
-          "commit": "9c06203"
+          "commit": "18d26e4"
         },
         {
           "description": "Delegation executor for sub-agent orchestration in roles",
-          "commit": "f4cc8e5"
+          "commit": "adc9b7e"
         },
         {
           "description": "Support Ollama without requiring an API key",
-          "commit": "b9e6024"
+          "commit": "d7ef26f"
         },
         {
           "description": "Dockerfile for containerized deployment",
-          "commit": "cabff27"
+          "commit": "2806a65"
         },
         {
           "description": "Discord single-replica deployment warning",
-          "commit": "1bc47b9"
+          "commit": "5dc3bdc"
         }
       ],
       "changed": [
         {
           "description": "Implement Version() on the role skill adapter for omniskill compatibility",
-          "commit": "85fb322"
+          "commit": "e674835"
         }
       ],
       "fixed": [
         {
           "description": "Cascade-delete agent roles and skills with their agent",
-          "commit": "8512071"
+          "commit": "f1256a1"
         },
         {
           "description": "Rate-limit magic-link requests by email as well as by IP",
-          "commit": "738ef90"
+          "commit": "32e4a55"
         },
         {
           "description": "Eliminate a data race on DelegationRequest.Status",
-          "commit": "99483e7"
+          "commit": "1aa813e"
         },
         {
           "description": "Clone cron jobs on read and prevent overlapping runs",
-          "commit": "e196fd2"
+          "commit": "4918b8c"
         },
         {
           "description": "Inject fresh temporal context into the system prompt each turn",
-          "commit": "2a4875f"
+          "commit": "cf1e669"
         },
         {
           "description": "Preserve pre-tool assistant text in the final output",
-          "commit": "a2b1375"
+          "commit": "b458fc4"
         },
         {
           "description": "Release the in-memory session cache on store Close",
-          "commit": "55f1443"
+          "commit": "7d34d62"
         },
         {
           "description": "Add CompactionError for failed summarization",
-          "commit": "af08c4e"
+          "commit": "709eca5"
         },
         {
           "description": "Use case-insensitive tool-name comparison in the shell tool",
-          "commit": "152dca2"
+          "commit": "140a003"
         },
         {
           "description": "Bound concurrent async hook dispatches to prevent resource exhaustion",
-          "commit": "da4d4c1"
+          "commit": "be8bdf0"
         },
         {
           "description": "Require CGO for desktop credential providers",
-          "commit": "c5e8878"
+          "commit": "58f5076"
         }
       ],
       "documentation": [
         {
           "description": "Team Mode guide and team configuration reference",
-          "commit": "e258238"
+          "commit": "090c0ac"
         },
         {
           "description": "Virtual Agents web UI guide",
-          "commit": "fed2ff3"
+          "commit": "321b0c9"
         },
         {
           "description": "Team mode and virtual agents in the README, plus a repo-root CLAUDE.md",
-          "commit": "6b66235"
+          "commit": "5fd2148"
         },
         {
           "description": "Engineering guide and initiative specs",
-          "commit": "101417e"
+          "commit": "5c0b6a1"
         },
         {
           "description": "Deployment guide update and parity sync plan",
-          "commit": "32644c6"
+          "commit": "ca268fe"
         },
         {
           "description": "Refreshed README screenshots",
-          "commit": "b60bdee"
+          "commit": "b407ef6"
         }
       ],
       "dependencies": [
         {
           "description": "Add Ent, pgx, and go-mail for team mode",
-          "commit": "06adfca"
+          "commit": "2691c63"
         },
         {
           "description": "Add tiktoken-go and the Prometheus client",
-          "commit": "cbb9fdc"
+          "commit": "1fa05b8"
         },
         {
           "description": "Switch to gogithub v0.16.1, dropping the direct go-github dependency",
-          "commit": "1196dbe"
+          "commit": "d198f0b"
         },
         {
           "description": "Updated Go module dependencies",
-          "commit": "130f051"
+          "commit": "5833a3a"
         }
       ]
     },
@@ -709,78 +882,78 @@
       "added": [
         {
           "description": "HeyGen avatar configuration for panel moderator and panelists",
-          "commit": "30c9e1e"
+          "commit": "f92b77e"
         },
         {
           "description": "Avatar audio routing at 24kHz for lip-sync synchronization",
-          "commit": "7c90021"
+          "commit": "37b22ce"
         },
         {
           "description": "`GetAgent()` method on Panelist and Moderator for avatar detection",
-          "commit": "140c102"
+          "commit": "aebf420"
         },
         {
           "description": "`Schedule` type for JSON-based panel definition with segments",
-          "commit": "6bedef1"
+          "commit": "5ba080c"
         },
         {
           "description": "`LoadSchedule()` for reading panel schedules from JSON files",
-          "commit": "6bedef1"
+          "commit": "5ba080c"
         },
         {
           "description": "Segment types: moderator_intro, panelist_backgrounds, discussion_round, open_discussion, closing",
-          "commit": "6bedef1"
+          "commit": "5ba080c"
         },
         {
           "description": "Response ordering options: relevance, rotation, random, fixed",
-          "commit": "6bedef1"
+          "commit": "5ba080c"
         },
         {
           "description": "`Output` type for structured panel transcripts with statistics",
-          "commit": "c3ba48d"
+          "commit": "c644174"
         },
         {
           "description": "`OutputMetadata`, `OutputSegment`, `OutputEntry` types for panel output",
-          "commit": "c3ba48d"
+          "commit": "c644174"
         },
         {
           "description": "`SlideManager` for dynamic slide sharing during panels",
-          "commit": "74cd2d8"
+          "commit": "e26dd2a"
         },
         {
           "description": "Slide configuration with keywords for automatic display triggers",
-          "commit": "0d180e1"
+          "commit": "5aa2d6e"
         },
         {
           "description": "`RecordingManager` for LiveKit Egress-based panel recording",
-          "commit": "1a7f999"
+          "commit": "4180243"
         },
         {
           "description": "Recording integration in auto mode with S3 upload support",
-          "commit": "9db97d4"
+          "commit": "194a497"
         }
       ],
       "documentation": [
         {
           "description": "ASDM state-of-the-art panel schedule (Level 5-7 autonomous delivery)",
-          "commit": "e86a494"
+          "commit": "5bc6dbe"
         },
         {
           "description": "AI agents panel example schedule with HeyGen avatars",
-          "commit": "75ab768"
+          "commit": "9f6872a"
         }
       ],
       "dependencies": [
         {
           "description": "Updated Go module dependencies",
-          "commit": "2fada9e"
+          "commit": "dfa6575"
         }
       ]
     },
     {
       "version": "v0.14.0",
       "date": "2026-07-11",
-      "commit": "edfc942",
+      "commit": "26062dd",
       "highlights": [
         {
           "description": "Multi-agent panel discussions with 2-4 AI panelists"
@@ -795,59 +968,59 @@
       "added": [
         {
           "description": "`livekit-agent-panel` command for multi-agent panel discussions",
-          "commit": "e13ca60"
+          "commit": "a73df92"
         },
         {
           "description": "Panel coordinator with round-robin turn-taking",
-          "commit": "e13ca60"
+          "commit": "a73df92"
         },
         {
           "description": "Configurable panelist personalities and voices",
-          "commit": "e13ca60"
+          "commit": "a73df92"
         },
         {
           "description": "Shared transcript for contextual panelist responses",
-          "commit": "e13ca60"
+          "commit": "a73df92"
         },
         {
           "description": "Unified avatar configuration via `AVATAR_PROVIDER` env var",
-          "commit": "2339860"
+          "commit": "b59ec71"
         },
         {
           "description": "Tavus lip-sync avatar support in livekit-agent",
-          "commit": "2339860"
+          "commit": "b59ec71"
         },
         {
           "description": "Legacy `AGENT_AVATAR` compatibility for static avatars",
-          "commit": "2339860"
+          "commit": "b59ec71"
         }
       ],
       "documentation": [
         {
           "description": "Avatar configuration guide with static and Tavus modes",
-          "commit": "d50371a"
+          "commit": "92af9b8"
         },
         {
           "description": "Panel agent documentation in README",
-          "commit": "d50371a"
+          "commit": "92af9b8"
         },
         {
           "description": "Environment variables for Tavus configuration",
-          "commit": "d50371a"
+          "commit": "92af9b8"
         }
       ],
       "dependencies": [
         {
           "description": "`github.com/plexusone/omni-livekit` v0.2.0 → v0.3.0 (bitHuman provider)",
-          "commit": "edfc942"
+          "commit": "26062dd"
         },
         {
           "description": "`github.com/go-chi/chi/v5` v5.3.0 → v5.3.1",
-          "commit": "22fac24"
+          "commit": "d1fc1fd"
         },
         {
           "description": "`golang.org/x/net` v0.56.0 → v0.57.0",
-          "commit": "25d1b06"
+          "commit": "f564a79"
         }
       ]
     },
@@ -871,69 +1044,69 @@
       "added": [
         {
           "description": "Realtime voice mode for `livekit-agent-facilitator` with Deepgram/OpenAI/Gemini support",
-          "commit": "973ad49"
+          "commit": "61200e2"
         },
         {
           "description": "LiveKit voice agent commands: `cmd/livekit-agent` and `cmd/livekit-agent-facilitator`",
-          "commit": "d4e8acd"
+          "commit": "fee7adc"
         },
         {
           "description": "`agent/roles` package with `Manager` for role-based agent personas",
-          "commit": "14219db"
+          "commit": "ccfbb34"
         },
         {
           "description": "Role manager integration in agent runtime",
-          "commit": "09dbead"
+          "commit": "216bc6d"
         },
         {
           "description": "WhatsApp integration screenshots for documentation",
-          "commit": "ab69c02"
+          "commit": "882418c"
         }
       ],
       "fixed": [
         {
           "description": "G115 gosec warnings in PCM audio processing code with nolint annotations",
-          "commit": "248c52d"
+          "commit": "d8c4cbc"
         }
       ],
       "documentation": [
         {
           "description": "Deepgram realtime provider in voice integration guide",
-          "commit": "328a60b"
+          "commit": "77f8be4"
         },
         {
           "description": "LiveKit voice agents section in README with realtime mode examples",
-          "commit": "60a0fa2"
+          "commit": "e9806ec"
         },
         {
           "description": "v0.13.0 release notes",
-          "commit": "b820630"
+          "commit": "35ac764"
         },
         {
           "description": "Roles guide and migration documentation",
-          "commit": "74914e8"
+          "commit": "74dda22"
         },
         {
           "description": "Role system specifications (PRD, TRD, PLAN)",
-          "commit": "3d54a62"
+          "commit": "ee2267b"
         },
         {
           "description": "Roles section in README",
-          "commit": "a628467"
+          "commit": "15b6085"
         },
         {
           "description": "LiveKit voice agents section in README",
-          "commit": "641dbe2"
+          "commit": "8d11fe4"
         },
         {
           "description": "OmniAgent mascot and hero images",
-          "commit": "3f4010e"
+          "commit": "3d894fd"
         }
       ],
       "test": [
         {
           "description": "OmniMeet smoke test",
-          "commit": "e0998f6"
+          "commit": "ffe3af1"
         }
       ],
       "dependencies": [
@@ -980,127 +1153,127 @@
       "added": [
         {
           "description": "Image generation endpoints: `/openai/v1/images/generations`, `/edits`, `/variations`",
-          "commit": "827dde6"
+          "commit": "8cc049d"
         },
         {
           "description": "`ImageHandler` interface and `OmniImageHandler` implementation",
-          "commit": "827dde6"
+          "commit": "8cc049d"
         },
         {
           "description": "`ImageConfig` for image generation configuration",
-          "commit": "827dde6"
+          "commit": "8cc049d"
         },
         {
           "description": "`WithImageHandler()` server option for image operations",
-          "commit": "827dde6"
+          "commit": "8cc049d"
         },
         {
           "description": "GitHub skill with `github_search_issues`, `github_search_prs`, `github_search_code` tools",
-          "commit": "a1a5023"
+          "commit": "91fff93"
         },
         {
           "description": "Web content skill with `web_fetch` tool for URL extraction",
-          "commit": "2a9cbc2"
+          "commit": "9581d21"
         },
         {
           "description": "Auto-reply system with configurable triggers and responses",
-          "commit": "ec831bf"
+          "commit": "3b42add"
         },
         {
           "description": "`omniagent setup` interactive setup wizard",
-          "commit": "eebd8b5"
+          "commit": "bb8588d"
         },
         {
           "description": "`omniagent doctor` command for configuration diagnostics",
-          "commit": "95c1716"
+          "commit": "9b6d0c4"
         },
         {
           "description": "`omniagent sessions` command for session management",
-          "commit": "95c1716"
+          "commit": "9b6d0c4"
         },
         {
           "description": "UTF-16 safe string truncation utility",
-          "commit": "9f0a4bb"
+          "commit": "435142f"
         },
         {
           "description": "`GET /api/v1/status` endpoint with gateway version and build info",
-          "commit": "34f2e46"
+          "commit": "aad2b8f"
         },
         {
           "description": "`ToolUsageStore` for tracking tool call statistics",
-          "commit": "34f2e46"
+          "commit": "aad2b8f"
         },
         {
           "description": "`GET /api/v1/tools/usage` endpoint for tool usage summary",
-          "commit": "34f2e46"
+          "commit": "aad2b8f"
         },
         {
           "description": "`GET /api/v1/tools/{name}/stats` endpoint for per-tool statistics",
-          "commit": "34f2e46"
+          "commit": "aad2b8f"
         },
         {
           "description": "Tool call visualization in web UI with expand/collapse blocks",
-          "commit": "1e65a77"
+          "commit": "cd0d1c4"
         },
         {
           "description": "Tool arguments display as formatted JSON in streaming responses",
-          "commit": "1e65a77"
+          "commit": "cd0d1c4"
         },
         {
           "description": "Tool status indicators (Running/Complete/Error) during execution",
-          "commit": "1e65a77"
+          "commit": "cd0d1c4"
         },
         {
           "description": "Gateway version display in web UI status bar",
-          "commit": "1e65a77"
+          "commit": "cd0d1c4"
         },
         {
           "description": "Tool call count and last used timestamp in tools panel",
-          "commit": "1e65a77"
+          "commit": "cd0d1c4"
         }
       ],
       "fixed": [
         {
           "description": "Process tree termination on exec timeout to prevent orphaned processes",
-          "commit": "6247119"
+          "commit": "d618e44"
         },
         {
           "description": "Bounded HTTP response reads to prevent OOM from malicious responses",
-          "commit": "e871655"
+          "commit": "5622db4"
         }
       ],
       "documentation": [
         {
           "description": "Image generation guide with provider setup and API examples",
-          "commit": "4b43a96"
+          "commit": "7bd2f88"
         },
         {
           "description": "Web content skill guide",
-          "commit": "9fa6014"
+          "commit": "82439b8"
         },
         {
           "description": "Auto-reply configuration guide",
-          "commit": "9fa6014"
+          "commit": "82439b8"
         },
         {
           "description": "GitHub skill documentation",
-          "commit": "96e4972"
+          "commit": "137a72e"
         },
         {
           "description": "CLI commands documentation (setup, doctor, sessions)",
-          "commit": "96e4972"
+          "commit": "137a72e"
         },
         {
           "description": "Memory guide updated for short-term and long-term memory",
-          "commit": "f3a0863"
+          "commit": "251c42d"
         },
         {
           "description": "OpenClaw feature parity roadmap",
-          "commit": "5bae55c"
+          "commit": "2d4a188"
         },
         {
           "description": "Control UI roadmap updated with implemented features",
-          "commit": "1234ad8"
+          "commit": "fd454ff"
         }
       ],
       "dependencies": [
@@ -1129,97 +1302,97 @@
       "added": [
         {
           "description": "OmniMemory client integration with automatic memory recall in ProcessWithSession",
-          "commit": "3c87da0"
+          "commit": "0e091bb"
         },
         {
           "description": "`WithMemory()` and `WithMemoryConfig()` agent options for semantic memory",
-          "commit": "3c87da0"
+          "commit": "0e091bb"
         },
         {
           "description": "`memory_recall` tool for contextual memory retrieval with summary",
-          "commit": "ebc62a0"
+          "commit": "c871925"
         },
         {
           "description": "Memory types: observation, fact, preference, summary, trait, relationship",
-          "commit": "ebc62a0"
+          "commit": "c871925"
         },
         {
           "description": "Memory scopes: user, agent, tenant, team, session, domain",
-          "commit": "ebc62a0"
+          "commit": "c871925"
         },
         {
           "description": "`MemoryConfig` and `EmbedderConfig` for memory configuration",
-          "commit": "56c3fd3"
+          "commit": "e4a6e5c"
         },
         {
           "description": "OAuth 2.0 SSO login for web UI with GitHub and Google providers",
-          "commit": "4825e3c"
+          "commit": "572a25e"
         },
         {
           "description": "Email and domain-based access control (ACL) for OAuth",
-          "commit": "4825e3c"
+          "commit": "572a25e"
         },
         {
           "description": "User profile section with avatar and logout in web UI sidebar",
-          "commit": "386cb6e"
+          "commit": "a190847"
         },
         {
           "description": "AAuth token verifier with JWKS support",
-          "commit": "67b8fb8"
+          "commit": "5ee8776"
         },
         {
           "description": "AgentAuth bearer token validation for OpenAI-compatible API",
-          "commit": "68aafd6"
+          "commit": "f9bbbf7"
         },
         {
           "description": "`WithAgentAuth()` and `WithAAuth()` server options",
-          "commit": "68aafd6"
+          "commit": "f9bbbf7"
         },
         {
           "description": "AAuth configuration via environment variables",
-          "commit": "b335d90"
+          "commit": "416844e"
         }
       ],
       "changed": [
         {
           "description": "Memory skill rewritten to use omnimemory client instead of omniretrieve manager",
-          "commit": "ebc62a0"
+          "commit": "c871925"
         },
         {
           "description": "Migrated to plexusone/agentauth from agent-protocols/agentauth",
-          "commit": "a9a20af"
+          "commit": "3a09221"
         },
         {
           "description": "Extracted agent registration helper to eliminate command duplication",
-          "commit": "09b875a"
+          "commit": "a9f1e1f"
         }
       ],
       "fixed": [
         {
           "description": "HTTP server timeouts to prevent resource exhaustion (G114)",
-          "commit": "9c2ad56"
+          "commit": "b26b8ef"
         }
       ],
       "documentation": [
         {
           "description": "Web UI authentication guide with OAuth setup instructions",
-          "commit": "7d97dc4"
+          "commit": "cf7d7e1"
         },
         {
           "description": "Deployment guide with containerization and AWS LightSail",
-          "commit": "a570ffd"
+          "commit": "15e71ef"
         },
         {
           "description": "Step-by-step deployment checklist",
-          "commit": "99b7fee"
+          "commit": "6c11e5c"
         },
         {
           "description": "Observability integration guide for building hooks",
-          "commit": "2cdbcc5"
+          "commit": "f50047e"
         },
         {
           "description": "v0.11.0 OmniMemory integration roadmap in ROADMAP.md",
-          "commit": "c1d80bf"
+          "commit": "d2fca6e"
         }
       ],
       "dependencies": [
@@ -1269,79 +1442,79 @@
       "added": [
         {
           "description": "Voice gateway with Twilio and Telnyx full-duplex phone support",
-          "commit": "a242758"
+          "commit": "c99fd56"
         },
         {
           "description": "Native voice-to-voice mode via OpenAI Realtime and Gemini Live APIs",
-          "commit": "a242758"
+          "commit": "c99fd56"
         },
         {
           "description": "Traditional pipeline mode with custom STT/TTS providers",
-          "commit": "a242758"
+          "commit": "c99fd56"
         },
         {
           "description": "Semantic memory skill with vector retrieval via omniretrieve",
-          "commit": "120ba02"
+          "commit": "54af936"
         },
         {
           "description": "Auto-reply profile mode for automated responses",
-          "commit": "3032443"
+          "commit": "563f061"
         },
         {
           "description": "Commentary profile mode for passive observation",
-          "commit": "3032443"
+          "commit": "563f061"
         },
         {
           "description": "Messaging service SID support for RCS with SMS/MMS fallback",
-          "commit": "fa5183e"
+          "commit": "14031f7"
         },
         {
           "description": "`agent.Tools()` accessor for runtime tool access",
-          "commit": "2e40eee"
+          "commit": "0a4cfc9"
         },
         {
           "description": "OpenRouter LLM provider support",
-          "commit": "2e40eee"
+          "commit": "0a4cfc9"
         },
         {
           "description": "CLI commands: `voice serve`, `voice status`, `voice call`",
-          "commit": "a242758"
+          "commit": "c99fd56"
         },
         {
           "description": "ngrok integration for local voice development",
-          "commit": "a242758"
+          "commit": "c99fd56"
         }
       ],
       "changed": [
         {
           "description": "Voice gateway uses omnivoice-core registry pattern",
-          "commit": "e52b9b0"
+          "commit": "88bc06f"
         },
         {
           "description": "Voice providers (omni-google, omni-openai, omni-telnyx, omni-twilio) are now transitive via omnivoice",
-          "commit": "800d721"
+          "commit": "1108e98"
         },
         {
           "description": "Gateway configuration uses omnivoice re-exports for tools and handlers",
-          "commit": "a93d40d"
+          "commit": "ef072c4"
         }
       ],
       "documentation": [
         {
           "description": "Voice integration guide with gateway setup",
-          "commit": "231512a"
+          "commit": "9351620"
         },
         {
           "description": "Memory skill guide with semantic retrieval examples",
-          "commit": "231512a"
+          "commit": "9351620"
         },
         {
           "description": "Updated provider documentation with OpenRouter",
-          "commit": "231512a"
+          "commit": "9351620"
         },
         {
           "description": "Pipeline configuration examples for voice gateway",
-          "commit": "0cf9989"
+          "commit": "de39aec"
         }
       ],
       "dependencies": [
@@ -1385,91 +1558,91 @@
       "added": [
         {
           "description": "Bootstrap profiles for customizing agent behavior per use case",
-          "commit": "f34e16c"
+          "commit": "b61bef4"
         },
         {
           "description": "Lean mode with configurable levels for memory/token reduction",
-          "commit": "f34e16c"
+          "commit": "b61bef4"
         },
         {
           "description": "Per-sender tool policy enforcement with rate limiting",
-          "commit": "3e35bcd"
+          "commit": "f963c52"
         },
         {
           "description": "Channel conformance checker for message validation",
-          "commit": "53f3802"
+          "commit": "0de6b13"
         },
         {
           "description": "Gateway tools RPC endpoint for HTTP-based tool invocation",
-          "commit": "89071a4"
+          "commit": "214616f"
         },
         {
           "description": "Browser dialog handling (alert, confirm, prompt) with callback support",
-          "commit": "57c58c7"
+          "commit": "07a2909"
         },
         {
           "description": "JavaScript evaluation action for browser tool",
-          "commit": "57c58c7"
+          "commit": "07a2909"
         },
         {
           "description": "GPU passthrough support for Docker sandbox",
-          "commit": "2b04f11"
+          "commit": "b3804c6"
         },
         {
           "description": "Vault-backed credential resolution (op://, bw://, env://, file://)",
-          "commit": "02dd9ae"
+          "commit": "4db9a5f"
         },
         {
           "description": "OAuth token management via omnitoken integration",
-          "commit": "02dd9ae"
+          "commit": "4db9a5f"
         },
         {
           "description": "New packages: `agent/profiles`, `tools/policy`, `channels/policy`",
-          "commit": "f34e16c"
+          "commit": "b61bef4"
         }
       ],
       "fixed": [
         {
           "description": "Windows CI build by excluding omnivault-desktop via build tags",
-          "commit": "9df2ed2"
+          "commit": "326607f"
         },
         {
           "description": "gosec G101 warnings in test fixtures with nolint directives",
-          "commit": "154d2f2"
+          "commit": "ed075da"
         },
         {
           "description": "unparam warning for unused ctx in browser dismissDialog",
-          "commit": "154d2f2"
+          "commit": "ed075da"
         },
         {
           "description": "errcheck and dupl issues in openapi skill tests",
-          "commit": "a8d99b7"
+          "commit": "90a2f7e"
         }
       ],
       "documentation": [
         {
           "description": "Agent profiles guide for bootstrap profiles and lean mode",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         },
         {
           "description": "Access policies guide for tool and channel policies",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         },
         {
           "description": "Browser automation guide with dialog handling",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         },
         {
           "description": "GPU passthrough section in sandboxing guide",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         },
         {
           "description": "Token management in configuration reference",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         },
         {
           "description": "v0.9.0 release notes",
-          "commit": "e62760e"
+          "commit": "e6ea1d0"
         }
       ],
       "dependencies": [
@@ -1522,33 +1695,33 @@
       "added": [
         {
           "description": "`WithOpenAPISkill()` option for registering OpenAPI specs as agent tools",
-          "commit": "5419ae8"
+          "commit": "e2f95fa"
         },
         {
           "description": "OpenAPI skill loader with kin-openapi for spec parsing",
-          "commit": "5419ae8"
+          "commit": "e2f95fa"
         },
         {
           "description": "Auth support: API key (header/query), Bearer token, Basic auth",
-          "commit": "5419ae8"
+          "commit": "e2f95fa"
         },
         {
           "description": "Operation filtering by ID, tags, or include/exclude lists",
-          "commit": "5419ae8"
+          "commit": "e2f95fa"
         }
       ],
       "documentation": [
         {
           "description": "Remote skills guide with MCP and OpenAPI documentation",
-          "commit": "1d96e37"
+          "commit": "efb4c61"
         },
         {
           "description": "Remote skills section in README",
-          "commit": "c84c70d"
+          "commit": "29e22ab"
         },
         {
           "description": "Skill packs usage documentation",
-          "commit": "bdff390"
+          "commit": "b5c245f"
         }
       ],
       "dependencies": [
@@ -1583,51 +1756,51 @@
       "added": [
         {
           "description": "`WithSkillPack(fs.FS)` option for registering embedded skill packs",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`WithSkillDirs(...string)` option for setting skill directories",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`WithSkillIncludes(...string)` option to only load named skills",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`WithSkillExcludes(...string)` option to skip named skills",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`WithSkillManager(*Manager)` option for custom skill manager",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`skills.Manager` type for unified skill loading from packs and directories",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "`skills.DiscoverFromFS()` for loading skills from embedded filesystems",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "Config options: `skills.packs`, `skills.includes`, `skills.excludes`",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         }
       ],
       "changed": [
         {
           "description": "Skills from directories override embedded pack skills with the same name",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         },
         {
           "description": "Config options merge with programmatically registered options",
-          "commit": "be5bb95"
+          "commit": "75c3685"
         }
       ],
       "docs": [
         {
           "description": "Skills system design documents (PRD, TRD, PLAN, TASKS)",
-          "commit": "136c718"
+          "commit": "55fa473"
         }
       ],
       "dependencies": [
@@ -1665,105 +1838,105 @@
       "breaking": [
         {
           "description": "Storage imports changed from `github.com/plexusone/omnistorage` to `github.com/plexusone/omnistorage-core/kvs`",
-          "commit": "ac1f5ab"
+          "commit": "0788511"
         },
         {
           "description": "Local `storage/` package removed in favor of `omnistorage-core/kvs` backends",
-          "commit": "74c36c5"
+          "commit": "b42f445"
         },
         {
           "description": "Compiled skill tools now use `skill.Tool` interface from omniskill",
-          "commit": "3323e30"
+          "commit": "24a043a"
         }
       ],
       "added": [
         {
           "description": "`sessions/` package with persistent session storage and tool integrations",
-          "commit": "755ca11"
+          "commit": "a27416e"
         },
         {
           "description": "`context/` package with token-aware context management and sliding window support",
-          "commit": "763c61d"
+          "commit": "edc4460"
         },
         {
           "description": "`hooks/` package with event dispatcher, registry, and webhook support",
-          "commit": "b2ad5ab"
+          "commit": "9b6bb82"
         },
         {
           "description": "`cron/` package with scheduler, persistent job store, and tool integrations",
-          "commit": "176e6f8"
+          "commit": "4b28a4a"
         },
         {
           "description": "`platform/` package with standalone platform abstraction",
-          "commit": "4ab3b29"
+          "commit": "5237551"
         },
         {
           "description": "`skills/remote/mcp/` package for MCP server integration",
-          "commit": "41ea36f"
+          "commit": "01db60d"
         },
         {
           "description": "Twilio SMS channel support with webhook handling",
-          "commit": "0301051"
+          "commit": "bf0952f"
         },
         {
           "description": "`RegisterAgentOption` for external compiled skill injection",
-          "commit": "16f6fb3"
+          "commit": "825e137"
         },
         {
           "description": "`ProcessWithSession` method for stateful conversation handling",
-          "commit": "f0d0efc"
+          "commit": "c27239a"
         }
       ],
       "changed": [
         {
           "description": "Compiled skills now use `skill.Tool` interface from omniskill package",
-          "commit": "3323e30"
+          "commit": "24a043a"
         },
         {
           "description": "Storage migrated from omnistorage to omnistorage-core/kvs",
-          "commit": "ac1f5ab"
+          "commit": "0788511"
         },
         {
           "description": "MCP skill updated to use omniskill client and types",
-          "commit": "0f372c2"
+          "commit": "58a22b6"
         },
         {
           "description": "Twilio webhook path changed to `/webhook/twilio/sms`",
-          "commit": "41e210a"
+          "commit": "178cf8c"
         }
       ],
       "fixed": [
         {
           "description": "gofmt linting compliance",
-          "commit": "fccc23d"
+          "commit": "9ba5df9"
         }
       ],
       "docs": [
         {
           "description": "Added guides for sessions, context, cron, and hooks",
-          "commit": "f4555a8"
+          "commit": "8656b69"
         },
         {
           "description": "Added voice notes specification and case study",
-          "commit": "975b3e3"
+          "commit": "bbd6be2"
         },
         {
           "description": "Added v0.6.0 release notes",
-          "commit": "be22422"
+          "commit": "3d7d6f5"
         },
         {
           "description": "Added Twilio SMS and environment variable documentation",
-          "commit": "60d9efe"
+          "commit": "91a2b0a"
         }
       ],
       "test": [
         {
           "description": "Session integration tests for conversation continuity",
-          "commit": "7cf19ba"
+          "commit": "56bbceb"
         },
         {
           "description": "Updated tests for omniskill types",
-          "commit": "60f31a1"
+          "commit": "f501493"
         }
       ],
       "dependencies": [
@@ -1798,19 +1971,19 @@
       "added": [
         {
           "description": "Compiled skills interface (`CompiledSkill`) and registry for registering Go functions as tools",
-          "commit": "078fc4f"
+          "commit": "fe57d9b"
         },
         {
           "description": "Storage interface with `SQLiteBackend` and `MemoryBackend` implementations",
-          "commit": "f2680b7"
+          "commit": "92c5ed8"
         },
         {
           "description": "Functional options (`WithCompiledSkills`, `WithStorage`, `WithObservability`) for agent creation",
-          "commit": "1d1aedb"
+          "commit": "8bc30fa"
         },
         {
           "description": "PlexusOne unified navigation and theme for MkDocs documentation site",
-          "commit": "fb5c661"
+          "commit": "5ceb006"
         },
         {
           "description": "Testing & Debugging guide with WebSocket smoke test instructions"
@@ -1819,27 +1992,27 @@
       "fixed": [
         {
           "description": "Docker container timeout handling in sandbox executor",
-          "commit": "87dbcf6"
+          "commit": "5d298e3"
         },
         {
           "description": "Linting errors for errcheck and gofmt compliance",
-          "commit": "bbd5a9e"
+          "commit": "a028c01"
         }
       ],
       "build": [
         {
           "description": "Switch to pure-Go SQLite driver (`modernc.org/sqlite`) for better cross-platform support",
-          "commit": "50d7807"
+          "commit": "7ff7db8"
         },
         {
           "description": "Upgrade to omnillm v0.15.1 with thick provider support",
-          "commit": "9864dfe"
+          "commit": "764d6fa"
         }
       ],
       "test": [
         {
           "description": "Add unit tests for compiled skills registry and storage backends",
-          "commit": "82921a4"
+          "commit": "6dce1ac"
         }
       ],
       "dependencies": [
@@ -1917,71 +2090,71 @@
       "added": [
         {
           "description": "`skills/` package with SKILL.md parser supporting YAML frontmatter and metadata",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "Skill discovery from multiple directories with deduplication",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "Requirement checking for skills (bins, env vars) with install hints",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "Skill injection into system prompt with emoji support",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "CLI commands: `skills list`, `skills info`, `skills check`",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "Agent integration with skill loading on startup",
-          "commit": "72b7281"
+          "commit": "60c9271"
         },
         {
           "description": "`sandbox/` package with capability-based permission model",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         },
         {
           "description": "WASM runtime wrapper using wazero with memory limits and timeout enforcement",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         },
         {
           "description": "Host functions for sandboxed file, HTTP, and command execution",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         },
         {
           "description": "Docker sandbox with container isolation and security hardening",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         },
         {
           "description": "Path validation with symlink resolution for sandbox security",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         },
         {
           "description": "Command allowlist enforcement for exec operations",
-          "commit": "f1d3781"
+          "commit": "c9204e7"
         }
       ],
       "fixed": [
         {
           "description": "Config tests now clear environment variables to prevent interference",
-          "commit": "467d9dc"
+          "commit": "0a012a7"
         }
       ],
       "dependencies": [
         {
           "description": "Add `github.com/tetratelabs/wazero` v1.11.0 for WASM runtime",
-          "commit": "ec40405"
+          "commit": "1b2826c"
         },
         {
           "description": "Add `github.com/moby/moby/client` v0.2.2 for Docker SDK",
-          "commit": "ec40405"
+          "commit": "1b2826c"
         },
         {
           "description": "Add `github.com/moby/moby/api` v1.53.0 for Docker API types",
-          "commit": "ec40405"
+          "commit": "1b2826c"
         }
       ]
     },
@@ -1996,41 +2169,41 @@
       "added": [
         {
           "description": "`voice/` package with `Processor` implementing omnichat's `VoiceProcessor` interface",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Voice configuration in `config.go` with STT/TTS provider settings",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Environment variable support for voice config (`DEEPGRAM_API_KEY`, `OMNIAGENT_VOICE_*`)",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Gateway integration with `ProcessWithVoice` handler for voice-enabled messaging",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Deepgram provider support for both STT (nova-2) and TTS (aura-asteria-en)",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Response mode options: `auto` (voice reply to voice input), `always`, `never`",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         }
       ],
       "dependencies": [
         {
           "description": "Add `github.com/plexusone/omnivoice` v0.4.3",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Add `github.com/plexusone/omnivoice-deepgram` v0.3.1",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         },
         {
           "description": "Upgrade `github.com/plexusone/omnichat` to v0.2.0",
-          "commit": "b94f35e"
+          "commit": "cea8c03"
         }
       ]
     },
@@ -2045,61 +2218,61 @@
       "added": [
         {
           "description": "WebSocket gateway with client management and health checks",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         },
         {
           "description": "AI agent runtime with omnillm multi-provider support (OpenAI, Anthropic, Gemini)",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         },
         {
           "description": "Unified messaging via omnichat (WhatsApp, Telegram, Discord)",
-          "commit": "ac7b21f"
+          "commit": "7714f06"
         },
         {
           "description": "WhatsApp provider with QR code linking",
-          "commit": "ac7b21f"
+          "commit": "7714f06"
         },
         {
           "description": "LLM observability integration via omniobserve",
-          "commit": "ac7b21f"
+          "commit": "7714f06"
         },
         {
           "description": "Tool execution loop with max 5 iterations",
-          "commit": "26e2cba"
+          "commit": "7922ff8"
         },
         {
           "description": "Web search tool via omniserp",
-          "commit": "26e2cba"
+          "commit": "7922ff8"
         },
         {
           "description": "Browser automation tool using Rod",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         },
         {
           "description": "Shell execution tool with allowlist security",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         },
         {
           "description": "Cobra-based CLI with gateway, channels, config, and version commands",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         },
         {
           "description": "YAML/JSON configuration with environment variable overrides",
-          "commit": "6295af1"
+          "commit": "8967e3c"
         },
         {
           "description": "CI/CD pipeline with multi-platform testing",
-          "commit": "da77c73"
+          "commit": "5a12c0d"
         }
       ],
       "fixed": [
         {
           "description": "Pin fetchup to v0.2.3 for go-rod/rod v0.116.2 compatibility",
-          "commit": "de7f46d"
+          "commit": "c31714e"
         },
         {
           "description": "Nil interface gotcha for observability hook when disabled",
-          "commit": "ac7b21f"
+          "commit": "7714f06"
         }
       ]
     }
