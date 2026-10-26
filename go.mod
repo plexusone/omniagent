@@ -4,6 +4,7 @@ go 1.26.8
 
 require (
 	entgo.io/ent v0.14.6
+	github.com/aauth-dev/aauth-go v0.3.0
 	github.com/bdpiprava/scalar-go v0.13.0
 	github.com/coreos/go-oidc/v3 v3.21.0
 	github.com/danielgtaylor/huma/v2 v2.39.1
@@ -61,7 +62,6 @@ require (
 )
 
 require (
-	github.com/aauth-dev/aauth-go v0.3.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.4.1 // indirect
 	github.com/dunglas/httpsfv v1.1.2 // indirect
 	github.com/goccy/go-json v0.11.2 // indirect
@@ -336,6 +336,3 @@ replace github.com/ysmood/fetchup => github.com/ysmood/fetchup v0.2.3
 
 // Force log15/v3 to version compatible with ngrok v1.13.0 (has ext.RandId)
 replace github.com/inconshreveable/log15/v3 => github.com/inconshreveable/log15/v3 v3.0.0-testing.5
-
-// Until aauth-go v0.3.0 is tagged; remove before pushing.
-replace github.com/aauth-dev/aauth-go => ../../aauth-dev/aauth-go
