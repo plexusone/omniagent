@@ -206,6 +206,14 @@ func (s *Skill) readFromURI(ctx context.Context) openapi3.ReadFromURIFunc {
 		if client == nil {
 			client = http.DefaultClient
 		}
+		if client.CheckRedirect == nil {
+			// The client may attach credentials to its requests; follow no
+			// redirect so they are not presented to another host. Work on a
+			// copy so the caller's client is left as it was.
+			noRedirect := *client
+			noRedirect.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+			client = &noRedirect
+		}
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
 		if err != nil {
 			return nil, err
@@ -218,7 +226,14 @@ func (s *Skill) readFromURI(ctx context.Context) openapi3.ReadFromURIFunc {
 		if resp.StatusCode != http.StatusOK {
 			return nil, fmt.Errorf("openapi: GET %s: status %d", u, resp.StatusCode)
 		}
-		return io.ReadAll(io.LimitReader(resp.Body, maxSpecBytes))
+		data, err := io.ReadAll(io.LimitReader(resp.Body, maxSpecBytes+1))
+		if err != nil {
+			return nil, err
+		}
+		if len(data) > maxSpecBytes {
+			return nil, fmt.Errorf("openapi: GET %s: document is larger than %d bytes", u, maxSpecBytes)
+		}
+		return data, nil
 	}
 }
 
@@ -558,6 +573,14 @@ func (s *Skill) makeToolHandler(opInfo operationInfo, pathItem *openapi3.PathIte
 		client := s.config.HTTPClient
 		if client == nil {
 			client = http.DefaultClient
+		}
+		if client.CheckRedirect == nil {
+			// The client may attach credentials to its requests; follow no
+			// redirect so they are not presented to another host. Work on a
+			// copy so the caller's client is left as it was.
+			noRedirect := *client
+			noRedirect.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+			client = &noRedirect
 		}
 
 		if s.config.RequestTimeout > 0 {
