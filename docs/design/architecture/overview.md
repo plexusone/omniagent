@@ -154,7 +154,7 @@ OmniAgent supports two voice processing architectures:
 - Latency: 100-200ms
 - Use case: Low-latency conversations, natural barge-in
 
-See [Voice Integration Guide](../guides/voice.md) for configuration details.
+See [Voice Integration Guide](../../guides/voice.md) for configuration details.
 
 ## Omni* Library Ecosystem
 

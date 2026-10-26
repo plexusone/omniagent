@@ -1154,7 +1154,7 @@ omni-aws           omni-google         omni-github
 └── /omnivoice
 ```
 
-See [Architecture Overview](docs/architecture/overview.md) for detailed documentation.
+See [Architecture Overview](docs/design/architecture/overview.md) for detailed documentation.
 
 ## Dependencies
 

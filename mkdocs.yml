@@ -53,7 +53,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
+  - Getting Started: guides/getting-started.md
   - Guides:
     - OpenAI-Compatible API: guides/openai-api.md
     - Image Generation: guides/images.md
@@ -88,8 +88,8 @@ nav:
     - Web Content Skill: guides/web.md
     - Auto-Reply: guides/autoreply.md
   - Architecture:
-    - Overview: architecture/overview.md
-    - Skills System: architecture/skills.md
+    - Overview: design/architecture/overview.md
+    - Skills System: design/architecture/skills.md
   - Roadmap:
     - Feature Parity: specs/PARITY-ROADMAP.md
     - Control UI: specs/ROADMAP.md

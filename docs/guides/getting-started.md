@@ -176,7 +176,7 @@ export SERPER_API_KEY="your_serper_key"  # For web_search tool
 
 ## Next Steps
 
-- [WhatsApp Setup Guide](guides/whatsapp.md) - Detailed WhatsApp configuration
-- [Voice Integration](guides/voice.md) - Enable voice notes
-- [Skills Development](guides/skills.md) - Create custom skills
-- [Configuration Reference](reference/configuration.md) - Full configuration options
+- [WhatsApp Setup Guide](whatsapp.md) - Detailed WhatsApp configuration
+- [Voice Integration](voice.md) - Enable voice notes
+- [Skills Development](skills.md) - Create custom skills
+- [Configuration Reference](../reference/configuration.md) - Full configuration options

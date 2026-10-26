@@ -308,5 +308,5 @@ agent.ProcessWithSession(ctx, "user-123-code-review", codeReviewRequest)
 ## See Also
 
 - [Compiled Skills](skills.md#compiled-skills) - Creating Go-based skills
-- [Architecture Overview](../architecture/overview.md) - System architecture
+- [Architecture Overview](../design/architecture/overview.md) - System architecture
 - [Configuration Reference](../reference/configuration.md) - Full config options
