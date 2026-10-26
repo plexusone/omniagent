@@ -110,12 +110,14 @@ func (p *Platform) runHTTPOnly(ctx context.Context) error {
 		mux.HandleFunc("/health", p.handleHealth)
 	}
 
+	p.mu.Lock()
 	p.server = &http.Server{
 		Addr:         p.config.Address,
 		Handler:      mux,
 		ReadTimeout:  p.config.ReadTimeout,
 		WriteTimeout: p.config.WriteTimeout,
 	}
+	p.mu.Unlock()
 
 	// Start server in goroutine
 	errCh := make(chan error, 1)

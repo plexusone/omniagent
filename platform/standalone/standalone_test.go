@@ -166,7 +166,10 @@ func TestWebhookHandlerMounting(t *testing.T) {
 	time.Sleep(50 * time.Millisecond)
 
 	// Get the actual address (since we used port 0)
-	if p.server == nil {
+	p.mu.RLock()
+	started := p.server != nil
+	p.mu.RUnlock()
+	if !started {
 		t.Skip("server not started")
 	}
 
