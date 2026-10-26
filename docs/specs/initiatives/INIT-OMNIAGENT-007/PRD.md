@@ -34,7 +34,7 @@ implements the agent side as an HTTP transport.
 
 ## Requirements
 
-1. **Identity.** `aauth.NewClient` generates or loads a key, enrolls it at
+1. **Identity.** `aauthagent.NewClient` generates or loads a key, enrolls it at
    the agent provider, and keeps the agent token fresh.
 2. **Authorization.** The client answers each AAuth requirement: agent token,
    person token, auth token, and deferred consent.

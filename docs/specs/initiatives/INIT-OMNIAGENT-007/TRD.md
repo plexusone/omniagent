@@ -3,14 +3,14 @@
 **Initiative:** `INIT-OMNIAGENT-007`
 **Repository:** `github.com/plexusone/omniagent`
 
-## Package `aauth`
+## Package `aauthagent`
 
 ```go
-client, err := aauth.NewClient(ctx, aauth.Config{
+client, err := aauthagent.NewClient(ctx, aauthagent.Config{
     AgentProvider: "https://ap.aauth.test",
     EnrollPath:    "/enroll",
     RootCAsPEM:    caPEM,                         // optional, e.g. a sandbox CA
-    OnInteraction: func(i aauth.Interaction) { … }, // approval URL and code
+    OnInteraction: func(i aauthagent.Interaction) { … }, // approval URL and code
 })
 skill := openapi.NewSkill(openapi.Config{
     Name: "petstore", SpecURL: "https://petstore.aauth.test/openapi.json",

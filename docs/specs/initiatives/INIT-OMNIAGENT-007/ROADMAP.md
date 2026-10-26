@@ -9,7 +9,7 @@ Commits implementing an item carry `Refs: RMI-OMNIAGENT-<NNN>`.
 
 **Theme:** OpenAPI skills that call AAuth resources
 
-- [ ] `RMI-OMNIAGENT-405` Package `aauth`: enroll at an agent provider and sign, authorize and wait for consent through aauth-go's transport
+- [ ] `RMI-OMNIAGENT-405` Package `aauthagent`: enroll at an agent provider and sign, authorize and wait for consent through aauth-go's transport
 - [ ] `RMI-OMNIAGENT-406` Consent prompts: interaction requirements reach a callback with the approval URL and code
   - Depends on: `RMI-OMNIAGENT-405`
 - [ ] `RMI-OMNIAGENT-407` An OpenAPI skill over the AAuth client, tested against aauth-go's sandbox
