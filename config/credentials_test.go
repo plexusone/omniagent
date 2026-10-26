@@ -3,6 +3,8 @@ package config
 import (
 	"context"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -477,5 +479,37 @@ func TestCredentialResolver_DifferentSchemes(t *testing.T) {
 	// Should be different instances
 	if vEnv == vMemory {
 		t.Error("Different schemes should return different vault instances")
+	}
+}
+
+func TestResolveCredentialFileAbsolutePath(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "token")
+	if err := os.WriteFile(path, []byte("test-token"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	loose := filepath.Join(dir, "loose")
+	if err := os.WriteFile(loose, []byte("test-token"), 0o644); err != nil { //nolint:gosec // G306: the test needs a readable-by-others file
+		t.Fatal(err)
+	}
+	r := newCredentialResolver()
+	defer func() {
+		if err := r.close(); err != nil {
+			t.Error(err)
+		}
+	}()
+
+	got, err := resolveCredential(context.Background(), r, "file://"+filepath.ToSlash(path))
+	if err != nil {
+		t.Fatalf("absolute file URI: %v", err)
+	}
+	if got != "test-token" {
+		t.Errorf("value = %q, want test-token", got)
+	}
+	// Windows does not enforce file modes, so only check the refusal elsewhere.
+	if runtime.GOOS != "windows" {
+		if _, err := resolveCredential(context.Background(), r, "file://"+filepath.ToSlash(loose)); err == nil {
+			t.Error("a secret file other users can read should be refused")
+		}
 	}
 }

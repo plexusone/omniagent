@@ -4,10 +4,12 @@ package config
 import (
 	"context"
 	"fmt"
+	"path/filepath"
 	"strings"
 	"sync"
 
 	"github.com/plexusone/omnivault"
+	"github.com/plexusone/omnivault/providers/file"
 	"github.com/plexusone/omnivault/vault"
 
 	"github.com/plexusone/omniagent/internal/redact"
@@ -57,6 +59,24 @@ func (r *credentialResolver) getVault(scheme string) (vault.Vault, error) {
 		return nil, err
 	}
 	r.vaults[scheme] = v
+	return v, nil
+}
+
+// getFileVault returns a cached file vault rooted at dir. The file provider
+// only reads paths inside its directory, so an absolute file:// path is read
+// through a vault rooted at the file's own directory.
+func (r *credentialResolver) getFileVault(dir string) (vault.Vault, error) {
+	key := "file:" + dir
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if v, ok := r.vaults[key]; ok {
+		return v, nil
+	}
+	v, err := file.New(file.Config{Directory: dir})
+	if err != nil {
+		return nil, err
+	}
+	r.vaults[key] = v
 	return v, nil
 }
 
@@ -209,16 +229,26 @@ func resolveCredential(ctx context.Context, resolver *credentialResolver, uri st
 		return "", fmt.Errorf("invalid vault URI: %s", uri)
 	}
 
-	v, err := resolver.getVault(scheme)
-	if err != nil {
-		return "", fmt.Errorf("open vault: %w", err)
-	}
-
 	// Get the path after scheme://
 	// Provider's Get() handles the full path including vault/item/field parsing
 	path := getPath(uri)
 	if path == "" {
 		return "", fmt.Errorf("no path in vault URI: %s", uri)
+	}
+
+	var (
+		v   vault.Vault
+		err error
+	)
+	if scheme == "file" && filepath.IsAbs(path) {
+		var dir string
+		dir, path = filepath.Split(path)
+		v, err = resolver.getFileVault(dir)
+	} else {
+		v, err = resolver.getVault(scheme)
+	}
+	if err != nil {
+		return "", fmt.Errorf("open vault: %w", err)
 	}
 
 	secret, err := v.Get(ctx, path)
