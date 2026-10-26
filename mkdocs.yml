@@ -108,30 +108,30 @@ nav:
       - Feature Parity: specs/PARITY-ROADMAP.md
       - Control UI: specs/ROADMAP.md
   - Releases:
-      - v0.20.0: releases/v0.20.0.md
-      - v0.19.0: releases/v0.19.0.md
-      - v0.18.0: releases/v0.18.0.md
-      - v0.17.0: releases/v0.17.0.md
-      - v0.16.0: releases/v0.16.0.md
+    - v0.20.0: releases/v0.20.0.md
+    - v0.19.0: releases/v0.19.0.md
+    - v0.18.0: releases/v0.18.0.md
+    - v0.17.0: releases/v0.17.0.md
+    - v0.16.0: releases/v0.16.0.md
+    - Earlier Releases (v0.1 to v0.15):
       - v0.15.0: releases/v0.15.0.md
       - v0.14.0: releases/v0.14.0.md
       - v0.13.0: releases/v0.13.0.md
       - v0.12.0: releases/v0.12.0.md
       - v0.11.0: releases/v0.11.0.md
       - v0.10.0: releases/v0.10.0.md
-      - Earlier Releases (v0.1 to v0.9):
-          - v0.9.0: releases/v0.9.0.md
-          - v0.8.0: releases/v0.8.0.md
-          - v0.7.0: releases/v0.7.0.md
-          - v0.6.0:
-              - Release Notes: releases/v0.6.0/index.md
-              - Plan: releases/v0.6.0/PLAN.md
-              - Tasks: releases/v0.6.0/TASKS.md
-          - v0.5.0: releases/v0.5.0.md
-          - v0.4.0: releases/v0.4.0.md
-          - v0.3.0: releases/v0.3.0.md
-          - v0.2.0: releases/v0.2.0.md
-          - v0.1.0: releases/v0.1.0.md
+      - v0.9.0: releases/v0.9.0.md
+      - v0.8.0: releases/v0.8.0.md
+      - v0.7.0: releases/v0.7.0.md
+      - v0.6.0:
+        - Release Notes: releases/v0.6.0/index.md
+        - Plan: releases/v0.6.0/PLAN.md
+        - Tasks: releases/v0.6.0/TASKS.md
+      - v0.5.0: releases/v0.5.0.md
+      - v0.4.0: releases/v0.4.0.md
+      - v0.3.0: releases/v0.3.0.md
+      - v0.2.0: releases/v0.2.0.md
+      - v0.1.0: releases/v0.1.0.md
 
 extra:
   social:
