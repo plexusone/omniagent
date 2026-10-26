@@ -1,66 +1,44 @@
 # Skills System Architecture
 
-The skills system enables OmniAgent to load and use skills compatible with [OpenClaw](https://github.com/openclaw/openclaw) and [ClawHub](https://github.com/clawhub).
+A skill gives the agent knowledge or tools. OmniAgent supports four kinds, which
+differ in how they are defined and in what they give the model.
+
+| Kind | Defined by | Gives the model | Registered with |
+|------|------------|-----------------|-----------------|
+| Markdown | A `SKILL.md` file ([OpenClaw](https://github.com/openclaw/openclaw) and [ClawHub](https://github.com/clawhub) compatible) | Instructions added to the system prompt | `skills.Manager`, configured with packs and directories |
+| Compiled | A Go type that implements `compiled.Skill` | Tools | `agent.WithCompiledSkill` |
+| MCP | An MCP server run as a subprocess | The server's tools | `agent.WithMCPSkill` |
+| OpenAPI | An OpenAPI 3.x document | One tool per operation | `agent.WithOpenAPISkill` |
+
+Markdown skills shape what the model knows. The other three give it things it
+can call. For how to write and configure skills, see the
+[Skills guide](../../guides/skills.md).
 
 ## Overview
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  OMNIAGENT (Go)                                             │
-│                                                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐   │
-│  │ Skill Loader │  │ Agent        │  │ Tool Dispatcher  │   │
-│  │ (Phase 1)    │  │              │  │                  │   │
-│  └──────┬───────┘  └──────┬───────┘  └────────┬─────────┘   │
-│         │                 │                   │             │
-└─────────┼─────────────────┼───────────────────┼─────────────┘
-          │                 │                   │
-          ▼                 ▼                   ▼
-   ┌─────────────┐   ┌─────────────┐   ┌───────────────────┐
-   │ Parse       │   │ LLM API     │   │ Execution Layer   │
-   │ SKILL.md    │   │             │   │                   │
-   │             │   │ System      │   │  ┌─────┐ ┌──────┐ │
-   │ YAML +      │   │ prompt with │   │  │WASM │ │Docker│ │
-   │ Markdown    │   │ skills      │   │  │     │ │      │ │
-   └─────────────┘   └─────────────┘   └───────────────────┘
+                        +-------------------------+
+ SKILL.md files   --->  | skills.Manager          |  ---> system prompt
+ (packs, dirs)          | discover, filter, check |
+                        +-------------------------+
+
+ compiled.Skill   --->  +-------------------------+
+ MCP server       --->  | agent.RegisterCompiled  |  ---> tool list
+ OpenAPI spec     --->  | Skill / InitCompiled    |       (one tool wrapper
+                        | Skills                  |        per skill tool)
+                        +-------------------------+
+                                    |
+                          secrets, storage, agent
+                          injected by capability
 ```
 
-## Implementation Phases
+## Markdown Skills
 
-### Phase 1: Skill Loader (Current)
+A markdown skill is a directory with a `SKILL.md`: YAML frontmatter followed by
+a Markdown body. The loader parses it, and the agent injects the body into the
+system prompt.
 
-Parses SKILL.md files and injects content into the LLM system prompt.
-
-**Capabilities:**
-
-- Parse YAML frontmatter + Markdown body
-- Discover skills from multiple directories
-- Check binary and environment requirements
-- Inject into system prompt with emoji support
-
-### Phase 2: Hook Runner (Planned)
-
-Execute TypeScript/shell hooks via Deno runtime.
-
-**Capabilities:**
-
-- Run TypeScript hooks with restricted permissions
-- OpenClaw hook API compatibility
-- Shell script execution
-
-### Phase 3: Tool Sandbox (Current)
-
-Secure execution environment for tools.
-
-**Capabilities:**
-
-- WASM runtime via wazero
-- Docker container isolation
-- Capability-based permissions
-
-## Data Structures
-
-### Skill
+### Data structures
 
 ```go
 type Skill struct {
@@ -70,17 +48,13 @@ type Skill struct {
     Homepage    string
     Metadata    SkillMeta
 
-    // Parsed from file
-    Content     string // Markdown body
-    Path        string // Directory path
-    HasHooks    bool   // Has hooks/ directory
-    HasScripts  bool   // Has scripts/ directory
+    // Parsed from the directory
+    Content    string // Markdown body
+    Path       string // Directory path
+    HasHooks   bool   // Has a hooks/ directory
+    HasScripts bool   // Has a scripts/ directory
 }
-```
 
-### SkillMeta
-
-```go
 type SkillMeta struct {
     Emoji    string
     Requires *Requires
@@ -89,99 +63,156 @@ type SkillMeta struct {
 }
 
 type Requires struct {
-    Bins    []string // Required binaries
-    AnyBins []string // At least one required
-    Env     []string // Required env vars
+    Bins    []string            // Required binaries
+    AnyBins []string            // At least one required
+    Env     []string            // Required env vars
+    Secrets []SecretRequirement // Declared secrets, set per agent
 }
 ```
 
-## Skill Discovery
+### Discovery
 
-Skills are discovered from configured directories:
+`skills.Manager` collects skills from three sources and applies the filters:
+
+1. **Packs** - skill sets embedded in the binary (`skills.packs`)
+2. **Directories** - `~/.omniagent/skills`, `skills` and `.skills`, plus
+   `skills.paths`
+3. **Includes and excludes** - `skills.includes` limits the set;
+   `skills.excludes` removes names after that
+
+A skill found in a directory overrides an embedded skill with the same name.
+Within the directories, the first skill with a given name wins.
+
+### Requirements
+
+Before a skill is offered, its requirements are checked: every binary in
+`bins`, at least one of `anyBins`, and every variable in `env`. A skill with an
+unmet requirement is skipped.
+
+Secrets are handled separately. A skill declares the secrets it needs in
+`requires.secrets`, and the owner of the agent supplies the values. A skill
+whose required secret has no value is left out of that agent's prompt instead
+of failing later. Secret values are injected into the skill as environment
+variables and are never part of the prompt.
+
+### Prompt injection
+
+`InjectIntoPrompt` appends the available skills to the system prompt, each
+under a heading with its emoji, up to `skills.max_injected`:
 
 ```go
-func DefaultSearchPaths() []string {
-    home, _ := os.UserHomeDir()
-    return []string{
-        filepath.Join(home, ".omniagent", "skills"),
-        "skills",
-        ".skills",
-    }
-}
+func InjectIntoPrompt(systemPrompt string, skills []*Skill, cfg InjectConfig) string
 ```
 
-Discovery process:
+### Hooks and scripts
 
-1. Scan each directory for subdirectories
-2. Check for `SKILL.md` file in each subdirectory
-3. Parse and validate the skill
-4. Deduplicate by name (first wins)
+The loader records whether a skill has a `hooks/` or `scripts/` directory and
+`omniagent skills info` shows it. OmniAgent does not run those hooks. A skill's
+tool use goes through the compiled, MCP or OpenAPI kinds instead.
 
-## Requirement Checking
-
-Before loading a skill, requirements are validated:
-
-```go
-func (s *Skill) CheckRequirements() []error {
-    // Check required binaries
-    for _, bin := range req.Bins {
-        if _, err := exec.LookPath(bin); err != nil {
-            // Missing binary
-        }
-    }
-
-    // Check anyBins (at least one must exist)
-    // Check required env vars
-}
-```
-
-Skills with missing requirements are skipped by default.
-
-## Prompt Injection
-
-Skills are injected into the system prompt:
-
-```go
-func InjectIntoPrompt(systemPrompt string, skills []*Skill, cfg InjectConfig) string {
-    var sb strings.Builder
-    sb.WriteString(systemPrompt)
-    sb.WriteString("\n\n# Available Skills\n\n")
-
-    for _, skill := range skills {
-        sb.WriteString("## ")
-        sb.WriteString(skill.Metadata.Emoji)
-        sb.WriteString(" ")
-        sb.WriteString(skill.Name)
-        sb.WriteString("\n\n")
-        sb.WriteString(skill.Content)
-        sb.WriteString("\n\n---\n\n")
-    }
-
-    return sb.String()
-}
-```
-
-## Configuration
+### Configuration
 
 ```yaml
 skills:
   enabled: true
+  packs: [omniagent-skills]
   paths:
     - ~/.omniagent/skills
     - /opt/shared-skills
-  disabled:
+  includes: []
+  excludes:
     - experimental-skill
   max_injected: 20
+  config:
+    github:
+      secrets:
+        GITHUB_TOKEN: "op://Private/GitHub/token"
 ```
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `enabled` | bool | `true` | Enable skill loading |
-| `paths` | []string | `[]` | Additional skill directories |
-| `disabled` | []string | `[]` | Skills to skip |
-| `max_injected` | int | `20` | Max skills in prompt |
+| Field | Type | Description |
+|-------|------|-------------|
+| `enabled` | bool | Enable skill loading |
+| `packs` | []string | Embedded skill packs to load |
+| `paths` | []string | Additional skill directories |
+| `includes` | []string | Load only these skills |
+| `excludes` | []string | Skip these skills (`disabled` is a deprecated alias) |
+| `max_injected` | int | Maximum skills in the prompt |
+| `config.<name>.secrets` | map | Bind a skill's declared secret names to values or vault URIs |
 
-## CLI Commands
+## Compiled Skills
+
+A compiled skill is Go code. It implements a small interface and exposes its
+tools:
+
+```go
+type Skill interface {
+    Name() string
+    Description() string
+    Tools() []skill.Tool
+    Init(ctx context.Context) error
+    Close() error
+}
+```
+
+The agent registers each tool through a wrapper that adapts it to the agent's
+tool interface and records where the tool came from, so a tool call can be
+traced to its skill. `Init` runs from `InitCompiledSkills`, and the tools a
+skill discovers during `Init` are registered then.
+
+A skill opts into what the agent can give it by implementing optional
+interfaces. The agent checks for each with a type assertion:
+
+| Interface | The agent calls | Purpose |
+|-----------|-----------------|---------|
+| `StorageAware` | `SetStorage(kvs.Store)` | A key-value store for the skill's state |
+| `AgentAware` | `SetAgent(agent)` | The agent that owns the skill |
+| `SecretsAware` | `SetSecrets(map[string]string)` | The agent's resolved secrets as env values |
+| `SecretRequirer` | reads `RequiredSecrets()` | Names the skill cannot run without; the skill is skipped when one is missing |
+| `SourceType() string` | reads it | Labels the tool source, such as `mcp` |
+
+## MCP Skills
+
+An MCP skill runs a Model Context Protocol server as a subprocess and offers
+the server's tools. It implements `SecretsAware` and `SecretRequirer`:
+injected secrets are merged into the subprocess environment over any static
+`Env`, and a server's `RequiredEnv` names gate it. The skill builds a fresh
+environment per agent instance, so one agent's secrets never leak into
+another's server.
+
+## OpenAPI Skills
+
+An OpenAPI skill loads an OpenAPI 3.x document and offers one tool per
+operation. Parameters, arrays and request bodies are serialized as the spec
+describes, and the response comes back as the tool result.
+
+- **Spec source.** A file path, or an `http` or `https` URL. A URL spec is
+  fetched, together with the documents it references, with the skill's own HTTP
+  client. The fetch follows no redirect and refuses a document over 10 MiB. A
+  fetched spec may reference only `http` and `https` URLs, never local files.
+- **Authentication.** A static API key, bearer token or basic credentials, taken
+  from the skill's config or injected through its secret environment variables
+  (`APIKeyEnv`, `TokenEnv`, `PasswordEnv`).
+- **Identity.** Give the skill an `HTTPClient` from `aauthagent` and every call
+  is signed as an AAuth agent, with the person approving what the API asks them
+  to approve.
+
+### AAuth
+
+`aauthagent.NewClient` enrolls a key at an agent provider and returns an HTTP
+client. Its transport signs each request, and when a resource answers with a
+requirement the client obtains person and auth tokens from the person server
+named in the agent token, then retries. When the person must act, the approval
+URL and code reach `Config.OnInteraction` while the request waits. There is no
+client-level timeout, because a request may wait for the person; bound it with
+the request context. See the [AAuth guide](../../guides/aauth.md).
+
+## Tool Source Identity
+
+Every tool carries its source kind (`skill` by default, `mcp` for MCP skills),
+the skill name and the tool's own name. Hooks and observability use this to
+attribute a tool call to the skill that provided it.
+
+## CLI
 
 ```bash
 # List all discovered skills
