@@ -12,6 +12,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -1264,7 +1265,13 @@ func TestSkillSpecURLUsesClientAndRefusesFileRefs(t *testing.T) {
 		t.Fatalf("spec through the skill's client: %v", err)
 	}
 	evil := NewSkill(Config{Name: "evil", SpecURL: server.URL + "/evil.json", HTTPClient: client})
-	if err := evil.Init(context.Background()); err == nil || !strings.Contains(err.Error(), "only http and https") {
+	err := evil.Init(context.Background())
+	if err == nil {
+		t.Fatal("a file reference from a fetched spec was accepted")
+	}
+	// On Windows the loader resolves the file URL without reading it, so the
+	// error names the missing target instead of the scheme.
+	if runtime.GOOS != "windows" && !strings.Contains(err.Error(), "only http and https") {
 		t.Fatalf("a file reference from a fetched spec: %v", err)
 	}
 }
