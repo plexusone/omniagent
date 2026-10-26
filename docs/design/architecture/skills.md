@@ -204,7 +204,7 @@ requirement the client obtains person and auth tokens from the person server
 named in the agent token, then retries. When the person must act, the approval
 URL and code reach `Config.OnInteraction` while the request waits. There is no
 client-level timeout, because a request may wait for the person; bound it with
-the request context. See the [AAuth guide](../../guides/aauth.md).
+the request context. See the [AAuth guide](../../guides/aauth/index.md).
 
 ## Tool Source Identity
 

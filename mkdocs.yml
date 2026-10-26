@@ -72,7 +72,10 @@ nav:
     - LLM Providers: guides/providers.md
     - Agent Marketplace: guides/marketplace.md
     - Skills Development: guides/skills.md
-    - AAuth for OpenAPI Skills: guides/aauth.md
+    - AAuth:
+      - AAuth for OpenAPI Skills: guides/aauth/index.md
+      - How AAuth Works: guides/aauth/how-it-works.md
+      - Try It: guides/aauth/try-it.md
     - Memory Skill: guides/memory.md
     - GitHub Skill: guides/github.md
     - Sessions & Storage: guides/sessions.md

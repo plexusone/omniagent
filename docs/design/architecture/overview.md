@@ -147,7 +147,7 @@ client that signs each request as that agent. When a resource asks for more,
 the client obtains person and auth tokens from the person server and waits
 while the person approves, passing the approval link to the caller. An OpenAPI
 skill given that client calls an AAuth-protected API with the agent's own
-identity. See the [AAuth guide](../../guides/aauth.md).
+identity. See the [AAuth guide](../../guides/aauth/index.md).
 
 ### Sandbox
 

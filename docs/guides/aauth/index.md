@@ -13,7 +13,8 @@ as an agent with its own identity, acting for a person:
   The tool call waits, and omniagent tells the person where to approve.
 
 The API decides what each operation needs and says so in its responses, so
-the skill needs no per-operation configuration.
+the skill needs no per-operation configuration. For the roles and the
+exchange behind this, see [How AAuth works](how-it-works.md).
 
 ## Use It
 
@@ -70,11 +71,9 @@ Three rules keep a fetched spec from reaching further than you intended:
 - A fetched spec may not reference local files; only `http` and `https` URLs
   are followed.
 
-## Try It: the Petstore Demo
+## Learn More and Try It
 
-`examples/aauth-petstore` is a terminal chat with the Petstore as an AAuth
-resource. Browsing needs only the agent's identity; placing an order or
-changing the catalog asks the person to approve. See
-[its README](https://github.com/plexusone/omniagent/tree/main/examples/aauth-petstore)
-to run it with Docker Compose next to the AAuth sandbox, the same setup the
-AAuth Postman collection uses.
+- [How AAuth works](how-it-works.md): the roles and what happens on each
+  request.
+- [Try it](try-it.md): run omniagent against the AAuth sandbox and the
+  Petstore, and use it for interop tests.
