@@ -14,7 +14,7 @@ tools. Each operation asks for what it needs:
 
 The demo runs next to the AAuth sandbox (agent provider, person server and
 access server) and the Petstore, from the
-[aauth-postman](https://github.com/aauth-dev/aauth-postman) Compose file: the
+[aauth-postman](https://github.com/aistandardsio/aauth-postman) Compose file: the
 same servers the Postman collection calls, so the two demos send the same
 messages.
 

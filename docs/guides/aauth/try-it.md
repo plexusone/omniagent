@@ -7,15 +7,17 @@ for interop tests.
 The servers come from [aauth-go](https://github.com/aauth-dev/aauth-go). Its
 [sandbox guide](https://aauth-dev.github.io/aauth-go/guides/sandbox/) is the
 reference for the sandbox and its options, and
-[aauth-postman](https://github.com/aauth-dev/aauth-postman) has the Compose
+[aauth-postman](https://github.com/aistandardsio/aauth-postman) has the Compose
 file that runs the sandbox and the Petstore together. This page covers only
 what is specific to omniagent.
 
 ## With Docker Compose
 
-You need Docker, and the repositories `aauth-postman`, `aauth-go`, `petstore`
-(`grokify/petstore`) and `omniagent` checked out side by side as the Compose
-file expects, until their images are published.
+You need Docker, and four repositories checked out as `<org>/<repo>` under one
+parent, for example `~/go/src/github.com`: `aistandardsio/aauth-postman`,
+`aauth-dev/aauth-go`, `grokify/petstore` and `plexusone/omniagent`. The Compose
+file builds the images from them until they are published. Set `AAUTH_GO_DIR`,
+`PETSTORE_DIR` or `OMNIAGENT_DIR` if yours are elsewhere.
 
 ```bash
 cd aauth-postman
@@ -92,7 +94,7 @@ agents.
   the resource. The model may ask for confirmation, or search a tag that
   matches nothing; name the tool and arguments in the prompt.
 - **Other agents.** The aauth-postman
-  [interop runbook](https://github.com/aauth-dev/aauth-postman/blob/main/docs/interop.md)
+  [interop runbook](https://github.com/aistandardsio/aauth-postman/blob/main/docs/interop.md)
   covers the Postman side and a table of common failures.
 
 ## Troubleshooting
