@@ -319,7 +319,10 @@ secret is set, never its value.
 !!! warning "Current limitations"
     - The `memory` and `file` providers are **not encrypted at rest** — the
       isolation mechanism ships first; an encrypted store is planned. Protect the
-      `dir` with filesystem permissions in the meantime.
+      `dir` with filesystem permissions in the meantime. The `file` provider
+      writes secret files readable only by their owner and refuses to read one
+      that group or other users can access, so a `dir` restored from a backup
+      or copied between hosts needs `chmod 600` on its files.
     - Injection currently covers **compiled** and **MCP** skills. OpenAPI-skill
       auth injection and a single-operator config-file binding path are planned
       follow-ons.

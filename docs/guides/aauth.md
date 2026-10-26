@@ -56,6 +56,20 @@ if err := a.InitCompiledSkills(ctx); err != nil {
 `OnInteraction` runs while the request waits. A terminal app prints the link;
 a chat channel would send it to the person.
 
+### How the spec is loaded
+
+When `SpecURL` is an `http` or `https` URL, the skill fetches the spec, and
+any documents it references with `$ref`, with the `HTTPClient` you give it.
+Three rules keep a fetched spec from reaching further than you intended:
+
+- A redirect is not followed, so the client's credentials are never presented
+  to another host. Point `SpecURL` at the final URL. A client that sets its own
+  `CheckRedirect` keeps it.
+- A document larger than 10 MiB is refused with an error instead of being cut
+  off and failing to parse.
+- A fetched spec may not reference local files; only `http` and `https` URLs
+  are followed.
+
 ## Try It: the Petstore Demo
 
 `examples/aauth-petstore` is a terminal chat with the Petstore as an AAuth

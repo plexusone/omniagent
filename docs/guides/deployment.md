@@ -226,14 +226,23 @@ The deployment outputs the service URL.
 ### Step 9: Verify Deployment
 
 ```bash
-# Health check
+# Health check (liveness)
 curl https://<service-url>/health
+
+# Readiness: 200 only when storage and the agent are usable
+curl https://<service-url>/readyz
 
 # Test chat endpoint
 curl https://<service-url>/openai/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{"model":"default","messages":[{"role":"user","content":"Hello"}]}'
 ```
+
+Use `/health` for the platform's liveness probe, which restarts a container
+that stopped serving, and `/readyz` as the gate that decides whether a new
+deployment should receive traffic. `/readyz` returns 503 with a per-check
+detail while the storage backend or the agent configuration is unusable. The
+[CLI reference](../reference/cli.md#health-vs-readyz) lists the checks.
 
 ### Step 10: Monitor and Maintain
 

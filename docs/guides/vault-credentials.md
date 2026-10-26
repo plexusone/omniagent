@@ -140,8 +140,12 @@ agent:
   api_key: "file:///etc/secrets/anthropic-api-key"
 ```
 
-!!! tip "File Permissions"
-    Ensure secret files have restricted permissions (e.g., `chmod 600`).
+!!! warning "File Permissions"
+    A secret file that group or other users can read is refused. Make it
+    private with `chmod 600`. For a mounted volume whose mode you cannot
+    change, such as a Kubernetes secret, set `defaultMode: 0600` on the
+    volume. Windows does not enforce file modes, so the check does not apply
+    there.
 
 ### Environment (`env://`)
 
