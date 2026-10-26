@@ -81,10 +81,10 @@ func (s *Service) ResolveAgentSecrets(ctx context.Context, agentID uuid.UUID) (m
 		if err != nil {
 			return nil, fmt.Errorf("get agent secret %q: %w", name, err)
 		}
-		env[name] = sec.String()
+		env[name] = sec.Reveal()
 		// Register the resolved value so it never appears unmasked in log
 		// output, however it's later handled (RMI-OMNIAGENT-204).
-		redact.Register(sec.String())
+		redact.Register(sec.Reveal())
 	}
 	return env, nil
 }

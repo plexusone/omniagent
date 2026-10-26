@@ -30,15 +30,15 @@ func TestScopedVault_Isolation(t *testing.T) {
 	if err != nil {
 		t.Fatalf("a.Get: %v", err)
 	}
-	if got.String() != "aaa" {
-		t.Errorf("a TOKEN = %q, want aaa", got.String())
+	if got.Reveal() != "aaa" {
+		t.Errorf("a TOKEN = %q, want aaa", got.Reveal())
 	}
 	got, err = ab.Get(ctx, "TOKEN")
 	if err != nil {
 		t.Fatalf("ab.Get: %v", err)
 	}
-	if got.String() != "bbb" {
-		t.Errorf("ab TOKEN = %q, want bbb", got.String())
+	if got.Reveal() != "bbb" {
+		t.Errorf("ab TOKEN = %q, want bbb", got.Reveal())
 	}
 
 	// List on "agents/A" must not spill "agents/AB" keys.
@@ -106,7 +106,7 @@ func TestScopedVault_TrimsSlashes(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Get with slashes: %v", err)
 	}
-	if got.String() != "v" {
-		t.Errorf("value = %q, want v", got.String())
+	if got.Reveal() != "v" {
+		t.Errorf("value = %q, want v", got.Reveal())
 	}
 }
