@@ -21,8 +21,8 @@ file builds the images from them until they are published. Set `AAUTH_GO_DIR`,
 
 ```bash
 cd aauth-postman
-docker compose up -d --build --wait                  # sandbox and Petstore
-ANTHROPIC_API_KEY=... docker compose --profile omniagent run --rm omniagent
+docker compose --profile petstore up -d --build --wait   # sandbox and Petstore
+ANTHROPIC_API_KEY=... docker compose --profile petstore run --rm omniagent
 ```
 
 At the prompt, ask for something that needs only identity, then something that
@@ -45,7 +45,7 @@ yourself, start the sandbox with `--consent manual`, trust its CA in the
 browser, and open the link.
 
 If a host port is taken, change it: `SIGNER_PORT=18099
-SANDBOX_HTTPS_PORT=18443 docker compose up -d --wait`. The omniagent
+SANDBOX_HTTPS_PORT=18443 docker compose --profile petstore up -d --wait`. The omniagent
 container reaches the sandbox over the Compose network, so the host ports do
 not matter to it.
 
@@ -104,4 +104,4 @@ agents.
 | `connection refused` to `ap.aauth.test:443` | The sandbox command lacks `--listen-any-interface`; use aauth-postman's current `compose.yaml` |
 | `x509: certificate signed by unknown authority` | Pass `--ca-file`, or set `AAUTH_CA_FILE`, to the sandbox CA |
 | `421 Misdirected Request` from the signing helper | Add `--signer-host <service>` to the sandbox; this affects Newman, not omniagent |
-| The order fails on a repeat run | The pet was sold; restart the Petstore with `docker compose up -d --force-recreate petstore` |
+| The order fails on a repeat run, or with `invalid_resource_token` after the Petstore restarted | The pet was sold, or the Petstore got a new signing key that the person server has not seen | Recreate the sandbox and the Petstore together: `docker compose --profile petstore up -d --wait --force-recreate sandbox petstore` |

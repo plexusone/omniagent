@@ -20,8 +20,8 @@ messages.
 
 ```bash
 cd aauth-postman
-docker compose up -d --wait                      # sandbox and Petstore
-ANTHROPIC_API_KEY=... docker compose run --rm omniagent
+docker compose --profile petstore up -d --build --wait   # sandbox and Petstore
+ANTHROPIC_API_KEY=... docker compose --profile petstore run --rm omniagent
 ```
 
 The sandbox approves automatically, so the approval link is shown and the
