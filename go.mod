@@ -36,18 +36,18 @@ require (
 	github.com/plexusone/omniimage v0.1.0
 	github.com/plexusone/omnillm v0.17.1
 	github.com/plexusone/omnillm-core v0.18.1
-	github.com/plexusone/omnimeet-core v0.1.0
+	github.com/plexusone/omnimeet-core v0.2.0
 	github.com/plexusone/omnimemory v0.2.1
 	github.com/plexusone/omniobserve v0.12.1
 	github.com/plexusone/omnirole-facilitator v0.1.1
 	github.com/plexusone/omniserp v0.9.0
-	github.com/plexusone/omniskill v0.12.0
+	github.com/plexusone/omniskill v0.12.1
 	github.com/plexusone/omnistorage-core v0.6.0
 	github.com/plexusone/omnitoken v0.1.0
 	github.com/plexusone/omnivault v0.6.0
 	github.com/plexusone/omnivault-desktop v0.1.0
 	github.com/plexusone/omnivoice v0.13.0
-	github.com/plexusone/omnivoice-core v0.16.1
+	github.com/plexusone/omnivoice-core v0.18.1
 	github.com/prometheus/client_golang v1.25.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/cobra v1.10.2
@@ -58,7 +58,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.47.0
 	golang.ngrok.com/ngrok v1.13.0
 	golang.org/x/crypto v0.58.0
-	golang.org/x/net v0.61.0
+	golang.org/x/net v0.62.0
 	golang.org/x/oauth2 v0.37.0
 	golang.org/x/sync v0.24.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -165,7 +165,7 @@ require (
 	github.com/huandu/xstrings v1.6.3 // indirect
 	github.com/ianlancetaylor/demangle v0.0.0-20261012173340-cbb8aaea4290 // indirect
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible // indirect
-	github.com/inconshreveable/log15/v3 v3.1.0 // indirect
+	github.com/inconshreveable/log15/v3 v3.2.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/invopop/jsonschema v0.14.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -313,7 +313,7 @@ require (
 	google.golang.org/genai v1.76.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20261026165753-2ffab32bce7e // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20261026165753-2ffab32bce7e // indirect
-	google.golang.org/grpc v1.84.0 // indirect
+	google.golang.org/grpc v1.85.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/hraban/opus.v2 v2.0.0-20230925203106-0188a62cb302 // indirect
 	gopkg.in/telebot.v3 v3.3.8 // indirect
