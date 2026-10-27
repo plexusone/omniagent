@@ -59,6 +59,23 @@ The trace lists every request and response between the agent, the person
 server and the Petstore: the enrollment, the 401 requirements, the 202 and
 the final 200. [How AAuth works](how-it-works.md) names each step.
 
+## See the Run Beside the Protocol
+
+From the aauth-postman checkout, `make demo-omniagent` restarts the sandbox
+and the Petstore, has omniagent place an order, and turns the sandbox's trace
+into `demo/live.html`: the AAuth walkthrough with omniagent's messages beside
+each step, tokens decoded and raw values masked. Open it in a browser.
+
+```bash
+ANTHROPIC_API_KEY=... make demo-omniagent
+```
+
+`OPENAI_API_KEY` or `GEMINI_API_KEY` work as well. `PROMPT="..."` replaces
+the default prompt. The target needs Go, which it uses to run
+[pidl](https://github.com/grokify/pidl). See aauth-postman's
+[Petstore demos guide](https://aistandards.io/aauth-postman/guides/petstore/)
+for how to read the page.
+
 ## Without Docker
 
 Run the sandbox and the Petstore on your machine (see the
@@ -94,7 +111,7 @@ agents.
   the resource. The model may ask for confirmation, or search a tag that
   matches nothing; name the tool and arguments in the prompt.
 - **Other agents.** The aauth-postman
-  [interop runbook](https://github.com/aistandardsio/aauth-postman/blob/main/docs/interop.md)
+  [interop runbook](https://aistandards.io/aauth-postman/guides/interop/)
   covers the Postman side and a table of common failures.
 
 ## Troubleshooting
@@ -104,4 +121,4 @@ agents.
 | `connection refused` to `ap.aauth.test:443` | The sandbox command lacks `--listen-any-interface`; use aauth-postman's current `compose.yaml` |
 | `x509: certificate signed by unknown authority` | Pass `--ca-file`, or set `AAUTH_CA_FILE`, to the sandbox CA |
 | `421 Misdirected Request` from the signing helper | Add `--signer-host <service>` to the sandbox; this affects Newman, not omniagent |
-| The order fails on a repeat run, or with `invalid_resource_token` after the Petstore restarted | The pet was sold, or the Petstore got a new signing key that the person server has not seen | Recreate the sandbox and the Petstore together: `docker compose --profile petstore up -d --wait --force-recreate sandbox petstore` |
+| The order fails on a repeat run, or with `invalid_resource_token` after the Petstore restarted | The pet was sold, or the Petstore got a new signing key that the person server has not seen. Recreate the sandbox and the Petstore together: `docker compose --profile petstore up -d --wait --force-recreate sandbox petstore` |
