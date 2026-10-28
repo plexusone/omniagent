@@ -94,8 +94,11 @@ type Config struct {
 	// Speaker synthesizes the announcement and answers. Optional.
 	Speaker tts.Provider
 
-	// SynthesisConfig sets the voice. Request raw PCM or mu-law output, since
-	// compressed formats cannot be played on a call.
+	// SynthesisConfig sets the voice. With no OutputFormat, the meeting's
+	// own audio format is requested, such as mu-law at 8 kHz on a phone
+	// call, which Deepgram and ElevenLabs produce directly. Otherwise request
+	// raw PCM or mu-law output, since compressed formats cannot be played on
+	// a call.
 	SynthesisConfig tts.SynthesisConfig
 
 	// Responder answers when someone addresses the agent by name, after
@@ -331,7 +334,13 @@ func (at *attendance) say(ctx context.Context, text string) (time.Duration, erro
 	at.speaking.Lock()
 	defer at.speaking.Unlock()
 	cfg := at.a.cfg
-	d, err := speak(ctx, cfg.Speaker, cfg.SynthesisConfig, text, at.tx.SendAudio(), at.tx.SendFormat())
+	out := at.tx.SendFormat()
+	synth := cfg.SynthesisConfig
+	if synth.OutputFormat == "" {
+		synth.OutputFormat = string(format.Encoding(out.Encoding).Normalize())
+		synth.SampleRate = out.SampleRate
+	}
+	d, err := speak(ctx, cfg.Speaker, synth, text, at.tx.SendAudio(), out)
 	if err != nil {
 		return 0, err
 	}

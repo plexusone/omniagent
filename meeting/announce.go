@@ -37,7 +37,7 @@ func speak(ctx context.Context, provider tts.Provider, config tts.SynthesisConfi
 	if err != nil {
 		return 0, fmt.Errorf("synthesize speech: %w", err)
 	}
-	from, err := synthesizedFormat(result)
+	from, err := synthesizedFormat(result, config)
 	if err != nil {
 		return 0, err
 	}
@@ -67,18 +67,24 @@ func playTime(n int, f format.AudioFormat) time.Duration {
 }
 
 // synthesizedFormat reads the audio format of a TTS result. Providers name
-// formats differently ("pcm", "linear16", "ulaw", "pcm_24000"); a numeric
-// suffix gives the sample rate. Only raw PCM and mu-law can be played on a
-// call; containers such as MP3 cannot.
-func synthesizedFormat(result *tts.SynthesisResult) (format.AudioFormat, error) {
-	name, rate := result.Format, result.SampleRate
+// formats differently ("pcm", "linear16", "ulaw", "pcm_24000"). The sample
+// rate comes from a numeric suffix on the name, then from the result, then
+// from the request, since some providers report no rate or a default one.
+// Only raw PCM and mu-law can be played on a call; containers such as MP3
+// cannot.
+func synthesizedFormat(result *tts.SynthesisResult, requested tts.SynthesisConfig) (format.AudioFormat, error) {
+	name := result.Format
+	rate := 0
 	if i := strings.LastIndex(name, "_"); i > 0 {
 		if n, err := strconv.Atoi(name[i+1:]); err == nil {
-			name = name[:i]
-			if rate == 0 {
-				rate = n
-			}
+			name, rate = name[:i], n
 		}
+	}
+	if rate == 0 {
+		rate = result.SampleRate
+	}
+	if rate == 0 {
+		rate = requested.SampleRate
 	}
 	enc := format.Encoding(name).Normalize()
 	switch enc {
