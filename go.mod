@@ -231,8 +231,8 @@ require (
 	github.com/plexusone/omni-onepassword v0.4.0 // indirect
 	github.com/plexusone/omni-openai v0.7.1 // indirect
 	github.com/plexusone/omni-openrouter v0.2.1 // indirect
-	github.com/plexusone/omni-telnyx v0.4.0 // indirect
-	github.com/plexusone/omni-twilio v0.9.0 // indirect
+	github.com/plexusone/omni-telnyx v0.7.0 // indirect
+	github.com/plexusone/omni-twilio v0.12.0 // indirect
 	github.com/plexusone/omniavatar v0.3.0 // indirect
 	github.com/plexusone/omniavatar-core v0.4.0 // indirect
 	github.com/plexusone/tavus-go v0.3.0 // indirect

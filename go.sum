@@ -747,10 +747,10 @@ github.com/plexusone/omni-openai v0.7.1 h1:bx3z9GIYcWP/3de4bf5pwIxlssZiDXpaW+SR8
 github.com/plexusone/omni-openai v0.7.1/go.mod h1:gng3oDHGzzD4ZXJwvuxqnTYfj5znSwvrmfRGdThdaQk=
 github.com/plexusone/omni-openrouter v0.2.1 h1:OD8v5MPtlDdOfSon8rc0LI30AwHuyMLk4zsDd21p8vU=
 github.com/plexusone/omni-openrouter v0.2.1/go.mod h1:uz0FMA66kQ8RdAzamIqps9UJ205KH6ZXoG9mgm8jPxc=
-github.com/plexusone/omni-telnyx v0.4.0 h1:Qa/8GB0MAk7ryA742Rb+fgsbc/SsG/GZs6ArgClT0cM=
-github.com/plexusone/omni-telnyx v0.4.0/go.mod h1:DvXKIErUst6r0CYmHQKMh+si8YKdlh0n7x1467x3dLo=
-github.com/plexusone/omni-twilio v0.9.0 h1:Bumm1HVnN7EYpPgRTKz9h16SUjAZam59XIHD+yayTs8=
-github.com/plexusone/omni-twilio v0.9.0/go.mod h1:CI1n6fwjgaBl3i1Dcx4x9lTgIxdEBVwwb18kC4weo3k=
+github.com/plexusone/omni-telnyx v0.7.0 h1:FlGDK+GSxmXymFVYl6uWw8j5jJB4ulnhWl2dcxbP9Qs=
+github.com/plexusone/omni-telnyx v0.7.0/go.mod h1:1l7CijHedpihHF3wJgjon/MGwICHn1Kho+qSEqSQ7V0=
+github.com/plexusone/omni-twilio v0.12.0 h1:HHaYedz+ombhYay11ZT1SyvdG+2nTxpPB8L63QFy6O4=
+github.com/plexusone/omni-twilio v0.12.0/go.mod h1:vl5bkxClMFF0508Qn0M9gFQo1X3MUdto4188vuJsXRs=
 github.com/plexusone/omniavatar v0.3.0 h1:sJBQhFBlcMsML0qAwmM6465R8VOntgoYs02goVFJ1i0=
 github.com/plexusone/omniavatar v0.3.0/go.mod h1:hNTfW++og8q76iJumAa7G0v7BQgROfBGM+172/5hpz8=
 github.com/plexusone/omniavatar-core v0.4.0 h1:MkwDw41/tZYGsgfr3ZOZephOuYJpkvVHZ+j34uRIXDM=
