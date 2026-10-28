@@ -10,6 +10,87 @@
   ],
   "releases": [
     {
+      "version": "v0.21.0",
+      "date": "2026-10-28",
+      "highlights": [
+        {
+          "description": "Meetings by phone: omniagent meeting join attends a Zoom, Google Meet, or Microsoft Teams meeting by dialing in through Twilio or Telnyx, announces itself, prints a live transcript, and writes meeting notes with a summary, decisions, and action items"
+        },
+        {
+          "description": "The new meeting package attends any OmniMeet session, so the same attendant can serve other ways of joining a meeting"
+        }
+      ],
+      "added": [
+        {
+          "description": "meeting.Transcript, Segment, Summary, and ActionItem, with meeting.LLMSummarizer turning a transcript into a summary, decisions, and action items through any omnillm-core chat client",
+          "commit": "6bfb5c7"
+        },
+        {
+          "description": "meeting.Attendant attends an OmniMeet attendee.Session: it announces the agent once the meeting admits it, streams the meeting audio to a streaming speech-to-text provider, collects the final transcript segments, leaves when its context ends, and summarizes",
+          "commit": "0b946c5"
+        },
+        {
+          "description": "meeting.Record.Markdown renders meeting notes: details, the summary, and the timestamped transcript",
+          "commit": "962e4e6"
+        },
+        {
+          "description": "voice.NewAudioGateway builds a Twilio or Telnyx gateway in audio mode that sends keypad digits on outbound calls",
+          "commit": "445ed8a"
+        },
+        {
+          "description": "omniagent meeting join reads a meeting invitation (text or .ics, from a file or standard input), dials in, and writes the meeting notes to a Markdown file and optionally the full record as JSON; --ngrok opens a tunnel for the provider's webhooks",
+          "commit": "9583e03"
+        }
+      ],
+      "changed": [
+        {
+          "description": "The ngrok tunnel helper takes the domain as an argument, so the voice and meeting commands share it",
+          "commit": "c2c3e3b"
+        }
+      ],
+      "tests": [
+        {
+          "description": "The attendant end to end against a simulated meeting, including announcing only after admission, and the summary helpers",
+          "commit": "63996d9"
+        },
+        {
+          "description": "The audio gateway constructor, meeting notes rendering, and the meeting join command against a simulated dial-in meeting",
+          "commit": "1e4d3d4"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Attending Meetings by Phone guide, linked from the README and the site navigation",
+          "commit": "39b3744"
+        },
+        {
+          "description": "CLI reference for meeting join, and the meetings-by-phone flow in the architecture overview"
+        },
+        {
+          "description": "AAuth guide: the interop test kit at aistandardsio, running the Petstore profile with the sandbox, and showing omniagent's messages beside the protocol walkthrough",
+          "commit": "02af064"
+        },
+        {
+          "description": "Renamed the cron guide's health check example job",
+          "commit": "08a1072"
+        }
+      ],
+      "dependencies": [
+        {
+          "description": "plexusone/omnimeet-core v0.1.0 to v0.2.0, plexusone/omnivoice-core v0.16.1 to v0.18.1, plexusone/omniskill v0.12.0 to v0.12.1, and golang.org/x/net v0.61.0 to v0.62.0",
+          "commit": "a60ae2e"
+        },
+        {
+          "description": "Added plexusone/omni-twilio v0.12.0 and plexusone/omni-telnyx v0.7.0 for audio-mode calls with keypad digits and hangup",
+          "commit": "87ea788"
+        },
+        {
+          "description": "Removed the log15/v3 replace directive; log15/v3 v3.2.1 provides what ngrok needs",
+          "commit": "ddd5c2b"
+        }
+      ]
+    },
+    {
       "version": "v0.20.0",
       "date": "2026-10-26",
       "highlights": [
