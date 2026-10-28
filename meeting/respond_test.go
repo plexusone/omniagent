@@ -144,15 +144,17 @@ func (s *liveSession) say(t *testing.T, line string) {
 
 // tinySpeaker returns a clip short enough not to delay the next answer.
 type tinySpeaker struct {
-	mu    sync.Mutex
-	texts []string
+	mu      sync.Mutex
+	texts   []string
+	configs []tts.SynthesisConfig
 }
 
 func (p *tinySpeaker) Name() string { return "tiny" }
-func (p *tinySpeaker) Synthesize(_ context.Context, text string, _ tts.SynthesisConfig) (*tts.SynthesisResult, error) {
+func (p *tinySpeaker) Synthesize(_ context.Context, text string, config tts.SynthesisConfig) (*tts.SynthesisResult, error) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 	p.texts = append(p.texts, text)
+	p.configs = append(p.configs, config)
 	return &tts.SynthesisResult{Audio: make([]byte, 8), Format: "ulaw_8000"}, nil
 }
 func (p *tinySpeaker) SynthesizeStream(context.Context, string, tts.SynthesisConfig) (<-chan tts.StreamChunk, error) {
@@ -259,6 +261,11 @@ func TestAttendAnswersWhenAddressed(t *testing.T) {
 	}
 	if said[1] != "We decided to ship on Friday." {
 		t.Errorf("spoken answer = %q", said[1])
+	}
+	// With no output format set, speech is requested in the call's format,
+	// so any provider that produces mu-law at 8 kHz plays without converting.
+	if cfg := speaker.configs[0]; cfg.OutputFormat != "mulaw" || cfg.SampleRate != 8000 {
+		t.Errorf("synthesis requested %q at %d Hz, want the call's mulaw at 8000", cfg.OutputFormat, cfg.SampleRate)
 	}
 	reqs := responder.requests()
 	if len(reqs) != 1 {

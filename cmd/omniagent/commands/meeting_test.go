@@ -219,8 +219,10 @@ func TestProviderAPIKey(t *testing.T) {
 }
 
 func TestSynthesisConfigAndModels(t *testing.T) {
-	if cfg := synthesisConfig("elevenlabs", "v1"); cfg.OutputFormat != "ulaw_8000" || cfg.VoiceID != "v1" {
-		t.Errorf("elevenlabs config = %+v", cfg)
+	for _, provider := range []string{"deepgram", "elevenlabs"} {
+		if cfg := synthesisConfig(provider, "v1"); cfg.OutputFormat != "" || cfg.VoiceID != "v1" {
+			t.Errorf("%s config = %+v, want the call's own format", provider, cfg)
+		}
 	}
 	if cfg := synthesisConfig("openai", ""); cfg.OutputFormat != "pcm" || cfg.SampleRate != 24000 {
 		t.Errorf("openai config = %+v", cfg)

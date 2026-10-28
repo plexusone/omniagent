@@ -66,22 +66,26 @@ func TestTranscriptString(t *testing.T) {
 
 func TestSynthesizedFormat(t *testing.T) {
 	tests := []struct {
-		format string
-		rate   int
-		want   format.AudioFormat
-		ok     bool
+		name      string
+		format    string
+		rate      int
+		requested int
+		want      format.AudioFormat
+		ok        bool
 	}{
-		{"pcm", 24000, format.AudioFormat{Encoding: "linear16", SampleRate: 24000, Channels: 1}, true},
-		{"pcm_16000", 0, format.AudioFormat{Encoding: "linear16", SampleRate: 16000, Channels: 1}, true},
-		{"ulaw_8000", 0, format.AudioFormat{Encoding: "mulaw", SampleRate: 8000, Channels: 1}, true},
-		{"mulaw", 0, format.AudioFormat{Encoding: "mulaw", SampleRate: 8000, Channels: 1}, true},
-		{"mp3", 44100, format.AudioFormat{}, false},
-		{"pcm", 0, format.AudioFormat{}, false},
+		{"pcm with rate", "pcm", 24000, 0, format.AudioFormat{Encoding: "linear16", SampleRate: 24000, Channels: 1}, true},
+		{"rate in name", "pcm_16000", 0, 0, format.AudioFormat{Encoding: "linear16", SampleRate: 16000, Channels: 1}, true},
+		{"name beats a default rate", "ulaw_8000", 44100, 0, format.AudioFormat{Encoding: "mulaw", SampleRate: 8000, Channels: 1}, true},
+		{"mu-law defaults to 8 kHz", "mulaw", 0, 0, format.AudioFormat{Encoding: "mulaw", SampleRate: 8000, Channels: 1}, true},
+		{"rate from the request", "pcm", 0, 24000, format.AudioFormat{Encoding: "linear16", SampleRate: 24000, Channels: 1}, true},
+		{"container", "mp3", 44100, 0, format.AudioFormat{}, false},
+		{"pcm without a rate", "pcm", 0, 0, format.AudioFormat{}, false},
 	}
 	for _, tt := range tests {
-		got, err := synthesizedFormat(&tts.SynthesisResult{Format: tt.format, SampleRate: tt.rate})
+		got, err := synthesizedFormat(&tts.SynthesisResult{Format: tt.format, SampleRate: tt.rate},
+			tts.SynthesisConfig{SampleRate: tt.requested})
 		if (err == nil) != tt.ok || got != tt.want {
-			t.Errorf("synthesizedFormat(%q, %d) = %+v, %v", tt.format, tt.rate, got, err)
+			t.Errorf("%s: synthesizedFormat(%q, %d) = %+v, %v", tt.name, tt.format, tt.rate, got, err)
 		}
 	}
 }
