@@ -242,3 +242,33 @@ func TestRunMeetingJoinRequiresPublicURL(t *testing.T) {
 		t.Fatalf("runMeetingJoin() error = %v, want a --public-url error", err)
 	}
 }
+
+func TestNewMeetingLLM(t *testing.T) {
+	for _, env := range []string{"ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GEMINI_API_KEY"} {
+		t.Setenv(env, "")
+	}
+	if _, _, err := newMeetingLLM(meetingJoinOptions{}); err == nil || !strings.Contains(err.Error(), "no provider") {
+		t.Errorf("without API keys: error = %v", err)
+	}
+
+	t.Setenv("OPENAI_API_KEY", "test-api-key")
+	client, model, err := newMeetingLLM(meetingJoinOptions{})
+	if err != nil {
+		t.Fatalf("newMeetingLLM() error: %v", err)
+	}
+	if client == nil || model != "gpt-4o" {
+		t.Errorf("detected LLM = %v, %q; want an OpenAI client with gpt-4o", client, model)
+	}
+	if _, model, err := newMeetingLLM(meetingJoinOptions{LLM: "openai", Model: "gpt-5"}); err != nil || model != "gpt-5" {
+		t.Errorf("explicit model = %q, %v", model, err)
+	}
+}
+
+func TestMeetingJoinAnswerFlags(t *testing.T) {
+	f := meetingJoinCmd.Flags()
+	for _, name := range []string{"no-answer", "answer-to"} {
+		if f.Lookup(name) == nil {
+			t.Errorf("meeting join has no --%s flag", name)
+		}
+	}
+}

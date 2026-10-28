@@ -17,6 +17,7 @@ func TestRecordMarkdown(t *testing.T) {
 		FinalState: attendee.StateEnded,
 		Transcript: Transcript{{Start: time.Minute, Text: "Kickoff."}},
 		Summary:    &Summary{Overview: "Planned the quarter.", Decisions: []string{"Ship v2"}},
+		Exchanges:  []Exchange{{At: 2 * time.Minute, Question: "OmniAgent, what did we decide?", Answer: "Ship v2."}},
 	}).Markdown()
 	for _, want := range []string{
 		"# Meeting Notes",
@@ -26,6 +27,7 @@ func TestRecordMarkdown(t *testing.T) {
 		"- **Ended as:** ended",
 		"## Summary\n\nPlanned the quarter.",
 		"## Decisions\n\n- Ship v2",
+		"## Questions Answered\n\n**[00:02:00]** OmniAgent, what did we decide?\n\n> Ship v2.\n\n## Transcript",
 		"## Transcript\n\n```text\n[00:01:00] Kickoff.\n```",
 	} {
 		if !strings.Contains(full, want) {
@@ -35,6 +37,7 @@ func TestRecordMarkdown(t *testing.T) {
 
 	empty := (&Record{}).Markdown()
 	if !strings.Contains(empty, "Nothing was transcribed.") || strings.Contains(empty, "## Summary") ||
+		strings.Contains(empty, "## Questions Answered") ||
 		strings.Contains(empty, "**Duration:**") || !strings.Contains(empty, "- **Platform:** unknown") {
 		t.Errorf("Markdown() of an empty record:\n%s", empty)
 	}
