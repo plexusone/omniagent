@@ -70,6 +70,7 @@ OmniAgent supports multiple connection methods for different use cases:
 | **OpenAI-Compatible API** | HTTP/SSE | Programmatic access, web apps | Streaming |
 | **Phone Calls** | Twilio/Telnyx | PSTN voice conversations | Traditional: 500ms+, Realtime: ~100ms |
 | **LiveKit (WebRTC)** | WebRTC | Browser/mobile voice, meetings | ~100-300ms |
+| **Meetings by Phone** | Twilio/Telnyx | Attend Zoom, Meet, and Teams meetings by dial-in; transcript and summary | Live transcript |
 
 **Quick links:**
 
@@ -77,6 +78,7 @@ OmniAgent supports multiple connection methods for different use cases:
 - [OpenAI API](#openai-compatible-api) - Use any OpenAI client library
 - [Voice Gateway](#voice-gateway) - Phone calls via Twilio/Telnyx
 - [LiveKit Agents](#livekit-voice-agents) - WebRTC voice in meetings
+- [Meetings by Phone](docs/guides/meetings.md) - `omniagent meeting join --invite meeting.ics` attends a meeting and writes notes
 
 ### Screenshots
 

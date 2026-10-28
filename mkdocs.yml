@@ -57,6 +57,7 @@ nav:
       - WhatsApp Setup: guides/whatsapp.md
       - Twilio Setup: guides/twilio.md
       - Voice Integration: guides/voice.md
+      - Meetings by Phone: guides/meetings.md
       - Auto-Reply: guides/autoreply.md
       - OpenAI-Compatible API: guides/openai-api.md
   - Agents:
