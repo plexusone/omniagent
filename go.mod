@@ -32,6 +32,8 @@ require (
 	github.com/pkoukk/tiktoken-go v0.1.8
 	github.com/plexusone/agentauth v0.2.0
 	github.com/plexusone/omni-livekit v0.5.1
+	github.com/plexusone/omni-telnyx v0.7.0
+	github.com/plexusone/omni-twilio v0.12.0
 	github.com/plexusone/omnichat v0.8.1
 	github.com/plexusone/omniimage v0.1.0
 	github.com/plexusone/omnillm v0.17.1
@@ -231,8 +233,6 @@ require (
 	github.com/plexusone/omni-onepassword v0.4.0 // indirect
 	github.com/plexusone/omni-openai v0.7.1 // indirect
 	github.com/plexusone/omni-openrouter v0.2.1 // indirect
-	github.com/plexusone/omni-telnyx v0.7.0 // indirect
-	github.com/plexusone/omni-twilio v0.12.0 // indirect
 	github.com/plexusone/omniavatar v0.3.0 // indirect
 	github.com/plexusone/omniavatar-core v0.4.0 // indirect
 	github.com/plexusone/tavus-go v0.3.0 // indirect
