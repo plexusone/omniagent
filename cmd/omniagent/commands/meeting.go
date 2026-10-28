@@ -43,8 +43,9 @@ var meetingJoinCmd = &cobra.Command{
 	Use:   "join",
 	Short: "Join a meeting by phone, transcribe it, and write notes",
 	Long: `Join a meeting by phone dial-in from its invitation, announce the agent,
-print the transcript as the meeting goes, and write meeting notes with a
-summary, decisions, and action items when it ends.
+print the transcript as the meeting goes, answer when someone addresses the
+agent by name, and write meeting notes with a summary, decisions, and action
+items when it ends.
 
 The invitation is an email or calendar description saved as text, or an .ics
 file; use "-" to read it from standard input. The meeting must list a phone
@@ -53,13 +54,17 @@ dial-in number. Press Ctrl+C to leave early.
 The agent announces that it is an AI assistant transcribing the meeting when
 it is admitted. Get consent from the meeting's participants before recording.
 
+After that it stays silent unless addressed by name ("OmniAgent, what did we
+decide?"). It answers briefly from the transcript and has no tools, so what
+participants say cannot make it act.
+
 Required environment variables:
   Twilio:  TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
   Telnyx:  TELNYX_API_KEY, TELNYX_CONNECTION_ID
   NGROK_AUTHTOKEN       with --ngrok
   DEEPGRAM_API_KEY      for the default speech-to-text provider
   ELEVENLABS_API_KEY    for the default text-to-speech provider
-  ANTHROPIC_API_KEY or OPENAI_API_KEY for the summary
+  ANTHROPIC_API_KEY or OPENAI_API_KEY for answers and the summary
 
 Examples:
   omniagent meeting join --invite meeting.ics --phone +14155550199 --ngrok
@@ -80,6 +85,8 @@ type meetingJoinOptions struct {
 	Name        string
 	OnBehalfOf  string
 	NoAnnounce  bool
+	NoAnswer    bool
+	AnswerTo    []string
 	STT         string
 	STTModel    string
 	Language    string
@@ -108,14 +115,16 @@ func init() {
 	f.StringVar(&o.Country, "country", "US", "Country of the dial-in number to call (ISO 3166-1 alpha-2)")
 	f.StringVar(&o.Name, "name", "OmniAgent", "Name the agent announces itself with")
 	f.StringVar(&o.OnBehalfOf, "on-behalf-of", "", "Person the agent attends for, named in the announcement")
-	f.BoolVar(&o.NoAnnounce, "no-announce", false, "Do not announce the agent when it joins")
+	f.BoolVar(&o.NoAnnounce, "no-announce", false, "Do not announce the agent when it joins; it then never speaks")
+	f.BoolVar(&o.NoAnswer, "no-answer", false, "Do not answer when addressed by name")
+	f.StringSliceVar(&o.AnswerTo, "answer-to", nil, "Other names the agent answers to, besides --name (repeatable)")
 	f.StringVar(&o.STT, "stt", "deepgram", "Streaming speech-to-text provider")
 	f.StringVar(&o.STTModel, "stt-model", "", "Speech-to-text model")
 	f.StringVar(&o.Language, "language", "", "Meeting language, for example en-US")
 	f.StringVar(&o.TTS, "tts", "elevenlabs", "Text-to-speech provider for the announcement")
 	f.StringVar(&o.Voice, "voice", "", "Text-to-speech voice ID")
-	f.StringVar(&o.LLM, "llm", "", "LLM provider for the summary (anthropic, openai, gemini); detected from API keys if empty")
-	f.StringVar(&o.Model, "model", "", "LLM model for the summary")
+	f.StringVar(&o.LLM, "llm", "", "LLM provider for answers and the summary (anthropic, openai, gemini); detected from API keys if empty")
+	f.StringVar(&o.Model, "model", "", "LLM model for answers and the summary")
 	f.BoolVar(&o.NoSummary, "no-summary", false, "Skip the summary")
 	f.StringVar(&o.Out, "out", "", "Meeting notes Markdown file (default: meeting-<time>.md)")
 	f.StringVar(&o.JSONOut, "json", "", "Also write the full record as JSON to this file")
@@ -154,10 +163,21 @@ func runMeetingJoin(cmd *cobra.Command, _ []string) error {
 			return fmt.Errorf("%w (or use --no-announce)", err)
 		}
 	}
-	var summarizer meeting.Summarizer
-	if !o.NoSummary {
-		if summarizer, err = newMeetingSummarizer(o); err != nil {
-			return fmt.Errorf("%w (or use --no-summary)", err)
+	var (
+		summarizer meeting.Summarizer
+		responder  meeting.Responder
+	)
+	answer := !o.NoAnswer && speaker != nil
+	if !o.NoSummary || answer {
+		llm, model, err := newMeetingLLM(o)
+		if err != nil {
+			return fmt.Errorf("%w (or use --no-summary and --no-answer)", err)
+		}
+		if !o.NoSummary {
+			summarizer = meeting.LLMSummarizer{Client: llm, Model: model}
+		}
+		if answer {
+			responder = meeting.LLMResponder{Client: llm, Model: model}
 		}
 	}
 
@@ -203,6 +223,7 @@ func runMeetingJoin(cmd *cobra.Command, _ []string) error {
 		Gateway:     gw,
 		Transcriber: transcriber,
 		Speaker:     speaker,
+		Responder:   responder,
 		Summarizer:  summarizer,
 	}, target, o, out)
 
@@ -225,6 +246,7 @@ type meetingDeps struct {
 	Gateway     gateway.Gateway
 	Transcriber meeting.Transcriber
 	Speaker     tts.Provider
+	Responder   meeting.Responder
 	Summarizer  meeting.Summarizer
 	JoinOptions []dialin.JoinerOption
 }
@@ -241,11 +263,13 @@ func attendMeeting(ctx context.Context, deps meetingDeps, target attendee.JoinTa
 
 	cfg := meeting.Config{
 		Name:                o.Name,
+		Names:               o.AnswerTo,
 		OnBehalfOf:          o.OnBehalfOf,
 		Transcriber:         deps.Transcriber,
 		TranscriptionConfig: stt.TranscriptionConfig{Model: o.STTModel, Language: o.Language, EnablePunctuation: true},
 		Speaker:             deps.Speaker,
 		SynthesisConfig:     synthesisConfig(o.TTS, o.Voice),
+		Responder:           deps.Responder,
 		Summarizer:          deps.Summarizer,
 		OnSegment: func(s meeting.Segment) {
 			printOut(out, "%s", meeting.Transcript{s}.String())
@@ -329,11 +353,12 @@ func newMeetingTranscriber(o meetingJoinOptions) (meeting.Transcriber, error) {
 	return streaming, nil
 }
 
-// newMeetingSpeaker returns the text-to-speech provider for the announcement.
+// newMeetingSpeaker returns the text-to-speech provider for the announcement
+// and answers.
 func newMeetingSpeaker(o meetingJoinOptions) (tts.Provider, error) {
 	key, err := providerAPIKey(o.TTS)
 	if err != nil {
-		return nil, fmt.Errorf("text-to-speech for the announcement: %w", err)
+		return nil, fmt.Errorf("text-to-speech for the agent's voice: %w", err)
 	}
 	p, err := omnivoice.GetTTSProvider(o.TTS, omnivoice.WithAPIKey(key))
 	if err != nil {
@@ -342,8 +367,9 @@ func newMeetingSpeaker(o meetingJoinOptions) (tts.Provider, error) {
 	return p, nil
 }
 
-// newMeetingSummarizer returns an LLM summarizer.
-func newMeetingSummarizer(o meetingJoinOptions) (meeting.Summarizer, error) {
+// newMeetingLLM returns the chat client and model for answers and the
+// summary.
+func newMeetingLLM(o meetingJoinOptions) (meeting.ChatCompleter, string, error) {
 	llm := o.LLM
 	if llm == "" {
 		switch {
@@ -354,24 +380,24 @@ func newMeetingSummarizer(o meetingJoinOptions) (meeting.Summarizer, error) {
 		case os.Getenv("GEMINI_API_KEY") != "":
 			llm = "gemini"
 		default:
-			return nil, errors.New("summary: no LLM provider; set ANTHROPIC_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY")
+			return nil, "", errors.New("LLM: no provider; set ANTHROPIC_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY")
 		}
 	}
 	key, err := providerAPIKey(llm)
 	if err != nil {
-		return nil, fmt.Errorf("summary: %w", err)
+		return nil, "", fmt.Errorf("LLM: %w", err)
 	}
 	client, err := omnillm.NewClient(omnillm.ClientConfig{
 		Providers: []omnillm.ProviderConfig{{Provider: omnillm.ProviderName(llm), APIKey: key}},
 	})
 	if err != nil {
-		return nil, fmt.Errorf("summary: create LLM client: %w", err)
+		return nil, "", fmt.Errorf("LLM: create client: %w", err)
 	}
 	model := o.Model
 	if model == "" {
 		model = defaultSummaryModel(llm)
 	}
-	return meeting.LLMSummarizer{Client: client, Model: model}, nil
+	return client, model, nil
 }
 
 func defaultSummaryModel(llm string) string {
