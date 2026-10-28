@@ -170,7 +170,7 @@ func runVoiceServe(cmd *cobra.Command, args []string) error {
 
 	if voiceNgrok {
 		var err error
-		ngrokListener, publicURL, err = createNgrokTunnel(ctx, logger)
+		ngrokListener, publicURL, err = createNgrokTunnel(ctx, logger, voiceNgrokDomain)
 		if err != nil {
 			return fmt.Errorf("create ngrok tunnel: %w", err)
 		}
@@ -353,7 +353,8 @@ func runVoiceServe(cmd *cobra.Command, args []string) error {
 }
 
 // createNgrokTunnel creates an ngrok tunnel and returns the listener and public URL.
-func createNgrokTunnel(ctx context.Context, logger *slog.Logger) (net.Listener, string, error) {
+// domain is an optional custom ngrok domain.
+func createNgrokTunnel(ctx context.Context, logger *slog.Logger, domain string) (net.Listener, string, error) {
 	authtoken := os.Getenv("NGROK_AUTHTOKEN")
 	if authtoken == "" {
 		return nil, "", fmt.Errorf("NGROK_AUTHTOKEN environment variable is required for --ngrok")
@@ -368,8 +369,8 @@ func createNgrokTunnel(ctx context.Context, logger *slog.Logger) (net.Listener, 
 
 	// Configure the HTTP endpoint
 	httpConfig := ngrokconfig.HTTPEndpoint()
-	if voiceNgrokDomain != "" {
-		httpConfig = ngrokconfig.HTTPEndpoint(ngrokconfig.WithDomain(voiceNgrokDomain))
+	if domain != "" {
+		httpConfig = ngrokconfig.HTTPEndpoint(ngrokconfig.WithDomain(domain))
 	}
 
 	// Create the tunnel
