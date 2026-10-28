@@ -146,6 +146,56 @@ omniagent voice call <phone-number> [flags]
 omniagent voice call +1234567890 --public-url https://your-server.com
 ```
 
+## Meeting
+
+### meeting join
+
+Attend a Zoom, Google Meet, or Microsoft Teams meeting by phone dial-in.
+OmniAgent reads the dial-in number, meeting ID, and passcode from the
+invitation, calls in through Twilio or Telnyx, announces itself, prints the
+transcript as it goes, and writes meeting notes with a summary when the
+meeting ends or you press Ctrl+C.
+
+```bash
+omniagent meeting join --invite <file|-> [flags]
+```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--invite` | Invitation text or `.ics` file, or `-` for standard input (required) | - |
+| `--provider` | Telephony provider: `twilio` or `telnyx` | `twilio` |
+| `--phone` | Caller ID for the call, in E.164 form | `TWILIO_PHONE_NUMBER` or `TELNYX_PHONE_NUMBER` |
+| `--public-url` | Public URL where the provider reaches this machine | - |
+| `--ngrok` | Open an ngrok tunnel instead of `--public-url` | `false` |
+| `--ngrok-domain` | Custom ngrok domain | - |
+| `--listen` | Address to listen on for the provider's webhooks | `:8080` |
+| `--country` | Country of the dial-in number to call | `US` |
+| `--name` | Name the agent announces itself with | `OmniAgent` |
+| `--on-behalf-of` | Person the agent attends for, named in the announcement | - |
+| `--no-announce` | Do not announce the agent | `false` |
+| `--stt`, `--stt-model`, `--language` | Speech-to-text provider, model, and language | `deepgram` |
+| `--tts`, `--voice` | Text-to-speech provider and voice for the announcement | `elevenlabs` |
+| `--llm`, `--model` | LLM provider and model for the summary | detected from API keys |
+| `--no-summary` | Skip the summary | `false` |
+| `--out` | Meeting notes Markdown file | `meeting-<time>.md` |
+| `--json` | Also write the full record as JSON to this file | - |
+| `--max-duration` | Leave the meeting after this long | `2h` |
+
+**Examples:**
+
+```bash
+# Attend from a calendar file through an ngrok tunnel
+omniagent meeting join --invite meeting.ics --ngrok
+
+# Pipe the invitation text, using Telnyx
+pbpaste | omniagent meeting join --invite - --provider telnyx --public-url https://agent.example.com
+```
+
+See [Attending Meetings by Phone](../guides/meetings.md) for credentials and
+limitations.
+
 ## Skills
 
 ### skills list

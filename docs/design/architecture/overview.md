@@ -225,6 +225,28 @@ OmniAgent supports two voice processing architectures:
 
 See [Voice Integration Guide](../../guides/voice.md) for configuration details.
 
+**Meetings by Phone**
+
+```
+1. Meeting invitation parsed (omnimeet-core invite)
+         │
+         ▼
+2. Dial-in number called; meeting ID and passcode sent as keypad digits
+   (omnimeet-core dialin, over an audio-mode Twilio or Telnyx gateway)
+         │
+         ▼
+3. Announcement spoken, meeting audio streamed to STT (meeting.Attendant)
+         │
+         ▼
+4. Transcript summarized by the LLM into meeting notes
+```
+
+- The agent listens; it speaks only to announce itself
+- Use case: attending Zoom, Google Meet, and Teams meetings without a
+  per-platform app
+
+See [Attending Meetings by Phone](../../guides/meetings.md).
+
 ## Omni* Library Ecosystem
 
 OmniAgent is built on a modular ecosystem of `omni*` libraries. Each library follows a core/provider split pattern where core modules contain interfaces and generic functionality, while provider modules contain SDK-specific implementations.
@@ -318,6 +340,7 @@ OmniAgent is built on a modular ecosystem of `omni*` libraries. Each library fol
 | [omnivault](https://github.com/plexusone/omnivault) | Secret and credential vaults |
 | [omnimemory](https://github.com/plexusone/omnimemory) | Scoped agent memory |
 | [omniskill](https://github.com/plexusone/omniskill) | Skill and tool interfaces |
+| [omnimeet-core](https://github.com/plexusone/omnimeet-core) | Meeting invitations and phone dial-in |
 
 ### Infrastructure
 
