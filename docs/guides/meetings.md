@@ -18,8 +18,9 @@ You need:
 - **A telephony account:** Twilio or Telnyx, with a phone number to call from.
 - **A public URL** where the provider can reach OmniAgent's webhooks and media
   stream. Use `--ngrok` for local development.
-- **Speech-to-text:** a streaming provider; Deepgram by default.
-- **Text-to-speech** for the announcement and answers; ElevenLabs by default.
+- **Speech-to-text** and **text-to-speech** for the agent's voice: Deepgram
+  by default, so one key covers both. ElevenLabs and OpenAI also work for the
+  voice, and the providers are interchangeable.
 - **An LLM** for answers and the summary: Anthropic, OpenAI, or Gemini.
 
 Set the credentials as environment variables:
@@ -30,7 +31,6 @@ export TWILIO_AUTH_TOKEN=...
 export TWILIO_PHONE_NUMBER=+14155550199
 export NGROK_AUTHTOKEN=...
 export DEEPGRAM_API_KEY=...
-export ELEVENLABS_API_KEY=...
 export ANTHROPIC_API_KEY=...
 ```
 
@@ -122,6 +122,18 @@ matter ("Omni Agent" matches "OmniAgent"); for other spellings, add them with
 Pass `--no-answer` to keep the agent silent after its announcement.
 `--no-announce` keeps it silent throughout.
 
+## Choosing a Voice
+
+The agent's voice is requested in the phone call's own format, 8 kHz mu-law,
+which Deepgram and ElevenLabs produce directly; OpenAI's audio is converted.
+`--voice` takes each provider's own voice name:
+
+| `--tts` | Key | `--voice` example |
+|---------|-----|-------------------|
+| `deepgram` | `DEEPGRAM_API_KEY` | `aura-2-thalia-en`; `aura-asteria-en` when empty |
+| `elevenlabs` | `ELEVENLABS_API_KEY` | an ElevenLabs voice ID |
+| `openai` | `OPENAI_API_KEY` | `alloy` |
+
 ## Options
 
 | Flag | Default | Description |
@@ -139,7 +151,7 @@ Pass `--no-answer` to keep the agent silent after its announcement.
 | `--no-answer` | `false` | Do not answer when addressed by name |
 | `--answer-to` | | Other names the agent answers to, besides `--name` (repeatable) |
 | `--stt`, `--stt-model`, `--language` | `deepgram` | Speech-to-text provider, model, and language |
-| `--tts`, `--voice` | `elevenlabs` | Text-to-speech provider and voice for the announcement and answers |
+| `--tts`, `--voice` | `deepgram` | Text-to-speech provider (`deepgram`, `elevenlabs`, `openai`) and voice for the announcement and answers |
 | `--llm`, `--model` | detected | LLM provider and model for answers and the summary |
 | `--no-summary` | `false` | Skip the summary |
 | `--out` | `meeting-<time>.md` | Meeting notes file |
@@ -185,7 +197,7 @@ if err != nil {
 record, err := meeting.New(meeting.Config{
     Name:        "OmniAgent",
     Transcriber: deepgram, // an omnivoice-core stt.StreamingProvider
-    Speaker:     elevenlabs,
+    Speaker:     deepgramTTS, // any omnivoice-core tts.Provider
     Responder:   meeting.LLMResponder{Client: llm, Model: "claude-sonnet-5"},
     Summarizer:  meeting.LLMSummarizer{Client: llm, Model: "claude-sonnet-5"},
 }).Attend(ctx, sess)

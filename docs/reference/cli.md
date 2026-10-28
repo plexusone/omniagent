@@ -178,7 +178,7 @@ omniagent meeting join --invite <file|-> [flags]
 | `--no-answer` | Do not answer when addressed by name | `false` |
 | `--answer-to` | Other names the agent answers to, besides `--name` (repeatable) | - |
 | `--stt`, `--stt-model`, `--language` | Speech-to-text provider, model, and language | `deepgram` |
-| `--tts`, `--voice` | Text-to-speech provider and voice for the announcement and answers | `elevenlabs` |
+| `--tts`, `--voice` | Text-to-speech provider (`deepgram`, `elevenlabs`, `openai`) and voice for the announcement and answers | `deepgram` |
 | `--llm`, `--model` | LLM provider and model for answers and the summary | detected from API keys |
 | `--no-summary` | Skip the summary | `false` |
 | `--out` | Meeting notes Markdown file | `meeting-<time>.md` |
