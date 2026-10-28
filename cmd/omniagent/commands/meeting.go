@@ -62,8 +62,7 @@ Required environment variables:
   Twilio:  TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
   Telnyx:  TELNYX_API_KEY, TELNYX_CONNECTION_ID
   NGROK_AUTHTOKEN       with --ngrok
-  DEEPGRAM_API_KEY      for the default speech-to-text provider
-  ELEVENLABS_API_KEY    for the default text-to-speech provider
+  DEEPGRAM_API_KEY      for the default speech-to-text and text-to-speech
   ANTHROPIC_API_KEY or OPENAI_API_KEY for answers and the summary
 
 Examples:
@@ -121,8 +120,8 @@ func init() {
 	f.StringVar(&o.STT, "stt", "deepgram", "Streaming speech-to-text provider")
 	f.StringVar(&o.STTModel, "stt-model", "", "Speech-to-text model")
 	f.StringVar(&o.Language, "language", "", "Meeting language, for example en-US")
-	f.StringVar(&o.TTS, "tts", "elevenlabs", "Text-to-speech provider for the announcement")
-	f.StringVar(&o.Voice, "voice", "", "Text-to-speech voice ID")
+	f.StringVar(&o.TTS, "tts", "deepgram", "Text-to-speech provider for the agent's voice (deepgram, elevenlabs, openai)")
+	f.StringVar(&o.Voice, "voice", "", "Text-to-speech voice: a Deepgram model such as aura-2-thalia-en, an ElevenLabs voice ID, or an OpenAI voice")
 	f.StringVar(&o.LLM, "llm", "", "LLM provider for answers and the summary (anthropic, openai, gemini); detected from API keys if empty")
 	f.StringVar(&o.Model, "model", "", "LLM model for answers and the summary")
 	f.BoolVar(&o.NoSummary, "no-summary", false, "Skip the summary")
@@ -436,14 +435,13 @@ func providerAPIKey(provider string) (string, error) {
 	return key, nil
 }
 
-// synthesisConfig requests audio a call can play: mu-law at 8 kHz where the
-// provider offers it, raw PCM otherwise.
+// synthesisConfig sets the voice. The attendant requests the call's own
+// format, mu-law at 8 kHz, which Deepgram and ElevenLabs produce directly.
+// OpenAI produces raw audio only as 24 kHz PCM, which is converted for the
+// call.
 func synthesisConfig(provider, voiceID string) tts.SynthesisConfig {
 	cfg := tts.SynthesisConfig{VoiceID: voiceID}
-	switch provider {
-	case "elevenlabs":
-		cfg.OutputFormat = "ulaw_8000"
-	default:
+	if provider == "openai" {
 		cfg.OutputFormat = "pcm"
 		cfg.SampleRate = 24000
 	}
