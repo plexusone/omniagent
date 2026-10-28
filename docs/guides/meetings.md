@@ -2,9 +2,9 @@
 
 OmniAgent can attend Zoom, Google Meet, and Microsoft Teams meetings hosted by
 others by dialing in on the phone, like a participant calling from a desk
-phone. It announces itself, transcribes the meeting as it goes, and writes
-meeting notes with a summary, decisions, and action items when the meeting
-ends.
+phone. It announces itself, transcribes the meeting as it goes, answers when
+someone addresses it by name, and writes meeting notes with a summary,
+decisions, and action items when the meeting ends.
 
 Phone dial-in works with any meeting whose invitation lists a dial-in number
 and needs no app registration with the meeting platform. The agent hears one
@@ -19,8 +19,8 @@ You need:
 - **A public URL** where the provider can reach OmniAgent's webhooks and media
   stream. Use `--ngrok` for local development.
 - **Speech-to-text:** a streaming provider; Deepgram by default.
-- **Text-to-speech** for the announcement; ElevenLabs by default.
-- **An LLM** for the summary: Anthropic, OpenAI, or Gemini.
+- **Text-to-speech** for the announcement and answers; ElevenLabs by default.
+- **An LLM** for answers and the summary: Anthropic, OpenAI, or Gemini.
 
 Set the credentials as environment variables:
 
@@ -94,6 +94,34 @@ The team reviewed launch readiness and moved the launch to Thursday.
 ...
 ```
 
+## Asking the Agent a Question
+
+After its announcement, which ends by inviting questions, the agent stays
+silent until someone says its name:
+
+```text
+[00:14:02] OmniAgent, what did we decide about the launch?
+[00:14:05] OmniAgent: We moved the launch to Thursday, and Dana is updating the roadmap.
+```
+
+Saying the name alone also works: after "Hey OmniAgent?", the next sentence is
+taken as the question. The agent answers in a sentence or two from the recent
+transcript and adds the exchange to the meeting notes under **Questions
+Answered**. It answers one question at a time, and only after the meeting has
+admitted it.
+
+Speech to text may spell an unusual name differently. Spacing and case do not
+matter ("Omni Agent" matches "OmniAgent"); for other spellings, add them with
+`--answer-to`, for example `--answer-to Omni`.
+
+!!! note "What participants say is untrusted"
+    Anyone in the meeting can address the agent, so while answering it has no
+    tools: it cannot send messages, look things up, or change anything. If
+    asked to do something, it says it will include the request in the notes.
+
+Pass `--no-answer` to keep the agent silent after its announcement.
+`--no-announce` keeps it silent throughout.
+
 ## Options
 
 | Flag | Default | Description |
@@ -107,10 +135,12 @@ The team reviewed launch readiness and moved the launch to Thursday.
 | `--country` | `US` | Country of the dial-in number to call |
 | `--name` | `OmniAgent` | Name the agent announces itself with |
 | `--on-behalf-of` | | Person the agent attends for, named in the announcement |
-| `--no-announce` | `false` | Do not announce the agent |
+| `--no-announce` | `false` | Do not announce the agent; it then never speaks |
+| `--no-answer` | `false` | Do not answer when addressed by name |
+| `--answer-to` | | Other names the agent answers to, besides `--name` (repeatable) |
 | `--stt`, `--stt-model`, `--language` | `deepgram` | Speech-to-text provider, model, and language |
-| `--tts`, `--voice` | `elevenlabs` | Text-to-speech provider and voice for the announcement |
-| `--llm`, `--model` | detected | LLM provider and model for the summary |
+| `--tts`, `--voice` | `elevenlabs` | Text-to-speech provider and voice for the announcement and answers |
+| `--llm`, `--model` | detected | LLM provider and model for answers and the summary |
 | `--no-summary` | `false` | Skip the summary |
 | `--out` | `meeting-<time>.md` | Meeting notes file |
 | `--json` | | Also write the full record as JSON |
@@ -119,6 +149,8 @@ The team reviewed launch readiness and moved the launch to Thursday.
 ## Limitations
 
 - **No speaker names.** Phone dial-in delivers one mixed audio stream.
+- **Answers start after the speaker finishes.** The agent answers once the
+  question's sentence is transcribed, so expect a pause of a few seconds.
 - **Admission is estimated.** The phone line does not report when the meeting
   admits the caller, so the agent announces itself once the keypad sequence has
   had time to finish. A waiting room is not detected.
@@ -133,7 +165,10 @@ The team reviewed launch readiness and moved the launch to Thursday.
 The command is built from reusable packages:
 
 - `meeting.Attendant` (`github.com/plexusone/omniagent/meeting`) attends any
-  OmniMeet `attendee.Session`: it announces, transcribes, and summarizes.
+  OmniMeet `attendee.Session`: it announces, transcribes, answers when
+  addressed, and summarizes. `meeting.LLMResponder` answers from the
+  transcript with no tools; implement `meeting.Responder` to answer another
+  way.
 - `voice.NewAudioGateway` builds a Twilio or Telnyx gateway in audio mode.
 - OmniMeet's `invite` and `dialin` packages parse invitations and join by
   phone; `dialin/dialintest` simulates meetings for tests.
@@ -151,6 +186,7 @@ record, err := meeting.New(meeting.Config{
     Name:        "OmniAgent",
     Transcriber: deepgram, // an omnivoice-core stt.StreamingProvider
     Speaker:     elevenlabs,
+    Responder:   meeting.LLMResponder{Client: llm, Model: "claude-sonnet-5"},
     Summarizer:  meeting.LLMSummarizer{Client: llm, Model: "claude-sonnet-5"},
 }).Attend(ctx, sess)
 ```

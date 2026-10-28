@@ -153,8 +153,8 @@ omniagent voice call +1234567890 --public-url https://your-server.com
 Attend a Zoom, Google Meet, or Microsoft Teams meeting by phone dial-in.
 OmniAgent reads the dial-in number, meeting ID, and passcode from the
 invitation, calls in through Twilio or Telnyx, announces itself, prints the
-transcript as it goes, and writes meeting notes with a summary when the
-meeting ends or you press Ctrl+C.
+transcript as it goes, answers when addressed by name, and writes meeting
+notes with a summary when the meeting ends or you press Ctrl+C.
 
 ```bash
 omniagent meeting join --invite <file|-> [flags]
@@ -174,10 +174,12 @@ omniagent meeting join --invite <file|-> [flags]
 | `--country` | Country of the dial-in number to call | `US` |
 | `--name` | Name the agent announces itself with | `OmniAgent` |
 | `--on-behalf-of` | Person the agent attends for, named in the announcement | - |
-| `--no-announce` | Do not announce the agent | `false` |
+| `--no-announce` | Do not announce the agent; it then never speaks | `false` |
+| `--no-answer` | Do not answer when addressed by name | `false` |
+| `--answer-to` | Other names the agent answers to, besides `--name` (repeatable) | - |
 | `--stt`, `--stt-model`, `--language` | Speech-to-text provider, model, and language | `deepgram` |
-| `--tts`, `--voice` | Text-to-speech provider and voice for the announcement | `elevenlabs` |
-| `--llm`, `--model` | LLM provider and model for the summary | detected from API keys |
+| `--tts`, `--voice` | Text-to-speech provider and voice for the announcement and answers | `elevenlabs` |
+| `--llm`, `--model` | LLM provider and model for answers and the summary | detected from API keys |
 | `--no-summary` | Skip the summary | `false` |
 | `--out` | Meeting notes Markdown file | `meeting-<time>.md` |
 | `--json` | Also write the full record as JSON to this file | - |
