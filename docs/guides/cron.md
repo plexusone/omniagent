@@ -165,7 +165,7 @@ LLM calls: cron_create(
 User: Set up an hourly health check for our API
 
 LLM calls: cron_create(
-  name="API Health Check",
+  name="Hourly Health Check",
   schedule_interval="1h",
   action_type="call_webhook",
   webhook_url="https://api.example.com/health"
