@@ -6,6 +6,7 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/plexusone/omnivoice-core/audio/converter"
 	"github.com/plexusone/omnivoice-core/audio/format"
@@ -23,28 +24,46 @@ func DefaultAnnouncement(name, onBehalfOf string) string {
 		"and will share a summary afterwards.", name, who)
 }
 
+// answerInvitation is added to the default announcement when the agent
+// answers questions.
+const answerInvitation = " Say my name if you'd like me to answer a question."
+
 // speak synthesizes text and plays it into the meeting, converting the
-// synthesized audio to the meeting's format.
+// synthesized audio to the meeting's format. It returns how long the speech
+// lasts: the write returns once the audio is queued, before it is heard.
 func speak(ctx context.Context, provider tts.Provider, config tts.SynthesisConfig,
-	text string, out io.Writer, outFormat format.AudioFormat) error {
+	text string, out io.Writer, outFormat format.AudioFormat) (time.Duration, error) {
 	result, err := provider.Synthesize(ctx, text, config)
 	if err != nil {
-		return fmt.Errorf("synthesize speech: %w", err)
+		return 0, fmt.Errorf("synthesize speech: %w", err)
 	}
 	from, err := synthesizedFormat(result)
 	if err != nil {
-		return err
+		return 0, err
 	}
 	audio := result.Audio
 	if from != outFormat {
 		if audio, err = converter.New().Convert(audio, from, outFormat); err != nil {
-			return fmt.Errorf("convert speech from %s %d Hz: %w", from.Encoding, from.SampleRate, err)
+			return 0, fmt.Errorf("convert speech from %s %d Hz: %w", from.Encoding, from.SampleRate, err)
 		}
 	}
 	if _, err := out.Write(audio); err != nil {
-		return fmt.Errorf("play speech: %w", err)
+		return 0, fmt.Errorf("play speech: %w", err)
 	}
-	return nil
+	return playTime(len(audio), outFormat), nil
+}
+
+// playTime is how long n bytes of audio in f take to play.
+func playTime(n int, f format.AudioFormat) time.Duration {
+	bytesPerSample := 2
+	if format.Encoding(f.Encoding).Normalize() == format.MuLaw {
+		bytesPerSample = 1
+	}
+	perSecond := f.SampleRate * max(f.Channels, 1) * bytesPerSample
+	if perSecond == 0 {
+		return 0
+	}
+	return time.Duration(n) * time.Second / time.Duration(perSecond)
 }
 
 // synthesizedFormat reads the audio format of a TTS result. Providers name

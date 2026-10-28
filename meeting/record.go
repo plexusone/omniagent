@@ -33,6 +33,13 @@ func (r *Record) Markdown() string {
 		b.WriteString("\n")
 	}
 
+	if len(r.Exchanges) > 0 {
+		b.WriteString("## Questions Answered\n\n")
+		for _, e := range r.Exchanges {
+			fmt.Fprintf(&b, "**[%s]** %s\n\n> %s\n\n", clock(e.At), e.Question, e.Answer)
+		}
+	}
+
 	b.WriteString("## Transcript\n\n")
 	if len(r.Transcript) == 0 {
 		b.WriteString("Nothing was transcribed.\n")

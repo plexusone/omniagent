@@ -1,6 +1,7 @@
 // Package meeting lets an agent attend a meeting as a note taker: it
-// announces itself, transcribes the meeting live, and summarizes it with
-// decisions and action items when the meeting ends.
+// announces itself, transcribes the meeting live, answers when addressed by
+// name, and summarizes the meeting with decisions and action items when it
+// ends.
 //
 // The Attendant works on any omnimeet-core attendee.Session that delivers
 // audio, such as one from the dial-in joiner:
@@ -13,6 +14,7 @@
 //		Name:        "OmniAgent",
 //		Transcriber: deepgram,
 //		Speaker:     elevenlabs,
+//		Responder:   meeting.LLMResponder{Client: llm, Model: "claude-sonnet-5"},
 //		Summarizer:  meeting.LLMSummarizer{Client: llm, Model: "claude-sonnet-5"},
 //	}).Attend(ctx, sess)
 package meeting
@@ -23,7 +25,9 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/plexusone/omnivoice-core/audio/format"
@@ -39,6 +43,23 @@ var ErrNoAudio = errors.New("meeting session has no audio to transcribe")
 // leaveTimeout bounds leaving the meeting after the caller's context ends.
 const leaveTimeout = 15 * time.Second
 
+const (
+	// followUpWindow is how long after an utterance that is only the
+	// agent's name ("Hey OmniAgent?") the next utterance is taken as the
+	// question.
+	followUpWindow = 10 * time.Second
+
+	// echoGuard extends the time after the agent speaks during which it
+	// does not respond, so its own voice, if the meeting echoes it back,
+	// cannot address it.
+	echoGuard = 1500 * time.Millisecond
+
+	// contextWindow and contextSegments bound the transcript given to the
+	// Responder with a question.
+	contextWindow   = 10 * time.Minute
+	contextSegments = 80
+)
+
 // Transcriber streams speech to text. omnivoice-core's stt.StreamingProvider
 // and stt.Client satisfy it.
 type Transcriber interface {
@@ -53,8 +74,13 @@ type Config struct {
 	// OnBehalfOf names the person the agent attends for, if any.
 	OnBehalfOf string
 
+	// Names are other names the agent answers to, besides Name, such as a
+	// spelling speech to text tends to produce.
+	Names []string
+
 	// Announcement is spoken once when the agent is admitted. Empty uses
-	// DefaultAnnouncement. It is skipped when Speaker is nil or the session
+	// DefaultAnnouncement, followed by an invitation to ask questions when
+	// there is a Responder. It is skipped when Speaker is nil or the session
 	// cannot send audio.
 	Announcement string
 
@@ -65,12 +91,18 @@ type Config struct {
 	// sample rate are taken from the session's audio format.
 	TranscriptionConfig stt.TranscriptionConfig
 
-	// Speaker synthesizes the announcement. Optional.
+	// Speaker synthesizes the announcement and answers. Optional.
 	Speaker tts.Provider
 
 	// SynthesisConfig sets the voice. Request raw PCM or mu-law output, since
 	// compressed formats cannot be played on a call.
 	SynthesisConfig tts.SynthesisConfig
+
+	// Responder answers when someone addresses the agent by name, after
+	// it is admitted. Optional: without one, or without a Speaker, the agent
+	// stays silent after its announcement. It answers one question at a
+	// time; a question asked while it is answering is not answered.
+	Responder Responder
 
 	// Summarizer summarizes the transcript when the meeting ends. Optional.
 	Summarizer Summarizer
@@ -86,7 +118,8 @@ type Config struct {
 
 // Attendant attends meetings as a note taker.
 type Attendant struct {
-	cfg Config
+	cfg       Config
+	echoGuard time.Duration
 }
 
 // New returns an Attendant.
@@ -97,7 +130,7 @@ func New(cfg Config) *Attendant {
 	if cfg.Name == "" {
 		cfg.Name = "OmniAgent"
 	}
-	return &Attendant{cfg: cfg}
+	return &Attendant{cfg: cfg, echoGuard: echoGuard}
 }
 
 // Record is what the Attendant captured from a meeting.
@@ -115,8 +148,12 @@ type Record struct {
 	// Announced reports whether the announcement was played.
 	Announced bool `json:"announced"`
 
-	// Transcript is the meeting's speech.
+	// Transcript is the meeting's speech. The agent's answers are included
+	// with the agent's name as the speaker.
 	Transcript Transcript `json:"transcript"`
+
+	// Exchanges are the questions the agent answered.
+	Exchanges []Exchange `json:"exchanges,omitempty"`
 
 	// Summary is nil when there is no Summarizer or nothing was said.
 	Summary *Summary `json:"summary,omitempty"`
@@ -134,7 +171,11 @@ func (a *Attendant) Attend(ctx context.Context, sess attendee.Session) (*Record,
 		return nil, ErrNoAudio
 	}
 
-	rec := &Record{Target: sess.Target(), Started: time.Now()}
+	at := &attendance{a: a, sess: sess, started: time.Now()}
+	if tx, ok := sess.(attendee.AudioSender); ok && sess.Capabilities().SendAudio && a.cfg.Speaker != nil {
+		at.tx = tx
+	}
+	rec := &Record{Target: sess.Target(), Started: at.started}
 
 	sttConfig := a.cfg.TranscriptionConfig
 	in := rx.ReceiveFormat()
@@ -162,12 +203,14 @@ func (a *Attendant) Attend(ctx context.Context, sess attendee.Session) (*Record,
 	}()
 	go func() {
 		defer wg.Done()
-		rec.Transcript = a.collect(events, rec.Started)
+		at.collect(ctx, events)
 	}()
 
-	rec.Announced, rec.FinalState = a.follow(ctx, sess)
+	rec.Announced, rec.FinalState = at.follow(ctx)
 	wg.Wait()
+	at.answering.Wait()
 	rec.Ended = time.Now()
+	rec.Transcript, rec.Exchanges = at.transcript, at.exchanges
 
 	if a.cfg.Summarizer == nil || len(rec.Transcript) == 0 {
 		return rec, nil
@@ -180,48 +223,9 @@ func (a *Attendant) Attend(ctx context.Context, sess attendee.Session) (*Record,
 	return rec, nil
 }
 
-// follow watches the session until it ends: it announces the agent once when
-// admitted, and leaves when ctx is done. It returns whether the announcement
-// played and the final state.
-func (a *Attendant) follow(ctx context.Context, sess attendee.Session) (bool, attendee.State) {
-	announced := false
-	leaving := ctx.Done()
-	for {
-		select {
-		case ev, ok := <-sess.Events():
-			if !ok {
-				return announced, sess.State()
-			}
-			switch {
-			case ev.Type == attendee.EventError:
-				a.cfg.Logger.Warn("meeting session error", "session", ev.SessionID, "error", ev.Err)
-			case ev.State == attendee.StateAdmitted && !announced:
-				announced = a.announce(ctx, sess)
-			}
-		case <-leaving:
-			leaving = nil
-			if err := a.leave(sess); err != nil {
-				a.cfg.Logger.Error("leave meeting", "error", err)
-			}
-		}
-	}
-}
-
-// announce plays the disclosure, if the agent can speak.
-func (a *Attendant) announce(ctx context.Context, sess attendee.Session) bool {
-	tx, ok := sess.(attendee.AudioSender)
-	if !ok || !sess.Capabilities().SendAudio || a.cfg.Speaker == nil {
-		return false
-	}
-	text := a.cfg.Announcement
-	if text == "" {
-		text = DefaultAnnouncement(a.cfg.Name, a.cfg.OnBehalfOf)
-	}
-	if err := speak(ctx, a.cfg.Speaker, a.cfg.SynthesisConfig, text, tx.SendAudio(), tx.SendFormat()); err != nil {
-		a.cfg.Logger.Error("announce in meeting", "error", err)
-		return false
-	}
-	return true
+// names are the names the agent answers to.
+func (a *Attendant) names() []string {
+	return append([]string{a.cfg.Name}, a.cfg.Names...)
 }
 
 func (a *Attendant) leave(sess attendee.Session) error {
@@ -244,13 +248,107 @@ func (a *Attendant) pumpAudio(audio io.Reader, out io.WriteCloser) {
 	}
 }
 
-// collect gathers final transcript segments until the transcriber finishes.
-func (a *Attendant) collect(events <-chan stt.StreamEvent, started time.Time) Transcript {
-	var transcript Transcript
+// attendance is the state of one Attend call.
+type attendance struct {
+	a       *Attendant
+	sess    attendee.Session
+	tx      attendee.AudioSender // nil when the agent cannot speak
+	started time.Time
+
+	// admitted is set once the meeting admits the agent; it answers only
+	// after that.
+	admitted atomic.Bool
+
+	// speaking serializes audio played into the meeting.
+	speaking sync.Mutex
+
+	// answering tracks answers in progress, which Attend waits for.
+	answering sync.WaitGroup
+
+	mu         sync.Mutex
+	transcript Transcript
+	exchanges  []Exchange
+	busy       bool      // an answer is in progress
+	quietUntil time.Time // the agent's own speech may still be heard
+	called     *Segment  // an utterance that only named the agent
+	calledAt   time.Time
+}
+
+// follow watches the session until it ends: it announces the agent once when
+// admitted, and leaves when ctx is done. It returns whether the announcement
+// played and the final state.
+func (at *attendance) follow(ctx context.Context) (bool, attendee.State) {
+	announced := false
+	leaving := ctx.Done()
+	for {
+		select {
+		case ev, ok := <-at.sess.Events():
+			if !ok {
+				return announced, at.sess.State()
+			}
+			switch {
+			case ev.Type == attendee.EventError:
+				at.a.cfg.Logger.Warn("meeting session error", "session", ev.SessionID, "error", ev.Err)
+			case ev.State == attendee.StateAdmitted && !at.admitted.Load():
+				// Admitted before announcing: the announcement cannot be
+				// heard back until it has played, and say holds off answers
+				// until then.
+				at.admitted.Store(true)
+				announced = at.announce(ctx)
+			}
+		case <-leaving:
+			leaving = nil
+			if err := at.a.leave(at.sess); err != nil {
+				at.a.cfg.Logger.Error("leave meeting", "error", err)
+			}
+		}
+	}
+}
+
+// announce plays the disclosure, if the agent can speak.
+func (at *attendance) announce(ctx context.Context) bool {
+	if at.tx == nil {
+		return false
+	}
+	cfg := at.a.cfg
+	text := cfg.Announcement
+	if text == "" {
+		text = DefaultAnnouncement(cfg.Name, cfg.OnBehalfOf)
+		if cfg.Responder != nil {
+			text += answerInvitation
+		}
+	}
+	if _, err := at.say(ctx, text); err != nil {
+		cfg.Logger.Error("announce in meeting", "error", err)
+		return false
+	}
+	return true
+}
+
+// say plays text into the meeting and keeps the agent from responding until
+// the speech, and any echo of it, is over.
+func (at *attendance) say(ctx context.Context, text string) (time.Duration, error) {
+	at.speaking.Lock()
+	defer at.speaking.Unlock()
+	cfg := at.a.cfg
+	d, err := speak(ctx, cfg.Speaker, cfg.SynthesisConfig, text, at.tx.SendAudio(), at.tx.SendFormat())
+	if err != nil {
+		return 0, err
+	}
+	at.mu.Lock()
+	at.quietUntil = time.Now().Add(d + at.a.echoGuard)
+	at.mu.Unlock()
+	return d, nil
+}
+
+// collect gathers final transcript segments until the transcriber finishes,
+// and answers those that address the agent.
+func (at *attendance) collect(ctx context.Context, events <-chan stt.StreamEvent) {
+	cfg := at.a.cfg
 	for ev := range events {
 		switch ev.Type {
 		case stt.EventError:
-			a.cfg.Logger.Warn("transcription error", "error", ev.Error)
+			cfg.Logger.Warn("transcription error", "error", ev.Error)
 			continue
 		case stt.EventTranscript:
 		default:
@@ -263,13 +361,112 @@ func (a *Attendant) collect(events <-chan stt.StreamEvent, started time.Time) Tr
 		if ev.Segment != nil {
 			seg.Start, seg.End, seg.Speaker = ev.Segment.StartTime, ev.Segment.EndTime, ev.Segment.Speaker
 		} else {
-			seg.Start = time.Since(started)
+			seg.Start = time.Since(at.started)
 			seg.End = seg.Start
 		}
-		transcript = append(transcript, seg)
-		if a.cfg.OnSegment != nil {
-			a.cfg.OnSegment(seg)
+		at.mu.Lock()
+		at.transcript = append(at.transcript, seg)
+		at.mu.Unlock()
+		if cfg.OnSegment != nil {
+			cfg.OnSegment(seg)
 		}
+		at.consider(ctx, seg)
 	}
-	return transcript
+}
+
+// consider starts an answer when seg addresses the agent and it can answer.
+func (at *attendance) consider(ctx context.Context, seg Segment) {
+	if at.a.cfg.Responder == nil || at.tx == nil || !at.admitted.Load() || ctx.Err() != nil {
+		return
+	}
+	at.mu.Lock()
+	defer at.mu.Unlock()
+	if time.Now().Before(at.quietUntil) {
+		return
+	}
+	question, ok := at.question(seg)
+	if !ok {
+		return
+	}
+	if at.busy {
+		at.a.cfg.Logger.Info("not answering while another answer is in progress", "question", question)
+		return
+	}
+	at.busy = true
+	recent := at.recent()
+	at.answering.Add(1)
+	go at.answer(ctx, question, recent)
+}
+
+// question returns the question seg asks the agent, if any. An utterance
+// that is only the agent's name waits for the next one. at.mu is held.
+func (at *attendance) question(seg Segment) (string, bool) {
+	ok, nameOnly := addressed(seg.Text, at.a.names())
+	switch {
+	case ok && nameOnly:
+		at.called, at.calledAt = &seg, time.Now()
+		return "", false
+	case ok:
+		at.called = nil
+		return seg.Text, true
+	case at.called != nil && time.Since(at.calledAt) <= followUpWindow:
+		q := at.called.Text + " " + seg.Text
+		at.called = nil
+		return q, true
+	default:
+		at.called = nil
+		return "", false
+	}
+}
+
+// recent returns the end of the transcript for a question's context. at.mu
+// is held.
+func (at *attendance) recent() Transcript {
+	t := at.transcript
+	if len(t) > contextSegments {
+		t = t[len(t)-contextSegments:]
+	}
+	if n := len(t); n > 0 {
+		cutoff := t[n-1].End - contextWindow
+		i := 0
+		for i < n-1 && t[i].End < cutoff {
+			i++
+		}
+		t = t[i:]
+	}
+	return append(Transcript(nil), t...)
+}
+
+// answer asks the Responder and speaks its answer.
+func (at *attendance) answer(ctx context.Context, question string, recent Transcript) {
+	defer at.answering.Done()
+	defer func() {
+		at.mu.Lock()
+		at.busy = false
+		at.mu.Unlock()
+	}()
+	cfg := at.a.cfg
+	reply, err := cfg.Responder.Respond(ctx, Request{Name: cfg.Name, Question: question, Transcript: recent})
+	if err != nil {
+		cfg.Logger.Error("answer in meeting", "error", err)
+		return
+	}
+	reply = strings.TrimSpace(reply)
+	if reply == "" || ctx.Err() != nil {
+		return
+	}
+	start := time.Since(at.started)
+	d, err := at.say(ctx, reply)
+	if err != nil {
+		cfg.Logger.Error("speak answer in meeting", "error", err)
+		return
+	}
+	seg := Segment{Start: start, End: start + d, Speaker: cfg.Name, Text: reply}
+	at.mu.Lock()
+	at.transcript = append(at.transcript, seg)
+	at.exchanges = append(at.exchanges, Exchange{At: start, Question: question, Answer: reply})
+	at.mu.Unlock()
+	if cfg.OnSegment != nil {
+		cfg.OnSegment(seg)
+	}
 }
