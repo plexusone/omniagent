@@ -142,7 +142,9 @@ func (s *liveSession) say(t *testing.T, line string) {
 	}
 }
 
-// tinySpeaker returns a clip short enough not to delay the next answer.
+// tinySpeaker returns an empty clip, which plays for no time, so the agent
+// listens again as soon as it has spoken. A clip with any length would leave
+// a window in which a line said right after it is ignored as possible echo.
 type tinySpeaker struct {
 	mu      sync.Mutex
 	texts   []string
@@ -155,7 +157,7 @@ func (p *tinySpeaker) Synthesize(_ context.Context, text string, config tts.Synt
 	defer p.mu.Unlock()
 	p.texts = append(p.texts, text)
 	p.configs = append(p.configs, config)
-	return &tts.SynthesisResult{Audio: make([]byte, 8), Format: "ulaw_8000"}, nil
+	return &tts.SynthesisResult{Format: "ulaw_8000"}, nil
 }
 func (p *tinySpeaker) SynthesizeStream(context.Context, string, tts.SynthesisConfig) (<-chan tts.StreamChunk, error) {
 	return nil, errors.New("not supported")
