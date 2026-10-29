@@ -267,7 +267,7 @@ func attendMeeting(ctx context.Context, deps meetingDeps, target attendee.JoinTa
 		Transcriber:         deps.Transcriber,
 		TranscriptionConfig: stt.TranscriptionConfig{Model: o.STTModel, Language: o.Language, EnablePunctuation: true},
 		Speaker:             deps.Speaker,
-		SynthesisConfig:     synthesisConfig(o.TTS, o.Voice),
+		SynthesisConfig:     tts.SynthesisConfig{VoiceID: o.Voice},
 		Responder:           deps.Responder,
 		Summarizer:          deps.Summarizer,
 		OnSegment: func(s meeting.Segment) {
@@ -433,19 +433,6 @@ func providerAPIKey(provider string) (string, error) {
 		return "", fmt.Errorf("%s is not set for provider %q", env, provider)
 	}
 	return key, nil
-}
-
-// synthesisConfig sets the voice. The attendant requests the call's own
-// format, mu-law at 8 kHz, which Deepgram and ElevenLabs produce directly.
-// OpenAI produces raw audio only as 24 kHz PCM, which is converted for the
-// call.
-func synthesisConfig(provider, voiceID string) tts.SynthesisConfig {
-	cfg := tts.SynthesisConfig{VoiceID: voiceID}
-	if provider == "openai" {
-		cfg.OutputFormat = "pcm"
-		cfg.SampleRate = 24000
-	}
-	return cfg
 }
 
 // gatewayStartGrace is how long to watch for the voice gateway failing to

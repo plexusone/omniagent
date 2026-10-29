@@ -96,7 +96,7 @@ type Config struct {
 
 	// SynthesisConfig sets the voice. With no OutputFormat, the meeting's
 	// own audio format is requested, such as mu-law at 8 kHz on a phone
-	// call, which Deepgram and ElevenLabs produce directly. Otherwise request
+	// call, which Deepgram, ElevenLabs, and OpenAI produce. Otherwise request
 	// raw PCM or mu-law output, since compressed formats cannot be played on
 	// a call.
 	SynthesisConfig tts.SynthesisConfig
