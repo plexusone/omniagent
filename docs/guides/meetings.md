@@ -125,7 +125,8 @@ Pass `--no-answer` to keep the agent silent after its announcement.
 ## Choosing a Voice
 
 The agent's voice is requested in the phone call's own format, 8 kHz mu-law,
-which Deepgram and ElevenLabs produce directly; OpenAI's audio is converted.
+which Deepgram, ElevenLabs, and OpenAI all produce, so any of them can be
+used with the same options.
 `--voice` takes each provider's own voice name:
 
 | `--tts` | Key | `--voice` example |
