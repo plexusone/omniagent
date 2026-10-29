@@ -48,7 +48,7 @@ require (
 	github.com/plexusone/omnitoken v0.1.0
 	github.com/plexusone/omnivault v0.6.0
 	github.com/plexusone/omnivault-desktop v0.1.0
-	github.com/plexusone/omnivoice v0.13.0
+	github.com/plexusone/omnivoice v0.14.0
 	github.com/plexusone/omnivoice-core v0.18.1
 	github.com/prometheus/client_golang v1.25.0
 	github.com/robfig/cron/v3 v3.0.1
@@ -223,7 +223,7 @@ require (
 	github.com/pion/transport/v5 v5.1.2 // indirect
 	github.com/pion/turn/v5 v5.1.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/plexusone/elevenlabs-go v0.13.0 // indirect
+	github.com/plexusone/elevenlabs-go v0.14.0 // indirect
 	github.com/plexusone/ogen-tools v0.3.0 // indirect
 	github.com/plexusone/omni-anthropic v0.3.0 // indirect
 	github.com/plexusone/omni-aws v0.11.0 // indirect
@@ -231,7 +231,7 @@ require (
 	github.com/plexusone/omni-deepgram v0.7.0 // indirect
 	github.com/plexusone/omni-google v0.7.0 // indirect
 	github.com/plexusone/omni-onepassword v0.4.0 // indirect
-	github.com/plexusone/omni-openai v0.7.1 // indirect
+	github.com/plexusone/omni-openai v0.8.0 // indirect
 	github.com/plexusone/omni-openrouter v0.2.1 // indirect
 	github.com/plexusone/omniavatar v0.3.0 // indirect
 	github.com/plexusone/omniavatar-core v0.4.0 // indirect
@@ -251,7 +251,7 @@ require (
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/spyzhov/ajson v0.9.6 // indirect
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.1 // indirect
-	github.com/team-telnyx/telnyx-go/v4 v4.104.0 // indirect
+	github.com/team-telnyx/telnyx-go/v4 v4.106.0 // indirect
 	github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834 // indirect
 	github.com/tidwall/gjson v1.20.0 // indirect
 	github.com/tidwall/match v1.2.0 // indirect

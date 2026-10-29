@@ -725,8 +725,8 @@ github.com/pkoukk/tiktoken-go v0.1.8 h1:85ENo+3FpWgAACBaEUVp+lctuTcYUO7BtmfhlN/Q
 github.com/pkoukk/tiktoken-go v0.1.8/go.mod h1:9NiV+i9mJKGj1rYOT+njbv+ZwA/zJxYdewGl6qVatpg=
 github.com/plexusone/agentauth v0.2.0 h1:MRCTXqJM06lUgxJGndS1i3OSLz6YG6yju6KtWhdJibE=
 github.com/plexusone/agentauth v0.2.0/go.mod h1:/ADIhZDeurXlWaox3fPcqHiL1LMsdI2j5m7gftBrdkM=
-github.com/plexusone/elevenlabs-go v0.13.0 h1:KrgrhJjLfNbIRFp8F880QmxW1/VSkfpUcXXWfUEe8tU=
-github.com/plexusone/elevenlabs-go v0.13.0/go.mod h1:iNDRYo/Ya4oLYuIXKRtGRzNY9fdN/ALaQI2nEb5O540=
+github.com/plexusone/elevenlabs-go v0.14.0 h1:vdVLgsLl/OYU7VWmWo657wWgulAjuouhamo04p1xSlM=
+github.com/plexusone/elevenlabs-go v0.14.0/go.mod h1:Tt7ngDisNRirliXcphqoeu9aVMn5XfiNN6ZGVtf32j4=
 github.com/plexusone/ogen-tools v0.3.0 h1:UVNRxobvfcG8h/dD+Zy/KedtaCveT+V9w50MAEYy2tM=
 github.com/plexusone/ogen-tools v0.3.0/go.mod h1:fj6ekLGUiVQkS6NRSfxMvQTCJtK/xVRarCroMA0iCK0=
 github.com/plexusone/omni-anthropic v0.3.0 h1:KfPJKxYyqgjs4C3HWD7i6zPYyEmd9c9+2J0WCh2LaDI=
@@ -743,8 +743,8 @@ github.com/plexusone/omni-livekit v0.5.1 h1:BGB7DAt20FmE6LM1URpf81CJf76kwImuntRt
 github.com/plexusone/omni-livekit v0.5.1/go.mod h1:qfquDcts9Hi88KUdVJ0GcizjU8jPyIm0NPPE8DLuzlY=
 github.com/plexusone/omni-onepassword v0.4.0 h1:KKo3iod6BDITDUG/OTou30erE8nHpGccnHk78E8KLR0=
 github.com/plexusone/omni-onepassword v0.4.0/go.mod h1:QhVIdFZJJPO5Togp2Hp5AjpOxHi4mA9ti5U4mn0w2eM=
-github.com/plexusone/omni-openai v0.7.1 h1:bx3z9GIYcWP/3de4bf5pwIxlssZiDXpaW+SR8Dzrs7w=
-github.com/plexusone/omni-openai v0.7.1/go.mod h1:gng3oDHGzzD4ZXJwvuxqnTYfj5znSwvrmfRGdThdaQk=
+github.com/plexusone/omni-openai v0.8.0 h1:acZyYj2DcZrssk9gDVSSkf2kKK9UV4r8o8+ijzOSVNU=
+github.com/plexusone/omni-openai v0.8.0/go.mod h1:uyvMy8PdKM1dYqpUydxcNjFH/VBoFV4WUN/S41bJMnI=
 github.com/plexusone/omni-openrouter v0.2.1 h1:OD8v5MPtlDdOfSon8rc0LI30AwHuyMLk4zsDd21p8vU=
 github.com/plexusone/omni-openrouter v0.2.1/go.mod h1:uz0FMA66kQ8RdAzamIqps9UJ205KH6ZXoG9mgm8jPxc=
 github.com/plexusone/omni-telnyx v0.7.0 h1:FlGDK+GSxmXymFVYl6uWw8j5jJB4ulnhWl2dcxbP9Qs=
@@ -783,8 +783,8 @@ github.com/plexusone/omnivault v0.6.0 h1:a0virroALv1WTOpCYGfq4NUChfkqksnY0ON9rEH
 github.com/plexusone/omnivault v0.6.0/go.mod h1:So6UyUzZkR+c7GvfEFjkGiVRI6Z7I1YzLHieEfgyIFo=
 github.com/plexusone/omnivault-desktop v0.1.0 h1:dfQ0pe4+Dh14MwTX8xlvaS//r55gg/QmkfKNcBqchxY=
 github.com/plexusone/omnivault-desktop v0.1.0/go.mod h1:IKS1xhsjVUp9ETTdHCdqoIKtcJaqTEWxz3CtwTDYnLo=
-github.com/plexusone/omnivoice v0.13.0 h1:HU1Q2Qt740sJt+FgP1vSJI6Xpue1pA67Z5e6c4Wvs+A=
-github.com/plexusone/omnivoice v0.13.0/go.mod h1:RwS7s/xOW7y+Gs6+6hB1JJHRn/MZnit7zlk4/NyR3Es=
+github.com/plexusone/omnivoice v0.14.0 h1:jm94lZtTM/pLfp6wDXAJF8gJVhKewraGVfSgOIyyuME=
+github.com/plexusone/omnivoice v0.14.0/go.mod h1:aig9kZ9GiTcq6OASaWeo6/nYprVHytzqUteDU0ExtPI=
 github.com/plexusone/omnivoice-core v0.18.1 h1:bncmb4F10EnjnPC2zG3lB8znNcgIF+K9DcYMBH5Ya0Y=
 github.com/plexusone/omnivoice-core v0.18.1/go.mod h1:chk0WTLBcqoFSb/NBWv1dw52BxH/oTLSYGtcBQ62h/8=
 github.com/plexusone/tavus-go v0.3.0 h1:iXeZXGuaabAbqEFuoQZNvx+broUPneqhywCsYo2OxdA=
@@ -886,8 +886,8 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
 github.com/subosito/gotenv v1.4.1/go.mod h1:ayKnFf/c6rvx/2iiLrJUk1e6plDbT3edrFNGqEflhK0=
-github.com/team-telnyx/telnyx-go/v4 v4.104.0 h1:UsyKDY04JbghC43+zSQ6PqdtCEM8Nc0do1c+A1GmbhQ=
-github.com/team-telnyx/telnyx-go/v4 v4.104.0/go.mod h1:a8Z4CX3XKpxpziKboMKXe3Ds4hZ1ImAnZ1mQm5QxHyw=
+github.com/team-telnyx/telnyx-go/v4 v4.106.0 h1:N0NLM/Xo3EjodaV2DIDsazGoET+2ECQxezgB3Uz/wKw=
+github.com/team-telnyx/telnyx-go/v4 v4.106.0/go.mod h1:a8Z4CX3XKpxpziKboMKXe3Ds4hZ1ImAnZ1mQm5QxHyw=
 github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834 h1:ZF+QBjOI+tILZjBaFj3HgFonKXUcwgJ4djLb6i42S3Q=
 github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834/go.mod h1:m9ymHTgNSEjuxvw8E7WWe4Pl4hZQHXONY8wE6dMLaRk=
 github.com/tetratelabs/wazero v1.12.0 h1:DuWcpNu/FzgEXgGBDp8J1Spc+CWOvvtvVyjKlaZopYU=
