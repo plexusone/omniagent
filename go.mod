@@ -7,7 +7,7 @@ require (
 	github.com/aauth-dev/aauth-go v0.3.0
 	github.com/bdpiprava/scalar-go v0.13.0
 	github.com/coreos/go-oidc/v3 v3.21.0
-	github.com/danielgtaylor/huma/v2 v2.39.1
+	github.com/danielgtaylor/huma/v2 v2.40.0
 	github.com/getkin/kin-openapi v0.152.0
 	github.com/go-chi/chi/v5 v5.5.0
 	github.com/go-faster/errors v0.8.0
