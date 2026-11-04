@@ -20,7 +20,7 @@ require (
 	github.com/grokify/echartify v0.2.3
 	github.com/grokify/gogithub v0.18.0
 	github.com/grokify/mogo v0.75.0
-	github.com/jackc/pgx/v5 v5.11.0
+	github.com/jackc/pgx/v5 v5.12.0
 	github.com/livekit/protocol v1.53.1
 	github.com/livekit/server-sdk-go/v2 v2.19.0
 	github.com/mdp/qrterminal/v3 v3.2.1
