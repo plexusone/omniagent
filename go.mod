@@ -22,7 +22,7 @@ require (
 	github.com/grokify/mogo v0.75.0
 	github.com/jackc/pgx/v5 v5.13.0
 	github.com/livekit/protocol v1.54.1
-	github.com/livekit/server-sdk-go/v2 v2.19.0
+	github.com/livekit/server-sdk-go/v2 v2.20.0
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/moby/moby/api v1.57.0
 	github.com/moby/moby/client v0.6.3
@@ -208,6 +208,7 @@ require (
 	github.com/petermattis/goid v0.0.0-20261120131106-3f141f74aebc // indirect
 	github.com/pion/datachannel v1.6.4 // indirect
 	github.com/pion/dtls/v3 v3.1.16 // indirect
+	github.com/pion/dtls/v4 v4.0.0-rc.8 // indirect
 	github.com/pion/ice/v4 v4.4.9 // indirect
 	github.com/pion/interceptor v0.1.51 // indirect
 	github.com/pion/logging v0.2.4 // indirect
